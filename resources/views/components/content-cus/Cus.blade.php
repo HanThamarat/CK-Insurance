@@ -5,7 +5,7 @@
     @include('components.content-cus.script-cus')
     <div class="max-w-7xl mx-auto p-5 bg-white rounded-lg shadow-md flex justify-center items-center mb-[100px]">
         <div class="flex flex-col xl:flex-row gap-8 p-2">
-            <!-- Left Section: Card -->
+            <!-- Left Section: Card 55555 -->
             <div class="xl:w-2/12 lg:w-3/12 md:w-3/12 w-full">
                 <div class="card rounded-lg text-center h-full"
                     style="background-image: url('{{ asset('img/Insurance_picture5.jpg') }}'); background-size: cover; 
