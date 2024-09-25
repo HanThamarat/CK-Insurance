@@ -1,0 +1,245 @@
+/* From Uiverse.io by wilsondesouza */
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* เพิ่มช่องว่างระหว่างปุ่ม */
+}
+
+
+/*.btn-primary {
+     กำหนดลักษณะของปุ่มได้ที่นี่
+}*/
+
+.img-account-profile {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip {
+    font-family: 'Noto Sans Thai', sans-serif !important;
+}
+
+body {
+    font-family: 'Noto Sans Thai', sans-serif;
+    margin-top: 20px;
+    background-color: #f2f6fc;
+    color: #69707a;
+}
+
+.img-account-profile {
+    height: 10rem;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+
+.card .card-header {
+    font-weight: 500;
+}
+
+.card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.card-header {
+    padding: 1rem 1.35rem;
+    margin-bottom: 0;
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+
+.form-control,
+.dataTable-input {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #69707a;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #c5ccd6;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.35rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-borders .nav-link.active {
+    color: #0061f2;
+    border-bottom-color: #0061f2;
+}
+
+.nav-borders .nav-link {
+    color: #69707a;
+    border-bottom-width: 0.125rem;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.img-account-profile {
+    transition: transform 0.3s ease; /* ความเร็วในการเปลี่ยนแปลง */
+}
+
+.img-account-profile:hover {
+    transform: scale(1.1); /* ขยายภาพเป็น 1.1 เท่า */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.img-account-profile {
+    transition: transform 0.3s ease;
+    /* ความเร็วในการเปลี่ยนแปลง */
+}
+
+.img-account-profile:hover {
+    transform: scale(1.1);
+    /* ขยายภาพเป็น 1.1 เท่า */
+}
+
+/* CSS สำหรับปรับให้ไอคอนเป็นสีส้มตั้งแต่เริ่มต้น */
+.icon-wrapper {
+    background-color: rgba(255, 165, 0, 0.2);
+    /* สีส้มอ่อน */
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.img-account-profile {
+    filter: sepia(100%) hue-rotate(-30deg) saturate(300%) brightness(1.0);
+    /* เปลี่ยนสีไอคอนเป็นส้ม */
+}
+
+.icon-wrapper:hover {
+    background-color: rgba(255, 165, 0, 0.4);
+    /* เพิ่มความเข้มของสีพื้นหลังเมื่อ hover */
+}
+
+
+
+
+
+.btn-circle {
+    border-radius: 50%;
+    width: 30px;
+    /* ปรับขนาดตามที่ต้องการ */
+    height: 30px;
+    /* ปรับขนาดตามที่ต้องการ */
+    display: inline-flex;
+    /* ใช้ inline-flex เพื่อให้ปุ่มอยู่ในบรรทัดเดียวกัน */
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    /* จัดให้อยู่กลางในแนวตั้ง */
+}
+
+
+
+
+.custom-green {
+    border-color: #90ee90 !important;
+    /* สีเขียวอ่อน */
+    color: #90ee90 !important;
+}
+
+.custom-green:hover {
+    background-color: #90ee90 !important;
+    /* สีเขียวอ่อนเมื่อ hover */
+    border-color: #90ee90 !important;
+    color: white !important;
+    /* เปลี่ยนสีตัวอักษรและไอคอนเป็นขาวเมื่อ hover */
+}
+
+.custom-green:hover .custom-light-green {
+    color: white !important;
+    /* เปลี่ยนสีไอคอนเป็นขาวเมื่อ hover */
+}
+
+
+
+
+
+/* ปรับสีของปุ่มเป็น outline สีส้มอ่อน */
+.custom-yellow {
+    background-color: transparent;
+    /* ให้พื้นหลังของปุ่มโปร่งใส */
+    color: #f5a623;
+    /* สีข้อความเป็นสีส้มอ่อน */
+    border-color: #f5a623;
+    /* สีขอบปุ่มเป็นสีส้มอ่อน */
+}
+
+/* ปรับสีของไอคอนในปุ่มเป็นสีส้มอ่อน */
+.custom-yellow .fas,
+.custom-yellow .mdi {
+    color: #f5a623;
+    /* สีส้มอ่อน */
+}
+
+/* เปลี่ยนสีของปุ่มเมื่อวางเมาส์ (hover) */
+.custom-yellow:hover {
+    background-color: #f5a623;
+    /* สีส้มอ่อน */
+    color: #fff;
+    /* สีข้อความเป็นสีขาว */
+    border-color: #f5a623;
+    /* สีขอบปุ่มเป็นสีส้มอ่อน */
+}
+
+/* เปลี่ยนสีของไอคอนเมื่อวางเมาส์ (hover) */
+.custom-yellow:hover .fas,
+.custom-yellow:hover .mdi {
+    color: #fff;
+    /* สีขาว */
+}
+
+
+
+
+
+.card {
+border-color: #f5a623; /* สีส้มสำหรับขอบการ์ด */
+}
+.card-title {
+color: #f5a623; /* สีส้มสำหรับหัวข้อการ์ด */
+}
+.list-unstyled li {
+border-bottom: 1px solid #f5a623; /* สีส้มสำหรับเส้นคั่น */
+padding: 10px 0;
+}
+.list-unstyled li:last-child {
+border-bottom: none;
+}
+.text-primary {
+color: #f5a623 !important; /* สีส้มสำหรับไอคอน */
+}
+.text-muted {
+color: #6c757d !important; /* สีเทาอ่อนสำหรับข้อความ */
+}
+

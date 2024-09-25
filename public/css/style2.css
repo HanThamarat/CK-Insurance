@@ -1,0 +1,132 @@
+
+.img-account-profile {
+    transition: transform 0.3s ease;
+    /* ความเร็วในการเปลี่ยนแปลง */
+}
+
+.img-account-profile:hover {
+    transform: scale(1.1);
+    /* ขยายภาพเป็น 1.1 เท่า */
+}
+
+/* CSS สำหรับปรับให้ไอคอนเป็นสีส้มตั้งแต่เริ่มต้น */
+.icon-wrapper {
+    background-color: rgba(255, 165, 0, 0.2);
+    /* สีส้มอ่อน */
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.img-account-profile {
+    filter: sepia(100%) hue-rotate(-30deg) saturate(300%) brightness(1.0);
+    /* เปลี่ยนสีไอคอนเป็นส้ม */
+}
+
+.icon-wrapper:hover {
+    background-color: rgba(255, 165, 0, 0.4);
+    /* เพิ่มความเข้มของสีพื้นหลังเมื่อ hover */
+}
+
+.btn-circle {
+    border-radius: 50%;
+    width: 30px;
+    /* ปรับขนาดตามที่ต้องการ */
+    height: 30px;
+    /* ปรับขนาดตามที่ต้องการ */
+    display: inline-flex;
+    /* ใช้ inline-flex เพื่อให้ปุ่มอยู่ในบรรทัดเดียวกัน */
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    /* จัดให้อยู่กลางในแนวตั้ง */
+}
+
+.custom-green {
+    border-color: #90ee90 !important;
+    /* สีเขียวอ่อน */
+    color: #90ee90 !important;
+}
+
+.custom-green:hover {
+    background-color: #90ee90 !important;
+    /* สีเขียวอ่อนเมื่อ hover */
+    border-color: #90ee90 !important;
+    color: white !important;
+    /* เปลี่ยนสีตัวอักษรและไอคอนเป็นขาวเมื่อ hover */
+}
+
+.custom-green:hover .custom-light-green {
+    color: white !important;
+    /* เปลี่ยนสีไอคอนเป็นขาวเมื่อ hover */
+}
+
+/* ปรับสีของปุ่มเป็น outline สีส้มอ่อน */
+.custom-yellow {
+    background-color: transparent;
+    /* ให้พื้นหลังของปุ่มโปร่งใส */
+    color: #f5a623;
+    /* สีข้อความเป็นสีส้มอ่อน */
+    border-color: #f5a623;
+    /* สีขอบปุ่มเป็นสีส้มอ่อน */
+}
+
+/* ปรับสีของไอคอนในปุ่มเป็นสีส้มอ่อน */
+.custom-yellow .fas,
+.custom-yellow .mdi {
+    color: #f5a623;
+    /* สีส้มอ่อน */
+}
+
+/* เปลี่ยนสีของปุ่มเมื่อวางเมาส์ (hover) */
+.custom-yellow:hover {
+    background-color: #f5a623;
+    /* สีส้มอ่อน */
+    color: #fff;
+    /* สีข้อความเป็นสีขาว */
+    border-color: #f5a623;
+    /* สีขอบปุ่มเป็นสีส้มอ่อน */
+}
+
+/* เปลี่ยนสีของไอคอนเมื่อวางเมาส์ (hover) */
+.custom-yellow:hover .fas,
+.custom-yellow:hover .mdi {
+    color: #fff;
+    /* สีขาว */
+}
+
+.card {
+    border-color: #f5a623;
+    /* สีส้มสำหรับขอบการ์ด */
+}
+
+.card-title {
+    color: #f5a623;
+    /* สีส้มสำหรับหัวข้อการ์ด */
+}
+
+.list-unstyled li {
+    border-bottom: 1px solid #f5a623;
+    /* สีส้มสำหรับเส้นคั่น */
+    padding: 10px 0;
+}
+
+.list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.text-primary {
+    color: #f5a623 !important;
+    /* สีส้มสำหรับไอคอน */
+}
+
+.text-muted {
+    color: #6c757d !important;
+    /* สีเทาอ่อนสำหรับข้อความ */
+}
+
+.card-header-custom {
+    background: linear-gradient(90deg, #eb7e7e, #ffff56); /* สีแดงไปยังสีเหลือง */
+    color: #000; /* สีข้อความ */
+  }
+
