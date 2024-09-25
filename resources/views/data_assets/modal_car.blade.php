@@ -244,41 +244,7 @@
                     for="Vehicle_Chassis">
                     เลขถัง
                 </label>
-
-                <!-- Tooltip -->
-                {{-- <div id="tooltip-chassis"
-                    class="hidden absolute bg-gray-700 text-white text-xs rounded py-1 px-3 bottom-full left-4 mb-2">
-                    ใส่เฉพาะตัวเลข หรือ อักษรภาษาอังกฤษพิมพ์ใหญ่ หรือ จุด(.) เท่านั้น
-                    <svg class="absolute text-gray-700 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255"
-                        xml:space="preserve">
-                        <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
-                    </svg>
-                </div> --}}
             </div>
-
-            {{-- <script>
-                // ตรวจสอบรูปแบบที่อนุญาตให้ใส่ได้: ตัวเลข, ตัวอักษรพิมพ์ใหญ่, และจุด(.)
-                const allowedPattern = /^[A-Z0-9.]+$/;
-
-                document.getElementById('Vehicle_Chassis').addEventListener('focus', function () {
-                    document.getElementById('tooltip-chassis').classList.remove('hidden'); // แสดง tooltip เมื่อ focus
-                });
-
-                document.getElementById('Vehicle_Chassis').addEventListener('blur', function () {
-                    document.getElementById('tooltip-chassis').classList.add('hidden'); // ซ่อน tooltip เมื่อ blur
-                });
-
-                document.getElementById('Vehicle_Chassis').addEventListener('input', function (event) {
-                    const value = event.target.value;
-                    if (!allowedPattern.test(value)) {
-                        event.target.setCustomValidity('กรุณาใส่เฉพาะตัวเลข, อักษรภาษาอังกฤษพิมพ์ใหญ่ หรือ จุด(.)');
-                        event.target.reportValidity();
-                    } else {
-                        event.target.setCustomValidity(''); // เคลียร์ error message เมื่อรูปแบบถูกต้อง
-                    }
-                });
-            </script> --}}
-
 
 
 
@@ -352,7 +318,7 @@
 
                             <div class="relative">
                                 <select
-                                    class="form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                     id="Vehicle_Type" name="Vehicle_Type" required>
                                     <option value="">-- ประเภทรถ 1 --</option>
 
@@ -420,7 +386,7 @@
                         <!-- ประเภทรถ 2 -->
                         <div class="relative">
                             <select
-                                class="form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                 id="Vehicle_Type_PLT" name="Vehicle_Type_PLT" required>
                                 <option value="" selected>--- ประเภทรถ 2 ---</option>
 
@@ -475,37 +441,33 @@
 
                         {{-- ยี่ห้อรถ --}}
                         <div class="relative">
+                            <div class="relative">
+                                <select
+                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                    id="Vehicle_Brand" name="Vehicle_Brand" required>
+                                    <option value="">-- ยี่ห้อรถ --</option>
 
-                            @if (isset($cars) && !$cars->isEmpty())
-                                <div class="relative">
-                                    <select
-                                        class="form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
-                                        id="Vehicle_Brand" name="Vehicle_Brand" required>
-                                        <option value="">-- ยี่ห้อรถ --</option>
+                                    {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
+                                    @foreach ($carBrands->unique('Brand_car') as $car)
+                                        <option hidden id="car_brand" value="{{ $car->Brand_car }}">
+                                            {{ $car->vehicle_name ?? '' . $car->Brand_car }}</option>
+                                    @endforeach
 
-                                        {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
-                                        @foreach ($carBrands->unique('Brand_car') as $car)
-                                            <option id="car_barnd" value="{{ $car->Brand_car }}">
-                                                {{ $car->vehicle_name ?? '' . $car->Brand_car }}</option>
-                                        @endforeach
-
-                                        @foreach ($motoBrands->unique('Brand_moto') as $moto)
-                                            <option id="moto_brand" value="{{ $moto->Brand_moto }}">
-                                                {{ $moto->vehicle_name ?? '' . $moto->Brand_moto }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @else
-                                <p>ไม่มีข้อมูลในตาราง TB_cars</p>
-                            @endif
+                                    @foreach ($motoBrands->unique('Brand_moto') as $moto)
+                                        <option hidden id="moto_brand" value="{{ $moto->Brand_moto }}">
+                                            {{ $moto->vehicle_name ?? '' . $moto->Brand_moto }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
+
 
 
                         {{-- กลุ่มรถ --}}
                         @if (isset($cars) && !$cars->isEmpty())
                             <div class="relative">
                                 <select
-                                    class="form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                     id="Vehicle_Group" name="Vehicle_Group" required>
                                     <option value="">-- กลุ่มรถ --</option>
 
@@ -530,7 +492,7 @@
                         @if (isset($cars) && !$cars->isEmpty())
                             <div class="relative">
                                 <select
-                                    class="form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                     id="Vehicle_Years" name="Vehicle_Years" required>
                                     <option value="">-- ปีรถ --</option>
 
@@ -554,7 +516,7 @@
                         @if (isset($cars) && !$cars->isEmpty())
                             <div class="relative">
                                 <select
-                                    class="form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                     id="Vehicle_Models" name="Vehicle_Models" required>
                                     <option value="">-- รุ่นรถ --</option>
 
@@ -577,7 +539,7 @@
                         <!-- เกียร์ -->
                         <div class="relative">
                             <select
-                                class="form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                 id="Vehicle_Gear" name="Vehicle_Gear" required>
                                 <option value="" selected>--- เกียร์รถ ---</option>
                                 <option value="manual">Manual</option>
@@ -609,9 +571,75 @@
                         </select>
                     </div>
 
+                    <!-- รวม jQuery ก่อนปิด </body> -->
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <style>
+                        /* กำหนดสีพื้นหลังให้กับ select ที่ถูก disabled */
+                        .disabled-select {
+                            background-color: #e5e7eb; /* สีเทาอ่อน */
+                            color: #6b7280; /* สีเทาเข้มสำหรับข้อความ */
+                        }
+
+                        .disabled-input {
+                            background-color: #e5e7eb; /* สีเทาอ่อน */
+                            color: #6b7280; /* สีเทาเข้มสำหรับข้อความ */
+                            cursor: not-allowed; /* เปลี่ยนเคอร์เซอร์เมื่อ hover */
+                        }
+
+                    </style>
+                    <script>
+                        $(document).ready(function() {
+                            // เมื่อมีการเปลี่ยนแปลงใน select ของสถานะประกัน
+                            $('#Vehicle_InsuranceStatus').change(function() {
+                                // ตรวจสอบค่าที่เลือก
+                                var selectedValue = $(this).val();
+                                // หากเลือก "ซื้อประกัน" หรือ "มีอยู่แล้ว"
+                                if (selectedValue === 'buy' || selectedValue === 'existing') {
+                                    // แสดง select ที่ถูก disabled
+                                    $('#Vehicle_Class').prop('disabled', false).removeClass('disabled-select');
+                                    $('#Vehicle_Companies').prop('disabled', false).removeClass('disabled-select');
+                                    $('#Vehicle_PolicyNumber').prop('disabled', false).removeClass('disabled-select');
+                                } else {
+                                    // ถ้าเลือกค่าอื่นๆ ให้ปิดการใช้งาน
+                                    $('#Vehicle_Class').prop('disabled', true).val('').addClass('disabled-select');
+                                    $('#Vehicle_Companies').prop('disabled', true).val('').addClass('disabled-select');
+                                    $('#Vehicle_PolicyNumber').prop('disabled', true).val('').addClass('disabled-select');
+                                }
+                            });
+
+                            // เริ่มต้นให้ disabled select มีสีเทา
+                            $('#Vehicle_Class').addClass('disabled-select');
+                            $('#Vehicle_Companies').addClass('disabled-select');
+                            $('#Vehicle_PolicyNumber').addClass('disabled-select');
+                        });
+                    </script>
+
+                    <script>
+                        $(document).ready(function() {
+                            // เริ่มต้นให้ input มีสีเทา
+                            $('#Vehicle_PolicyNumber').addClass('disabled-input');
+
+                            // เมื่อมีการเปลี่ยนแปลงใน select ของสถานะประกัน
+                            $('#Vehicle_InsuranceStatus').change(function() {
+                                var selectedValue = $(this).val();
+
+                                // หากเลือก "ซื้อประกัน" หรือ "มีอยู่แล้ว"
+                                if (selectedValue === 'buy' || selectedValue === 'existing') {
+                                    // เปิดใช้งาน input และเปลี่ยนสีพื้นหลังเป็นปกติ
+                                    $('#Vehicle_PolicyNumber').prop('disabled', false).removeClass('disabled-input').css('background-color', 'white');
+                                } else {
+                                    // ปิดการใช้งาน input และทำให้มีสีเทา
+                                    $('#Vehicle_PolicyNumber').prop('disabled', true).val('').addClass('disabled-input').css('background-color', '#e5e7eb');
+                                }
+                            });
+                        });
+                    </script>
+
+
+
 
                     <div class="flex-1">
-                        <select id="Vehicle_Class" name="Vehicle_Class"
+                        <select disabled id="Vehicle_Class" name="Vehicle_Class"
                             class="mt-1 block w-full border-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-9 px-3">
                             <option value="" selected>เลือกชั้นประกันภัย</option>
                             <option value="1">ชั้น 1</option>
@@ -623,7 +651,7 @@
                     </div>
 
                     <div class="flex-1">
-                        <select id="Vehicle_Companies" name="Vehicle_Companies"
+                        <select disabled id="Vehicle_Companies" name="Vehicle_Companies"
                             class="mt-1 block w-full border-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-9 px-3">
                             <option value="" selected>เลือกบริษัทประกันภัย</option>
                             <option value="viriya">วิริยะประกันภัย</option>
@@ -633,7 +661,7 @@
 
 
                     <div class="w-full h-10 relative flex flex-row items-center space-x-2 rounded-xl">
-                        <input required=""
+                        <input required="" disabled
                             class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md  mt-1"
                             id="Vehicle_PolicyNumber" name="Vehicle_PolicyNumber" type="text">
                         <label
@@ -642,8 +670,6 @@
                             เลขกรมธรรม์
                         </label>
                     </div>
-
-
                 </div>
 
 
@@ -803,6 +829,36 @@
             if ($('#Vehicle_CC').val().trim() === '') {
                 valid = false;
                 missingFields.push('CC');
+            }
+
+            if ($('#Vehicle_Type').val().trim() === '') {
+                valid = false;
+                missingFields.push('ประเภทรถ 1');
+            }
+
+            if ($('#Vehicle_Type_PLT').val().trim() === '') {
+                valid = false;
+                missingFields.push('ประเภทรถ 2');
+            }
+
+            if ($('#Vehicle_Brand').val().trim() === '') {
+                valid = false;
+                missingFields.push('ยี่ห้อรถ');
+            }
+
+            if ($('#Vehicle_Group').val().trim() === '') {
+                valid = false;
+                missingFields.push('กลุ่มรถ');
+            }
+
+            if ($('#Vehicle_Years').val().trim() === '') {
+                valid = false;
+                missingFields.push('ปีรถ');
+            }
+
+            if ($('#Vehicle_Gear').val().trim() === '') {
+                valid = false;
+                missingFields.push('เกียร์รถ');
             }
 
             // ถ้าข้อมูลไม่ครบให้แสดง SweetAlert แจ้งเตือนและไม่ส่งฟอร์ม
