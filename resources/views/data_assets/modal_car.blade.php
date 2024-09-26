@@ -397,7 +397,6 @@
                         </div>
 
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
                         <script>
                             $(document).ready(function() {
                                 // เมื่อมีการเปลี่ยนแปลงที่ select ประเภทรถ 1
@@ -405,8 +404,12 @@
                                     // รับค่าที่เลือกจาก select ประเภทรถ 1
                                     var selectedValue = $(this).val();
 
-                                    // ลบทุก option ใน select ประเภทรถ 2
-                                    $('#Vehicle_Type_PLT').empty();
+                                    // แสดง select ประเภทรถ 2
+                                    $('#Vehicle_Type_PLT').show();
+
+                                    // ลบทุก option ใน select ประเภทรถ 2 ยกเว้น option แรก
+                                    $('#Vehicle_Type_PLT').find('option:not(:first)').remove();
+
 
                                     // เช็คค่าที่เลือกและเพิ่ม option ตามที่ต้องการ
                                     if (selectedValue === 'C01') {
@@ -431,8 +434,10 @@
                                     } else if (selectedValue === 'M03') {
                                         $('#Vehicle_Type_PLT').append('<option value="1">{{ $typeVehicles->where("id", 1)->first()->Name_Vehicle }}</option>');
                                     } else {
-                                        // แสดง option เริ่มต้นเมื่อไม่เลือก
-                                        $('#Vehicle_Type_PLT').append('<option value="" selected>--- ประเภทรถ 2 ---</option>');
+                                        // ตรวจสอบว่ามี option แรกหรือไม่
+                                        if ($('#Vehicle_Type_PLT option[value=""]').length === 0) {
+                                            $('#Vehicle_Type_PLT').append('<option value="" selected>--- ประเภทรถ 2 ---</option>');
+                                        }
                                     }
                                 });
                             });
@@ -446,21 +451,113 @@
                                     class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                     id="Vehicle_Brand" name="Vehicle_Brand" required>
                                     <option value="">-- ยี่ห้อรถ --</option>
-
-                                    {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                     @foreach ($carBrands->unique('Brand_car') as $car)
-                                        <option hidden id="car_brand" value="{{ $car->Brand_car }}">
-                                            {{ $car->vehicle_name ?? '' . $car->Brand_car }}</option>
+                                        <option hidden class="car-option" id="car_brand" value="{{ $car->Brand_car }}" data-id="{{ $car->id }}">{{ $car->vehicle_name ?? '' . $car->Brand_car }}</option>
                                     @endforeach
 
                                     @foreach ($motoBrands->unique('Brand_moto') as $moto)
-                                        <option hidden id="moto_brand" value="{{ $moto->Brand_moto }}">
-                                            {{ $moto->vehicle_name ?? '' . $moto->Brand_moto }}</option>
+                                        <option hidden class="moto-option" id="moto_brand" value="{{ $moto->Brand_moto }}">{{ $moto->vehicle_name ?? '' . $moto->Brand_moto }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
 
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function() {
+
+                                function updateVehicleBrand(selectedValue) {
+                                    // Reset the vehicle brand dropdown
+                                    $('#Vehicle_Brand').find('.car-option, .moto-option').hide(); // ซ่อนตัวเลือกทั้งหมด
+
+                                    // แสดงตัวเลือกเริ่มต้น
+                                    $('#Vehicle_Brand').find('option[value=""]').show(); // แสดง -- ยี่ห้อรถ --
+
+                                    if (selectedValue == 1) {
+                                        // แสดงตัวเลือก moto-option เมื่อ selectedValue เป็น 1
+                                        $('#Vehicle_Brand').find('.moto-option').show();
+                                    } else if (selectedValue == 2 || selectedValue == 3) {
+                                        $('#Vehicle_Brand').find('.car-option[data-id="1"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="2"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="3"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="4"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="5"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="6"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="7"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="8"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="9"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="14"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="20"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="22"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="23"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="26"]').show();
+                                    } else if (selectedValue == 4) {
+                                        $('#Vehicle_Brand').find('.car-option[data-id="1"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="3"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="4"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="5"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="6"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="7"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="8"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="14"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="17"]').show();
+                                    } else if (selectedValue == 7) {
+                                        $('#Vehicle_Brand').find('.car-option[data-id="5"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="8"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="15"]').show();
+                                    } else if (selectedValue == 5) {
+                                        $('#Vehicle_Brand').find('.car-option[data-id="1"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="5"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="9"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="10"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="11"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="18"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="21"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="24"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="25"]').show();
+                                    } else if (selectedValue == 6) {
+                                        $('#Vehicle_Brand').find('.car-option[data-id="1"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="5"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="9"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="10"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="11"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="18"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="21"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="24"]').show();
+                                        $('#Vehicle_Brand').find('.car-option[data-id="25"]').show();
+                                    } else {
+                                        // ถ้าหากเลือกค่าอื่นๆ ให้แสดงตัวเลือกทั้งหมด
+                                        $('#Vehicle_Brand').find('.car-option').show();
+                                    }
+                                }
+
+                                // เมื่อมีการเปลี่ยนแปลงค่าใน select
+                                $('#Vehicle_Type_PLT').change(function() {
+                                    var selectedValue = $(this).val();
+
+                                    // หากเลือก -- ประเภทรถ 1 -- (ค่าเปล่า) ให้ซ่อนตัวเลือกทั้งหมด
+                                    if (selectedValue === "") {
+                                        $('#Vehicle_Brand').find('.car-option, .moto-option').hide(); // ซ่อนตัวเลือกทั้งหมด
+                                        $('#Vehicle_Brand').find('option[value=""]').show(); // แสดง -- ยี่ห้อรถ --
+                                    } else {
+                                        updateVehicleBrand(selectedValue);
+                                    }
+                                });
+
+                                // เรียกใช้ฟังก์ชันโดยเริ่มต้นเมื่อหน้าโหลด
+                                var initialSelectedValue = $('#Vehicle_Type_PLT').val();
+
+                                // ตรวจสอบว่าเลือก id 2 หรือ 3 หรือไม่ ถ้าไม่ให้ซ่อนตัวเลือกทั้งหมด
+                                if (initialSelectedValue != 2 && initialSelectedValue != 3) {
+                                    $('#Vehicle_Brand').find('.car-option, .moto-option').hide(); // ซ่อนตัวเลือกทั้งหมด
+                                    $('#Vehicle_Brand').find('option[value=""]').show(); // แสดง -- ยี่ห้อรถ --
+                                }
+
+                                else {
+                                    updateVehicleBrand(initialSelectedValue);
+                                }
+                            });
+                        </script>
 
 
                         {{-- กลุ่มรถ --}}
@@ -473,13 +570,11 @@
 
                                     {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                     @foreach ($cars->unique('Group_car') as $car)
-                                        <option id="car_group_2" value="{{ $car->Group_car }}">
-                                            {{ $car->vehicle_name ?? '' . $car->Group_car }}</option>
+                                        <option id="car_group_2" value="{{ $car->Group_car }}">  {{ $car->vehicle_name ?? '' . $car->Group_car }}</option>
                                     @endforeach
 
                                     @foreach ($motoGroups->unique('Group_moto') as $moto)
-                                        <option id="moto_group_2" value="{{ $moto->Group_moto }}">
-                                            {{ $moto->vehicle_name ?? '' . $moto->Group_moto }}</option>
+                                        <option id="moto_group_2" value="{{ $moto->Group_moto }}"> {{ $moto->vehicle_name ?? '' . $moto->Group_moto }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -616,8 +711,8 @@
 
                     <script>
                         $(document).ready(function() {
-                            // เริ่มต้นให้ input มีสีเทา
-                            $('#Vehicle_PolicyNumber').addClass('disabled-input');
+                            // เริ่มต้นให้ input มีสีเทาและปิดการใช้งาน
+                            $('#Vehicle_PolicyNumber').prop('disabled', true).addClass('disabled-input').css('background-color', '#e5e7eb');
 
                             // เมื่อมีการเปลี่ยนแปลงใน select ของสถานะประกัน
                             $('#Vehicle_InsuranceStatus').change(function() {
@@ -665,7 +760,7 @@
                             class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md  mt-1"
                             id="Vehicle_PolicyNumber" name="Vehicle_PolicyNumber" type="text">
                         <label
-                            class="absolute top-1/2 translate-y-[-50%] bg-white left-3 px-2 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-gray-500 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-gray-500 duration-150 rounded-md"
+                            class="absolute top-1/2 translate-y-[-50%] text-gray-600 bg-white left-3 px-2 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-gray-500 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-gray-500 duration-150 rounded-md"
                             for="Vehicle_PolicyNumber">
                             เลขกรมธรรม์
                         </label>
