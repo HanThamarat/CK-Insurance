@@ -351,7 +351,7 @@
                                                 @break
 
                                                 @default
-                                                    ประเภทรถ: {{ $car->Ratetype_id }}
+                                                    ประเภทรถ: {{$car->Ratetype_id }}
                                             @endswitch
                                         </option>
                                     @endforeach
@@ -380,6 +380,11 @@
 
                                 </select>
                             </div>
+
+
+
+
+
 
 
 
@@ -442,6 +447,13 @@
                                 });
                             });
                         </script>
+
+
+
+
+
+
+
 
 
                         {{-- ยี่ห้อรถ --}}
@@ -560,76 +572,226 @@
                         </script>
 
 
+
+
+
+
+
+
+
                         {{-- กลุ่มรถ --}}
-                        @if (isset($cars) && !$cars->isEmpty())
-                            <div class="relative">
-                                <select
-                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
-                                    id="Vehicle_Group" name="Vehicle_Group" required>
-                                    <option value="">-- กลุ่มรถ --</option>
+                        <select
+                            class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                            id="Vehicle_Group" name="Vehicle_Group" required>
+                            <option value="">-- กลุ่มรถ --</option>
 
-                                    {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
-                                    @foreach ($cars->unique('Group_car') as $car)
-                                        <option id="car_group_2" value="{{ $car->Group_car }}">  {{ $car->vehicle_name ?? '' . $car->Group_car }}</option>
-                                    @endforeach
+                            {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
+                            @foreach ($cars->unique('Group_car') as $car)
+                                <option hidden id="car_group_{{ $car->id }}" value="{{ $car->Group_car }}">
+                                    {{ $car->vehicle_name ?? '' . $car->Group_car }}
+                                </option>
+                            @endforeach
 
-                                    @foreach ($motoGroups->unique('Group_moto') as $moto)
-                                        <option id="moto_group_2" value="{{ $moto->Group_moto }}"> {{ $moto->vehicle_name ?? '' . $moto->Group_moto }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @else
-                            <p>ไม่มีข้อมูลในตาราง TB_cars</p>
-                        @endif
+                            @foreach ($motoGroups->unique('Group_moto') as $moto)
+                                <option hidden id="car_group_{{ $moto->id }}" value="{{ $moto->Group_moto }}">
+                                    {{ $moto->vehicle_name ?? '' . $moto->Group_moto }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <!-- jQuery to handle dynamic filtering -->
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function() {
+                                // เมื่อคลิกที่ตัวเลือก "ยี่ห้อรถ"
+                                $('#Vehicle_Brand').on('change', function() {
+                                    // ตรวจสอบถ้าค่าที่เลือกคือ '' (-- ยี่ห้อรถ --)
+                                    if ($(this).val() === '') {
+                                        // ล้างค่าทั้งหมดใน Vehicle_Group
+                                        $('#Vehicle_Group option').hide();
+                                        $('#Vehicle_Group').val(''); // ล้างค่าที่เลือกใน Vehicle_Group
+
+                                        // แสดงเฉพาะตัวเลือก "-- กลุ่มรถ --"
+                                        $('#Vehicle_Group option[value=""]').show();
+                                    } else {
+                                        // โค้ดที่มีอยู่เดิมสำหรับการแสดงกลุ่มรถตามยี่ห้อ
+                                        $('#Vehicle_Group option').hide();
+                                        $('#Vehicle_Group option[value=""]').show();
+
+                                        var selectedBrandId = $(this).find('option:selected').data('id');
+                                        var idsToShow = [];
+
+                                        // ระบุ id ที่ต้องการแสดงตาม selectedBrandId
+                                        if (selectedBrandId == 1) {
+                                            idsToShow = [1, 2, 3, 4, 41, 46, 111];
+                                        } else if (selectedBrandId == 2) {
+                                            idsToShow = [5, 6, 7, 8, 9, 10, 37, 81, 86, 93];
+                                        } else if (selectedBrandId == 3) {
+                                            idsToShow = [11, 12, 13, 14];
+                                        } else if (selectedBrandId == 4) {
+                                            idsToShow = [15, 16, 40, 42, 130];
+                                        } else if (selectedBrandId == 5) {
+                                            idsToShow = [17, 18, 19, 20, 21, 43, 44];
+                                        } else if (selectedBrandId == 6) {
+                                            idsToShow = [22, 23, 24, 96, 97];
+                                        } else if (selectedBrandId == 7) {
+                                            idsToShow = [25, 26, 27, 28];
+                                        } else if (selectedBrandId == 8) {
+                                            idsToShow = [29, 30, 31, 32, 33, 34, 35, 36, 45, 104, 113, 114, 128, 139];
+                                        } else if (selectedBrandId == 9) {
+                                            idsToShow = [38, 39];
+                                        } else if (selectedBrandId == 14) {
+                                            idsToShow = [85, 89, 90, 92, 137];
+                                        } else if (selectedBrandId == 20) {
+                                            idsToShow = [112, 119];
+                                        } else if (selectedBrandId == 22) {
+                                            idsToShow = [122];
+                                        } else if (selectedBrandId == 23) {
+                                            idsToShow = [125, 142];
+                                        } else if (selectedBrandId == 26) {
+                                            idsToShow = [144];
+                                        }
+
+                                        // แสดงตัวเลือกที่มี id ตรงกับใน array
+                                        idsToShow.forEach(function(id) {
+                                            $('#car_group_' + id).show();
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
 
 
 
-                        @if (isset($cars) && !$cars->isEmpty())
-                            <div class="relative">
-                                <select
-                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
-                                    id="Vehicle_Years" name="Vehicle_Years" required>
-                                    <option value="">-- ปีรถ --</option>
-
-                                    {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
-                                    @foreach ($carYears->unique('Year_car') as $car)
-                                        <option id="year_car" value="{{ $car->Year_car }}">
-                                            {{ $car->vehicle_name ?? '' . $car->Year_car }}</option>
-                                    @endforeach
-
-                                    @foreach ($motoYears->unique('Year_moto') as $moto)
-                                        <option id="year_moto" value="{{ $moto->Year_moto }}">
-                                            {{ $moto->vehicle_name ?? '' . $moto->Year_moto }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @else
-                            <p>ไม่มีข้อมูลในตาราง TB_cars</p>
-                        @endif
 
 
-                        @if (isset($cars) && !$cars->isEmpty())
-                            <div class="relative">
-                                <select
-                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
-                                    id="Vehicle_Models" name="Vehicle_Models" required>
-                                    <option value="">-- รุ่นรถ --</option>
 
-                                    {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
-                                    @foreach ($carModels->unique('Model_car') as $car)
-                                        <option id="model_car" value="{{ $car->Model_car }}">
-                                            {{ $car->vehicle_name ?? '' . $car->Model_car }}</option>
-                                    @endforeach
 
-                                    @foreach ($motoModels->unique('Model_moto') as $moto)
-                                        <option id="model_moto" value="{{ $car->Model_moto }}">
-                                            {{ $moto->vehicle_name ?? '' . $moto->Model_moto }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @else
-                            <p>ไม่มีข้อมูลในตาราง TB_cars</p>
-                        @endif
+
+                        {{-- ปีรถ --}}
+                        <div class="relative">
+                            <select
+                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                id="Vehicle_Years" name="Vehicle_Years" required>
+                                <option value="">-- ปีรถ --</option>
+                                @foreach ($carYears->unique('Year_car')->sortBy('Year_car') as $car)
+                                    <option id="year_car_{{ $car->Year_car }}" value="{{ $car->Year_car }}" hidden>
+                                        {{ $car->vehicle_name ?? '' . $car->Year_car }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function() {
+                                // เมื่อเปลี่ยนค่าใน Vehicle_Group
+                                $('#Vehicle_Group').on('change', function() {
+                                    // ค่าที่เลือกใน Vehicle_Group
+                                    var selectedGroup = $(this).val();
+
+                                    // ถ้าค่าที่เลือกคือ "-- กลุ่มรถ --"
+                                    if (selectedGroup === "") {
+                                        // ล้างค่าทั้งหมดใน Vehicle_Years และแสดงเฉพาะ "-- ปีรถ --"
+                                        $('#Vehicle_Years').val("");  // ล้างค่าที่เลือกใน dropdown
+                                        $('#Vehicle_Years option').each(function() {
+                                            if ($(this).val() === "") {
+                                                $(this).removeAttr('hidden');  // แสดงตัวเลือก "-- ปีรถ --"
+                                            } else {
+                                                $(this).attr('hidden', 'hidden');  // ซ่อนตัวเลือกปีรถอื่นๆ
+                                            }
+                                        });
+                                    } else if ($('#car_group_1').val() === selectedGroup) {
+                                        // แสดงเฉพาะปีรถ 2004 - 2016 เมื่อเลือกกลุ่มรถ id 1
+                                        $('#Vehicle_Years option').each(function() {
+                                            var year = $(this).val();
+                                            if (year == 2004 || year == 2005 || year == 2006 || year == 2007 ||
+                                                year == 2008 || year == 2009 || year == 2010 || year == 2011 ||
+                                                year == 2012 || year == 2013 || year == 2014 || year == 2015 ||
+                                                year == 2016 || year === "") {
+                                                $(this).removeAttr('hidden');  // แสดงตัวเลือกปีรถและตัวเลือก -- ปีรถ --
+                                            } else {
+                                                $(this).attr('hidden', 'hidden');  // ซ่อนตัวเลือกที่ไม่อยู่ในช่วงปีที่ต้องการ
+                                            }
+                                        });
+                                    } else {
+                                        // ซ่อนตัวเลือกปีรถทั้งหมด ยกเว้น "-- ปีรถ --" เมื่อไม่ตรงกับกลุ่มรถ id 1
+                                        $('#Vehicle_Years option').each(function() {
+                                            if ($(this).val() === "") {
+                                                $(this).removeAttr('hidden');  // แสดงตัวเลือก -- ปีรถ --
+                                            } else {
+                                                $(this).attr('hidden', 'hidden');  // ซ่อนตัวเลือกปีรถอื่นๆ
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+
+                        </script>
+
+
+
+
+
+
+
+                        {{-- รุ่นรถ --}}
+
+                        <div class="relative">
+                            <select
+                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                id="Vehicle_Models" name="Vehicle_Models" required>
+                                <option value="">-- รุ่นรถ --</option>
+
+                                {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
+                                @foreach ($carModels->unique('Model_car') as $car)
+                                    <option hidden id="model_car" value="{{ $car->Model_car }}">
+                                        {{ $car->vehicle_name ?? '' . $car->Model_car }}</option>
+                                @endforeach
+
+                                @foreach ($motoModels->unique('Model_moto') as $moto)
+                                    <option hidden id="model_moto" value="{{ $car->Model_moto }}">
+                                        {{ $moto->vehicle_name ?? '' . $moto->Model_moto }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <!-- jQuery Script -->
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function() {
+                                $('#Vehicle_Group').on('change', function() {
+                                    var selectedGroup = $(this).val();
+
+                                    // Clear the Vehicle_Models dropdown
+                                    $('#Vehicle_Models').empty().append('<option value="">-- รุ่นรถ --</option>');
+
+                                    // Check if the selected group is not empty
+                                    if (selectedGroup) {
+                                        // Assuming you have a variable holding the carModels data as an array of objects
+                                        var carModels = @json($carModels); // Pass PHP data to JavaScript
+
+                                        // Loop through carModels to find models that start with 'LANCER'
+                                        $.each(carModels, function(index, carModel) {
+                                            // Check if Model_car and vehicle_name exist and start with 'LANCER'
+                                            if (carModel.Model_car && carModel.Model_car.startsWith('LANCER')) {
+                                                var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : ''; // Fallback to empty string if undefined
+                                                $('#Vehicle_Models').append(
+                                                    '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                                                );
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+
+
+                        </script>
+
+
+
+
 
                         <!-- เกียร์ -->
                         <div class="relative">
@@ -637,10 +799,28 @@
                                 class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                 id="Vehicle_Gear" name="Vehicle_Gear" required>
                                 <option value="" selected>--- เกียร์รถ ---</option>
-                                <option value="manual">Manual</option>
-                                <option value="auto">Auto</option>
+                                <option hidden value="manual">Manual</option>
+                                <option hidden value="auto">Auto</option>
                             </select>
                         </div>
+
+                        <!-- jQuery Script -->
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function() {
+                                $('#Vehicle_Group').on('change', function() {
+                                    // Check if a value is selected
+                                    if ($(this).val()) {
+                                        // Show hidden options in Vehicle_Gear
+                                        $('#Vehicle_Gear option[hidden]').show();
+                                        $('#Vehicle_Gear').val(''); // Reset Vehicle_Gear selection
+                                    } else {
+                                        // Hide options again if no value is selected
+                                        $('#Vehicle_Gear option').hide().filter(':first').show(); // Show the first option only
+                                    }
+                                });
+                            });
+                        </script>
 
                     </div>
 
