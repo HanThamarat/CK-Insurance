@@ -32,9 +32,58 @@
 
             </div>
         </div>
-
     </div>
 
+    <div id="preloader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="loader"></div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // เมื่อเปิดโมดัล
+            $('[data-bs-toggle="modal"]').click(function() {
+                $('#preloader').removeClass('hidden'); // แสดง preloader
+                $('#DataAssetsModal .relative').css('top', '-100%').show(); // วางเนื้อหาที่ด้านบนสุด
+
+                // รอ 0.5 วินาทีก่อนเลื่อนโมดัล
+                setTimeout(function() {
+                    $('#DataAssetsModal .relative').animate({ top: '0%' }, 600, function() {
+                        $('#preloader').addClass('hidden'); // ซ่อน preloader หลังจากเลื่อนเสร็จ
+                    }); // เลื่อนเนื้อหาลงมา
+                    $('#DataAssetsModal').removeClass('hidden'); // แสดงโมดัล
+                }, 500); // เวลาในการรอ (500 มิลลิวินาที)
+            });
+
+            // เมื่อคลิกนอกโมดัลเพื่อปิด
+            $('#DataAssetsModal').click(function(e) {
+                if ($(e.target).is('#DataAssetsModal') || $(e.target).is('.close-modal')) {
+                    $('#DataAssetsModal .relative').animate({ top: '-100%' }, 600, function() {
+                        $('#DataAssetsModal').addClass('hidden'); // ซ่อนโมดัลเมื่อเลื่อนขึ้นเสร็จ
+                    });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        #preloader .loader {
+            border: 8px solid #f3f3f3; /* สีพื้นหลัง */
+            border-top: 8px solid #ff8400; /* สีของวงกลมที่หมุน */
+            border-radius: 50%; /* ทำให้เป็นวงกลม */
+            width: 50px; /* ขนาดของวงกลม */
+            height: 50px; /* ขนาดของวงกลม */
+            animation: spin 0.7s linear infinite; /* การหมุนเร็วขึ้น */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
 
 
 
@@ -77,42 +126,6 @@
         }
 
     </script>
-
-
-    {{-- <script>
-        // ฟังก์ชันในการตั้งค่าประเภททรัพย์สิน
-        function setAssetType(element) {
-            const type = element.getAttribute('data-type'); // ดึงประเภทจาก data-type
-
-            // ค้นหา <select> ที่มี id เป็น Vehicle_Type
-            const vehicleSelect = document.getElementById('Vehicle_Type');
-
-            // ลบคลาส hidden จาก <option> ที่ตรงกับประเภท
-            for (let option of vehicleSelect.options) {
-                option.hidden = true; // ตั้งค่า hidden เป็น true ทุกตัว
-            }
-
-            // แสดงเฉพาะ <option> ที่ตรงกับประเภทที่เลือก
-            if (type === 'รถยนต์') {
-                for (let option of vehicleSelect.options) {
-                    if (option.id === 'car_group' || option.id === 'car_brand') {
-                        option.hidden = false; // แสดง option รถยนต์
-                    }
-                }
-            } else if (type === 'มอเตอร์ไซค์') {
-                for (let option of vehicleSelect.options) {
-                    if (option.id === 'moto_group' || option.id === 'moto_brand') {
-                        option.hidden = false; // แสดง option มอเตอร์ไซค์
-                    }
-                }
-            }
-
-            // ตั้งค่าให้กับ input hidden
-            const assetType = element.getAttribute('data-type');
-            document.getElementById('Type_Asset').value = assetType;
-        }
-    </script> --}}
-
 
 
 

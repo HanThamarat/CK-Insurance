@@ -1,4 +1,5 @@
 <!-- Car Modal -->
+
 <div id="DataAssetsModal"
     class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50 modal">
     <div class="relative bg-white rounded-lg w-full max-w-screen-lg p-6 max-h-screen overflow-auto mt-12 scrollbar-hidden">
