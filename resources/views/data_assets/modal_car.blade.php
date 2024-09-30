@@ -639,6 +639,8 @@
                                         var selectedBrandId = $(this).find('option:selected').data('id');
                                         var idsToShow = [];
 
+                                        var selectedVehicleId = $('#Vehicle_Type_PLT').val();
+
                                         // ระบุ id ที่ต้องการแสดงตาม selectedBrandId
                                         if (selectedBrandId == 1) {
                                             idsToShow = [1, 2, 3, 4, 41, 46, 111];
@@ -672,7 +674,9 @@
 
                                         //-------------------------------Check Value---------------------------------------//
                                         // ตรวจสอบถ้าหากมีการเลือก vehicle ที่ id = 4
-                                        var selectedVehicleId = $('#Vehicle_Type_PLT').val();
+
+                                        // var selectedVehicleId = $('#Vehicle_Type_PLT').val();
+
                                         if (selectedVehicleId == 4 && selectedBrandId == 1) {
                                             idsToShow = [54, 55, 64]; // แทนที่ ids ที่ต้องการแสดง
 
@@ -840,6 +844,12 @@
                                             idsToShow = [134];
                                         }
 
+                                        ////////////////////////////////////////////////////////////////////////////////
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C01' && selectedVehicleId == 2, 3 && selectedBrandId == 1) {
+                                            idsToShow = [1, 2, 3, 4, 41, 46, 111];
+                                        }
+
                                         //-------------------------------Check Value---------------------------------------//
 
                                         // แสดงเฉพาะตัวเลือกที่มี id ตรงกับใน array
@@ -906,10 +916,10 @@
 
 
                                         // แสดงเฉพาะตัวเลือกที่มี id ตรงกับใน array
-                                        $('#Vehicle_Group option').hide(); // ซ่อนตัวเลือกทั้งหมด
-                                        idsToShow.forEach(function(id) {
-                                            $('#car_group_' + id).show(); // แสดงตัวเลือกที่ตรงกับ idsToShow
-                                        });
+                                        // $('#Vehicle_Group option').hide(); // ซ่อนตัวเลือกทั้งหมด
+                                        // idsToShow.forEach(function(id) {
+                                        //     $('#car_group_' + id).show(); // แสดงตัวเลือกที่ตรงกับ idsToShow
+                                        // });
 
                                         $('#Vehicle_Group option').hide(); // ซ่อนตัวเลือกทั้งหมด
                                         idsToShowMoto.forEach(function(id) {
