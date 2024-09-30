@@ -467,6 +467,20 @@
                                             return; // ออกจากฟังก์ชันหากแสดงตัวเลือกแล้ว
                                         }
 
+                                        if (selectedType === 'C04' && selectedPLT == 4) {
+                                            $('#Vehicle_Brand').find('.car-option[data-id="1"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="3"]').show();
+                                            // $('#Vehicle_Brand').find('.car-option[data-id="4"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="5"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="6"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="7"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="8"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="9"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="14"]').show();
+                                            // $('#Vehicle_Brand').find('.car-option[data-id="17"]').show();
+                                            return; // ออกจากฟังก์ชันหากแสดงตัวเลือกแล้ว
+                                        }
+
                                         //-----------------------------------------------------------------------//
 
                                         if (selectedPLT == 2 || selectedPLT == 3) {
@@ -597,7 +611,7 @@
                             @endforeach
 
                             @foreach ($motoGroups->unique('Group_moto') as $moto)
-                                <option hidden id="car_group_{{ $moto->id }}" value="{{ $moto->Group_moto }}">
+                                <option hidden id="moto_group_{{ $moto->id }}" value="{{ $moto->Group_moto }}">
                                     {{ $moto->vehicle_name ?? '' . $moto->Group_moto }}
                                 </option>
                             @endforeach
@@ -656,6 +670,7 @@
                                             idsToShow = [144];
                                         }
 
+                                        //-------------------------------Check Value---------------------------------------//
                                         // ตรวจสอบถ้าหากมีการเลือก vehicle ที่ id = 4
                                         var selectedVehicleId = $('#Vehicle_Type_PLT').val();
                                         if (selectedVehicleId == 4 && selectedBrandId == 1) {
@@ -688,6 +703,145 @@
                                             idsToShow = [103]; // แทนที่ ids ที่ต้องการแสดง
                                         }
 
+                                        //-------------------------------Check Value---------------------------------------//
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C03' && selectedVehicleId == 4 && selectedBrandId == 3) {
+                                            idsToShow = [63];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C03' && selectedVehicleId == 4 && selectedBrandId == 5) {
+                                            idsToShow = [56, 57, 58, 65, 94, 109];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C03' && selectedVehicleId == 4 && selectedBrandId == 7) {
+                                            idsToShow = [52, 53, 62];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C03' && selectedVehicleId == 4 && selectedBrandId == 8) {
+                                            idsToShow = [59, 60, 61, 66, 82];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C03' && selectedVehicleId == 4 && selectedBrandId == 9) {
+                                            idsToShow = [47, 48, 49, 80, 88];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C03' && selectedVehicleId == 4 && selectedBrandId == 14) {
+                                            idsToShow = [84];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C04' && selectedVehicleId == 4 && selectedBrandId == 7) {
+                                            idsToShow = [53, 62];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C04' && selectedVehicleId == 4 && selectedBrandId == 9) {
+                                            idsToShow = [47, 48, 49, 80];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C04' && selectedVehicleId == 4 && selectedBrandId == 14) {
+                                            idsToShow = [83];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C04' && selectedVehicleId == 4 && selectedBrandId == 3) {
+                                            idsToShow = [63];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C05' && selectedVehicleId == 7 && selectedBrandId == 5) {
+                                            idsToShow = [106];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C05' && selectedVehicleId == 7 && selectedBrandId == 8) {
+                                            idsToShow = [67, 68];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C05' && selectedVehicleId == 7 && selectedBrandId == 15) {
+                                            idsToShow = [91];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 1) {
+                                            idsToShow = [115];
+                                        }
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 5) {
+                                            idsToShow = [116];
+                                        }
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 9) {
+                                            idsToShow = [73, 74, 75, 76, 77, 87, 99, 100, 105, 107, 110, 117, 118, 126];
+                                        }
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 10) {
+                                            idsToShow = [69, 70, 71, 72, 98, 101, 102, 121, 123, 124, 127, 132, 136, 138, 140];
+                                        }
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 11) {
+                                            idsToShow = [78, 79, 95];
+                                        }
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 18) {
+                                            idsToShow = [102];
+                                        }
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 21) {
+                                            idsToShow = [120];
+                                        }
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 24) {
+                                            idsToShow = [129];
+                                        }
+
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+                                        if (selectedVehicleType === 'C06' && selectedVehicleId == 5, 6, 7 && selectedBrandId == 25) {
+                                            idsToShow = [134];
+                                        }
+
+                                        //-------------------------------Check Value---------------------------------------//
+
                                         // แสดงเฉพาะตัวเลือกที่มี id ตรงกับใน array
                                         $('#Vehicle_Group option').hide(); // ซ่อนตัวเลือกทั้งหมด
                                         idsToShow.forEach(function(id) {
@@ -698,10 +852,73 @@
                             });
                         </script>
 
+                        {{-- <script>
+                            $(document).ready(function() {
+                                // เมื่อคลิกที่ตัวเลือก "ยี่ห้อรถ"
+                                $('#Vehicle_Brand').on('change', function() {
+                                    // ตรวจสอบถ้าค่าที่เลือกคือ '' (-- ยี่ห้อรถ --)
+                                    if ($(this).val() === '') {
+                                        // ล้างค่าทั้งหมดใน Vehicle_Group
+                                        $('#Vehicle_Group option').hide();
+                                        $('#Vehicle_Group').val(''); // ล้างค่าที่เลือกใน Vehicle_Group
+
+                                        // แสดงเฉพาะตัวเลือก "-- กลุ่มรถ --"
+                                        $('#Vehicle_Group option[value=""]').show();
+                                    } else {
+                                        // ซ่อนตัวเลือกทั้งหมดใน Vehicle_Group
+                                        $('#Vehicle_Group option').hide();
+                                        $('#Vehicle_Group option[value=""]').show(); // แสดงตัวเลือก "-- กลุ่มรถ --"
+
+                                        var selectedBrandId = $(this).find('option:selected').data('id');
+                                        var idsToShow = [];
+                                        // ตรวจสอบถ้าหากมีการเลือก vehicle ที่ id = 4
+                                        var selectedVehicleId = $('#Vehicle_Type_PLT').val();
+
+
+                                        //-------------------------------Check Value---------------------------------------//
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
+
+                                        if ((selectedVehicleType === 'M01' || selectedVehicleType === 'M02' || selectedVehicleType === 'M03') && selectedVehicleId == 1 && selectedBrandId == 1) {
+                                            idsToShowMoto = [1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 70, 74, 76, 79];
+                                        }
+
+
+                                        if ((selectedVehicleType === 'M01' || selectedVehicleType === 'M02' || selectedVehicleType === 'M03') && selectedVehicleId == 1 && selectedBrandId == 2) {
+                                            idsToShowMoto = [34, 37, 38, 39, 40, 41, 42, 43, 68, 73, 77, 78];
+                                        }
+
+                                        if ((selectedVehicleType === 'M01' || selectedVehicleType === 'M02') && selectedVehicleId == 1 && selectedBrandId == 3) {
+                                            idsToShowMoto = [46, 47, 48, 49, 52, 53, 54, 64, 66];
+                                        }
+
+                                        if ((selectedVehicleType === 'M01' || selectedVehicleType === 'M02') && selectedVehicleId == 1 && selectedBrandId == 4) {
+                                            idsToShowMoto = [55, 75];
+                                        }
+
+                                        if ((selectedVehicleType === 'M01' || selectedVehicleType === 'M02') && selectedVehicleId == 1 && selectedBrandId == 5) {
+                                            idsToShowMoto = [80];
+                                        }
+
+                                        if ((selectedVehicleType === 'M01' || selectedVehicleType === 'M02') && selectedVehicleId == 1 && selectedBrandId == 9) {
+                                            idsToShowMoto = [85];
+                                        }
 
 
 
+                                        // แสดงเฉพาะตัวเลือกที่มี id ตรงกับใน array
+                                        $('#Vehicle_Group option').hide(); // ซ่อนตัวเลือกทั้งหมด
+                                        idsToShow.forEach(function(id) {
+                                            $('#car_group_' + id).show(); // แสดงตัวเลือกที่ตรงกับ idsToShow
+                                        });
 
+                                        $('#Vehicle_Group option').hide(); // ซ่อนตัวเลือกทั้งหมด
+                                        idsToShowMoto.forEach(function(id) {
+                                            $('#moto_group_' + id).show(); // แสดงตัวเลือกที่ตรงกับ idsToShow
+                                        });
+                                    }
+                                });
+                            });
+                        </script> --}}
 
 
 
