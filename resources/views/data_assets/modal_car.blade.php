@@ -112,17 +112,7 @@
                     </div>
 
 
-                    {{-- <div class="flex-1 p-1">
-                        <div class="relative">
-                            <select id="Vehicle_OldLicense_Province" name="OldProvince"
-                                class="block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option value="" selected>จังหวัด</option>
-                                @foreach ($provinces as $province)
-                                    <option value="{{ $province->id }}">{{ $province->Province_pro }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> --}}
+
 
                     <div class="flex-1 p-1">
                         <div class="relative">
@@ -212,28 +202,6 @@
                 </div>
             </div>
 
-            {{-- เลขถัง --}}
-
-            {{-- <div class="w-full h-10 relative flex rounded-xl group">
-                <input required=""
-                    class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
-                    id="Vehicle_Chassis" name="Vehicle_Chassis" type="text" />
-                <label
-                    class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
-                    for="Vehicle_Chassis">
-                    เลขถัง
-                </label>
-
-                <!-- Tooltip -->
-                <div id="tooltip-chassis"
-                    class="absolute bg-gray-700 text-white text-xs rounded py-1 px-3 bottom-full left-4 mb-2">
-                    ระบุเลขถังอย่างน้อย 5 หลัก
-                    <svg class="absolute text-gray-700 h-2 w-full left-0 top-full" x="0px" y="0px"
-                        viewBox="0 0 255 255" xml:space="preserve">
-                        <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
-                    </svg>
-                </div>
-            </div> --}}
 
             <div class="w-full h-10 relative flex rounded-xl group">
                 <input required=""
@@ -248,19 +216,21 @@
 
 
 
-            <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
-                <label class="flex items-center space-x-2 flex-shrink-0">
-                    <input type="checkbox" name="new_number_stamping"
-                        class="form-checkbox border border-gray-400 rounded-sm">
-                    <span class="text-sm">มีกำหนดตอกตัวเลขใหม่</span>
+            <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 items-center">
+                <label class="flex items-center space-x-2">
+                    <div class="checkbox-wrapper-19">
+                        <input id="cbtest-19" name="new_number_stamping" type="checkbox" class="form-checkbox border border-gray-400 rounded-sm">
+                        <label class="check-box" for="cbtest-19"></label>
+                    </div>
+                    <span class="text-xs font-bold text-gray-700">มีกำหนดตอกตัวเลขใหม่</span>
                 </label>
 
-                <div class="w-full h-10 relative flex flex-row items-center space-x-2 rounded-xl">
+                <div class="w-full h-10 relative flex flex-row items-center rounded-xl ">
                     <input required=""
                         class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
                         id="Vehicle_New_Number" name="Vehicle_New_Number" type="text" />
                     <label
-                        class="absolute top-1/2 translate-y-[-50%] text-gray-600  bg-white left-4 px-2 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
+                        class="absolute top-1/2 translate-y-[-50%] text-gray-600 bg-white left-4 px-2 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
                         for="Vehicle_Newlabel_Number" id="Vehicle_Newlabel_Number">
                         เลขตัวรถไหม่
                     </label>
@@ -481,6 +451,24 @@
 
                                     // เงื่อนไขสำหรับประเภทของรถยนต์
                                     if (selectedType.startsWith('C')) {
+
+                                        // เช็คเงื่อนเพิ่ม
+                                        if (selectedType === 'C03' && selectedPLT == 4) {
+                                            $('#Vehicle_Brand').find('.car-option[data-id="1"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="3"]').show();
+                                            // $('#Vehicle_Brand').find('.car-option[data-id="4"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="5"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="6"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="7"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="8"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="9"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="14"]').show();
+                                            // $('#Vehicle_Brand').find('.car-option[data-id="17"]').show();
+                                            return; // ออกจากฟังก์ชันหากแสดงตัวเลือกแล้ว
+                                        }
+
+                                        //-----------------------------------------------------------------------//
+
                                         if (selectedPLT == 2 || selectedPLT == 3) {
                                             $('#Vehicle_Brand').find('.car-option[data-id="1"]').show();
                                             $('#Vehicle_Brand').find('.car-option[data-id="2"]').show();
@@ -498,13 +486,14 @@
                                             $('#Vehicle_Brand').find('.car-option[data-id="26"]').show();
                                         } else if (selectedPLT == 4) {
                                             $('#Vehicle_Brand').find('.car-option[data-id="1"]').show();
-                                            $('#Vehicle_Brand').find('.car-option[data-id="3"]').show();
+                                            // $('#Vehicle_Brand').find('.car-option[data-id="3"]').show();
                                             $('#Vehicle_Brand').find('.car-option[data-id="4"]').show();
                                             $('#Vehicle_Brand').find('.car-option[data-id="5"]').show();
                                             $('#Vehicle_Brand').find('.car-option[data-id="6"]').show();
                                             $('#Vehicle_Brand').find('.car-option[data-id="7"]').show();
                                             $('#Vehicle_Brand').find('.car-option[data-id="8"]').show();
-                                            $('#Vehicle_Brand').find('.car-option[data-id="14"]').show();
+                                            $('#Vehicle_Brand').find('.car-option[data-id="9"]').show();
+                                            // $('#Vehicle_Brand').find('.car-option[data-id="14"]').show();
                                             $('#Vehicle_Brand').find('.car-option[data-id="17"]').show();
                                         } else if (selectedPLT == 7) {
                                             if (selectedType === 'C06') {
@@ -629,9 +618,9 @@
                                         // แสดงเฉพาะตัวเลือก "-- กลุ่มรถ --"
                                         $('#Vehicle_Group option[value=""]').show();
                                     } else {
-                                        // โค้ดที่มีอยู่เดิมสำหรับการแสดงกลุ่มรถตามยี่ห้อ
+                                        // ซ่อนตัวเลือกทั้งหมดใน Vehicle_Group
                                         $('#Vehicle_Group option').hide();
-                                        $('#Vehicle_Group option[value=""]').show();
+                                        $('#Vehicle_Group option[value=""]').show(); // แสดงตัวเลือก "-- กลุ่มรถ --"
 
                                         var selectedBrandId = $(this).find('option:selected').data('id');
                                         var idsToShow = [];
@@ -667,9 +656,42 @@
                                             idsToShow = [144];
                                         }
 
-                                        // แสดงตัวเลือกที่มี id ตรงกับใน array
+                                        // ตรวจสอบถ้าหากมีการเลือก vehicle ที่ id = 4
+                                        var selectedVehicleId = $('#Vehicle_Type_PLT').val();
+                                        if (selectedVehicleId == 4 && selectedBrandId == 1) {
+                                            idsToShow = [54, 55, 64]; // แทนที่ ids ที่ต้องการแสดง
+
+                                        } else if (selectedVehicleId == 4 && selectedBrandId == 4) {
+                                            idsToShow = [133]; // แทนที่ ids ที่ต้องการแสดง
+
+                                        } else if (selectedVehicleId == 4 && selectedBrandId == 5) {
+                                            idsToShow = [56, 57, 58]; // แทนที่ ids ที่ต้องการแสดง
+                                        }
+
+                                        else if (selectedVehicleId == 4 && selectedBrandId == 6) {
+                                            idsToShow = [50, 51]; // แทนที่ ids ที่ต้องการแสดง
+                                        }
+
+                                        else if (selectedVehicleId == 4 && selectedBrandId == 7) {
+                                            idsToShow = [52, 53]; // แทนที่ ids ที่ต้องการแสดง
+                                        }
+
+                                        else if (selectedVehicleId == 4 && selectedBrandId == 8) {
+                                            idsToShow = [59, 60, 61, 66]; // แทนที่ ids ที่ต้องการแสดง
+                                        }
+
+                                        else if (selectedVehicleId == 4 && selectedBrandId == 9) {
+                                            idsToShow = [47, 48, 49]; // แทนที่ ids ที่ต้องการแสดง
+                                        }
+
+                                        else if (selectedVehicleId == 4 && selectedBrandId == 17) {
+                                            idsToShow = [103]; // แทนที่ ids ที่ต้องการแสดง
+                                        }
+
+                                        // แสดงเฉพาะตัวเลือกที่มี id ตรงกับใน array
+                                        $('#Vehicle_Group option').hide(); // ซ่อนตัวเลือกทั้งหมด
                                         idsToShow.forEach(function(id) {
-                                            $('#car_group_' + id).show();
+                                            $('#car_group_' + id).show(); // แสดงตัวเลือกที่ตรงกับ idsToShow
                                         });
                                     }
                                 });
@@ -863,21 +885,6 @@
 
                     <!-- รวม jQuery ก่อนปิด </body> -->
                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    <style>
-                        /* กำหนดสีพื้นหลังให้กับ select ที่ถูก disabled */
-                        .disabled-select {
-                            background-color: #e5e7eb; /* สีเทาอ่อน */
-                            color: #6b7280; /* สีเทาเข้มสำหรับข้อความ */
-                        }
-
-                        .disabled-input {
-                            background-color: #e5e7eb; /* สีเทาอ่อน */
-                            color: #6b7280; /* สีเทาเข้มสำหรับข้อความ */
-                            cursor: not-allowed; /* เปลี่ยนเคอร์เซอร์เมื่อ hover */
-                        }
-
-                    </style>
-
 
                     <script>
 
@@ -916,16 +923,6 @@
                         });
 
                     </script>
-
-                    <style>
-                        /* สไตล์สำหรับ placeholder สีแดง */
-                        .red-placeholder::placeholder {
-                            color: #ff4d4d; /* สีแดง */
-                            opacity: 1; /* ปรับค่าความทึบให้สูงขึ้น */
-                        }
-
-                    </style>
-
 
 
 
