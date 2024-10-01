@@ -118,9 +118,9 @@
                         <div class="relative">
                             <select id="Vehicle_OldLicense_Province" name="OldProvince"
                                 class="block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option value="" selected>จังหวัด</option>
+                                <option value="" class="red-option" selected>จังหวัด</option>
                                 @foreach ($provinces as $province)
-                                    <option value="{{ $province->Province_pro }}" data-province="{{ $province->Province_pro }}">
+                                    <option class="red-option" value="{{ $province->Province_pro }}" data-province="{{ $province->Province_pro }}">
                                         {{ $province->Province_pro }}
                                     </option>
                                 @endforeach
@@ -225,7 +225,7 @@
                     <span class="text-xs font-bold text-gray-700">มีกำหนดตอกตัวเลขใหม่</span>
                 </label>
 
-                <div class="w-full h-10 relative flex flex-row items-center rounded-xl ">
+                <div class="flex-grow h-10 relative flex items-center rounded-xl">
                     <input required=""
                         class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
                         id="Vehicle_New_Number" name="Vehicle_New_Number" type="text" />
@@ -636,11 +636,12 @@
                                         $('#Vehicle_Group option').hide();
                                         $('#Vehicle_Group option[value=""]').show(); // แสดงตัวเลือก "-- กลุ่มรถ --"
 
+                                        var selectedVehicleType = $('#Vehicle_Type').val();
                                         var selectedVehicleId = $('#Vehicle_Type_PLT').val();
                                         var selectedBrandId = $(this).find('option:selected').data('id');
                                         var idsToShow = [];
                                         var idsToShowMoto = [];
-                                        var selectedVehicleType = $('#Vehicle_Type').val();
+
 
                                         // ----------ตรวจสอบเงื่อนไขสำหรับการแสดง เริ่มต้นที่ C01 Vehicle_Group ที่เกี่ยวข้อง----//
                                         if (selectedVehicleType === 'C01' && (selectedVehicleId == 2 || selectedVehicleId == 3) && selectedBrandId == 1) {
@@ -674,9 +675,8 @@
                                         }
 
 
-
                                         //---------- ตรวจสอบเงื่อนไขสำหรับการแสดง เริ่มต้นที่ C02 Vehicle_Group ที่เกี่ยวข้อง -----------//
-                                        
+
                                         if (selectedVehicleType === 'C02' && selectedVehicleId == 4 && selectedBrandId == 1) {
                                             idsToShow = [54, 55, 64]; // แทนที่ ids ที่ต้องการแสดง
 
@@ -889,6 +889,28 @@
                                             idsToShowMoto = [85];
                                         }
 
+                                        // ------------------------------------------------------เงื่อนไขลับ---------------------------------------------------//
+
+                                        if (selectedVehicleType === 'C01' && (selectedVehicleId == 2 || selectedVehicleId == 3) && selectedBrandId == 1) {
+                                            idsToShow = [1, 2, 3, 4, 41, 46, 111];
+                                        }
+
+                                        if (selectedVehicleType === 'C02' && selectedVehicleId == 4 && selectedBrandId == 1) {
+                                            idsToShow = [54, 55, 64]; // แทนที่ ids ที่ต้องการแสดง
+                                        }
+
+                                        if (selectedVehicleType === 'C03' && selectedVehicleId == 4 && selectedBrandId == 1) {
+                                            idsToShow = [54, 55, 64];
+                                        }
+
+                                        if (selectedVehicleType === 'C04' && selectedVehicleId == 4 && selectedBrandId == 1) {
+                                            idsToShow = [54, 55, 64];
+                                        }
+
+                                        if (selectedVehicleType === 'C05' && selectedVehicleId == 7 && selectedBrandId == 5) {
+                                            idsToShow = [106];
+                                        }
+
 
                                         // แสดงเฉพาะตัวเลือกที่มี id ตรงกับใน array
                                         $('#Vehicle_Group option').hide(); // ซ่อนตัวเลือกทั้งหมด
@@ -907,7 +929,6 @@
 
 
 
-
                         {{-- ปีรถ --}}
                         <div class="relative">
                             <select
@@ -915,15 +936,15 @@
                                 id="Vehicle_Years" name="Vehicle_Years" required>
                                 <option value="">-- ปีรถ --</option>
                                 @foreach ($carYears->unique('Year_car')->sortBy('Year_car') as $car)
-                                    <option id="year_car_{{ $car->Year_car }}" value="{{ $car->Year_car }}" hidden>
+                                    <option id="year_car_{{ $car->Year_car }}" value="{{ $car->Year_car }}">
                                         {{ $car->vehicle_name ?? '' . $car->Year_car }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                        <script>
+                        {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+                        {{-- <script>
                             $(document).ready(function() {
                                 // เมื่อเปลี่ยนค่าใน Vehicle_Group
                                 $('#Vehicle_Group').on('change', function() {
@@ -967,10 +988,7 @@
                                 });
                             });
 
-                        </script>
-
-
-
+                        </script> --}}
 
 
 
@@ -1241,6 +1259,31 @@
             </div>
 
 
+            <div class="space-y-2 p-4" id="errorAlert" hidden>
+                <div
+                  role="alert"
+                  class="bg-red-100 dark:bg-red-900 border-l-4 border-red-500 dark:border-red-700 text-red-900 dark:text-red-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-red-200 dark:hover:bg-red-800 transform hover:scale-105"
+                >
+                  <svg
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    class="h-5 w-5 flex-shrink-0 mr-2 text-red-600"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      stroke-width="2"
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <p class="text-xs font-semibold">เกิดข้อผิดพลาด - กรุณากรอกข้อมูลให้ครบถ้วน</p>
+                </div>
+            </div>
+
+
+
             <div class="flex justify-end space-x-2">
                 <!-- ปุ่ม บันทึก -->
                 <button type="submit" id="submitBtn"
@@ -1286,7 +1329,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<script>
+{{-- <script>
     $(document).ready(function () {
         $('#submitBtn').click(function (e) {
             e.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
@@ -1376,6 +1419,254 @@
                     showConfirmButton: true
                 });
             } else {
+                // ส่งฟอร์มหากข้อมูลครบ
+                var formData = new FormData($('#DataAssetForm')[0]); // สร้าง FormData จากฟอร์ม
+
+                $.ajax({
+                    url: '/data_assets', // เส้นทางที่เรียกใช้ฟังก์ชัน store
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // เพิ่ม CSRF token
+                    },
+                    data: formData,
+                    processData: false, // สำคัญ: ไม่แปลงข้อมูลเป็น string
+                    contentType: false, // สำคัญ: ไม่ตั้งค่า content-type
+                    success: function (response) {
+                        // ใช้ SweetAlert2 แสดง popup แจ้งเตือนสำเร็จ
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'สำเร็จ!',
+                            text: 'สร้างข้อมูลสินทรัพย์สำเร็จ',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            // ทำการ redirect หรือรีเฟรชหน้า
+                            window.location.href = "/data_assets";
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // ใช้ SweetAlert2 แสดง popup แจ้งเตือนข้อผิดพลาด
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด!',
+                            text: 'ระบบมีปัญหากับคำขอของคุณ',
+                            footer: errorThrown
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script> --}}
+
+
+{{-- <script>
+    $(document).ready(function () {
+        $('#submitBtn').click(function (e) {
+            e.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
+
+            // ตรวจสอบว่าฟิลด์ที่จำเป็นทั้งหมดถูกกรอกครบหรือไม่
+            let valid = true;
+            let missingFields = [];
+
+            // ตัวอย่างการตรวจสอบฟิลด์
+            if ($('#Vehicle_OldLicense_Text').val().trim() === '') {
+                valid = false;
+                missingFields.push('อักษรป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_OldLicense_Number').val().trim() === '') {
+                valid = false;
+                missingFields.push('เลขป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_OldLicense_Province').val().trim() === '') {
+                valid = false;
+                missingFields.push('จังหวัดป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_Chassis').val().trim() === '') {
+                valid = false;
+                missingFields.push('หมายเลขตัวถังรถ');
+            }
+
+            if ($('#Vehicle_Color').val().trim() === '') {
+                valid = false;
+                missingFields.push('สีรถ');
+            }
+
+            if ($('#Vehicle_CC').val().trim() === '') {
+                valid = false;
+                missingFields.push('CC');
+            }
+
+            if ($('#Vehicle_Type').val().trim() === '') {
+                valid = false;
+                missingFields.push('ประเภทรถ 1');
+            }
+
+            if ($('#Vehicle_Type_PLT').val().trim() === '') {
+                valid = false;
+                missingFields.push('ประเภทรถ 2');
+            }
+
+            if ($('#Vehicle_Brand').val().trim() === '') {
+                valid = false;
+                missingFields.push('ยี่ห้อรถ');
+            }
+
+            if ($('#Vehicle_Group').val().trim() === '') {
+                valid = false;
+                missingFields.push('กลุ่มรถ');
+            }
+
+            if ($('#Vehicle_Years').val().trim() === '') {
+                valid = false;
+                missingFields.push('ปีรถ');
+            }
+
+            if ($('#Vehicle_Gear').val().trim() === '') {
+                valid = false;
+                missingFields.push('เกียร์รถ');
+            }
+
+            // ถ้าข้อมูลไม่ครบให้แสดง SweetAlert แจ้งเตือนและไม่ส่งฟอร์ม
+            if (!valid) {
+                $('#errorAlert').show(); // แสดงกล่องข้อความ error
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณากรอกข้อมูลให้ครบถ้วน!',
+                    text: missingFields.join(', '),
+                    showConfirmButton: true
+                });
+            } else {
+                $('#errorAlert').hide(); // ซ่อนกล่องข้อความ error หากข้อมูลครบ
+                // ส่งฟอร์มหากข้อมูลครบ
+                var formData = new FormData($('#DataAssetForm')[0]); // สร้าง FormData จากฟอร์ม
+
+                $.ajax({
+                    url: '/data_assets', // เส้นทางที่เรียกใช้ฟังก์ชัน store
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // เพิ่ม CSRF token
+                    },
+                    data: formData,
+                    processData: false, // สำคัญ: ไม่แปลงข้อมูลเป็น string
+                    contentType: false, // สำคัญ: ไม่ตั้งค่า content-type
+                    success: function (response) {
+                        // ใช้ SweetAlert2 แสดง popup แจ้งเตือนสำเร็จ
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'สำเร็จ!',
+                            text: 'สร้างข้อมูลสินทรัพย์สำเร็จ',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            // ทำการ redirect หรือรีเฟรชหน้า
+                            window.location.href = "/data_assets";
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // ใช้ SweetAlert2 แสดง popup แจ้งเตือนข้อผิดพลาด
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด!',
+                            text: 'ระบบมีปัญหากับคำขอของคุณ',
+                            footer: errorThrown
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script> --}}
+
+<script>
+    $(document).ready(function () {
+        $('#submitBtn').click(function (e) {
+            e.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
+
+            // ตรวจสอบว่าฟิลด์ที่จำเป็นทั้งหมดถูกกรอกครบหรือไม่
+            let valid = true;
+            let missingFields = [];
+
+            // ตัวอย่างการตรวจสอบฟิลด์
+            if ($('#Vehicle_OldLicense_Text').val().trim() === '') {
+                valid = false;
+                missingFields.push('อักษรป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_OldLicense_Number').val().trim() === '') {
+                valid = false;
+                missingFields.push('เลขป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_OldLicense_Province').val().trim() === '') {
+                valid = false;
+                missingFields.push('จังหวัดป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_Chassis').val().trim() === '') {
+                valid = false;
+                missingFields.push('หมายเลขตัวถังรถ');
+            }
+
+            if ($('#Vehicle_Color').val().trim() === '') {
+                valid = false;
+                missingFields.push('สีรถ');
+            }
+
+            if ($('#Vehicle_CC').val().trim() === '') {
+                valid = false;
+                missingFields.push('CC');
+            }
+
+            if ($('#Vehicle_Type').val().trim() === '') {
+                valid = false;
+                missingFields.push('ประเภทรถ 1');
+            }
+
+            if ($('#Vehicle_Type_PLT').val().trim() === '') {
+                valid = false;
+                missingFields.push('ประเภทรถ 2');
+            }
+
+            if ($('#Vehicle_Brand').val().trim() === '') {
+                valid = false;
+                missingFields.push('ยี่ห้อรถ');
+            }
+
+            if ($('#Vehicle_Group').val().trim() === '') {
+                valid = false;
+                missingFields.push('กลุ่มรถ');
+            }
+
+            if ($('#Vehicle_Years').val().trim() === '') {
+                valid = false;
+                missingFields.push('ปีรถ');
+            }
+
+            if ($('#Vehicle_Gear').val().trim() === '') {
+                valid = false;
+                missingFields.push('เกียร์รถ');
+            }
+
+            // ถ้าข้อมูลไม่ครบให้แสดง SweetAlert แจ้งเตือนและไม่ส่งฟอร์ม
+            if (!valid) {
+                $('#errorAlert').show(); // แสดงกล่องข้อความ error
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณากรอกข้อมูลให้ครบถ้วน!',
+                    text: missingFields.join(', '),
+                    showConfirmButton: true
+                }).then(() => {
+                    // หายไปหลังจาก 3 วินาที
+                    setTimeout(function () {
+                        $('#errorAlert').fadeOut(5000); // หายไปช้า ๆ ใน 5 วินาที
+                    }, 3000);
+                });
+            } else {
+                $('#errorAlert').hide(); // ซ่อนกล่องข้อความ error หากข้อมูลครบ
                 // ส่งฟอร์มหากข้อมูลครบ
                 var formData = new FormData($('#DataAssetForm')[0]); // สร้าง FormData จากฟอร์ม
 

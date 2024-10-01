@@ -74,6 +74,10 @@
             opacity: 1; /* ปรับค่าความทึบให้สูงขึ้น */
         }
 
+        .red-option {
+            color: red; /* เปลี่ยนสีข้อความเป็นสีแดง */
+        }
+
 
         /*--------------- Checkbox Type new_number_stamping --------------*/
         .checkbox-wrapper-19 {
