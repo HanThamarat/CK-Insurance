@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DataAssetController;
-use App\Http\Controllers\ProvinceController;
-use App\Http\Controllers\CarController;
+
 
 Route::get('/', function () { return view('auth.login'); });
 
@@ -14,8 +14,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::resource('views', App\Http\Controllers\pageController::class);
 });
 
+// Customer Route
+Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
+Route::resource('customers', CustomerController::class);
 
-
+// ASSET ROUTE
 Route::resource('data_assets', DataAssetController::class);
 
 
@@ -29,6 +32,17 @@ Route::resource('data_assets', DataAssetController::class);
 
 
 
+
+
+
+
+
+
+
+
+
+// use App\Http\Controllers\ProvinceController;
+// use App\Http\Controllers\CarController;
 
 // Route::get('/data-assets', [DataAssetController::class, 'showAll'])->name('data_assets.show_all');
 
@@ -49,7 +63,7 @@ Route::resource('data_assets', DataAssetController::class);
 
 
 
-Route::resource('data_assets', DataAssetController::class);
+// Route::resource('data_assets', DataAssetController::class);
 
 // Route::get('data_assets', [DataAssetController::class, 'index_all'])->name('data_assets.index');
 // Route::post('data_assets', [DataAssetController::class, 'data_assets_create'])->name('data_assets.index');

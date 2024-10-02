@@ -35,6 +35,26 @@
             <a href="#" class="block px-6 py-2 hover:bg-gray-600">SEO</a>
           </div>
         </div>
+
+        <div class="relative z-20">
+            <button class="dropdown-toggle py-4 px-3 hover:bg-gray-700 flex items-center gap-2 rounded">
+                <span class="pointer-events-none">ฐานลูกค้า</span>
+                <svg class="w-3 h-3 pointer-events-none" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24">
+                    <title>chevron-down</title>
+                    <g fill="none">
+                        <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                </svg>
+            </button>
+            <div class="dropdown-menu absolute hidden bg-white text-orange-500 rounded-b-lg pb-2 w-48">
+                <a href="{{ route('customers.profile') }}" class="block px-6 py-2 hover:bg-gray-600">ข้อมูลลูกค้า</a>
+                <a href="{{ route('customers.create') }}" class="block px-6 py-2 hover:bg-gray-600">เพิ่มลูกค้า</a>
+            </div>
+        </div>
+
+        
         <a href="#" class="py-4 px-3 block">Contact</a>
         <a href="{{ route('data_assets.index') }}" class="py-4 px-3 block">Assets</a>
 
