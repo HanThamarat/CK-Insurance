@@ -19,9 +19,10 @@
                         alt="User-Profile-Image">
                 </div>
                 <span
-                    class="mt-2 text-md text-red-500 dark:text-orange-500 bg-white px-10 py-2 rounded-full hover:scale-105">
+                    class="mt-2 text-md text-red-500 dark:text-orange-500 bg-white px-10 py-2 rounded-full transition-transform transform hover:scale-105 hover:bg-red-100 hover:text-red-700">
                     Status
                 </span>
+
             </div>
 
             <!-- การ์ดสำหรับ Personal Information -->
@@ -34,7 +35,7 @@
                         <div class="text-gray-500 font-semibold text-sm">ชื่อ-นามสกุล</div>
                     </div>
                     <div class="ml-8 text-gray-400 text-sm">
-                        {{ 'ภวัต ทาละลัย' }}
+                        {{ 'นาย เทวฤทธิ์ โต๊ะหลี' }}
                     </div>
                 </div>
 
@@ -56,7 +57,7 @@
                         <div class="text-gray-500 font-semibold text-sm">เบอร์ติดต่อ</div>
                     </div>
                     <div class="ml-8 text-gray-400 text-sm">
-                        {{ '06 3589 9246' }}
+                        {{ '099 004 5246' }}
                     </div>
                 </div>
 
@@ -68,7 +69,7 @@
                         <div class="text-gray-500 font-semibold text-sm">วันที่เข้าระบบ</div>
                     </div>
                     <div class="ml-8 text-gray-400 text-sm">
-                        {{ '10-09-2024' }}
+                        {{ '23-09-2001' }}
                     </div>
                 </div>
 
@@ -79,7 +80,7 @@
                         <div class="text-gray-500 font-semibold text-sm">ผู้ลงบันทึก</div>
                     </div>
                     <div class="ml-8 text-gray-400 text-sm">
-                        {{ 'ภวัต ทาละลัย' }}
+                        {{ 'Tester System' }}
                     </div>
                 </div>
             </div>
