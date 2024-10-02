@@ -93,7 +93,6 @@
                     <!-- Cards for รถยนต์ and มอเตอร์ไซค์ -->
                     <div class="flex flex-col md:flex-row md:justify-center gap-4 w-full h-3/4">
                         <!-- การ์ดรถยนต์ -->
-                        <!-- การ์ดรถยนต์ -->
                         <a href="#" class="m-4 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:w-1/2 lg:w-2/3" data-bs-toggle="modal" data-bs-target="#DataAssetsModal" data-type="รถยนต์" onclick="setAssetType(this)">
                             <img class="object-cover w-full rounded-t-lg h-72 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('images/car.png') }}" alt="รถยนต์">
                             <div class="flex flex-col justify-between p-6 leading-normal">
@@ -108,8 +107,8 @@
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">มอเตอร์ไซค์</h5>
                             </div>
                         </a>
-
                     </div>
+
                 </div>
             </div>
         </div>
