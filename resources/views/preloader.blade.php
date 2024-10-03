@@ -8,20 +8,32 @@
         background-color: #ffffff;
         z-index: 9999;
         display: flex;
-        justify-content_page: center;
+        justify-content: center; /* จัดให้อยู่ตรงกลาง */
         align-items: center;
     }
 
     .spinner-border {
         width: 3rem;
         height: 3rem;
+        border: 0.4em solid #ff6f00; /* กำหนดขอบให้เป็นสีส้ม */
+        border-top-color: transparent; /* ขอบด้านบนเป็นโปร่งใส */
+        border-radius: 50%; /* ทำให้เป็นวงกลม */
+        animation: spin 1s linear infinite; /* เพิ่มการหมุน */
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
-</head>
 
 <body>
     <div id="preloader_page">
-        <div class="spinner-border text-primary" role="status">
+        <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
@@ -40,4 +52,4 @@
     </script>
 </body>
 
-</html>
+

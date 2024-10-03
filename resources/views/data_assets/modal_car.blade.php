@@ -114,10 +114,11 @@
 
 
 
+
                     <div class="flex-1 p-1">
                         <div class="relative">
                             <select id="Vehicle_OldLicense_Province" name="OldProvince"
-                                class="block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                class="text-red-400 font-bold block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="" class="red-option" selected>จังหวัด</option>
                                 @foreach ($provinces as $province)
                                     <option class="red-option" value="{{ $province->Province_pro }}" data-province="{{ $province->Province_pro }}">
@@ -566,14 +567,60 @@
                                 }
 
                                 // ฟังก์ชันเรียกเมื่อค่าใน select เปลี่ยนแปลง
+                                // function checkVehicleTypeAndPLT() {
+                                //     var selectedType = $('#Vehicle_Type').val();
+                                //     var selectedPLT = $('#Vehicle_Type_PLT').val();
+
+                                //     // ล้างค่าของ Vehicle_Brand ก่อน
+                                //     $('#Vehicle_Brand').val(''); // ล้างค่าใน select
+
+                                //     updateVehicleBrand(selectedType, selectedPLT);
+                                // }
+
+                                // // เมื่อเปลี่ยนแปลงค่าใน select #Vehicle_Type หรือ #Vehicle_Type_PLT
+                                // $('#Vehicle_Type, #Vehicle_Type_PLT').change(function() {
+                                //     checkVehicleTypeAndPLT();
+                                // });
+
+                                // // เพิ่มเหตุการณ์เมื่อคลิกที่ตัวเลือก "ประเภทรถ 2"
+                                // $('#Vehicle_Type_PLT').click(function() {
+                                //     if ($(this).val() === "") {
+                                //         // ซ่อนตัวเลือกทั้งหมดและแสดงเฉพาะ -- ยี่ห้อรถ --
+                                //         $('#Vehicle_Brand').find('.car-option, .moto-option').hide(); // ซ่อนตัวเลือกทั้งหมด
+                                //         $('#Vehicle_Brand').find('option[value=""]').show(); // แสดง -- ยี่ห้อรถ --
+                                //     }
+                                // });
+
+                                // // เรียกใช้ฟังก์ชันตอนหน้าโหลดครั้งแรก
+                                // checkVehicleTypeAndPLT();
+
+
                                 function checkVehicleTypeAndPLT() {
                                     var selectedType = $('#Vehicle_Type').val();
                                     var selectedPLT = $('#Vehicle_Type_PLT').val();
 
                                     // ล้างค่าของ Vehicle_Brand ก่อน
                                     $('#Vehicle_Brand').val(''); // ล้างค่าใน select
+                                    $('#Vehicle_Group').val(''); // ล้างค่าใน select
 
+                                    // แสดงและซ่อนกลุ่มรถตามการเลือกประเภทรถ
+                                    updateVehicleGroup(selectedType, selectedPLT);
                                     updateVehicleBrand(selectedType, selectedPLT);
+                                }
+
+                                // ฟังก์ชันเพื่ออัปเดตการแสดง/ซ่อน Vehicle_Group ตาม Vehicle_Type และ Vehicle_Type_PLT
+                                function updateVehicleGroup(selectedType, selectedPLT) {
+                                    $('#Vehicle_Group').find('option').hide(); // ซ่อนตัวเลือกทั้งหมดก่อน
+                                    if (selectedType === 'car') {
+                                        // แสดงตัวเลือกเฉพาะกลุ่มรถยนต์
+                                        $('#Vehicle_Group').find('option[id^="car_group_"]').show();
+                                    } else if (selectedType === 'moto') {
+                                        // แสดงตัวเลือกเฉพาะกลุ่มรถจักรยานยนต์
+                                        $('#Vehicle_Group').find('option[id^="moto_group_"]').show();
+                                    } else {
+                                        // แสดงเฉพาะตัวเลือกเริ่มต้นเมื่อไม่มีการเลือกประเภทรถ
+                                        $('#Vehicle_Group').find('option[value=""]').show();
+                                    }
                                 }
 
                                 // เมื่อเปลี่ยนแปลงค่าใน select #Vehicle_Type หรือ #Vehicle_Type_PLT
@@ -592,6 +639,7 @@
 
                                 // เรียกใช้ฟังก์ชันตอนหน้าโหลดครั้งแรก
                                 checkVehicleTypeAndPLT();
+
                             });
                         </script>
 
