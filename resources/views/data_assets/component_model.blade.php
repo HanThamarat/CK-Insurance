@@ -254,7 +254,7 @@
                         );
                     }
 
-                    else if (selectedGroup === 'everest' && modelCar.startsWith('everest 2.0 Turbo Trend (MY18)')) {
+                    else if (selectedGroup === 'everest' && modelCar.startsWith('everest')) {
                         var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
                         $('#Vehicle_Models').append(
                             '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
@@ -312,6 +312,657 @@
                     }
 
                     else if (selectedGroup === 'cx-3' && modelCar.startsWith('cx3')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'avanza' && modelCar.startsWith('avanza')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'yaris' && modelCar.startsWith('yaris')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'soluna vios' && modelCar.startsWith('soluna vios')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'vios' && modelCar.startsWith('vios')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'altis' && modelCar.startsWith('corolla')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'wish' && modelCar.startsWith('wish')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fortuner' && modelCar.startsWith('fortuner')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'camry' && modelCar.startsWith('camry')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'yaris ativ' && modelCar.startsWith('yaris ativ')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'c-hr' && modelCar.startsWith('c-hr')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'sienta' && modelCar.startsWith('sienta')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'innova' && modelCar.startsWith('innova')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'prius' && modelCar.startsWith('prius')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'hilux sportrider' && modelCar.startsWith('hilux')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'mu-7' && modelCar.startsWith('mu-7')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'mu-x' && modelCar.startsWith('mu-x')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'trailblazer' && modelCar.startsWith('trailblazer')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'captiva' && modelCar.startsWith('captiva')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'aveo' && modelCar.startsWith('aveo')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'cruze' && modelCar.startsWith('cruze')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'sonic' && modelCar.startsWith('sonic')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'e' && modelCar.startsWith('e200')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'gla' && modelCar.startsWith('gla')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'v50' && modelCar.startsWith('v50')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === '318i' && modelCar.startsWith('318i')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === '370ll' && modelCar.startsWith('370ll')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'exora' && modelCar.startsWith('exora')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'triton' && modelCar.startsWith('triton')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'all new triton' && modelCar.startsWith('triton')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'strada' && modelCar.startsWith('single')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'carry' && modelCar.startsWith('carry')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'frontier' && modelCar.startsWith('frontier')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'navara' && modelCar.startsWith('navara')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'np300 navara' && modelCar.startsWith('np300 navara')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'ranger' && modelCar.startsWith('ranger')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'all new ranger' && modelCar.startsWith('all new ranger')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'bt-50' && modelCar.startsWith('bt-50')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'bt-50 pro' && modelCar.startsWith('bt-50 pro')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'vigo' && modelCar.startsWith('hilux vigo')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'vigo champ' && modelCar.startsWith('hilux vigo')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'revo' && modelCar.startsWith('hilux revo')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'hilux tiger' && modelCar.startsWith('hilux tiger')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'd-max' && modelCar.startsWith('d-max')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'd-max all new' && modelCar.startsWith('d-max all new')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'd-max all new blue power' && modelCar.startsWith('d-max all new blue power')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'superace' && modelCar.startsWith('superace')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'colorado cab' && modelCar.startsWith('colorado cab')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'tfr' && modelCar.startsWith('tfr')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'dragon' && modelCar.startsWith('dragon')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'hilux mighty x' && modelCar.startsWith('cab')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fighter' && modelCar.startsWith('fighter')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'urvan' && modelCar.startsWith('urvan')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'commuter' && modelCar.startsWith('commuter')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'ventury' && modelCar.startsWith('ventury')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'h-1' && modelCar.startsWith('h-1')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'canter' && modelCar.startsWith('canter')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'ud' && modelCar.startsWith('ud')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'nkr' && modelCar.startsWith('nkr')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'npr' && modelCar.startsWith('npr')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'nqr' && modelCar.startsWith('nqr')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'npr150' && modelCar.startsWith('npr150')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'frr90' && modelCar.startsWith('frr90')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fxz' && modelCar.startsWith('fxz')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'nmr' && modelCar.startsWith('nmr')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fsr' && modelCar.startsWith('fsr')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fvm' && modelCar.startsWith('fvm')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fvz' && modelCar.startsWith('fvz')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'gxz' && modelCar.startsWith('gxz')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'ftr32' && modelCar.startsWith('ftr32')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'frr11' && modelCar.startsWith('frr11')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'ftr' && modelCar.startsWith('ftr')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fc4j' && modelCar.startsWith('fc4j')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fc9j' && modelCar.startsWith('fc9j')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fg1j' && modelCar.startsWith('fg1j')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fg8j' && modelCar.startsWith('fg8j')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fm8j' && modelCar.startsWith('fm8j')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fm8j' && modelCar.startsWith('fm8j')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fm1j' && modelCar.startsWith('fm1j')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'bus' && modelCar.startsWith('bus')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fl1j' && modelCar.startsWith('fl1j')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fb2w' && modelCar.startsWith('fb2w')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fm2p' && modelCar.startsWith('fm2p')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'xzu' && modelCar.startsWith('xzu')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fm1a' && modelCar.startsWith('fm1a')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'gd174' && modelCar.startsWith('gd174')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fm227' && modelCar.startsWith('fm227')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'fr2t' && modelCar.startsWith('fr2t')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'l' && modelCar.startsWith('l')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'm' && modelCar.startsWith('m')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'b' && modelCar.startsWith('b')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'sh130' && modelCar.startsWith('sh130')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'zx70' && modelCar.startsWith('zx70')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'komatsu' && modelCar.startsWith('komatsu')) {
                         var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
                         $('#Vehicle_Models').append(
                             '<option value="' + carModel.Model_car + '">' + vehicleName + ' ' + carModel.Model_car + '</option>'
