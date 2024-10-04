@@ -9,10 +9,87 @@ use App\Helpers; // เพิ่มการนำเข้าฟังก์ช
 
 class CustomerController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     // return view('components.content-cus.Cus');
+    // }
+
+    // public function search(Request $request)
+    // {
+    //     $search = $request->input('search');
+
+    //     // ตรวจสอบว่ามีการส่งค่ามาหรือไม่
+    //     if (!$search) {
+    //         return response()->json([], 400); // ส่งกลับเป็น JSON 400 Bad Request หากไม่มีคำค้น
+    //     }
+
+    //     // ค้นหาลูกค้าในฐานข้อมูล
+    //     $customers = Customer::where('first_name', 'LIKE', "%{$search}%")
+    //         ->orWhere('last_name', 'LIKE', "%{$search}%")
+    //         ->get();
+
+    //     return response()->json($customers);
+    // }
+
+    // public function index()
+    // {
+    //     // ดึงข้อมูลลูกค้าทั้งหมด
+    //     $customers = Customer::all();
+    //     return view('components.content-cus.Profile-cus', compact('customers'));
+    // }
+
+    public function index(Request $request)
     {
-        // return view('components.content-cus.Cus');
+        $search = $request->input('search');
+
+        // เปลี่ยนให้ตรงกับชื่อ column ของคุณ
+        $customers = Customer::where('first_name', 'LIKE', "%$search%")
+            ->orWhere('last_name', 'LIKE', "%$search%")
+            ->get();
+
+        return response()->json($customers);
     }
+
+
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        if (!$search) {
+            return response()->json([], 400); // ส่งกลับเป็น JSON 400 Bad Request หากไม่มีคำค้น
+        }
+        dd($search);
+
+        try {
+            // ใช้ชื่อคอลัมน์ที่ถูกต้อง
+            $customers = Customer::where('first_name', 'LIKE', "%{$search}%")
+                ->orWhere('last_name', 'LIKE', "%{$search}%")
+                ->get();
+
+            return response()->json($customers);
+        } catch (\Exception $e) {
+            \Log::error('Error fetching customers: ' . $e->getMessage());
+            return response()->json(['error' => 'Error fetching data'], 500);
+        }
+    }
+
+
+
+
+    // app/Http/Controllers/CustomerController.php
+    // public function index(Request $request)
+    // {
+    //     $search = $request->query('search');
+
+    //     // ดึงข้อมูลลูกค้าตามการค้นหา
+    //     $customers = Customer::where('name', 'LIKE', "%{$search}%")
+    //                          ->orWhere('surname', 'LIKE', "%{$search}%")
+    //                          ->get();
+
+    //     return response()->json($customers);
+    // }
+
 
     public function profile()
     {
@@ -29,7 +106,7 @@ class CustomerController extends Controller
     {
         return view('components.content-cus.Cus');
     }
-   
+
     public function store(Request $request)
     {
 

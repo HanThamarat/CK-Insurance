@@ -37,13 +37,12 @@
                             </span>
 
                             <div class="flex justify-center space-x-4 mt-2">
-                                <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg" href="#data_user" role="tab" aria-selected="true">
+                                <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg" href="{{ route('customers.profile') }}">
                                     <span class="block sm:hidden"><i class="fas fa-home"></i></span>
                                     <div class="hidden sm:block flex-grow">
                                         <div class="flex flex-col justify-center space-y-2">
                                             <div class="flex-shrink-0 self-center">
-                                                <div class="mini-stat-icon avatar-xs rounded-full" data-tooltip="true" aria-label="ข้อมูลลูกค้า">
-                                                </div>
+                                                <div class="mini-stat-icon avatar-xs rounded-full" data-tooltip="true" aria-label="ข้อมูลลูกค้า"></div>
                                             </div>
                                             <div>
                                                 <span class="badge bg-orange-500 text-center text-white rounded-full px-2 flex items-center justify-center">
@@ -55,13 +54,12 @@
                                     </div>
                                 </a>
 
-                                <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg" href="#data_asset" role="tab" aria-selected="true" data-loaded="false">
+                                <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg" href="{{ route('data_assets.index') }}">
                                     <span class="block sm:hidden"><i class="far fa-user"></i></span>
                                     <div class="hidden sm:block flex-grow">
                                         <div class="flex flex-col justify-center space-y-2">
                                             <div class="flex-shrink-0 self-center">
-                                                <div class="mini-stat-icon avatar-xs rounded-full" data-tooltip="true" aria-label="ข้อมูลทรัพย์สิน">
-                                                </div>
+                                                <div class="mini-stat-icon avatar-xs rounded-full" data-tooltip="true" aria-label="ข้อมูลทรัพย์สิน"></div>
                                             </div>
                                             <div>
                                                 <span class="badge bg-orange-500 text-center text-white rounded-full px-3 flex items-center justify-center">
@@ -72,6 +70,7 @@
                                         </div>
                                     </div>
                                 </a>
+
                             </div>
 
 

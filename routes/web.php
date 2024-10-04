@@ -15,6 +15,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 });
 
 // Customer Route
+Route::get('customers', [CustomerController::class, 'index']);
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
 Route::resource('customers', CustomerController::class);
 
