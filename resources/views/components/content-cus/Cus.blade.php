@@ -317,6 +317,41 @@
                     $('#formCustomer').on('submit', function(e) {
                         e.preventDefault(); // ป้องกันการ submit ฟอร์มแบบปกติ
 
+                        // ตรวจสอบค่าข้อมูล (validation)
+                        let errors = [];
+                        if (!$('#prefix').val()) errors.push('กรุณาเลือกคำนำหน้าชื่อ');
+                        if (!$('#first_name').val()) errors.push('กรุณากรอกชื่อ');
+                        if (!$('#last_name').val()) errors.push('กรุณากรอกนามสกุล');
+                        if (!$('#phone').val()) errors.push('กรุณากรอกเบอร์โทรศัพท์');
+                        if (!$('#id_card_number').val()) errors.push('กรุณากรอกหมายเลขบัตรประชาชน');
+                        if (!$('#expiry_date').val()) errors.push('กรุณากรอกวันหมดอายุบัตรประชาชน');
+                        if (!$('#dob').val()) errors.push('กรุณากรอกวันเกิด');
+                        if (!$('#age').val()) errors.push('กรุณากรอกอายุ');
+                        if (!$('#gender').val()) errors.push('กรุณาเลือกเพศ');
+                        if (!$('#nationality').val()) errors.push('กรุณากรอกสัญชาติ');
+                        if (!$('#religion').val()) errors.push('กรุณากรอกศาสนา');
+                        if (!$('#driving_license').val()) errors.push('กรุณากรอกใบขับขี่');
+                        if (!$('#facebook').val()) errors.push('กรุณากรอก Facebook');
+                        if (!$('#line_id').val()) errors.push('กรุณากรอก Line ID');
+                        if (!$('#marital_status').val()) errors.push('กรุณาเลือกสถานภาพสมรส');
+                        if (!$('#spouse_phone').val()) errors.push('กรุณากรอกเบอร์โทรศัพท์ของคู่สมรส');
+
+                        if (errors.length > 0) {
+                            Swal.fire({
+                                title: 'เกิดข้อผิดพลาด!',
+                                html: errors.join(', '),
+                                icon: 'error',
+                                confirmButtonText: 'ตกลง',
+                                timer: 3000,
+                                timerProgressBar: true,
+                                willClose: () => {
+                                    $('.swal2-container').fadeOut(1000);
+                                }
+                            });
+                            return; // หยุดการส่งฟอร์ม
+                        }
+
+                        // ถ้าไม่มีข้อผิดพลาด ให้ส่งฟอร์มผ่าน Ajax
                         $.ajax({
                             url: '{{ route("customers.store") }}',
                             type: 'POST',
@@ -330,10 +365,11 @@
                                         text: response.message,
                                         icon: 'success',
                                         confirmButtonText: 'ตกลง'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload(); // รีเฟรชหน้าเว็บเมื่อกดปุ่ม 'ตกลง'
+                                        }
                                     });
-
-                                    // ล้างข้อมูลในฟอร์ม
-                                    $('#formCustomer')[0].reset();
                                 } else {
                                     Swal.fire({
                                         title: 'เกิดข้อผิดพลาด!',
@@ -359,59 +395,12 @@
                     });
                 </script>
 
-
-
             </div>
         </div>
     </div>
 
 
-    <!-- Preloader -->
-<div id="preloader">
-    <div class="spinner"></div>
-</div>
-
-<style>
-    /* Preloader */
-    #preloader {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background-color: #fff;
-    }
-
-    .spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    margin: -20px 0 0 -20px;
-    border: 4px solid #ff8e25;
-    border-top: 4px solid transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-    100% {
-        transform: rotate(360deg);
-    }
-    }
-
-</style>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(window).on('load', function() {
-    $('#preloader').fadeOut('slow', function() {
-      $(this).remove();
-    });
-  });
-</script>
+    @include('components.content-cus.preloader')
 
 @endsection
 
