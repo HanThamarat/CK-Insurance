@@ -15,7 +15,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 });
 
 // Customer Route
-Route::get('customers', [CustomerController::class, 'index']);
+// Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+
+
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
 Route::resource('customers', CustomerController::class);
 
@@ -40,7 +42,7 @@ Route::resource('data_assets', DataAssetController::class);
 
 
 
-
+// Route::get('customers', [CustomerController::class, 'index']);
 
 // use App\Http\Controllers\ProvinceController;
 // use App\Http\Controllers\CarController;

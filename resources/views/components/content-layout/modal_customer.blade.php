@@ -68,6 +68,27 @@
                                                         <th scope="col" class="px-4 py-2 w-1/6">Action</th>
                                                     </tr>
                                                 </thead>
+                                                {{-- ตัวอย่างการเรียกใช้งาน component --}}
+                                                {{-- <tbody>
+                                                    @foreach($customers as $customer)
+                                                        <tr>
+                                                            <td class="px-4 py-2">{{ $customer->first_name }} {{ $customer->last_name }}</td>
+                                                            <td class="px-4 py-2">{{ $customer->id_card }}</td>
+                                                            <td class="px-4 py-2">{{ $customer->receive_date }}</td>
+                                                            <td class="px-4 py-2">{{ $customer->customer_type }}</td>
+                                                            <td class="px-4 py-2">{{ implode(', ', $customer->tags) }}</td>
+                                                            <td class="px-4 py-2">{{ $customer->property_number }}</td>
+                                                            <td class="px-4 py-2">
+                                                                <a href="{{ route('customers.edit', $customer->id) }}" class="text-blue-500">Edit</a>
+                                                                <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display:inline;">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="text-red-500">Delete</button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody> --}}
                                                 {{-- <tbody class="bg-white divide-y divide-gray-200">
                                                     <!-- ตัวอย่างแถวข้อมูล -->
                                                     <tr class="hover:bg-gray-100">

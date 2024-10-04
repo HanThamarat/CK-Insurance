@@ -38,16 +38,29 @@ class CustomerController extends Controller
     //     return view('components.content-cus.Profile-cus', compact('customers'));
     // }
 
+    // public function index(Request $request)
+    // {
+    //     $search = $request->input('search');
+
+    //     // เปลี่ยนให้ตรงกับชื่อ column ของคุณ
+    //     $customers = Customer::where('first_name', 'LIKE', "%$search%")
+    //         ->orWhere('last_name', 'LIKE', "%$search%")
+    //         ->get();
+
+    //     return response()->json($customers);
+    // }
+
+
     public function index(Request $request)
     {
         $search = $request->input('search');
 
-        // เปลี่ยนให้ตรงกับชื่อ column ของคุณ
+        // ค้นหาลูกค้า
         $customers = Customer::where('first_name', 'LIKE', "%$search%")
             ->orWhere('last_name', 'LIKE', "%$search%")
             ->get();
 
-        return response()->json($customers);
+        return view('components.content-layout.modal_customer', compact('customers'));
     }
 
 
