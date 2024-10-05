@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
-        // เมื่อคลิกที่ตัวเลือก "ยี่ห้อรถ"
         $('#Vehicle_Brand').on('change', function() {
             // ตรวจสอบถ้าค่าที่เลือกคือ '' (-- ยี่ห้อรถ --)
             if ($(this).val() === '') {
@@ -18,11 +18,10 @@
                 var selectedVehicleId = $('#Vehicle_Type_PLT').val();
                 var selectedBrandId = $(this).find('option:selected').data('id');
                 var idsToShow = [];
-                var idsToShowMoto = [];
 
 
-                // ----------ตรวจสอบเงื่อนไขสำหรับการแสดง เริ่มต้นที่ C01 Vehicle_Group ที่เกี่ยวข้อง----//
-                if (selectedVehicleType === 'C01' && (selectedVehicleId == 2 || selectedVehicleId == 3) && selectedBrandId == 1) {
+               // ตรวจสอบเงื่อนไขและกำหนดค่า idsToShow
+               if (selectedVehicleType === 'C01' && (selectedVehicleId == 2 || selectedVehicleId == 3) && selectedBrandId == 1) {
                     idsToShow = [1, 2, 3, 4, 41, 46, 111];
                 } else if (selectedVehicleType === 'C01' && (selectedVehicleId == 2 || selectedVehicleId == 3) && selectedBrandId == 2) {
                     idsToShow = [5, 6, 7, 8, 9, 10, 37, 81, 86, 93];
@@ -309,6 +308,16 @@
                 idsToShowMoto.forEach(function(id) {
                     $('#moto_group_' + id).show(); // แสดงตัวเลือกที่ตรงกับ idsToShowMoto
                 });
+
+
+                // $('#Vehicle_Group option').each(function() {
+                //     // ถ้าตัวเลือกนี้อยู่ใน idsToShow ให้แสดง
+                //     if (idsToShow.includes(parseInt($(this).val()))) {
+                //         $(this).show();
+                //     } else {
+                //         $(this).hide();
+                //     }
+                // });
             }
         });
     });

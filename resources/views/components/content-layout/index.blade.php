@@ -60,12 +60,12 @@
                                             <table class="min-w-full divide-y divide-gray-200 text-sm" id="customersTable">
                                                 <thead class="bg-gray-100 sticky top-0 text-center">
                                                     <tr>
-                                                        <th scope="col" colspan="2" class="px-4 py-2 w-1/6">ชื่อ - สกุล</th>
+                                                        <th scope="col" class="px-4 py-2 w-1/6">คำนำหน้าชื่อ</th>
+                                                        <th scope="col" class="px-4 py-2 w-1/6">ชื่อ - สกุล</th>
                                                         <th scope="col" class="px-4 py-2 w-1/6">บัตรประชาชน</th>
-                                                        <th scope="col" class="px-4 py-2 w-1/6">วันที่รับ</th>
-                                                        <th scope="col" class="px-4 py-2 w-1/6">ประเภทลูกค้า</th>
-                                                        <th scope="col" class="px-4 py-2 w-1/6">Tags</th>
-                                                        <th scope="col" class="px-4 py-2 w-1/6">เลขทรัพย์</th>
+                                                        <th scope="col" class="px-4 py-2 w-1/6">หมายเลขโทรศัพท์</th>
+                                                        <th scope="col" class="px-4 py-2 w-1/6">สัญชาติ</th>
+                                                        <th scope="col" class="px-4 py-2 w-1/6">ศาสนา</th>
                                                         <th scope="col" class="px-4 py-2 w-1/6">Action</th>
                                                     </tr>
                                                 </thead>
@@ -73,78 +73,6 @@
                                                 <tbody>
                                                     <!-- ข้อมูลลูกค้าจะถูกแสดงที่นี่ -->
                                                 </tbody>
-
-
-                                                <script>
-                                                    $(document).ready(function() {
-                                                        let currentPage = 1; // หน้าที่กำลังแสดง
-                                                        const rowsPerPage = 5; // จำนวนแถวต่อหน้า
-
-                                                        fetchCustomers(currentPage, rowsPerPage); // เรียกใช้ฟังก์ชันเพื่อดึงข้อมูลลูกค้า
-
-                                                        function fetchCustomers(page, perPage) {
-                                                            $.ajax({
-                                                                url: "{{ route('customers.index') }}",
-                                                                method: 'GET',
-                                                                data: { page: page, per_page: perPage }, // ส่งค่าพารามิเตอร์สำหรับการแบ่งหน้า
-                                                                dataType: 'json',
-                                                                success: function(data) {
-                                                                    var customersTableBody = $('#customersTable tbody');
-                                                                    customersTableBody.empty(); // ล้างข้อมูลเก่า
-
-                                                                    // แสดงข้อมูลลูกค้าในตาราง
-                                                                    $.each(data.data, function(index, customer) {
-                                                                        customersTableBody.append(`
-                                                                            <tr>
-                                                                                <td class="px-4 py-2">${customer.first_name} ${customer.last_name}</td>
-                                                                                <td class="px-4 py-2">${customer.id_card_number}</td>
-                                                                                <td class="px-4 py-2">${customer.receive_date}</td>
-                                                                                <td class="px-4 py-2">${customer.customer_type}</td>
-                                                                                <td class="px-4 py-2">${customer.tags ? customer.tags.join(', ') : ''}</td>
-                                                                                <td class="px-4 py-2">${customer.property_number}</td>
-                                                                                <td class="px-4 py-2">
-                                                                                    <a href="{{ url('customers/edit') }}/${customer.id}" class="text-blue-500">Edit</a>
-                                                                                    <form action="{{ url('customers/destroy') }}/${customer.id}" method="POST" style="display:inline;">
-                                                                                        @csrf
-                                                                                        @method('DELETE')
-                                                                                        <button type="submit" class="text-red-500">Delete</button>
-                                                                                    </form>
-                                                                                </td>
-                                                                            </tr>
-                                                                        `);
-                                                                    });
-
-                                                                    // แสดง pagination
-                                                                    updatePagination(data);
-                                                                },
-                                                                error: function(xhr, status, error) {
-                                                                    console.error('Error fetching customers:', error);
-                                                                    alert('Could not load customer data.');
-                                                                }
-                                                            });
-                                                        }
-
-                                                        function updatePagination(data) {
-                                                            const paginationContainer = $('#pagination');
-                                                            paginationContainer.empty(); // ล้างข้อมูลเก่า
-
-                                                            // สร้างปุ่ม pagination
-                                                            for (let i = 1; i <= data.last_page; i++) {
-                                                                const activeClass = (i === currentPage) ? 'active' : '';
-                                                                paginationContainer.append(`
-                                                                    <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
-                                                                `);
-                                                            }
-                                                        }
-
-                                                        // เมื่อคลิกปุ่ม pagination
-                                                        $(document).on('click', '.pagination-button', function() {
-                                                            currentPage = $(this).data('page'); // เปลี่ยนหน้าที่จะโหลด
-                                                            fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
-                                                        });
-                                                    });
-                                                </script>
-
 
                                             </table>
                                         </div>
@@ -202,6 +130,89 @@
     }
 
 </style>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        let currentPage = 1; // หน้าที่กำลังแสดง
+        const rowsPerPage = 5; // จำนวนแถวต่อหน้า
+
+        fetchCustomers(currentPage, rowsPerPage); // เรียกใช้ฟังก์ชันเพื่อดึงข้อมูลลูกค้า
+
+        function fetchCustomers(page, perPage) {
+            $.ajax({
+                url: "{{ route('customers.index') }}",
+                method: 'GET',
+                data: { page: page, per_page: perPage }, // ส่งค่าพารามิเตอร์สำหรับการแบ่งหน้า
+                dataType: 'json',
+                success: function(data) {
+                    var customersTableBody = $('#customersTable tbody');
+                    customersTableBody.empty(); // ล้างข้อมูลเก่า
+
+                    // แสดงข้อมูลลูกค้าในตาราง
+                    $.each(data.data, function(index, customer) {
+                        customersTableBody.append(`
+                            <tr>
+                                <td class="px-4 py-2 text-center">${customer.prefix}</td>
+                                <td class="px-4 py-2 text-center">${customer.first_name} ${customer.last_name}</td>
+                                <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
+                                <td class="px-4 py-2 text-center">${customer.phone}</td>
+                                <td class="px-4 py-2 text-center">${customer.nationality}</td>
+                                <td class="px-4 py-2 text-center">${customer.religion}</td>
+
+                              <td class="px-4 py-2 text-center">
+                                    <div class="flex justify-center space-x-2 "> <!-- Flexbox สำหรับจัดเรียง -->
+                                        <a href="{{ url('customers/edit') }}/${customer.id}" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded">
+                                            <i class="fas fa-edit mr-1"></i> Edit
+                                        </a>
+                                        <form action="{{ url('customers/destroy') }}/${customer.id}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded">
+                                                <i class="fas fa-trash mr-1"></i> Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        `);
+                    });
+
+                    // แสดง pagination
+                    updatePagination(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching customers:', error);
+                    alert('Could not load customer data.');
+                }
+            });
+        }
+
+        function updatePagination(data) {
+            const paginationContainer = $('#pagination');
+            paginationContainer.empty(); // ล้างข้อมูลเก่า
+
+            // สร้างปุ่ม pagination
+            for (let i = 1; i <= data.last_page; i++) {
+                const activeClass = (i === currentPage) ? 'active' : '';
+                paginationContainer.append(`
+                    <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
+                `);
+            }
+        }
+
+        // เมื่อคลิกปุ่ม pagination
+        $(document).on('click', '.pagination-button', function() {
+            currentPage = $(this).data('page'); // เปลี่ยนหน้าที่จะโหลด
+            fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
+        });
+    });
+</script>
+
+
 
 
 <script>
