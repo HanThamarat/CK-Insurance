@@ -21,7 +21,7 @@
         <div class="modal-body mt-2">
             <div class="row mb-1 search-box-top">
                 <div class="col-12">
-                    <form class="mt-4 mt-sm-0 float-sm-end d-sm-flex align-items-center">
+                    {{-- <form class="mt-4 mt-sm-0 float-sm-end d-sm-flex align-items-center">
                         <div class="flex justify-end">
                             <div class="search-box me-2">
                                 <div class="position-relative">
@@ -32,7 +32,55 @@
                                 </div>
                             </div>
                         </div>
+                    </form> --}}
+
+                    {{-- <form class="mt-1 mt-sm-2 d-sm-flex align-items-center justify-between">
+                        <div class="flex items-center me-2">
+                            <label for="rowPerPage" class="mr-2">แสดงผล :</label>
+                            <select id="rowPerPage" class="border border-orange-300 rounded-md shadow-sm p-1 w-16 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+
+                        <div class="flex justify-end items-center flex-grow">
+                            <div class="search-box">
+                                <div class="position-relative">
+                                    <input type="text" class="mb-2 border border-orange-300 rounded-md shadow-sm pl-4 p-1 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" placeholder="Search...">
+                                    <span class="btn_search">
+                                        <i class="bx bx-search-alt search-icon hover-up" style="cursor: pointer"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form> --}}
+
+                    <form class="mt-1 mt-sm-2 flex items-center justify-between space-x-2">
+                        <div class="flex items-center">
+                            <label for="rowPerPage" class="mr-2">แสดงผล :</label>
+                            <select id="rowPerPage" class="border border-orange-300 rounded-md shadow-sm p-1 w-16 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"> <!-- เพิ่มความกว้างให้มากขึ้น -->
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+
+                        <div class="flex justify-end items-center flex-grow">
+                            <div class="search-box">
+                                <div class="position-relative">
+                                    <input type="text" class="mb-2 border border-orange-300 rounded-md shadow-sm pl-4 p-1 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent w-full" placeholder="Search..."> <!-- ฟิลด์ค้นหามีความกว้างเต็ม -->
+                                    <span class="btn_search">
+                                        <i class="bx bx-search-alt search-icon hover-up" style="cursor: pointer"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </form>
+
                 </div>
             </div>
 
@@ -73,8 +121,32 @@
                                                 <tbody>
                                                     <!-- ข้อมูลลูกค้าจะถูกแสดงที่นี่ -->
                                                 </tbody>
-
                                             </table>
+
+                                            <div id="noResultsMessage" style="display:none;" class="space-y-3 p-7">
+                                                <div
+                                                  role="alert"
+                                                  class="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 dark:border-yellow-700 text-yellow-900 dark:text-yellow-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-yellow-200 dark:hover:bg-yellow-800 transform hover:scale-100"
+                                                >
+                                                  <svg
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    class="h-5 w-5 flex-shrink-0 mr-2 text-yellow-600"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                  >
+                                                    <path
+                                                      d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                      stroke-width="2"
+                                                      stroke-linejoin="round"
+                                                      stroke-linecap="round"
+                                                    ></path>
+                                                  </svg>
+                                                  <p class="text-xs font-semibold">
+                                                    ไม่พบข้อมูลที่กำลังค้นหา
+                                                  </p>
+                                                </div>
+                                              </div>
                                         </div>
 
                                     {{-- </div> --}}
@@ -136,80 +208,194 @@
 
 <script>
     $(document).ready(function() {
-        let currentPage = 1; // หน้าที่กำลังแสดง
-        const rowsPerPage = 5; // จำนวนแถวต่อหน้า
+        // วางข้อความเตือนที่แสดงเมื่อไม่พบข้อมูล
+        const noResultsMessage = $('#noResultsMessage'); // นำเข้า div ที่สร้างไว้
 
-        fetchCustomers(currentPage, rowsPerPage); // เรียกใช้ฟังก์ชันเพื่อดึงข้อมูลลูกค้า
+        // ฟังก์ชันค้นหา
+        $('.search-box input[type="text"]').on('keyup', function() {
+            let value = $(this).val().toLowerCase(); // รับค่าที่ถูกพิมพ์และเปลี่ยนเป็นตัวพิมพ์เล็ก
+            let found = false; // ตัวแปรสำหรับตรวจสอบว่าพบข้อมูลหรือไม่
 
-        function fetchCustomers(page, perPage) {
-            $.ajax({
-                url: "{{ route('customers.index') }}",
-                method: 'GET',
-                data: { page: page, per_page: perPage }, // ส่งค่าพารามิเตอร์สำหรับการแบ่งหน้า
-                dataType: 'json',
-                success: function(data) {
-                    var customersTableBody = $('#customersTable tbody');
-                    customersTableBody.empty(); // ล้างข้อมูลเก่า
-
-                    // แสดงข้อมูลลูกค้าในตาราง
-                    $.each(data.data, function(index, customer) {
-                        customersTableBody.append(`
-                            <tr>
-                                <td class="px-4 py-2 text-center">${customer.prefix}</td>
-                                <td class="px-4 py-2 text-center">${customer.first_name} ${customer.last_name}</td>
-                                <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
-                                <td class="px-4 py-2 text-center">${customer.phone}</td>
-                                <td class="px-4 py-2 text-center">${customer.nationality}</td>
-                                <td class="px-4 py-2 text-center">${customer.religion}</td>
-
-                              <td class="px-4 py-2 text-center">
-                                    <div class="flex justify-center space-x-2 "> <!-- Flexbox สำหรับจัดเรียง -->
-                                        <a href="{{ url('customers/edit') }}/${customer.id}" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded">
-                                            <i class="fas fa-edit mr-1"></i> Edit
-                                        </a>
-                                        <form action="{{ url('customers/destroy') }}/${customer.id}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded">
-                                                <i class="fas fa-trash mr-1"></i> Delete
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-
-                            </tr>
-                        `);
-                    });
-
-                    // แสดง pagination
-                    updatePagination(data);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching customers:', error);
-                    alert('Could not load customer data.');
+            $('#customersTable tbody tr').filter(function() {
+                const isVisible = $(this).text().toLowerCase().indexOf(value) > -1; // ตรวจสอบแถวที่มีข้อความตรง
+                $(this).toggle(isVisible); // แสดงหรือซ่อนแถว
+                if (isVisible) {
+                    found = true; // ถ้ามีแถวที่ตรงกับค่าที่ค้นหา
                 }
             });
-        }
 
-        function updatePagination(data) {
-            const paginationContainer = $('#pagination');
-            paginationContainer.empty(); // ล้างข้อมูลเก่า
-
-            // สร้างปุ่ม pagination
-            for (let i = 1; i <= data.last_page; i++) {
-                const activeClass = (i === currentPage) ? 'active' : '';
-                paginationContainer.append(`
-                    <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
-                `);
+            // แสดงข้อความเมื่อไม่พบข้อมูล
+            if (!found) {
+                noResultsMessage.show(); // แสดง div เตือน
+            } else {
+                noResultsMessage.hide(); // ซ่อน div เตือน
             }
-        }
-
-        // เมื่อคลิกปุ่ม pagination
-        $(document).on('click', '.pagination-button', function() {
-            currentPage = $(this).data('page'); // เปลี่ยนหน้าที่จะโหลด
-            fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
         });
     });
+
+
+    $(document).ready(function() {
+    let currentPage = 1; // หน้าที่กำลังแสดง
+    let rowsPerPage = 5; // จำนวนแถวต่อหน้า (ค่าเริ่มต้น)
+
+    // ดึงข้อมูลลูกค้าครั้งแรก
+    fetchCustomers(currentPage, rowsPerPage);
+
+    // ฟังก์ชันเพื่อดึงข้อมูลลูกค้า
+    function fetchCustomers(page, perPage) {
+        $.ajax({
+            url: "{{ route('customers.index') }}",
+            method: 'GET',
+            data: { page: page, per_page: perPage }, // ส่งค่าพารามิเตอร์สำหรับการแบ่งหน้า
+            dataType: 'json',
+            success: function(data) {
+                var customersTableBody = $('#customersTable tbody');
+                customersTableBody.empty(); // ล้างข้อมูลเก่า
+
+                // แสดงข้อมูลลูกค้าในตาราง
+                $.each(data.data, function(index, customer) {
+                    customersTableBody.append(`
+                        <tr>
+                            <td class="px-4 py-2 text-center">${customer.prefix}</td>
+                            <td class="px-4 py-2 text-center">${customer.first_name} ${customer.last_name}</td>
+                            <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
+                            <td class="px-4 py-2 text-center">${customer.phone}</td>
+                            <td class="px-4 py-2 text-center">${customer.nationality}</td>
+                            <td class="px-4 py-2 text-center">${customer.religion}</td>
+                            <td class="px-4 py-2 text-center">
+                                <div class="flex justify-center space-x-2">
+                                    <a href="{{ url('customers/edit') }}/${customer.id}" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded">
+                                        <i class="fas fa-edit mr-1"></i> Edit
+                                    </a>
+                                    <form action="{{ url('customers/destroy') }}/${customer.id}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded">
+                                            <i class="fas fa-trash mr-1"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    `);
+                });
+
+                // แสดง pagination
+                updatePagination(data);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching customers:', error);
+                alert('Could not load customer data.');
+            }
+        });
+    }
+
+    // ฟังก์ชันเพื่ออัพเดต pagination
+    function updatePagination(data) {
+        const paginationContainer = $('#pagination');
+        paginationContainer.empty(); // ล้างข้อมูลเก่า
+
+        // สร้างปุ่ม pagination
+        for (let i = 1; i <= data.last_page; i++) {
+            const activeClass = (i === currentPage) ? 'active' : '';
+            paginationContainer.append(`
+                <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
+            `);
+        }
+    }
+
+    // เมื่อคลิกปุ่ม pagination
+    $(document).on('click', '.pagination-button', function() {
+        currentPage = $(this).data('page'); // เปลี่ยนหน้าที่จะโหลด
+        fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
+    });
+
+    // เมื่อเปลี่ยนค่าใน select
+    $('#rowPerPage').on('change', function() {
+        rowsPerPage = parseInt($(this).val()); // ตั้งค่าจำนวนแถวต่อหน้าใหม่
+        currentPage = 1; // รีเซ็ตหน้าเป็น 1
+        fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
+    });
+});
+
+
+
+
+    // $(document).ready(function() {
+    //     let currentPage = 1; // หน้าที่กำลังแสดง
+    //     const rowsPerPage = 5; // จำนวนแถวต่อหน้า
+
+    //     fetchCustomers(currentPage, rowsPerPage); // เรียกใช้ฟังก์ชันเพื่อดึงข้อมูลลูกค้า
+
+    //     function fetchCustomers(page, perPage) {
+    //         $.ajax({
+    //             url: "{{ route('customers.index') }}",
+    //             method: 'GET',
+    //             data: { page: page, per_page: perPage }, // ส่งค่าพารามิเตอร์สำหรับการแบ่งหน้า
+    //             dataType: 'json',
+    //             success: function(data) {
+    //                 var customersTableBody = $('#customersTable tbody');
+    //                 customersTableBody.empty(); // ล้างข้อมูลเก่า
+
+    //                 // แสดงข้อมูลลูกค้าในตาราง
+    //                 $.each(data.data, function(index, customer) {
+    //                     customersTableBody.append(`
+    //                         <tr>
+    //                             <td class="px-4 py-2 text-center">${customer.prefix}</td>
+    //                             <td class="px-4 py-2 text-center">${customer.first_name} ${customer.last_name}</td>
+    //                             <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
+    //                             <td class="px-4 py-2 text-center">${customer.phone}</td>
+    //                             <td class="px-4 py-2 text-center">${customer.nationality}</td>
+    //                             <td class="px-4 py-2 text-center">${customer.religion}</td>
+
+    //                           <td class="px-4 py-2 text-center">
+    //                                 <div class="flex justify-center space-x-2 "> <!-- Flexbox สำหรับจัดเรียง -->
+    //                                     <a href="{{ url('customers/edit') }}/${customer.id}" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded">
+    //                                         <i class="fas fa-edit mr-1"></i> Edit
+    //                                     </a>
+    //                                     <form action="{{ url('customers/destroy') }}/${customer.id}" method="POST">
+    //                                         @csrf
+    //                                         @method('DELETE')
+    //                                         <button type="submit" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded">
+    //                                             <i class="fas fa-trash mr-1"></i> Delete
+    //                                         </button>
+    //                                     </form>
+    //                                 </div>
+    //                             </td>
+
+    //                         </tr>
+    //                     `);
+    //                 });
+
+    //                 // แสดง pagination
+    //                 updatePagination(data);
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 console.error('Error fetching customers:', error);
+    //                 alert('Could not load customer data.');
+    //             }
+    //         });
+    //     }
+
+    //     function updatePagination(data) {
+    //         const paginationContainer = $('#pagination');
+    //         paginationContainer.empty(); // ล้างข้อมูลเก่า
+
+    //         // สร้างปุ่ม pagination
+    //         for (let i = 1; i <= data.last_page; i++) {
+    //             const activeClass = (i === currentPage) ? 'active' : '';
+    //             paginationContainer.append(`
+    //                 <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
+    //             `);
+    //         }
+    //     }
+
+    //     // เมื่อคลิกปุ่ม pagination
+    //     $(document).on('click', '.pagination-button', function() {
+    //         currentPage = $(this).data('page'); // เปลี่ยนหน้าที่จะโหลด
+    //         fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
+    //     });
+    // });
 </script>
 
 

@@ -21,6 +21,7 @@ Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('
 Route::resource('customers', CustomerController::class);
 
 // ASSET ROUTE
+Route::get('/data_assets', [DataAssetController::class, 'index'])->name('data_assets.index');
 Route::resource('data_assets', DataAssetController::class);
 
 

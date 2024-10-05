@@ -289,71 +289,67 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <!-- ประเภทรถ 1 -->
 
-                            <div class="relative">
-                                <select
-                                    class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
-                                    id="Vehicle_Type" name="Vehicle_Type" required>
-                                    <option value="">-- ประเภทรถ 1 --</option>
+                        <div class="relative">
+                            <select
+                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                id="Vehicle_Type" name="Vehicle_Type" required>
+                                <option value="">-- ประเภทรถ 1 --</option>
 
-                                    {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
-                                    @foreach ($cars->unique('Ratetype_id') as $car)
-                                        @if ($car->Ratetype_id) {{-- ตรวจสอบให้แน่ใจว่า Ratetype_id ไม่เป็น null --}}
-                                            <option value="{{ $car->Ratetype_id }}" id="car_group" hidden>
-                                                @switch($car->Ratetype_id)
-                                                    @case('C01')
-                                                        รถเก๋ง
-                                                        @break
+                                {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
+                                @foreach ($cars->unique('Ratetype_id') as $car)
+                                    @if ($car->Ratetype_id) {{-- ตรวจสอบให้แน่ใจว่า Ratetype_id ไม่เป็น null --}}
+                                        <option value="{{ $car->Ratetype_id }}" id="car_group" hidden>
+                                            @switch($car->Ratetype_id)
+                                                @case('C01')
+                                                    รถเก๋ง
+                                                    @break
 
-                                                    @case('C02')
-                                                        กระบะตอนเดียว
-                                                        @break
+                                                @case('C02')
+                                                    กระบะตอนเดียว
+                                                    @break
 
-                                                    @case('C03')
-                                                        กระบะแค็บ
-                                                        @break
+                                                @case('C03')
+                                                    กระบะแค็บ
+                                                    @break
 
-                                                    @case('C04')
-                                                        กระบะ 4 ประตู
-                                                        @break
+                                                @case('C04')
+                                                    กระบะ 4 ประตู
+                                                    @break
 
-                                                    @case('C05')
-                                                        รถตู้
-                                                        @break
+                                                @case('C05')
+                                                    รถตู้
+                                                    @break
 
-                                                    @case('C06')
-                                                        รถใหญ่
-                                                        @break
+                                                @case('C06')
+                                                    รถใหญ่
+                                                    @break
+                                            @endswitch
+                                        </option>
+                                    @endif
+                                @endforeach
 
-                                                    {{-- ไม่มี default --}}
-                                                @endswitch
-                                            </option>
-                                        @endif
-                                    @endforeach
+                                {{-- ลูปรถมอเตอร์ไซค์ --}}
+                                @foreach ($motoGroups->unique('Ratetype_id') as $motogroup)
+                                    @if ($motogroup->Ratetype_id)
+                                        <option value="{{ $motogroup->Ratetype_id }}" id="moto_group" hidden>
+                                            @switch($motogroup->Ratetype_id)
+                                                @case('M01')
+                                                    เกียร์ธรรมดา
+                                                    @break
 
-                                    {{-- ลูปรถมอเตอร์ไซค์ --}}
-                                    @foreach ($motoGroups->unique('Ratetype_id') as $motogroup)
-                                        @if ($motogroup->Ratetype_id) {{-- ตรวจสอบให้แน่ใจว่า Ratetype_id ไม่เป็น null --}}
-                                            <option value="{{ $motogroup->Ratetype_id }}" id="moto_group" hidden>
-                                                @switch($motogroup->Ratetype_id)
-                                                    @case('M01')
-                                                        เกียร์ธรรมดา
-                                                        @break
+                                                @case('M02')
+                                                    เกียร์ออโต้
+                                                    @break
 
-                                                    @case('M02')
-                                                        เกียร์ออโต้
-                                                        @break
-
-                                                    @case('M03')
-                                                        BigBike
-                                                        @break
-
-                                                    {{-- ไม่มี default --}}
-                                                @endswitch
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
+                                                @case('M03')
+                                                    BigBike
+                                                    @break
+                                            @endswitch
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
 
 
                         <!-- ประเภทรถ 2 -->
