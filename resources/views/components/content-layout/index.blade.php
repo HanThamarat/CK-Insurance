@@ -1,5 +1,6 @@
 
 <!-- Customer Modal -->
+@section('content')
 <div id="customerModal" class="fixed inset-0 flex justify-center items-center z-50 hidden mt-[-300]">
     <div class="bg-white rounded-lg shadow-lg p-4 w-full max-w-[90%] max-h-[90vh] overflow-y-scroll" style="overflow-y: scroll; scrollbar-width: none;">
         <h2 class="text-lg font-bold mb-4">ข้อมูลลูกค้า</h2>
@@ -56,7 +57,7 @@
                                 <div class="modal-body">
                                     {{-- <div class="table-responsive" data-simplebar="init" style="max-height: 420px; min-height: 420px;"> --}}
                                         <div class="overflow-x-auto">
-                                            <table class="min-w-full divide-y divide-gray-200 text-sm">
+                                            <table class="min-w-full divide-y divide-gray-200 text-sm" id="customersTable">
                                                 <thead class="bg-gray-100 sticky top-0 text-center">
                                                     <tr>
                                                         <th scope="col" colspan="2" class="px-4 py-2 w-1/6">ชื่อ - สกุล</th>
@@ -68,43 +69,83 @@
                                                         <th scope="col" class="px-4 py-2 w-1/6">Action</th>
                                                     </tr>
                                                 </thead>
-                                                {{-- ตัวอย่างการเรียกใช้งาน component --}}
-                                                {{-- <tbody>
-                                                    @foreach($customers as $customer)
-                                                        <tr>
-                                                            <td class="px-4 py-2">{{ $customer->first_name }} {{ $customer->last_name }}</td>
-                                                            <td class="px-4 py-2">{{ $customer->id_card }}</td>
-                                                            <td class="px-4 py-2">{{ $customer->receive_date }}</td>
-                                                            <td class="px-4 py-2">{{ $customer->customer_type }}</td>
-                                                            <td class="px-4 py-2">{{ implode(', ', $customer->tags) }}</td>
-                                                            <td class="px-4 py-2">{{ $customer->property_number }}</td>
-                                                            <td class="px-4 py-2">
-                                                                <a href="{{ route('customers.edit', $customer->id) }}" class="text-blue-500">Edit</a>
-                                                                <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display:inline;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="text-red-500">Delete</button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody> --}}
-                                                {{-- <tbody class="bg-white divide-y divide-gray-200">
-                                                    <!-- ตัวอย่างแถวข้อมูล -->
-                                                    <tr class="hover:bg-gray-100">
-                                                        <td class="px-4 py-2">ชื่อ 1</td>
-                                                        <td class="px-4 py-2">1234567890123</td>
-                                                        <td class="px-4 py-2">01/01/2024</td>
-                                                        <td class="px-4 py-2">ประเภท 1</td>
-                                                        <td class="px-4 py-2">Tag 1</td>
-                                                        <td class="px-4 py-2">เลขทรัพย์ 1</td>
-                                                        <td class="px-4 py-2 text-center">
-                                                            <button class="text-blue-500 hover:text-blue-700">Edit</button>
-                                                            <button class="text-red-500 hover:text-red-700">Delete</button>
-                                                        </td>
-                                                    </tr>
-                                                    <!-- เพิ่มแถวข้อมูลตามต้องการ -->
-                                                </tbody> --}}
+
+                                                <tbody>
+                                                    <!-- ข้อมูลลูกค้าจะถูกแสดงที่นี่ -->
+                                                </tbody>
+
+
+                                                <script>
+                                                    $(document).ready(function() {
+                                                        let currentPage = 1; // หน้าที่กำลังแสดง
+                                                        const rowsPerPage = 5; // จำนวนแถวต่อหน้า
+
+                                                        fetchCustomers(currentPage, rowsPerPage); // เรียกใช้ฟังก์ชันเพื่อดึงข้อมูลลูกค้า
+
+                                                        function fetchCustomers(page, perPage) {
+                                                            $.ajax({
+                                                                url: "{{ route('customers.index') }}",
+                                                                method: 'GET',
+                                                                data: { page: page, per_page: perPage }, // ส่งค่าพารามิเตอร์สำหรับการแบ่งหน้า
+                                                                dataType: 'json',
+                                                                success: function(data) {
+                                                                    var customersTableBody = $('#customersTable tbody');
+                                                                    customersTableBody.empty(); // ล้างข้อมูลเก่า
+
+                                                                    // แสดงข้อมูลลูกค้าในตาราง
+                                                                    $.each(data.data, function(index, customer) {
+                                                                        customersTableBody.append(`
+                                                                            <tr>
+                                                                                <td class="px-4 py-2">${customer.first_name} ${customer.last_name}</td>
+                                                                                <td class="px-4 py-2">${customer.id_card_number}</td>
+                                                                                <td class="px-4 py-2">${customer.receive_date}</td>
+                                                                                <td class="px-4 py-2">${customer.customer_type}</td>
+                                                                                <td class="px-4 py-2">${customer.tags ? customer.tags.join(', ') : ''}</td>
+                                                                                <td class="px-4 py-2">${customer.property_number}</td>
+                                                                                <td class="px-4 py-2">
+                                                                                    <a href="{{ url('customers/edit') }}/${customer.id}" class="text-blue-500">Edit</a>
+                                                                                    <form action="{{ url('customers/destroy') }}/${customer.id}" method="POST" style="display:inline;">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit" class="text-red-500">Delete</button>
+                                                                                    </form>
+                                                                                </td>
+                                                                            </tr>
+                                                                        `);
+                                                                    });
+
+                                                                    // แสดง pagination
+                                                                    updatePagination(data);
+                                                                },
+                                                                error: function(xhr, status, error) {
+                                                                    console.error('Error fetching customers:', error);
+                                                                    alert('Could not load customer data.');
+                                                                }
+                                                            });
+                                                        }
+
+                                                        function updatePagination(data) {
+                                                            const paginationContainer = $('#pagination');
+                                                            paginationContainer.empty(); // ล้างข้อมูลเก่า
+
+                                                            // สร้างปุ่ม pagination
+                                                            for (let i = 1; i <= data.last_page; i++) {
+                                                                const activeClass = (i === currentPage) ? 'active' : '';
+                                                                paginationContainer.append(`
+                                                                    <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
+                                                                `);
+                                                            }
+                                                        }
+
+                                                        // เมื่อคลิกปุ่ม pagination
+                                                        $(document).on('click', '.pagination-button', function() {
+                                                            currentPage = $(this).data('page'); // เปลี่ยนหน้าที่จะโหลด
+                                                            fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
+                                                        });
+                                                    });
+                                                </script>
+
+
                                             </table>
                                         </div>
 
@@ -163,8 +204,6 @@
 </style>
 
 
-
-
 <script>
     function openModal() {
         const modal = document.getElementById('customerModal');
@@ -176,7 +215,7 @@
             // ใช้ setTimeout เพื่อให้โมดอลแสดงขึ้นในระยะเวลาที่กำหนด
             setTimeout(() => {
                 modal.style.transition = 'transform 0.5s ease, opacity 0.5s ease'; // ตั้งค่าการเปลี่ยนแปลง
-                modal.style.transform = 'translateY(-35px)'; // เลื่อนขึ้นให้มี mt-[-300]
+                modal.style.transform = 'translateY(100px)'; // เลื่อนขึ้นให้มี mt-[-150]
                 modal.style.opacity = '1'; // ทำให้ชัดเจน
             }, 10); // ใช้ delay เล็กน้อยเพื่อให้การเปลี่ยนแปลงทำงาน
         }
@@ -189,7 +228,7 @@
                 const modal = document.getElementById('customerModal');
                 if (modal) {
                     modal.style.transition = 'transform 0.5s ease, opacity 0.5s ease'; // ตั้งค่าการเปลี่ยนแปลง
-                    modal.style.transform = 'translateY(50%)'; // เลื่อนลงไปที่ด้านล่าง
+                    modal.style.transform = 'translateY(100%)'; // เลื่อนลงไปที่ด้านล่าง
                     modal.style.opacity = '0'; // ทำให้โปร่งใส
 
                     // ซ่อนโมดอลเมื่อการเปลี่ยนแปลงเสร็จสิ้น

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DataAssetController;
 
@@ -14,10 +15,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::resource('views', App\Http\Controllers\pageController::class);
 });
 
-// Customer Route
-// Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
-
+// CUSTOMER ROUTE
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
 Route::resource('customers', CustomerController::class);
 
@@ -40,6 +40,45 @@ Route::resource('data_assets', DataAssetController::class);
 
 
 
+
+
+
+
+// Show
+// Route::get('/customers/profile', [CustomerController::class, 'show'])->name('customers.index');
+
+// Route::get('/topbar', function () {
+//     $customers = \App\Models\Customer::all();
+//     return view('components.content-layout.modal_customer', compact('customers'));
+// })->name('topbar.index');
+
+
+// use App\Models\Customer;
+// Route::get('/customers', function () {
+//     $customers = Customer::all();
+//     return view('components.content-layout.modal_customer', compact('customers'));
+// })->name('customers.index');
+
+
+// Route::get('/topbar', function () {
+//     $customers = Customer::all(); // ดึงข้อมูลลูกค้าทั้งหมด
+//     return view('components.content-layout.topbar', compact('customers')); // ส่งข้อมูลไปยัง view
+// })->name('topbar.index');
+
+
+
+// SEARCH ROUTE
+// Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// Route::get('/customers', [CustomerController::class, 'index']);
+
+
+// Customer Route
+// Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+
+// Route::get('/topbar', [CustomerController::class, 'index'])->name('customers.index');
+// Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+// Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
 
 // Route::get('customers', [CustomerController::class, 'index']);

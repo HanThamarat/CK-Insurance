@@ -1,3 +1,4 @@
+
 <div class="bg-white md:flex gap-6 py-2 border-b-2 border-orange-500 border-dashed">
     <div class="container mx-auto px-4 flex justify-between items-center">
         <div class="font-primaryBold text-[20px] flex items-center">
@@ -86,6 +87,6 @@
     </div>
 </div>
 
+@include('components.content-layout.index')
 
 
-@include('components.content-layout.modal_customer')
