@@ -244,7 +244,8 @@
                 let found = false; // ตัวแปรสำหรับตรวจสอบว่าพบข้อมูลหรือไม่
 
                 $('#customersTable tbody tr').filter(function() {
-                    const isVisible = $(this).text().toLowerCase().indexOf(value) > -1; // ตรวจสอบแถวที่มีข้อความตรง
+                    const isVisible = $(this).text().toLowerCase().indexOf(value) > -
+                    1; // ตรวจสอบแถวที่มีข้อความตรง
                     $(this).toggle(isVisible); // แสดงหรือซ่อนแถว
                     if (isVisible) {
                         found = true; // ถ้ามีแถวที่ตรงกับค่าที่ค้นหา
@@ -288,7 +289,7 @@
                         // แสดงข้อมูลลูกค้าในตาราง
                         $.each(data.data, function(index, customer) {
                             customersTableBody.append(`
-                        <tr>
+                        <tr class="border-b">
                             <td class="px-4 py-2 text-center">
                                 <img src="{{ asset('img/user.png') }}" alt="user icon" class="inline-block w-5 h-5 mr-2">
                                 ${customer.prefix}
@@ -300,10 +301,10 @@
                             <td class="px-4 py-2 text-center">${customer.religion}</td>
                             <td class="px-4 py-2 text-center">
                                 <div class="flex justify-center space-x-2">
-                                    <a href="{{ url('customers/edit') }}/${customer.id}" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded">
+                                    <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded">
                                         <i class="fas fa-edit mr-1"></i> Edit
                                     </a>
-                                    <form action="{{ url('customers/destroy') }}/${customer.id}" method="POST">
+                                    <form action="{{ url('data_assets') }}/${customer.id}" method="POST" class="delete-form">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded">
@@ -335,8 +336,8 @@
             //     for (let i = 1; i <= data.last_page; i++) {
             //         const activeClass = (i === currentPage) ? 'active' : '';
             //         paginationContainer.append(`
-        //     <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
-        // `);
+            //     <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
+            // `);
             //     }
             // }
 
@@ -362,10 +363,10 @@
             //         for (let i = 1; i <= data.last_page; i++) {
             //             const activeClass = (i === currentPage) ? 'bg-blue-500 text-white' : 'bg-white text-gray-500 hover:bg-gray-100';
             //             paginationContainer.append(`
-        //                 <button class="pagination-button ${activeClass} border border-gray-300 px-3 py-1 mx-1 rounded-md" data-page="${i}">
-        //                     ${i}
-        //                 </button>
-        //             `);
+            //                 <button class="pagination-button ${activeClass} border border-gray-300 px-3 py-1 mx-1 rounded-md" data-page="${i}">
+            //                     ${i}
+            //                 </button>
+            //             `);
             //         }
             //     }
             // }
