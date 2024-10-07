@@ -122,11 +122,10 @@ class DataAssetController extends Controller
             ]);
 
             // ตรวจสอบว่ามีเลขตัวถังซ้ำในฐานข้อมูลหรือไม่
-            $exists = AssetManage::where('Vehicle_Chassis', $request->Vehicle_Chassis)->exists();
-
-            if ($exists) {
-                return response()->json(['message' => 'เลขตัวถังรถนี้มีอยู่ในระบบแล้ว'], 409); // 409 Conflict
-            }
+            // $exists = AssetManage::where('Vehicle_Chassis', $request->Vehicle_Chassis)->exists();
+            // if ($exists) {
+            //     return response()->json(['message' => 'เลขตัวถังรถนี้มีอยู่ในระบบแล้ว'], 409); // 409 Conflict
+            // }
 
             AssetManage::create($request->all());
 

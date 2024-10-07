@@ -402,9 +402,10 @@
 
                 <div class="p-4 xl:p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- ประเภทรถ 1 -->
 
-                        <div class="relative mb-6">
+
+                        <!-- ประเภทรถ 1 -->
+                        <div class="relative mb-1">
                             <label for="Vehicle_Type"
                                 class="block text-gray-700 mb-2 transition-all duration-300 transform
                                 {{ $errors->has('Vehicle_Type') ? 'text-red-500' : 'text-red-500' }}
@@ -479,17 +480,25 @@
                         </div>
 
 
-
-
-
-
-
-                        <!-- ประเภทรถ 2 -->
-                        <div class="relative">
+                        {{-- เช็คประเภทรถ 2 --}}
+                        <div class="relative mb-1">
+                            <label for="Vehicle_Type_PLT"
+                                class="block text-red-500 mb-2 transition-all duration-300 transform
+                                {{ $errors->has('Vehicle_Type_PLT') ? 'text-red-500' : 'text-red-500' }}
+                                {{ old('Vehicle_Type_PLT') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                ประเภทรถ 2
+                            </label>
                             <select
-                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
-                                id="Vehicle_Type_PLT" name="Vehicle_Type_PLT" required>
-                                <option value="" selected>-- ประเภทรถ 2 --</option>
+                                class="form-select block w-full border {{ $errors->has('Vehicle_Type_PLT') ? 'border-red-300' : 'border-red-300' }} rounded-md shadow-sm
+                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                id="Vehicle_Type_PLT" name="Vehicle_Type_PLT" required
+                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                           this.classList.remove('border-red-300');
+                                           this.classList.add('border-red-500');"
+                                onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
+                                <option value="" class="text-red-500">-- ประเภทรถ 2 --</option>
 
                                 @foreach ($typeVehicles as $vehicle)
                                     <option hidden value="{{ $vehicle->id }}">{{ $vehicle->Name_Vehicle }}</option>
@@ -500,7 +509,7 @@
 
 
                         {{-- ยี่ห้อรถ --}}
-                        <div class="relative">
+                        {{-- <div class="relative">
                             <div class="relative">
                                 <select
                                     class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
@@ -516,17 +525,49 @@
 
                                 </select>
                             </div>
+                        </div> --}}
+
+
+                        <div class="relative mb-1">
+                            <label for="Vehicle_Brand"
+                                class="block text-red-500 mb-2 transition-all duration-300 transform
+                                {{ $errors->has('Vehicle_Brand') ? 'text-red-500' : 'text-red-500' }}
+                                {{ old('Vehicle_Brand') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                ยี่ห้อรถ
+                            </label>
+                            <select
+                                class="form-select block w-full border {{ $errors->has('Vehicle_Brand') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
+                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                id="Vehicle_Brand" name="Vehicle_Brand" required
+                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                           this.classList.remove('border-red-300');
+                                           this.classList.add('border-red-500');"
+                                onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
+                                <option value="">-- ยี่ห้อรถ --</option>
+                                @foreach ($carBrands->unique('Brand_car') as $car)
+                                    <option hidden class="car-option" id="car_brand" value="{{ $car->Brand_car }}" data-id="{{ $car->id }}">{{ $car->vehicle_name ?? '' . $car->Brand_car }}</option>
+                                @endforeach
+
+                                @foreach ($motoBrands->unique('Brand_moto') as $moto)
+                                    <option hidden class="moto-option" id="moto_brand" value="{{ $moto->Brand_moto }}" data-id="{{ $moto->id }}">{{ $moto->vehicle_name ?? '' . $moto->Brand_moto }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
 
 
+
+
+
+
                         {{-- กลุ่มรถ --}}
-                        <select
+                        {{-- <select
                             class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                             id="Vehicle_Group" name="Vehicle_Group" required>
                             <option value="">-- กลุ่มรถ --</option>
 
-                            {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                             @foreach ($cars->unique('Group_car') as $car)
                                 <option hidden id="car_group_{{ $car->id }}" value="{{ $car->Group_car }}">
                                     {{ $car->vehicle_name ?? '' . $car->Group_car }}
@@ -538,14 +579,75 @@
                                     {{ $moto->vehicle_name ?? '' . $moto->Group_moto }}
                                 </option>
                             @endforeach
-                        </select>
+                        </select> --}}
+
+                        <div class="relative mb-1">
+                            <label for="Vehicle_Group"
+                                class="block text-red-500 mb-2 transition-all duration-300 transform
+                                {{ $errors->has('Vehicle_Group') ? 'text-red-500' : 'text-red-500' }}
+                                {{ old('Vehicle_Group') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                กลุ่มรถ
+                            </label>
+                            <select
+                                class="text-red-500 form-select block w-full border {{ $errors->has('Vehicle_Group') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
+                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                id="Vehicle_Group" name="Vehicle_Group" required
+                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                           this.classList.remove('border-red-300');
+                                           this.classList.add('border-red-500');"
+                                onblur="if (!this.value) { this.classList.add('border-gray-300'); } else { this.classList.remove('border-gray-300'); }">
+                                <option value="">-- กลุ่มรถ --</option>
+
+                                {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
+                                @foreach ($cars->unique('Group_car') as $car)
+                                    <option hidden id="car_group_{{ $car->id }}" value="{{ $car->Group_car }}">
+                                        {{ $car->vehicle_name ?? '' . $car->Group_car }}
+                                    </option>
+                                @endforeach
+
+                                @foreach ($motoGroups->unique('Group_moto') as $moto)
+                                    <option hidden id="moto_group_{{ $moto->id }}" value="{{ $moto->Group_moto }}">
+                                        {{ $moto->vehicle_name ?? '' . $moto->Group_moto }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
 
 
                         {{-- ปีรถ --}}
-                        <div class="relative">
+                        {{-- <div class="relative">
                             <select
                                 class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                 id="Vehicle_Years" name="Vehicle_Years" required>
+                                <option value="">-- ปีรถ --</option>
+                                @foreach ($carYears->unique('Year_car')->sortBy('Year_car') as $car)
+                                    <option hidden id="year_car_{{ $car->Year_car }}" value="{{ $car->Year_car }}">
+                                        {{ $car->vehicle_name ?? '' . $car->Year_car }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div> --}}
+
+                        <div class="relative mb-1">
+                            <label for="Vehicle_Years"
+                                class="block text-red-500 mb-2 transition-all duration-300 transform
+                                {{ $errors->has('Vehicle_Years') ? 'text-red-500' : 'text-red-500' }}
+                                {{ old('Vehicle_Years') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                ปีรถ
+                            </label>
+                            <select
+                                class="text-red-500 form-select block w-full border {{ $errors->has('Vehicle_Years') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
+                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                id="Vehicle_Years" name="Vehicle_Years" required
+                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                           this.classList.remove('border-red-300');
+                                           this.classList.add('border-red-500');"
+                                onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
                                 <option value="">-- ปีรถ --</option>
                                 @foreach ($carYears->unique('Year_car')->sortBy('Year_car') as $car)
                                     <option hidden id="year_car_{{ $car->Year_car }}" value="{{ $car->Year_car }}">
@@ -557,14 +659,14 @@
 
 
 
+
                         {{-- รุ่นรถ --}}
-                        <div class="relative">
+                        {{-- <div class="relative">
                             <select
                                 class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
                                 id="Vehicle_Models" name="Vehicle_Models" required>
                                 <option value="">-- รุ่นรถ --</option>
 
-                                {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                 @foreach ($carModels->unique('Model_car') as $car)
                                     <option hidden id="model_car" value="{{ $car->Model_car }}">
                                         {{ $car->vehicle_name ?? '' . $car->Model_car }}</option>
@@ -575,13 +677,46 @@
                                         {{ $moto->vehicle_name ?? '' . $moto->Model_moto }}</option>
                                 @endforeach
                             </select>
+                        </div> --}}
+
+                        <div class="relative mb-1">
+                            <label for="Vehicle_Models"
+                                class="block text-red-500 mb-2 transition-all duration-300 transform
+                                {{ $errors->has('Vehicle_Models') ? 'text-red-500' : 'text-red-500' }}
+                                {{ old('Vehicle_Models') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                รุ่นรถ
+                            </label>
+                            <select
+                                class="text-red-500 form-select block w-full border {{ $errors->has('Vehicle_Models') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
+                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                id="Vehicle_Models" name="Vehicle_Models" required
+                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                           this.classList.remove('border-red-300');
+                                           this.classList.add('border-red-500');"
+                                onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
+                                <option value="">-- รุ่นรถ --</option>
+
+                                {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
+                                @foreach ($carModels->unique('Model_car') as $car)
+                                    <option hidden id="model_car_{{ $car->id }}" value="{{ $car->Model_car }}">
+                                        {{ $car->vehicle_name ?? '' . $car->Model_car }}</option>
+                                @endforeach
+
+                                @foreach ($motoModels->unique('Model_moto') as $moto)
+                                    <option hidden id="model_moto_{{ $moto->id }}" value="{{ $moto->Model_moto }}">
+                                        {{ $moto->vehicle_name ?? '' . $moto->Model_moto }}</option>
+                                @endforeach
+                            </select>
                         </div>
+
 
 
                         <!-- เกียร์ -->
                         <div class="relative">
                             <select
-                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
+                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2"
                                 id="Vehicle_Gear" name="Vehicle_Gear" required>
                                 <option value="" selected>-- เกียร์รถ --</option>
                                 <option hidden value="manual">Manual</option>
@@ -1135,3 +1270,5 @@
     });
 
 </script>
+
+
