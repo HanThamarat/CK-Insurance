@@ -16,7 +16,8 @@
       </div>
       <!-- Primary Navigation -->
       <div class="hidden md:flex md:flex-row flex-col items-center justify-start md:space-x-1 navigation-menu pb-3 md:pb-0 navigation-menu">
-        <a href="#" class="py-4 px-3 block">Home</a>
+        {{-- <a href="#" class="py-4 px-3 block">Home</a> --}}
+        <a href="{{ route('home') }}" class="py-4 px-3 block">Home</a>
         <a href="#" class="py-4 px-3 block">About</a>
         <!-- Dropdown Menu -->
         <div class="relative">

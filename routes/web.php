@@ -8,8 +8,9 @@ use App\Http\Controllers\DataAssetController;
 
 Route::get('/', function () { return view('auth.login'); });
 
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
-    Route::get('/home', [App\Http\Controllers\pageController::class, 'index']);
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\pageController::class, 'index'])->name('home');  // กำหนดชื่อเส้นทางเป็น 'home'
 
     // page router
     Route::resource('views', App\Http\Controllers\pageController::class);
@@ -24,6 +25,8 @@ Route::resource('customers', CustomerController::class);
 Route::get('/data_assets', [DataAssetController::class, 'index'])->name('data_assets.index');
 Route::resource('data_assets', DataAssetController::class);
 
+// ASSET ROUTE VEHICLE CHASSIE
+Route::post('/check-vehicle-chassis', [DataAssetController::class, 'checkVehicleChassis']);
 
 
 
@@ -41,6 +44,36 @@ Route::resource('data_assets', DataAssetController::class);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
+//     Route::get('/home', [App\Http\Controllers\pageController::class, 'index']);
+
+//     // page router
+//     Route::resource('views', App\Http\Controllers\pageController::class);
+// });
+
+
+// Route::get('/customers/profile/{id}', [CustomerController::class, 'show'])->name('customers.profile');
+// Route::get('/customers/profile/{id}', [CustomerController::class, 'show'])->name('customers.profile');
 
 // Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+<!-- เพิ่ม jQuery CDN ก่อนสคริปต์ของคุณ -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 @extends('components.content-cus.Modal-Edit-Cus')
 
 @section('content')

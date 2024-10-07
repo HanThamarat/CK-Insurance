@@ -117,7 +117,7 @@
 
 
 
-                    <div class="flex-1 p-1">
+                    {{-- <div class="flex-1 p-1">
                         <div class="relative">
                             <select id="Vehicle_OldLicense_Province" name="OldProvince"
                                 class="text-red-400 font-bold block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -129,7 +129,85 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div> --}}
+
+
+
+
+                    {{-- <div class="flex-1 p-1">
+                        <div class="relative">
+                            <select id="Vehicle_OldLicense_Province" name="OldProvince"
+                                class="text-red-400 font-bold block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option hidden value="" class="red-option" selected>จังหวัด</option>
+                                @foreach ($provinces as $province)
+                                    <option class="red-option" value="{{ $province->Province_pro }}" data-province="{{ $province->Province_pro }}">
+                                        {{ $province->Province_pro }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <label id="provinceLabel"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-xs duration-150 pointer-events-none">
+                                จังหวัด
+                            </label>
+                        </div>
                     </div>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $('#Vehicle_OldLicense_Province').focus(function() {
+                                $('#provinceLabel').removeClass('top-1/2 -translate-y-1/2 text-red-400')
+                                    .addClass('top-[-8px] left-3 text-red-300 text-lg'); // ย้ายขึ้นเล็กน้อย
+                            }).blur(function() {
+                                if ($(this).val() === "") {
+                                    $('#provinceLabel').addClass('top-1/2 -translate-y-1/2 text-red-400 text-xs')
+                                        .removeClass('top-[-8px] left-3 text-red-300 text-lg');
+                                }
+                            });
+                        });
+                    </script> --}}
+
+
+
+                    <div class="flex-1 p-1">
+                        <div class="relative">
+                            <select id="Vehicle_OldLicense_Province" name="OldProvince"
+                                class="text-red-400 font-bold block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-white sm:text-sm">
+                                <option value="" class="red-option" selected>จังหวัด</option>
+                                @foreach ($provinces as $province)
+                                    <option class="red-option" value="{{ $province->Province_pro }}" data-province="{{ $province->Province_pro }}">
+                                        {{ $province->Province_pro }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <label id="provinceLabel"
+                                class="absolute left-3.5 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1.5">
+                                จังหวัด
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $('#Vehicle_OldLicense_Province').focus(function() {
+                                $('#provinceLabel')
+                                    .removeClass('top-1/2 translate-y-1/3 text-red-400') // แก้ไขให้ตรงกับสีที่ต้องการ
+                                    .addClass('top-[-4px] left-4 text-red-300 text-lg'); // ปรับให้เลื่อนลงมากขึ้น
+                            }).blur(function() {
+                                if ($(this).val() === "") {
+                                    $('#provinceLabel')
+                                        .addClass('top-1/2 -translate-y-1/2 text-red-400 text-sm')
+                                        .removeClass('top-[-4px] left-3 text-red-300 text-lg'); // เปลี่ยน text-red-300 เป็น text-red-400
+                                } else {
+                                    // ถ้ามีค่าใน input ให้อัปเดต label ให้มีสีเป็น text-red-300
+                                    $('#provinceLabel').addClass('text-red-300');
+                                }
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 
@@ -190,7 +268,7 @@
                         </div>
                     </div>
 
-                    <div class="flex-1 p-1">
+                    {{-- <div class="flex-1 p-1">
                         <div class="relative">
                             <select id="Vehicle_NewLicense_Province" name="NewProvince"
                                 class="block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -200,7 +278,44 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div> --}}
+
+                    <div class="flex-1 p-1">
+                        <div class="relative">
+                            <select id="Vehicle_NewLicense_Province" name="NewProvince"
+                                class="block w-full mt-0 py-2 pl-3 pr-8 h-9 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="" selected>จังหวัด</option>
+                                @foreach ($provinces as $province)
+                                    <option value="{{ $province->Province_pro }}">{{ $province->Province_pro }}</option>
+                                @endforeach
+                            </select>
+
+                            <label id="newProvinceLabel"
+                                class="absolute left-3.5 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1.5">
+                                จังหวัด
+                            </label>
+                        </div>
                     </div>
+
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                         $(document).ready(function() {
+                        // สำหรับ NewProvince
+                            $('#Vehicle_NewLicense_Province').focus(function() {
+                                $('#newProvinceLabel')
+                                    .removeClass('top-2/3 translate-y-2/3 text-gray-400') // แก้ไขให้ตรงกับสีที่ต้องการ
+                                    .addClass('top-[-5px] left-4 text-gray-300 text-lg'); // ปรับให้เลื่อนลงมากขึ้น
+                            }).blur(function() {
+                                if ($(this).val() === "") {
+                                    $('#newProvinceLabel')
+                                        .addClass('top-1/2 -translate-y-1/2 text-gray-400 text-sm')
+                                        .removeClass('top-[-5px] left-3 text-gray-300 text-lg'); // เปลี่ยน text-gray-300 เป็น text-gray-400
+                                } else {
+                                    $('#newProvinceLabel').addClass('text-gray-300');
+                                }
+                            });
+                        });
+                    </script>
 
                 </div>
             </div>
@@ -289,16 +404,28 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <!-- ประเภทรถ 1 -->
 
-                        <div class="relative">
+                        <div class="relative mb-6">
+                            <label for="Vehicle_Type"
+                                class="block text-gray-700 mb-2 transition-all duration-300 transform
+                                {{ $errors->has('Vehicle_Type') ? 'text-red-500' : 'text-red-500' }}
+                                {{ old('Vehicle_Type') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                ประเภทรถ 1
+                            </label>
                             <select
-                                class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-9 py-1 px-2"
-                                id="Vehicle_Type" name="Vehicle_Type" required>
-                                <option value="">-- ประเภทรถ 1 --</option>
+                                class="form-select block w-full border border-red-300 rounded-md shadow-sm
+                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                id="Vehicle_Type" name="Vehicle_Type" required
+                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                           this.classList.add('text-red-500');"
+                                onblur="this.classList.remove('text-red-500');">
+                                <option value="" class="text-red-500">-- ประเภทรถ 1 --</option>
 
                                 {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                 @foreach ($cars->unique('Ratetype_id') as $car)
                                     @if ($car->Ratetype_id) {{-- ตรวจสอบให้แน่ใจว่า Ratetype_id ไม่เป็น null --}}
-                                        <option value="{{ $car->Ratetype_id }}" id="car_group" hidden>
+                                        <option value="{{ $car->Ratetype_id }}" id="car_group" class="text-red-500">
                                             @switch($car->Ratetype_id)
                                                 @case('C01')
                                                     รถเก๋ง
@@ -331,7 +458,7 @@
                                 {{-- ลูปรถมอเตอร์ไซค์ --}}
                                 @foreach ($motoGroups->unique('Ratetype_id') as $motogroup)
                                     @if ($motogroup->Ratetype_id)
-                                        <option value="{{ $motogroup->Ratetype_id }}" id="moto_group" hidden>
+                                        <option value="{{ $motogroup->Ratetype_id }}" id="moto_group" class="text-red-500">
                                             @switch($motogroup->Ratetype_id)
                                                 @case('M01')
                                                     เกียร์ธรรมดา
@@ -350,6 +477,11 @@
                                 @endforeach
                             </select>
                         </div>
+
+
+
+
+
 
 
                         <!-- ประเภทรถ 2 -->
@@ -720,7 +852,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
+{{-- <script>
     $(document).ready(function () {
         $('#submitBtn').click(function (e) {
             e.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
@@ -844,4 +976,162 @@
             }
         });
     });
+</script> --}}
+
+<script>
+    $(document).ready(function () {
+        $('#submitBtn').click(function (e) {
+            e.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
+
+            // ตรวจสอบว่าฟิลด์ที่จำเป็นทั้งหมดถูกกรอกครบหรือไม่
+            let valid = true;
+            let missingFields = [];
+
+            // ตัวอย่างการตรวจสอบฟิลด์
+            if ($('#Vehicle_OldLicense_Text').val().trim() === '') {
+                valid = false;
+                missingFields.push('อักษรป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_OldLicense_Number').val().trim() === '') {
+                valid = false;
+                missingFields.push('เลขป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_OldLicense_Province').val().trim() === '') {
+                valid = false;
+                missingFields.push('จังหวัดป้ายทะเบียนเก่า');
+            }
+
+            if ($('#Vehicle_Chassis').val().trim() === '') {
+                valid = false;
+                missingFields.push('หมายเลขตัวถังรถ');
+            }
+
+            if ($('#Vehicle_Color').val().trim() === '') {
+                valid = false;
+                missingFields.push('สีรถ');
+            }
+
+            if ($('#Vehicle_CC').val().trim() === '') {
+                valid = false;
+                missingFields.push('CC');
+            }
+
+            if ($('#Vehicle_Type').val().trim() === '') {
+                valid = false;
+                missingFields.push('ประเภทรถ 1');
+            }
+
+            if ($('#Vehicle_Type_PLT').val().trim() === '') {
+                valid = false;
+                missingFields.push('ประเภทรถ 2');
+            }
+
+            if ($('#Vehicle_Brand').val().trim() === '') {
+                valid = false;
+                missingFields.push('ยี่ห้อรถ');
+            }
+
+            if ($('#Vehicle_Group').val().trim() === '') {
+                valid = false;
+                missingFields.push('กลุ่มรถ');
+            }
+
+            if ($('#Vehicle_Years').val().trim() === '') {
+                valid = false;
+                missingFields.push('ปีรถ');
+            }
+
+            if ($('#Vehicle_Gear').val().trim() === '') {
+                valid = false;
+                missingFields.push('เกียร์รถ');
+            }
+
+            // ถ้าข้อมูลไม่ครบให้แสดง SweetAlert แจ้งเตือนและไม่ส่งฟอร์ม
+            if (!valid) {
+                $('#errorAlert').show(); // แสดงกล่องข้อความ error
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณากรอกข้อมูลให้ครบถ้วน!',
+                    text: missingFields.join(', '),
+                    showConfirmButton: true
+                }).then(() => {
+                    // หายไปหลังจาก 3 วินาที
+                    setTimeout(function () {
+                        $('#errorAlert').fadeOut(5000); // หายไปช้า ๆ ใน 5 วินาที
+                    }, 3000);
+                });
+            } else {
+                $('#errorAlert').hide(); // ซ่อนกล่องข้อความ error หากข้อมูลครบ
+
+                // เช็คค่า Vehicle_Chassis
+                const vehicleChassis = $('#Vehicle_Chassis').val().trim();
+                $.ajax({
+                    url: '/check-vehicle-chassis', // เส้นทางที่ใช้ตรวจสอบเลขตัวถัง
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // เพิ่ม CSRF token
+                    },
+                    data: { Vehicle_Chassis: vehicleChassis },
+                    success: function (response) {
+                        if (response.exists) {
+                            // แสดง SweetAlert หากเลขตัวถังซ้ำ
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'เลขตัวถังนี้มีอยู่ในระบบแล้ว!',
+                                text: 'กรุณาตรวจสอบข้อมูลอีกครั้ง.',
+                                showConfirmButton: true
+                            });
+                        } else {
+                            // ส่งฟอร์มหากไม่มีปัญหา
+                            var formData = new FormData($('#DataAssetForm')[0]); // สร้าง FormData จากฟอร์ม
+
+                            $.ajax({
+                                url: '/data_assets', // เส้นทางที่เรียกใช้ฟังก์ชัน store
+                                type: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // เพิ่ม CSRF token
+                                },
+                                data: formData,
+                                processData: false, // สำคัญ: ไม่แปลงข้อมูลเป็น string
+                                contentType: false, // สำคัญ: ไม่ตั้งค่า content-type
+                                success: function (response) {
+                                    // ใช้ SweetAlert2 แสดง popup แจ้งเตือนสำเร็จ
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'สำเร็จ!',
+                                        text: 'สร้างข้อมูลสินทรัพย์สำเร็จ',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(() => {
+                                        // ทำการ redirect หรือรีเฟรชหน้า
+                                        window.location.href = "/data_assets";
+                                    });
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    // ใช้ SweetAlert2 แสดง popup แจ้งเตือนข้อผิดพลาด
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'เกิดข้อผิดพลาด!',
+                                        text: 'ระบบมีปัญหากับคำขอของคุณ',
+                                        footer: errorThrown
+                                    });
+                                }
+                            });
+                        }
+                    },
+                    error: function () {
+                        // แสดงข้อผิดพลาดถ้าการตรวจสอบล้มเหลว
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด!',
+                            text: 'หมายเลขถังถูกใช้งานแล้ว',
+                        });
+                    }
+                });
+            }
+        });
+    });
+
 </script>

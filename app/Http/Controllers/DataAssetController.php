@@ -121,6 +121,13 @@ class DataAssetController extends Controller
                 'updated_at' => 'nullable|date',  // Validation for updated_at
             ]);
 
+            // ตรวจสอบว่ามีเลขตัวถังซ้ำในฐานข้อมูลหรือไม่
+            $exists = AssetManage::where('Vehicle_Chassis', $request->Vehicle_Chassis)->exists();
+
+            if ($exists) {
+                return response()->json(['message' => 'เลขตัวถังรถนี้มีอยู่ในระบบแล้ว'], 409); // 409 Conflict
+            }
+
             AssetManage::create($request->all());
 
             return response()->json(['message' => 'สร้างข้อมูลสินทรัพย์สำเร็จ'], 200);

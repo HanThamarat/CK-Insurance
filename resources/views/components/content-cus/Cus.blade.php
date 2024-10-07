@@ -1,4 +1,8 @@
 @extends('layouts.app')
+{{-- @extends('components.content-cus.Modal-Edit-Cus') --}}
+
+<!-- เพิ่ม jQuery CDN ก่อนสคริปต์ของคุณ -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 @section('content')
@@ -32,6 +36,7 @@
                 {{-- <form action="{{ route('customers.store') }}" method="POST" class="space-y-6">
                     @csrf --}}
                 <form id="formCustomer" class="space-y-6">
+
                     @csrf  <!-- เพิ่มบรรทัดนี้ -->
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -401,6 +406,8 @@
 
 
     @include('components.content-cus.preloader')
+    {{-- @include('components.content-layout.index') --}}
+    {{-- @include('data_customers.index') --}}
 
 @endsection
 

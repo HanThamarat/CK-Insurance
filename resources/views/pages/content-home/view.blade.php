@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+<!-- เพิ่ม jQuery CDN ก่อนสคริปต์ของคุณ -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 @section('content')
     <div class="w-full h-[70vh] flex items-center justify-center">
         <div>
@@ -39,3 +43,8 @@
     </div>
     @include('pages.content-home.script')
 @endsection
+
+
+
+
+

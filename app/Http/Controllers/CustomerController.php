@@ -10,12 +10,6 @@ use App\Helpers; // เพิ่มการนำเข้าฟังก์ช
 class CustomerController extends Controller
 {
 
-    // public function index() {
-    //     $customers = Customer::all(); // ดึงข้อมูลลูกค้าทั้งหมด
-    //     return response()->json($customers); // ส่งกลับเป็น JSON response
-    // }
-
-
     public function index(Request $request) {
         $perPage = $request->get('per_page', 5); // ค่าเริ่มต้นคือ 5
         $customers = Customer::paginate($perPage); // ใช้ paginate แทน all
@@ -23,22 +17,25 @@ class CustomerController extends Controller
     }
 
 
-
-
-    // ตัวอย่าง Controller ที่ดึงข้อมูลลูกค้า
-    // public function show()
-    // {
-    //     // ดึงข้อมูลลูกค้าทั้งหมด
-    //     $customers = Customer::all();
-
-    //     // ส่งข้อมูลไปยัง view หลัก
-    //     return view('components.content-layout.index', compact('customers')); // เปลี่ยนเป็นชื่อ view ของคุณ
-    // }
-
-
     public function profile()
     {
         return view('components.content-cus.Profile-cus');
+    }
+
+
+
+    public function show($id)
+    {
+        // ดึงข้อมูลลูกค้าตาม ID
+        $customer = Customer::find($id);
+
+        // ตรวจสอบว่าพบข้อมูลลูกค้าหรือไม่
+        if (!$customer) {
+            return redirect()->route('customers.index')->with('error', 'Customer not found.');
+        }
+
+        // ส่งข้อมูลลูกค้าไปยัง view
+        return view('customers.profile', compact('customer'));
     }
 
     public function index_2()
@@ -88,11 +85,6 @@ class CustomerController extends Controller
             'customer' => $customer,
         ]);
     }
-    // public function show($id)
-    // {
-    //     $customer = Customer::findOrFail($id);
-    //     return view('customers.show', compact('customer'));
-    // }
 
     public function edit($id)
     {
@@ -152,6 +144,56 @@ class CustomerController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function show($id)
+    // {
+    //     $customer = Customer::findOrFail($id);
+    //     return view('customers.show', compact('customer'));
+    // }
+
+    // ตัวอย่าง Controller ที่ดึงข้อมูลลูกค้า
+    // public function show()
+    // {
+    //     // ดึงข้อมูลลูกค้าทั้งหมด
+    //     $customers = Customer::all();
+
+    //     // ส่งข้อมูลไปยัง view หลัก
+    //     return view('components.content-layout.index', compact('customers')); // เปลี่ยนเป็นชื่อ view ของคุณ
+    // }
+
     // public function index(Request $request)
     // {
     //     $search = $request->input('search');
@@ -173,7 +215,10 @@ class CustomerController extends Controller
 
 
 
-
+    // public function index() {
+    //     $customers = Customer::all(); // ดึงข้อมูลลูกค้าทั้งหมด
+    //     return response()->json($customers); // ส่งกลับเป็น JSON response
+    // }
 
     // public function search(Request $request)
     // {
