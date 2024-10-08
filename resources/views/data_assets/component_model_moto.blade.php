@@ -115,6 +115,195 @@
                         );
                     }
 
+                    else if (selectedGroup === 'wave 125' && modelMoto.startsWith('nf125c wave 125')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+
+                    ////////////////////////////////////////////////////////////////
+
+                    else if (selectedGroup === 'excittier 150' && modelMoto.startsWith('rlcug excittier 150')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'spark nano' && modelMoto.startsWith('50s3')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'spark-x' && modelMoto.startsWith('2p0')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'spark-135' && modelMoto.startsWith('mleug spark-135')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'spark-nano' && modelMoto.startsWith('50s3-50p')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'spark-115i' && modelMoto.startsWith('rlcue spark-115i')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'spark lx' && modelMoto.startsWith('mleue spark lx')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'jupiter rc' && modelMoto.startsWith('rlcue jupiter rc')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'finn' && modelMoto.startsWith('finn')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'm-slaz' && modelMoto.startsWith('mlerg')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'xsr 155' && modelMoto.startsWith('mlerg-g3m8e')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'r 15' && modelMoto.startsWith('r 15')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    ////////////////////////////////////////////////////////////////
+                    else if (selectedGroup === 'smash revo' && modelMoto.startsWith('be49')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'smash 110' && modelMoto.startsWith('be4dn')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'shogun axel' && modelMoto.startsWith('bf45h')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'raider' && modelMoto.startsWith('mh8bg41f')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'shooter 115' && modelMoto.startsWith('mlcbf')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'gd110' && modelMoto.startsWith('lc6pch')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'gsx r150' && modelMoto.startsWith('cga2')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'shogun' && modelMoto.startsWith('bf45a')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'smash' && modelMoto.startsWith('be49')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    ////////////////////////////////////////////////////////////////
+                    else if (selectedGroup === 'gpx popz 125' && modelMoto.startsWith('gpx popz 125')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    else if (selectedGroup === 'gpx legend' && modelMoto.startsWith('gpx legend')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    ////////////////////////////////////////////////////////////////
+                    else if (selectedGroup === 'rk150' && modelMoto.startsWith('mlrbro')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
+                    ////////////////////////////////////////////////////////////////
+                    else if (selectedGroup === 'stallions centaur' && modelMoto.startsWith('stallions centaur')) {
+                        var vehicleName = motoModel.vehicle_name ? motoModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + motoModel.Model_moto + '">' + vehicleName + ' ' + motoModel.Model_moto + '</option>'
+                        );
+                    }
+
                 });
             }
         });
