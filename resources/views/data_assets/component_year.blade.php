@@ -1093,6 +1093,28 @@
                         $(this).attr('hidden', 'hidden');
                     }
                 });
+            } else if ($('#moto_group_1').val() === selectedGroup) {
+                $('#Vehicle_Years option').each(function() {
+                    var year = $(this).val();
+
+                    if ((year >= 2011 && year <= 2015) || year ===
+                        "") { // ตรวจสอบว่าปีเป็น 2002 หรือไม่
+                        $(this).removeAttr('hidden'); // แสดงปี 2002
+                    } else {
+                        $(this).attr('hidden', 'hidden');
+                    }
+                });
+            } else if ($('#moto_group_3').val() === selectedGroup) {
+                $('#Vehicle_Years option').each(function() {
+                    var year = $(this).val();
+
+                    if ((year >= 2012 && year <= 2017) || year ===
+                        "") { // ตรวจสอบว่าปีเป็น 2002 หรือไม่
+                        $(this).removeAttr('hidden'); // แสดงปี 2002
+                    } else {
+                        $(this).attr('hidden', 'hidden');
+                    }
+                });
             }
 
             // else {

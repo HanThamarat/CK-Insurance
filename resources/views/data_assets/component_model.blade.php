@@ -5,7 +5,7 @@
             var selectedGroup = $(this).val().toLowerCase(); // Convert to lowercase for case-insensitive comparison
 
             // Clear the Vehicle_Models dropdown
-            $('#Vehicle_Models').empty().append('<option value="">-- รุ่นรถ --</option>');
+            $('#Vehicle_Models').empty().append('<option value="">รุ่นรถ</option>');
 
             // Check if the selected group is not empty
             if (selectedGroup) {

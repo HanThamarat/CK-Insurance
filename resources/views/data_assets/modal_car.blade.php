@@ -132,8 +132,6 @@
                     </div> --}}
 
 
-
-
                     {{-- <div class="flex-1 p-1">
                         <div class="relative">
                             <select id="Vehicle_OldLicense_Province" name="OldProvince"
@@ -167,8 +165,6 @@
                         });
                     </script> --}}
 
-
-
                     <div class="flex-1 p-1">
                         <div class="relative">
                             <select id="Vehicle_OldLicense_Province" name="OldProvince"
@@ -182,7 +178,7 @@
                             </select>
 
                             <label id="provinceLabel"
-                                class="absolute left-3.5 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1.5">
+                                class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1">
                                 จังหวัด
                             </label>
                         </div>
@@ -194,16 +190,16 @@
                         $(document).ready(function() {
                             $('#Vehicle_OldLicense_Province').focus(function() {
                                 $('#provinceLabel')
-                                    .removeClass('top-1/2 translate-y-1/3 text-red-400') // แก้ไขให้ตรงกับสีที่ต้องการ
-                                    .addClass('top-[-4px] left-4 text-red-300 text-lg'); // ปรับให้เลื่อนลงมากขึ้น
+                                    .removeClass('top-1/2 translate-y-1/3 text-red-400 border-red-400') // ลบ border สีแดงเข้มออก
+                                    .addClass('top-[-4px] left-3 text-red-300 text-lg border-red-300'); // เพิ่ม border สีแดงอ่อน
                             }).blur(function() {
                                 if ($(this).val() === "") {
                                     $('#provinceLabel')
-                                        .addClass('top-1/2 -translate-y-1/2 text-red-400 text-sm')
-                                        .removeClass('top-[-4px] left-3 text-red-300 text-lg'); // เปลี่ยน text-red-300 เป็น text-red-400
+                                        .addClass('top-1/2 -translate-y-1/2 text-red-400 text-sm border-red-400') // เพิ่ม border สีแดงเข้ม
+                                        .removeClass('top-[-4px] left-3 text-red-300 text-lg border-red-300'); // ลบ border สีแดงอ่อนออก
                                 } else {
-                                    // ถ้ามีค่าใน input ให้อัปเดต label ให้มีสีเป็น text-red-300
-                                    $('#provinceLabel').addClass('text-red-300');
+                                    $('#provinceLabel')
+                                        .addClass('text-red-300 border-red-300'); // ถ้ามีค่าใน input ให้ border สีแดงอ่อน
                                 }
                             });
                         });
@@ -291,7 +287,7 @@
                             </select>
 
                             <label id="newProvinceLabel"
-                                class="absolute left-3.5 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1.5">
+                                class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1">
                                 จังหวัด
                             </label>
                         </div>
@@ -304,7 +300,7 @@
                             $('#Vehicle_NewLicense_Province').focus(function() {
                                 $('#newProvinceLabel')
                                     .removeClass('top-2/3 translate-y-2/3 text-gray-400') // แก้ไขให้ตรงกับสีที่ต้องการ
-                                    .addClass('top-[-5px] left-4 text-gray-300 text-lg'); // ปรับให้เลื่อนลงมากขึ้น
+                                    .addClass('top-[-5px] left-3 text-gray-300 text-lg'); // ปรับให้เลื่อนลงมากขึ้น
                             }).blur(function() {
                                 if ($(this).val() === "") {
                                     $('#newProvinceLabel')
@@ -410,7 +406,7 @@
                                 class="block text-gray-700 mb-2 transition-all duration-300 transform
                                 {{ $errors->has('Vehicle_Type') ? 'text-red-500' : 'text-red-500' }}
                                 {{ old('Vehicle_Type') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                 ประเภทรถ 1
                             </label>
                             <select
@@ -419,9 +415,10 @@
                                 id="Vehicle_Type" name="Vehicle_Type" required
                                 onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
                                            this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                           this.classList.add('text-red-500');"
+                                           this.classList.add('text-red-500');
+                                           this.style.color = this.value ? 'red' : '';"
                                 onblur="this.classList.remove('text-red-500');">
-                                <option value="" class="text-red-500">-- ประเภทรถ 1 --</option>
+                                <option value="" class="text-red-500">ประเภทรถ 1</option>
 
                                 {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                 @foreach ($cars->unique('Ratetype_id') as $car)
@@ -486,7 +483,7 @@
                                 class="block text-red-500 mb-2 transition-all duration-300 transform
                                 {{ $errors->has('Vehicle_Type_PLT') ? 'text-red-500' : 'text-red-500' }}
                                 {{ old('Vehicle_Type_PLT') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                 ประเภทรถ 2
                             </label>
                             <select
@@ -496,9 +493,11 @@
                                 onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
                                            this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
                                            this.classList.remove('border-red-300');
-                                           this.classList.add('border-red-500');"
+                                           this.classList.add('border-red-500');
+                                           this.style.color = this.value ? 'red' : '';"
+
                                 onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
-                                <option value="" class="text-red-500">-- ประเภทรถ 2 --</option>
+                                <option value="" class="text-red-500">ประเภทรถ 2</option>
 
                                 @foreach ($typeVehicles as $vehicle)
                                     <option hidden value="{{ $vehicle->id }}">{{ $vehicle->Name_Vehicle }}</option>
@@ -533,28 +532,37 @@
                                 class="block text-red-500 mb-2 transition-all duration-300 transform
                                 {{ $errors->has('Vehicle_Brand') ? 'text-red-500' : 'text-red-500' }}
                                 {{ old('Vehicle_Brand') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                 ยี่ห้อรถ
                             </label>
                             <select
-                                class="form-select block w-full border {{ $errors->has('Vehicle_Brand') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
+                                class="form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Brand') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
                                 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
                                 id="Vehicle_Brand" name="Vehicle_Brand" required
-                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
-                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                           this.classList.remove('border-red-300');
-                                           this.classList.add('border-red-500');"
+                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                          this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                          this.classList.remove('border-red-300');
+                                          this.classList.add('border-red-500');
+                                          this.style.color = this.value ? 'red' : '';"
                                 onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
-                                <option value="">-- ยี่ห้อรถ --</option>
+                                <option value="">ยี่ห้อรถ</option>
+
+                                <!-- foreach for car brands -->
                                 @foreach ($carBrands->unique('Brand_car') as $car)
-                                    <option hidden class="car-option" id="car_brand" value="{{ $car->Brand_car }}" data-id="{{ $car->id }}">{{ $car->vehicle_name ?? '' . $car->Brand_car }}</option>
+                                    <option class="car-option" id="car_brand" value="{{ $car->Brand_car }}" data-id="{{ $car->id }}">
+                                        {{ $car->vehicle_name ?? '' . $car->Brand_car }}
+                                    </option>
                                 @endforeach
 
+                                <!-- foreach for motorcycle brands -->
                                 @foreach ($motoBrands->unique('Brand_moto') as $moto)
-                                    <option hidden class="moto-option" id="moto_brand" value="{{ $moto->Brand_moto }}" data-id="{{ $moto->id }}">{{ $moto->vehicle_name ?? '' . $moto->Brand_moto }}</option>
+                                    <option class="moto-option" id="moto_brand" value="{{ $moto->Brand_moto }}" data-id="{{ $moto->id }}">
+                                        {{ $moto->vehicle_name ?? '' . $moto->Brand_moto }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
+
 
 
 
@@ -586,11 +594,11 @@
                                 class="block text-red-500 mb-2 transition-all duration-300 transform
                                 {{ $errors->has('Vehicle_Group') ? 'text-red-500' : 'text-red-500' }}
                                 {{ old('Vehicle_Group') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                 กลุ่มรถ
                             </label>
                             <select
-                                class="text-red-500 form-select block w-full border {{ $errors->has('Vehicle_Group') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
+                                class="text-red-500 form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Group') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
                                 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
                                 id="Vehicle_Group" name="Vehicle_Group" required
                                 onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
@@ -598,7 +606,7 @@
                                            this.classList.remove('border-red-300');
                                            this.classList.add('border-red-500');"
                                 onblur="if (!this.value) { this.classList.add('border-gray-300'); } else { this.classList.remove('border-gray-300'); }">
-                                <option value="">-- กลุ่มรถ --</option>
+                                <option value="">กลุ่มรถ</option>
 
                                 {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                 @foreach ($cars->unique('Group_car') as $car)
@@ -636,11 +644,11 @@
                                 class="block text-red-500 mb-2 transition-all duration-300 transform
                                 {{ $errors->has('Vehicle_Years') ? 'text-red-500' : 'text-red-500' }}
                                 {{ old('Vehicle_Years') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                 ปีรถ
                             </label>
                             <select
-                                class="text-red-500 form-select block w-full border {{ $errors->has('Vehicle_Years') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
+                                class="text-red-500 form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Years') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
                                 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
                                 id="Vehicle_Years" name="Vehicle_Years" required
                                 onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
@@ -648,7 +656,7 @@
                                            this.classList.remove('border-red-300');
                                            this.classList.add('border-red-500');"
                                 onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
-                                <option value="">-- ปีรถ --</option>
+                                <option value="">ปีรถ</option>
                                 @foreach ($carYears->unique('Year_car')->sortBy('Year_car') as $car)
                                     <option hidden id="year_car_{{ $car->Year_car }}" value="{{ $car->Year_car }}">
                                         {{ $car->vehicle_name ?? '' . $car->Year_car }}
@@ -684,11 +692,11 @@
                                 class="block text-red-500 mb-2 transition-all duration-300 transform
                                 {{ $errors->has('Vehicle_Models') ? 'text-red-500' : 'text-red-500' }}
                                 {{ old('Vehicle_Models') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-4 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                 รุ่นรถ
                             </label>
                             <select
-                                class="text-red-500 form-select block w-full border {{ $errors->has('Vehicle_Models') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
+                                class="text-red-500 form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Models') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
                                 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
                                 id="Vehicle_Models" name="Vehicle_Models" required
                                 onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
@@ -696,7 +704,7 @@
                                            this.classList.remove('border-red-300');
                                            this.classList.add('border-red-500');"
                                 onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
-                                <option value="">-- รุ่นรถ --</option>
+                                <option value="">รุ่นรถ</option>
 
                                 {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                 @foreach ($carModels->unique('Model_car') as $car)
@@ -714,7 +722,7 @@
 
 
                         <!-- เกียร์ -->
-                        <div class="relative">
+                        {{-- <div class="relative">
                             <select
                                 class="text-red-500 form-select block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2"
                                 id="Vehicle_Gear" name="Vehicle_Gear" required>
@@ -722,7 +730,35 @@
                                 <option hidden value="manual">Manual</option>
                                 <option hidden value="auto">Auto</option>
                             </select>
+                        </div> --}}
+
+
+                        <div class="relative mb-1">
+                            <label for="Vehicle_Gear"
+                                class="block text-red-500 mb-2 transition-all duration-300 transform
+                                {{ $errors->has('Vehicle_Gear') ? 'text-red-500' : 'text-red-500' }}
+                                {{ old('Vehicle_Gear') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                เกียร์รถ
+                            </label>
+                            <select
+                                class="form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Gear') ? 'border-red-300' : 'border-red-300' }} rounded-md shadow-sm
+                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                id="Vehicle_Gear" name="Vehicle_Gear" required
+                                onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                           this.classList.remove('border-red-300');
+                                           this.classList.add('border-red-500');
+                                           this.style.color = this.value ? 'red' : '';"
+                                onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
+                                <option value="" class="text-red-500">เกียร์รถ</option>
+                                <option hidden value="manual" class="text-red-500">Manual</option>
+                                <option hidden value="auto" class="text-red-500">Auto</option>
+                            </select>
                         </div>
+
+
+
 
                         <!-- jQuery Script -->
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -754,114 +790,20 @@
                     รายละเอียดครอบครอง
                 </legend>
 
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="flex-1">
-                        <select id="Vehicle_InsuranceStatus" name="Vehicle_InsuranceStatus"
-                            class="mt-1 block w-full border-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-9 px-3">
-                            <option value="" selected>เลือกสถานะประกัน</option>
-                            <option value="buy">ซื้อประกัน</option>
-                            <option value="existing">มีอยู่แล้ว</option>
-                            <option value="none">ไม่มี</option>
-                        </select>
-                    </div>
-
-                    <!-- รวม jQuery ก่อนปิด </body> -->
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-                    <script>
-
-                        $(document).ready(function() {
-                            // เริ่มต้นให้ disabled select และ input มีสีเทาและปิดการใช้งาน
-                            $('#Vehicle_Class, #Vehicle_Companies, #Vehicle_PolicyNumber').prop('disabled', true).addClass('disabled-select');
-                            $('#Vehicle_PolicyNumber').css('background-color', '#e5e7eb');
-                            $('#date-stamp-insurance-1, #date-stamp-insurance-2, #select-input-insurance').prop('disabled', true).css('border-color', 'rgba(156, 163, 175, 0.5)');
-
-                            // เมื่อมีการเปลี่ยนแปลงใน select ของสถานะประกัน
-                            $('#Vehicle_InsuranceStatus').change(function() {
-                                var selectedValue = $(this).val();
-
-                                // หากเลือก "ซื้อประกัน" หรือ "มีอยู่แล้ว"
-                                if (selectedValue === 'buy' || selectedValue === 'existing') {
-                                    // เปิดใช้งาน select ต่างๆ และฟิลด์วันที่ พร้อมเปลี่ยนสีพื้นหลังและข้อความ
-                                    $('#Vehicle_Class, #Vehicle_Companies, #Vehicle_PolicyNumber').prop('disabled', false).removeClass('disabled-select');
-                                    $('#Vehicle_PolicyNumber').css('background-color', 'white');
-                                    $('#date-stamp-insurance-1, #date-stamp-insurance-2').prop('disabled', false).css('border-color', '#d1d5db').css('color', 'red'); // border สีเทา
-                                    $('#select-input-insurance').prop('disabled', false).css('color', 'red');
-
-                                    // เปลี่ยน placeholder เป็นสีแดง
-                                    $('#date-stamp-insurance-1, #date-stamp-insurance-2').addClass('red-placeholder');
-
-                                } else {
-                                    // ปิดการใช้งาน select และฟิลด์วันที่ พร้อมเปลี่ยนสีพื้นหลังและข้อความกลับเป็นค่าเริ่มต้น
-                                    $('#Vehicle_Class, #Vehicle_Companies, #Vehicle_PolicyNumber').prop('disabled', true).val('').addClass('disabled-select');
-                                    $('#Vehicle_PolicyNumber').css('background-color', '#e5e7eb');
-                                    $('#date-stamp-insurance-1, #date-stamp-insurance-2').prop('disabled', true).val('').css('border-color', 'rgba(156, 163, 175, 0.5)').css('color', 'black');
-                                    $('#select-input-insurance').prop('disabled', true).val('').css('color', 'black');
-
-                                    // ลบคลาส placeholder สีแดง
-                                    $('#date-stamp-insurance-1, #date-stamp-insurance-2').removeClass('red-placeholder');
-                                }
-                            });
-                        });
-
-                    </script>
-
-
-
-                    <div class="flex-1">
-                        <select disabled id="Vehicle_Class" name="Vehicle_Class"
-                            class="mt-1 block w-full border-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-9 px-3">
-                            <option value="" selected>เลือกชั้นประกันภัย</option>
-                            <option value="1">ชั้น 1</option>
-                            <option value="2">ชั้น 2</option>
-                            <option value="3">ชั้น 3</option>
-                            <option value="2_plus">ชั้น 2+</option>
-                            <option value="3_plus">ชั้น 3+</option>
-                        </select>
-                    </div>
-
-                    <div class="flex-1">
-                        <select disabled id="Vehicle_Companies" name="Vehicle_Companies"
-                            class="mt-1 block w-full border-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-9 px-3">
-                            <option value="" selected>เลือกบริษัทประกันภัย</option>
-                            <option value="viriya">วิริยะประกันภัย</option>
-                            <option value="allianz">อลิอันซ์ อยุธยา</option>
-                        </select>
-                    </div>
-
-
-                    <div class="w-full h-10 relative flex flex-row items-center space-x-2 rounded-xl">
-                        <input required="" disabled
-                            class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md  mt-1"
-                            id="Vehicle_PolicyNumber" name="Vehicle_PolicyNumber" type="text">
-                        <label
-                            class="absolute top-1/2 translate-y-[-50%] text-gray-600 bg-white left-3 px-2 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-gray-500 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-gray-500 duration-150 rounded-md"
-                            for="Vehicle_PolicyNumber">
-                            เลขกรมธรรม์
-                        </label>
-                    </div>
-                </div>
-
-
                 <div class="flex">
-                    {{-- <label for="search-dropdown"
-                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"></label> --}}
 
-                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9" disabled
+                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9"
                         id="date-stamp-insurance-1" placeholder="วันที่ต่อประกัน" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5);">
+                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
 
-
-                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9" disabled
+                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9"
                         id="date-stamp-insurance-2" placeholder="วันประกันหมดอายุ" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5);">
-
+                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
 
 
                     <div class="relative inline-block w-full">
-                        <select id="select-input-insurance" name="Choose_Insurance" disabled
-                            class="block w-full p-1.5 text-sm text-gray-900 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
+                        <select id="select-input-insurance" name="Choose_Insurance"
+                            class="block w-full p-1.5 text-sm text-gray-500 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
                             <option value="" selected>เลือกตัวเลือก</option>
                             <option value="7-days">เลือก 7 วันล่วงหน้า</option>
                             <option value="1-year">ใส่วันหมดอายุ 1 ปี</option>
@@ -874,43 +816,41 @@
                         class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"></label>
 
 
-                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9 text-red-500 placeholder-red-500"
+                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9 "
                         id="date-stamp-act-1" placeholder="วันที่ต่อ พ.ร.บ" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5);">
+                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
 
 
-                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9 text-red-500 placeholder-red-500" id="date-stamp-act-2"
+                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9 " id="date-stamp-act-2"
                         placeholder="วัน พ.ร.บ หมดอายุ " name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5);">
+                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
 
 
                     <div class="relative inline-block w-full">
                         <select id="select-input-act" name="Choose_Act"
-                            class="block w-full p-1.5 text-sm text-red-500 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
+                            class="block w-full p-1.5 text-sm text-gray-500 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
                             <option value="" selected>เลือกตัวเลือก</option>
                             <option value="7-days">เลือก 7 วันล่วงหน้า</option>
                             <option value="1-year">ใส่วันหมดอายุ 1 ปี</option>
                         </select>
                     </div>
-
-
                 </div>
 
                 <div class="flex">
                     <label for="search-dropdown"
                         class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
 
-                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9 text-red-500 placeholder-red-500"
+                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9 "
                         id="date-stamp-register-1" placeholder="วันที่ต่อทะเบียน" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5);">
+                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
 
-                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9 text-red-500 placeholder-red-500"
+                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9 "
                         id="date-stamp-register-2" placeholder="วันทะเบียนหมดอายุ" name="date2"
-                        style="border-color: rgba(156, 163, 175, 0.5);">
+                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
 
                     <div class="relative inline-block w-full">
                         <select id="select-input-register" name="Choose_Register"
-                            class="block w-full p-1.5 text-sm text-red-500 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
+                            class="block w-full p-1.5 text-sm text-gray-500 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
                             <option value="" selected>เลือกตัวเลือก</option>
                             <option value="7-days">เลือก 7 วันล่วงหน้า</option>
                             <option value="1-year">ใส่วันหมดอายุ 1 ปี</option>
@@ -987,7 +927,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-{{-- <script>
+<script>
     $(document).ready(function () {
         $('#submitBtn').click(function (e) {
             e.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
@@ -1111,9 +1051,9 @@
             }
         });
     });
-</script> --}}
+</script>
 
-<script>
+{{-- <script>
     $(document).ready(function () {
         $('#submitBtn').click(function (e) {
             e.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
@@ -1269,6 +1209,6 @@
         });
     });
 
-</script>
+</script> --}}
 
 
