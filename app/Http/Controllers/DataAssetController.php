@@ -23,6 +23,7 @@ use App\Models\StatMotoModel;
 use App\Models\StatMotoYear;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DataAssetController extends Controller
 {
@@ -86,10 +87,97 @@ class DataAssetController extends Controller
 
         //---------------------------------------------Data Assets Store---------------------------------------------------------//
 
+        // public function store(Request $request)
+        // {
+
+        //     // Validate the incoming request
+        //     // $request->validate([
+        //     //     'Type_Asset' => 'nullable|string|max:50',
+        //     //     'Vehicle_OldLicense_Text' => 'nullable|string|max:255',
+        //     //     'Vehicle_OldLicense_Number' => 'nullable|string|max:50',
+        //     //     'OldProvince' => 'nullable|string|max:100',
+        //     //     'Vehicle_NewLicense_Text' => 'nullable|string|max:255',
+        //     //     'Vehicle_NewLicense_Number' => 'nullable|string|max:50',
+        //     //     'NewProvince' => 'nullable|string|max:100',
+        //     //     'Vehicle_Chassis' => 'nullable|string|max:50',
+        //     //     'Vehicle_New_Number' => 'nullable|string|max:50',
+        //     //     'Vehicle_Engine' => 'nullable|string|max:50',
+        //     //     'Vehicle_Color' => 'nullable|string|max:50',
+        //     //     'Vehicle_CC' => 'nullable|integer',
+        //     //     'Vehicle_Type' => 'nullable|string|max:50',
+        //     //     'Vehicle_Type_PLT' => 'nullable|string|max:50',
+        //     //     'Vehicle_Brand' => 'nullable|string|max:100',
+        //     //     'Vehicle_Group' => 'nullable|string|max:100',
+        //     //     'Vehicle_Years' => 'nullable|integer',
+        //     //     'Vehicle_Models' => 'nullable|string|max:100',
+        //     //     'Vehicle_Gear' => 'nullable|string|max:50',
+        //     //     'Vehicle_InsuranceStatus' => 'nullable|string|max:50',
+        //     //     'Vehicle_Class' => 'nullable|string|max:50',
+        //     //     'Vehicle_Companies' => 'nullable|string|max:100',
+        //     //     'Vehicle_PolicyNumber' => 'nullable|string|max:50',
+        //     //     'Choose_Insurance' => 'nullable|string|max:50',
+        //     //     'Choose_Act' => 'nullable|string|max:50',
+        //     //     'Choose_Register' => 'nullable|string|max:50',
+        //     //     'created_at' => 'nullable|date',  // Validation for created_at
+        //     //     'updated_at' => 'nullable|date',  // Validation for updated_at
+        //     // ]);
+
+        //     $request->validate([
+        //         'Type_Asset' => 'nullable|string|max:50',
+        //         'Vehicle_OldLicense_Text' => 'nullable|string|max:255',
+        //         'Vehicle_OldLicense_Number' => 'nullable|string|max:50',
+        //         'OldProvince' => 'nullable|string|max:100',
+        //         'Vehicle_NewLicense_Text' => 'nullable|string|max:255',
+        //         'Vehicle_NewLicense_Number' => 'nullable|string|max:50',
+        //         'NewProvince' => 'nullable|string|max:100',
+        //         'Vehicle_Chassis' => 'nullable|string|max:50',
+        //         'Vehicle_New_Number' => 'nullable|string|max:50',
+        //         'Vehicle_Engine' => 'nullable|string|max:50',
+        //         'Vehicle_Color' => 'nullable|string|max:50',
+        //         'Vehicle_CC' => 'nullable|integer',
+        //         'Vehicle_Type' => 'nullable|string|max:50',
+        //         'Vehicle_Type_PLT' => 'nullable|string|max:50',
+        //         'Vehicle_Brand' => 'nullable|string|max:100',
+        //         'Vehicle_Group' => 'nullable|string|max:100',
+        //         'Vehicle_Years' => 'nullable|integer',
+        //         'Vehicle_Models' => 'nullable|string|max:100',
+        //         'Vehicle_Gear' => 'nullable|string|max:50',
+        //         'Vehicle_InsuranceStatus' => 'nullable|string|max:50',
+        //         'Vehicle_Class' => 'nullable|string|max:50',
+        //         'Vehicle_Companies' => 'nullable|string|max:100',
+        //         'Vehicle_PolicyNumber' => 'nullable|string|max:50',
+        //         'Choose_Insurance' => 'nullable|string|max:50',
+        //         'Choose_Act' => 'nullable|string|max:50',
+        //         'Choose_Register' => 'nullable|string|max:50',
+        //         'created_at' => 'nullable|date',  // Validation for created_at
+        //         'updated_at' => 'nullable|date',  // Validation for updated_at
+        //         // เพิ่มการตรวจสอบสำหรับฟิลด์ใหม่
+        //         'Customer_id' => 'nullable|integer', // ตรวจสอบว่า Customer_id มีอยู่ในตาราง customers หรือไม่
+        //         'Insurance_renewal_date' => 'nullable|date',
+        //         'Insurance_end_date' => 'nullable|date',
+        //         'act_renewal_date' => 'nullable|date',
+        //         'act_end_date' => 'nullable|date',
+        //         'register_renewal_date' => 'nullable|date',
+        //         'register_end_date' => 'nullable|date',
+        //     ]);
+
+
+        //     // ตรวจสอบว่ามีเลขตัวถังซ้ำในฐานข้อมูลหรือไม่
+        //     // $exists = AssetManage::where('Vehicle_Chassis', $request->Vehicle_Chassis)->exists();
+        //     // if ($exists) {
+        //     //     return response()->json(['message' => 'เลขตัวถังรถนี้มีอยู่ในระบบแล้ว'], 409); // 409 Conflict
+        //     // }
+
+        //     AssetManage::create($request->all());
+
+        //     return response()->json(['message' => 'สร้างข้อมูลสินทรัพย์สำเร็จ'], 200);
+        // }
+
+
         public function store(Request $request)
         {
 
-            // Validate the incoming request
+
             $request->validate([
                 'Type_Asset' => 'nullable|string|max:50',
                 'Vehicle_OldLicense_Text' => 'nullable|string|max:255',
@@ -117,20 +205,25 @@ class DataAssetController extends Controller
                 'Choose_Insurance' => 'nullable|string|max:50',
                 'Choose_Act' => 'nullable|string|max:50',
                 'Choose_Register' => 'nullable|string|max:50',
-                'created_at' => 'nullable|date',  // Validation for created_at
-                'updated_at' => 'nullable|date',  // Validation for updated_at
+                'created_at' => 'nullable|date',
+                'updated_at' => 'nullable|date',
+                // เพิ่มการตรวจสอบสำหรับฟิลด์ใหม่
+                'Customer_id' => 'nullable|integer',
+                'Insurance_renewal_date' => 'nullable|date',
+                'Insurance_end_date' => 'nullable|date',
+                'act_renewal_date' => 'nullable|date',
+                'act_end_date' => 'nullable|date',
+                'register_renewal_date' => 'nullable|date',
+                'register_end_date' => 'nullable|date',
             ]);
 
-            // ตรวจสอบว่ามีเลขตัวถังซ้ำในฐานข้อมูลหรือไม่
-            // $exists = AssetManage::where('Vehicle_Chassis', $request->Vehicle_Chassis)->exists();
-            // if ($exists) {
-            //     return response()->json(['message' => 'เลขตัวถังรถนี้มีอยู่ในระบบแล้ว'], 409); // 409 Conflict
-            // }
 
             AssetManage::create($request->all());
 
+
             return response()->json(['message' => 'สร้างข้อมูลสินทรัพย์สำเร็จ'], 200);
         }
+
 
 
         //---------------------------------------------Data Assets Destroy---------------------------------------------------------//

@@ -790,171 +790,124 @@
 
                 <div class="flex">
 
-                    {{-- <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9"
-                        id="date-stamp-insurance-1" placeholder="วันที่ต่อประกัน" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;"> --}}
-
                     <div class="relative w-full">
                         <label for="date-stamp-insurance-1" class="rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm" style="font-size: 0.9rem;" id="label-date-insurance">วันที่ต่อประกัน</label>
                         <input type="datetime-local"
-                                class="border rounded-l-lg w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
-                                id="date-stamp-insurance-1"
-                                placeholder=" "
-                                name="date"
-                                style="border-color: rgba(156, 163, 175, 0.5);"
-                                onfocus="moveLabelDown()" onblur="resetLabel()"
-                                >
+                               class="border rounded-l-lg w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
+                               id="date-stamp-insurance-1"
+                               placeholder=" "
+                               name="Insurance_renewal_date"
+                               style="border-color: rgba(156, 163, 175, 0.5);"
+                               onfocus="moveLabelDown()" onblur="resetLabel()"
+                        >
                     </div>
 
-
-                    <script>
-                       document.addEventListener('DOMContentLoaded', function () {
-                            const options = {
-                                locale: {
-                                    // แปลเป็นภาษาไทย
-                                    code: "th",
-                                    weekdays: {
-                                        shorthand: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"],
-                                        longhand: ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัส", "ศุกร์", "เสาร์"],
-                                    },
-                                    months: {
-                                        shorthand: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."],
-                                        longhand: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"],
-                                    },
-                                    firstDayOfWeek: 1, // กำหนดวันแรกของสัปดาห์เป็นวันจันทร์
-                                    rangeSeparator: " ถึง ", // ตัวคั่นสำหรับช่วงวันที่
-                                    time_24hr: true // ใช้รูปแบบเวลา 24 ชั่วโมง
-                                }
-                            };
-
-                            flatpickr("#date-stamp-insurance-1", options);
-                            flatpickr("#date-stamp-insurance-2", options);
-                            flatpickr("#date-stamp-act-1", options);
-                            flatpickr("#date-stamp-act-2", options);
-                            flatpickr("#date-stamp-register-1", options);
-                            flatpickr("#date-stamp-register-2", options);
-                        });
-
-
-                        function moveLabelDown() {
-                            const label = document.getElementById('label-date-insurance');
-                            label.classList.add('translate-y-4', 'text-sm'); // ขยาย label ลงด้านล่าง
-                        }
-
-                        function resetLabel() {
-                            const label = document.getElementById('label-date-insurance');
-                            const input = document.getElementById('date-stamp-insurance-1');
-                            if (input.value === '') {
-                                label.classList.remove('translate-y-4', 'text-sm'); // คืนค่า label กลับสู่ตำแหน่งเดิม
-                            }
-                        }
-                    </script>
-
-                    <script>
-                        function moveLabelDown2(labelId) {
-                            const label = document.getElementById(labelId);
-                            label.classList.add('translate-y-4', 'text-sm', 'bg-red-200'); // ขยาย label ลงด้านล่างและเปลี่ยน bg เป็นสีแดง
-                        }
-
-                        function resetLabel2(labelId) {
-                            const label = document.getElementById(labelId);
-                            const input = document.getElementById('date-stamp-insurance-2');
-                            if (input.value === '') {
-                                label.classList.remove('translate-y-4', 'text-sm', 'bg-red-200'); // คืนค่า label กลับสู่ตำแหน่งเดิม
-                            }
-                        }
-                    </script>
-
-                    <style>
-                        .flatpickr-calendar {
-                            /* ปรับตำแหน่งของปฏิทินทั้งหมด */
-                            margin-left: auto; /* ขยับไปทางด้านขวา */
-                            margin-right: 0; /* ขจัดระยะขอบทางด้านขวา */
-                        }
-
-                        .flatpickr-input {
-                            text-align: center; /* ขยับข้อความในอินพุตไปทางด้านขวา */
-                        }
-                    </style>
-
-
-
-
-
-                    {{-- <input type="datetime-local" class="border rounded-none w-full p-2 h-9"
-                        id="date-stamp-insurance-2" placeholder="วันประกันหมดอายุ" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;"> --}}
-
-                        <div class="relative w-full mb-4">
-                            <label for="date-stamp-insurance-2" class="rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100" style="font-size: 0.9rem;" id="label-date-insurance-2">วันประกันหมดอายุ</label>
-                            <input type="datetime-local"
-                                   class="border rounded-none w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
-                                   id="date-stamp-insurance-2"
-                                   placeholder=" "
-                                   name="date"
-                                   style="border-color: rgba(156, 163, 175, 0.5);"
-                                   onfocus="moveLabelDown2('label-date-insurance-2')" onblur="resetLabel2('label-date-insurance-2')"
-                            >
-                        </div>
+                    <div class="relative w-full mb-4">
+                        <label for="date-stamp-insurance-2" class="rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100" style="font-size: 0.9rem;" id="label-date-insurance-2">วันประกันหมดอายุ</label>
+                        <input type="datetime-local"
+                               class="border rounded-none w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
+                               id="date-stamp-insurance-2"
+                               placeholder=" "
+                               name="Insurance_end_date"
+                               style="border-color: rgba(156, 163, 175, 0.5);"
+                               onfocus="moveLabelDown2('label-date-insurance-2')" onblur="resetLabel2('label-date-insurance-2')"
+                        >
+                    </div>
 
 
 
                     <div class="relative inline-block w-full">
-                        <select id="select-input-insurance" name="Choose_Insurance"
+                        <select id="select-input-insurance" name=""
                             class="block w-full p-1.5 text-sm text-gray-500 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
-                            <option value="" selected>เลือกตัวเลือก</option>
+                            <option value="" selected>เลือกตัวเลือกต่อประกัน</option>
                             <option value="7-days">เลือก 7 วันล่วงหน้า</option>
                             <option value="1-year">ใส่วันหมดอายุ 1 ปี</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="flex">
-                    <label for="search-dropdown"
-                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"></label>
 
+                <!---------------------------------------------------------------------------------------------------------------------------->
 
-                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9 "
-                        id="date-stamp-act-1" placeholder="วันที่ต่อ พ.ร.บ" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
+                <div class="flex mt-[-15]">
 
+                    <div class="relative w-full">
+                        <label for="date-stamp-act-1" class="rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm" style="font-size: 0.9rem;" id="label-date-act">วันที่ต่อ พ.ร.บ</label>
+                        <input type="datetime-local"
+                               class="border rounded-l-lg w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
+                               id="date-stamp-act-1"
+                               placeholder=" "
+                               name="act_renewal_date"
+                               style="border-color: rgba(156, 163, 175, 0.5);"
+                               onfocus="moveLabelDown3()" onblur="resetLabel3()"
+                        >
+                    </div>
 
-                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9 " id="date-stamp-act-2"
-                        placeholder="วัน พ.ร.บ หมดอายุ " name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
+                    <div class="relative w-full mb-4">
+                        <label for="date-stamp-act-2" class="rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100" style="font-size: 0.9rem;" id="label-date-act-2">วัน พ.ร.บ หมดอายุ</label>
+                        <input type="datetime-local"
+                               class="border rounded-none w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
+                               id="date-stamp-act-2"
+                               placeholder=" "
+                               name="act_end_date"
+                               style="border-color: rgba(156, 163, 175, 0.5);"
+                               onfocus="moveLabelDown4()" onblur="resetLabel4()"
+                        >
+                    </div>
 
 
                     <div class="relative inline-block w-full">
-                        <select id="select-input-act" name="Choose_Act"
+                        <select id="select-input-act" name=""
                             class="block w-full p-1.5 text-sm text-gray-500 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
-                            <option value="" selected>เลือกตัวเลือก</option>
+                            <option value="act_reset" selected>เลือกตัวเลือกต่อ พ.ร.บ</option>
                             <option value="7-days">เลือก 7 วันล่วงหน้า</option>
                             <option value="1-year">ใส่วันหมดอายุ 1 ปี</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="flex">
-                    <label for="search-dropdown"
-                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
+                <!------------------------------------------------------------------------------------------------------------------------------------------->
 
-                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9 "
-                        id="date-stamp-register-1" placeholder="วันที่ต่อทะเบียน" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
 
-                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9 "
-                        id="date-stamp-register-2" placeholder="วันทะเบียนหมดอายุ" name="date2"
-                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
+                <div class="flex mt-[-15]">
+
+                    <div class="relative w-full">
+                        <label for="date-stamp-register-1" class="rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm" style="font-size: 0.9rem;" id="label-date-register">วันที่ต่อทะเบียน</label>
+                        <input type="datetime-local"
+                               class="border rounded-l-lg w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
+                               id="date-stamp-register-1"
+                               placeholder=" "
+                               name="register_renewal_date"
+                               style="border-color: rgba(156, 163, 175, 0.5);"
+                               onfocus="moveLabelDown5()" onblur="resetLabel5()"
+                        >
+                    </div>
+
+                    <div class="relative w-full mb-4">
+                        <label for="date-stamp-register-2" class="rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100" style="font-size: 0.9rem;" id="label-date-register-2">วันทะเบียนหมดอายุ</label>
+                        <input type="datetime-local"
+                               class="border rounded-none w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
+                               id="date-stamp-register-2"
+                               placeholder=" "
+                               name="register_end_date"
+                               style="border-color: rgba(156, 163, 175, 0.5);"
+                               onfocus="moveLabelDown6()" onblur="resetLabel6()"
+                        >
+                    </div>
+
 
                     <div class="relative inline-block w-full">
-                        <select id="select-input-register" name="Choose_Register"
+                        <select id="select-input-register" name=""
                             class="block w-full p-1.5 text-sm text-gray-500 bg-white border border-gray-300 rounded-tr-md rounded-br-md rounded-tl-none rounded-bl-none shadow-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9">
-                            <option value="" selected>เลือกตัวเลือก</option>
+                            <option value="register_reset" selected>เลือกตัวเลือกต่อทะเบียน</option>
                             <option value="7-days">เลือก 7 วันล่วงหน้า</option>
                             <option value="1-year">ใส่วันหมดอายุ 1 ปี</option>
                         </select>
                     </div>
                 </div>
+
+                <!-------------------------------------------------------------------------------------------------------------------------------->
+
 
             </div>
 
