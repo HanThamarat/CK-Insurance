@@ -178,7 +178,7 @@
                             </select>
 
                             <label id="provinceLabel"
-                                class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1">
+                                class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1.5">
                                 จังหวัด
                             </label>
                         </div>
@@ -190,13 +190,13 @@
                         $(document).ready(function() {
                             $('#Vehicle_OldLicense_Province').focus(function() {
                                 $('#provinceLabel')
-                                    .removeClass('top-1/2 translate-y-1/3 text-red-400 border-red-400') // ลบ border สีแดงเข้มออก
-                                    .addClass('top-[-4px] left-3 text-red-300 text-lg border-red-300'); // เพิ่ม border สีแดงอ่อน
+                                    .removeClass('top-1/2 translate-y-1/2 text-red-400 border-red-400') // ลบ border สีแดงเข้มออก
+                                    .addClass('top-[-3px] left-3 text-red-300 text-lg border-red-300'); // เพิ่ม border สีแดงอ่อน
                             }).blur(function() {
                                 if ($(this).val() === "") {
                                     $('#provinceLabel')
                                         .addClass('top-1/2 -translate-y-1/2 text-red-400 text-sm border-red-400') // เพิ่ม border สีแดงเข้ม
-                                        .removeClass('top-[-4px] left-3 text-red-300 text-lg border-red-300'); // ลบ border สีแดงอ่อนออก
+                                        .removeClass('top-[-3px] left-3 text-red-300 text-lg border-red-300'); // ลบ border สีแดงอ่อนออก
                                 } else {
                                     $('#provinceLabel')
                                         .addClass('text-red-300 border-red-300'); // ถ้ามีค่าใน input ให้ border สีแดงอ่อน
@@ -287,7 +287,7 @@
                             </select>
 
                             <label id="newProvinceLabel"
-                                class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1">
+                                class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1.5">
                                 จังหวัด
                             </label>
                         </div>
@@ -299,13 +299,13 @@
                         // สำหรับ NewProvince
                             $('#Vehicle_NewLicense_Province').focus(function() {
                                 $('#newProvinceLabel')
-                                    .removeClass('top-2/3 translate-y-2/3 text-gray-400') // แก้ไขให้ตรงกับสีที่ต้องการ
-                                    .addClass('top-[-5px] left-3 text-gray-300 text-lg'); // ปรับให้เลื่อนลงมากขึ้น
+                                    .removeClass('top-1/2 translate-y-1/2 text-gray-400') // แก้ไขให้ตรงกับสีที่ต้องการ
+                                    .addClass('top-[-2px] left-3 text-gray-300 text-lg'); // ปรับให้เลื่อนลงมากขึ้น
                             }).blur(function() {
                                 if ($(this).val() === "") {
                                     $('#newProvinceLabel')
                                         .addClass('top-1/2 -translate-y-1/2 text-gray-400 text-sm')
-                                        .removeClass('top-[-5px] left-3 text-gray-300 text-lg'); // เปลี่ยน text-gray-300 เป็น text-gray-400
+                                        .removeClass('top-[-2px] left-3 text-gray-300 text-lg'); // เปลี่ยน text-gray-300 เป็น text-gray-400
                                 } else {
                                     $('#newProvinceLabel').addClass('text-gray-300');
                                 }
@@ -536,34 +536,32 @@
                                 ยี่ห้อรถ
                             </label>
                             <select
-                                class="form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Brand') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
-                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                class="form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Brand') ? 'border-red-300' : 'border-red-300' }} rounded-md shadow-sm
+                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out text-red-500"
                                 id="Vehicle_Brand" name="Vehicle_Brand" required
                                 onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
                                           this.classList.remove('border-red-300');
                                           this.classList.add('border-red-500');
-                                          this.style.color = this.value ? 'red' : '';"
+                                          this.style.color = this.value ? 'red' : ''; "
                                 onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
-                                <option value="">ยี่ห้อรถ</option>
+                                <option value="" class="text-red-500">ยี่ห้อรถ</option>
 
                                 <!-- foreach for car brands -->
                                 @foreach ($carBrands->unique('Brand_car') as $car)
-                                    <option class="car-option" id="car_brand" value="{{ $car->Brand_car }}" data-id="{{ $car->id }}">
+                                    <option class="car-option text-red-500" id="car_brand" value="{{ $car->Brand_car }}" data-id="{{ $car->id }}">
                                         {{ $car->vehicle_name ?? '' . $car->Brand_car }}
                                     </option>
                                 @endforeach
 
                                 <!-- foreach for motorcycle brands -->
                                 @foreach ($motoBrands->unique('Brand_moto') as $moto)
-                                    <option class="moto-option" id="moto_brand" value="{{ $moto->Brand_moto }}" data-id="{{ $moto->id }}">
+                                    <option class="moto-option text-red-500" id="moto_brand" value="{{ $moto->Brand_moto }}" data-id="{{ $moto->id }}">
                                         {{ $moto->vehicle_name ?? '' . $moto->Brand_moto }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-
-
 
 
 
@@ -792,13 +790,113 @@
 
                 <div class="flex">
 
-                    <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9"
+                    {{-- <input type="datetime-local" class="border rounded-l-lg rounded-r-none w-full p-2 h-9"
                         id="date-stamp-insurance-1" placeholder="วันที่ต่อประกัน" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
+                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;"> --}}
 
-                    <input type="datetime-local" class="border rounded-none w-full p-2 h-9"
+                    <div class="relative w-full">
+                        <label for="date-stamp-insurance-1" class="rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm" style="font-size: 0.9rem;" id="label-date-insurance">วันที่ต่อประกัน</label>
+                        <input type="datetime-local"
+                                class="border rounded-l-lg w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
+                                id="date-stamp-insurance-1"
+                                placeholder=" "
+                                name="date"
+                                style="border-color: rgba(156, 163, 175, 0.5);"
+                                onfocus="moveLabelDown()" onblur="resetLabel()"
+                                >
+                    </div>
+
+
+                    <script>
+                       document.addEventListener('DOMContentLoaded', function () {
+                            const options = {
+                                locale: {
+                                    // แปลเป็นภาษาไทย
+                                    code: "th",
+                                    weekdays: {
+                                        shorthand: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"],
+                                        longhand: ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัส", "ศุกร์", "เสาร์"],
+                                    },
+                                    months: {
+                                        shorthand: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."],
+                                        longhand: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"],
+                                    },
+                                    firstDayOfWeek: 1, // กำหนดวันแรกของสัปดาห์เป็นวันจันทร์
+                                    rangeSeparator: " ถึง ", // ตัวคั่นสำหรับช่วงวันที่
+                                    time_24hr: true // ใช้รูปแบบเวลา 24 ชั่วโมง
+                                }
+                            };
+
+                            flatpickr("#date-stamp-insurance-1", options);
+                            flatpickr("#date-stamp-insurance-2", options);
+                            flatpickr("#date-stamp-act-1", options);
+                            flatpickr("#date-stamp-act-2", options);
+                            flatpickr("#date-stamp-register-1", options);
+                            flatpickr("#date-stamp-register-2", options);
+                        });
+
+
+                        function moveLabelDown() {
+                            const label = document.getElementById('label-date-insurance');
+                            label.classList.add('translate-y-4', 'text-sm'); // ขยาย label ลงด้านล่าง
+                        }
+
+                        function resetLabel() {
+                            const label = document.getElementById('label-date-insurance');
+                            const input = document.getElementById('date-stamp-insurance-1');
+                            if (input.value === '') {
+                                label.classList.remove('translate-y-4', 'text-sm'); // คืนค่า label กลับสู่ตำแหน่งเดิม
+                            }
+                        }
+                    </script>
+
+                    <script>
+                        function moveLabelDown2(labelId) {
+                            const label = document.getElementById(labelId);
+                            label.classList.add('translate-y-4', 'text-sm', 'bg-red-200'); // ขยาย label ลงด้านล่างและเปลี่ยน bg เป็นสีแดง
+                        }
+
+                        function resetLabel2(labelId) {
+                            const label = document.getElementById(labelId);
+                            const input = document.getElementById('date-stamp-insurance-2');
+                            if (input.value === '') {
+                                label.classList.remove('translate-y-4', 'text-sm', 'bg-red-200'); // คืนค่า label กลับสู่ตำแหน่งเดิม
+                            }
+                        }
+                    </script>
+
+                    <style>
+                        .flatpickr-calendar {
+                            /* ปรับตำแหน่งของปฏิทินทั้งหมด */
+                            margin-left: auto; /* ขยับไปทางด้านขวา */
+                            margin-right: 0; /* ขจัดระยะขอบทางด้านขวา */
+                        }
+
+                        .flatpickr-input {
+                            text-align: center; /* ขยับข้อความในอินพุตไปทางด้านขวา */
+                        }
+                    </style>
+
+
+
+
+
+                    {{-- <input type="datetime-local" class="border rounded-none w-full p-2 h-9"
                         id="date-stamp-insurance-2" placeholder="วันประกันหมดอายุ" name="date"
-                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;">
+                        style="border-color: rgba(156, 163, 175, 0.5); font-size: 0.9rem;"> --}}
+
+                        <div class="relative w-full mb-4">
+                            <label for="date-stamp-insurance-2" class="rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100" style="font-size: 0.9rem;" id="label-date-insurance-2">วันประกันหมดอายุ</label>
+                            <input type="datetime-local"
+                                   class="border rounded-none w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
+                                   id="date-stamp-insurance-2"
+                                   placeholder=" "
+                                   name="date"
+                                   style="border-color: rgba(156, 163, 175, 0.5);"
+                                   onfocus="moveLabelDown2('label-date-insurance-2')" onblur="resetLabel2('label-date-insurance-2')"
+                            >
+                        </div>
+
 
 
                     <div class="relative inline-block w-full">

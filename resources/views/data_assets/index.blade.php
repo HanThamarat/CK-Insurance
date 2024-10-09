@@ -11,7 +11,7 @@
     @include('data_assets.component_year')
     @include('data_assets.component_group')
     @include('data_assets.component_model')
-    @include('data_assets.component_model_moto')
+    {{-- @include('data_assets.component_model_moto') --}}
 
     <div class="container-xl px-4 mt-2">
         <div class="row">
