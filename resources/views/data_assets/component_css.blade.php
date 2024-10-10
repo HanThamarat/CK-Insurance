@@ -232,3 +232,11 @@
         text-align: center; /* ขยับข้อความในอินพุตไปทางด้านขวา */
     }
 </style>
+
+
+<style>
+    .scrollbar-hidden::-webkit-scrollbar {
+        display: none;
+    }
+
+</style>

@@ -3,7 +3,7 @@
     @extends('data_assets.modal_car')
     @include('preloader')
 
-    {{--  Data Assets Component--}}
+    {{--  Data Assets Component --}}
     @include('data_assets.component_css')
     @include('data_assets.component_js')
     @include('data_assets.component_type')
@@ -11,7 +11,7 @@
     @include('data_assets.component_year')
     @include('data_assets.component_group')
     @include('data_assets.component_model')
-    {{-- @include('data_assets.component_model_moto') --}}
+
 
     <div class="container-xl px-4 mt-2">
         <div class="row">
@@ -23,7 +23,8 @@
                         class="flex-none rounded-lg shadow-2xl dark:bg-white dark:border-gray-400 p-6 w-full sm:w-1/3 md:w-1/4 lg:w-2/7 xl:w-2/7 relative">
                         <!-- Layer สำหรับพื้นหลังที่มี opacity (สำหรับการ์ดอื่น) -->
                         <div class="absolute inset-0 bg-cover bg-center rounded-lg"
-                            style="background-image: url('{{ asset('img/Insurance_picture5.jpg') }}'); opacity: 0.5; z-index: 0;"></div>
+                            style="background-image: url('{{ asset('img/Insurance_picture5.jpg') }}'); opacity: 0.5; z-index: 0;">
+                        </div>
 
                         <!-- เนื้อหาของการ์ด -->
                         <div class="relative z-10 flex flex-col items-center pb-10">
@@ -38,15 +39,18 @@
                             </span>
 
                             <div class="flex justify-center space-x-4 mt-2">
-                                <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg" href="{{ route('customers.profile') }}">
+                                <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
+                                    href="{{ route('customers.profile') }}">
                                     <span class="block sm:hidden"><i class="fas fa-home"></i></span>
                                     <div class="hidden sm:block flex-grow">
                                         <div class="flex flex-col justify-center space-y-2">
                                             <div class="flex-shrink-0 self-center">
-                                                <div class="mini-stat-icon avatar-xs rounded-full" data-tooltip="true" aria-label="ข้อมูลลูกค้า"></div>
+                                                <div class="mini-stat-icon avatar-xs rounded-full" data-tooltip="true"
+                                                    aria-label="ข้อมูลลูกค้า"></div>
                                             </div>
                                             <div>
-                                                <span class="badge bg-orange-500 text-center text-white rounded-full px-2 flex items-center justify-center">
+                                                <span
+                                                    class="badge bg-orange-500 text-center text-white rounded-full px-2 flex items-center justify-center">
                                                     <i class="fas fa-user-circle mr-1"></i>
                                                     ลูกค้า
                                                 </span>
@@ -55,15 +59,18 @@
                                     </div>
                                 </a>
 
-                                <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg" href="{{ route('data_assets.index') }}">
+                                <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
+                                    href="{{ route('data_assets.index') }}">
                                     <span class="block sm:hidden"><i class="far fa-user"></i></span>
                                     <div class="hidden sm:block flex-grow">
                                         <div class="flex flex-col justify-center space-y-2">
                                             <div class="flex-shrink-0 self-center">
-                                                <div class="mini-stat-icon avatar-xs rounded-full" data-tooltip="true" aria-label="ข้อมูลทรัพย์สิน"></div>
+                                                <div class="mini-stat-icon avatar-xs rounded-full" data-tooltip="true"
+                                                    aria-label="ข้อมูลทรัพย์สิน"></div>
                                             </div>
                                             <div>
-                                                <span class="badge bg-orange-500 text-center text-white rounded-full px-3 flex items-center justify-center">
+                                                <span
+                                                    class="badge bg-orange-500 text-center text-white rounded-full px-3 flex items-center justify-center">
                                                     <i class="fas fa-archive mr-1"></i>
                                                     ทรัพย์สิน
                                                 </span>
@@ -71,10 +78,7 @@
                                         </div>
                                     </div>
                                 </a>
-
                             </div>
-
-
                         </div>
 
 
@@ -146,18 +150,27 @@
                     <!-- Cards for รถยนต์ and มอเตอร์ไซค์ -->
                     <div class="flex flex-col md:flex-row md:justify-center gap-4 w-full h-3/4">
                         <!-- การ์ดรถยนต์ -->
-                        <a href="#" class="m-4 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:w-1/2 lg:w-2/3" data-bs-toggle="modal" data-bs-target="#DataAssetsModal" data-type="รถยนต์" onclick="setAssetType(this)">
-                            <img class="object-cover w-full rounded-t-lg h-72 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('images/car.png') }}" alt="รถยนต์">
+                        <a href="#"
+                            class="m-4 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:w-1/2 lg:w-2/3"
+                            data-bs-toggle="modal" data-bs-target="#DataAssetsModal" data-type="รถยนต์"
+                            onclick="setAssetType(this)">
+                            <img class="object-cover w-full rounded-t-lg h-72 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg"
+                                src="{{ asset('images/car.png') }}" alt="รถยนต์">
                             <div class="flex flex-col justify-between p-6 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">รถยนต์</h5>
                             </div>
                         </a>
 
                         <!-- การ์ดมอเตอร์ไซค์ -->
-                        <a href="#" class="m-4 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:w-1/2 lg:w-2/3" data-bs-toggle="modal" data-bs-target="#DataAssetsModal" data-type="มอเตอร์ไซค์" onclick="setAssetType(this)">
-                            <img class="object-cover w-full rounded-t-lg h-72 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('images/motor.png') }}" alt="มอเตอร์ไซค์">
+                        <a href="#"
+                            class="m-4 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:w-1/2 lg:w-2/3"
+                            data-bs-toggle="modal" data-bs-target="#DataAssetsModal" data-type="มอเตอร์ไซค์"
+                            onclick="setAssetType(this)">
+                            <img class="object-cover w-full rounded-t-lg h-72 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg"
+                                src="{{ asset('images/motor.png') }}" alt="มอเตอร์ไซค์">
                             <div class="flex flex-col justify-between p-6 leading-normal">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">มอเตอร์ไซค์</h5>
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">มอเตอร์ไซค์
+                                </h5>
                             </div>
                         </a>
                     </div>
@@ -188,45 +201,4 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-
-
-    <script>
-        flatpickr("#date-stamp-register-1", {
-            locale: "th",
-            enableTime: true,
-            dateFormat: "d/m/Y H:i"
-        });
-
-        flatpickr("#date-stamp-register-2", {
-            locale: "th",
-            enableTime: true,
-            dateFormat: "d/m/Y H:i"
-        });
-
-        flatpickr("#date-stamp-act-1", {
-            locale: "th",
-            enableTime: true,
-            dateFormat: "d/m/Y H:i"
-        });
-
-        flatpickr("#date-stamp-act-2", {
-            locale: "th",
-            enableTime: true,
-            dateFormat: "d/m/Y H:i"
-        });
-
-        flatpickr("#date-stamp-insurance-1", {
-            locale: "th",
-            enableTime: true,
-            dateFormat: "d/m/Y H:i"
-        });
-
-        flatpickr("#date-stamp-insurance-2", {
-            locale: "th",
-            enableTime: true,
-            dateFormat: "d/m/Y H:i"
-        });
-    </script>
 @endsection

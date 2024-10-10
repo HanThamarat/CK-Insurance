@@ -100,496 +100,13 @@
 
 
 
-    // $(document).ready(function() {
-    //     // สำหรับ select-input-register
-    //     $("#select-input-register").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //             hour: "2-digit",
-    //             minute: "2-digit",
-    //             hour12: false,
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-register-1").val(""); // ล้างค่า
-    //             $("#date-stamp-register-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDateTime = now
-    //             .toLocaleString("th-TH", options)
-    //             .replace(",", ""); // Format: DD/MM/YYYY HH:MM
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDateTime = now
-    //             .toLocaleString("th-TH", options)
-    //             .replace(",", ""); // Format: DD/MM/YYYY HH:MM
-
-    //         $("#date-stamp-register-1").val(currentDateTime);
-    //         $("#date-stamp-register-2").val(futureDateTime);
-    //     });
-
-    //     // สำหรับ select-input-act
-    //     $("#select-input-act").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //             hour: "2-digit",
-    //             minute: "2-digit",
-    //             hour12: false,
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-act-1").val(""); // ล้างค่า
-    //             $("#date-stamp-act-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDateTime = now
-    //             .toLocaleString("th-TH", options)
-    //             .replace(",", ""); // Format: DD/MM/YYYY HH:MM
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDateTime = now
-    //             .toLocaleString("th-TH", options)
-    //             .replace(",", ""); // Format: DD/MM/YYYY HH:MM
-
-    //         $("#date-stamp-act-1").val(currentDateTime);
-    //         $("#date-stamp-act-2").val(futureDateTime);
-    //     });
-
-    //     // สำหรับ select-input-insurance
-    //     $("#select-input-insurance").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //             hour: "2-digit",
-    //             minute: "2-digit",
-    //             hour12: false,
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-insurance-1").val(""); // ล้างค่า
-    //             $("#date-stamp-insurance-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDateTime = now
-    //             .toLocaleString("th-TH", options)
-    //             .replace(",", ""); // Format: DD/MM/YYYY HH:MM
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDateTime = now
-    //             .toLocaleString("th-TH", options)
-    //             .replace(",", ""); // Format: DD/MM/YYYY HH:MM
-
-    //         $("#date-stamp-insurance-1").val(currentDateTime);
-    //         $("#date-stamp-insurance-2").val(futureDateTime);
-    //     });
-    // });
-
-    // $(document).ready(function() {
-    //     // สำหรับ select-input-register
-    //     $("#select-input-register").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-register-1").val(""); // ล้างค่า
-    //             $("#date-stamp-register-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDate = now
-    //             .toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDate = now
-    //             .toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         $("#date-stamp-register-1").val(currentDate);
-    //         $("#date-stamp-register-2").val(futureDate);
-    //     });
-
-    //     // สำหรับ select-input-act
-    //     $("#select-input-act").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-act-1").val(""); // ล้างค่า
-    //             $("#date-stamp-act-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDate = now
-    //             .toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDate = now
-    //             .toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         $("#date-stamp-act-1").val(currentDate);
-    //         $("#date-stamp-act-2").val(futureDate);
-    //     });
-
-    //     // สำหรับ select-input-insurance
-    //     $("#select-input-insurance").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-insurance-1").val(""); // ล้างค่า
-    //             $("#date-stamp-insurance-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDate = now
-    //             .toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDate = now
-    //             .toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         $("#date-stamp-insurance-1").val(currentDate);
-    //         $("#date-stamp-insurance-2").val(futureDate);
-    //     });
-    // });
-
-    // $(document).ready(function() {
-    //     // สำหรับ select-input-register
-    //     $("#select-input-register").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-register-1").val(""); // ล้างค่า
-    //             $("#date-stamp-register-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown(); // เรียกฟังก์ชันเมื่อคลิก
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown(); // เรียกฟังก์ชันเมื่อคลิก
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         $("#date-stamp-register-1").val(currentDate);
-    //         $("#date-stamp-register-2").val(futureDate);
-    //     });
-
-    //     // สำหรับ select-input-act
-    //     $("#select-input-act").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-act-1").val(""); // ล้างค่า
-    //             $("#date-stamp-act-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown(); // เรียกฟังก์ชันเมื่อคลิก
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown(); // เรียกฟังก์ชันเมื่อคลิก
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         $("#date-stamp-act-1").val(currentDate);
-    //         $("#date-stamp-act-2").val(futureDate);
-    //     });
-
-    //     // สำหรับ select-input-insurance
-    //     $("#select-input-insurance").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-insurance-1").val(""); // ล้างค่า
-    //             $("#date-stamp-insurance-2").val(""); // ล้างค่า
-    //             return;
-    //         }
-
-    //         var currentDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown(); // เรียกฟังก์ชันเมื่อคลิก
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown(); // เรียกฟังก์ชันเมื่อคลิก
-    //         } else {
-    //             return;
-    //         }
-
-    //         var futureDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         $("#date-stamp-insurance-1").val(currentDate);
-    //         $("#date-stamp-insurance-2").val(futureDate);
-    //     });
-    // });
-
-    // $(document).ready(function() {
-    //     // สำหรับ select-input-register
-    //     $("#select-input-register").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         // ถ้าไม่มีการเลือก
-    //         if (selectedValue === "register_reset") {
-    //             $("#date-stamp-register-1").val(""); // ล้างค่า
-    //             $("#date-stamp-register-2").val(""); // ล้างค่า
-    //             resetLabel5(); // รีเซ็ต label ของ date-stamp-register-1
-    //             resetLabel6(); // รีเซ็ต label ของ date-stamp-register-2
-    //             return;
-    //         }
-
-    //         // วันปัจจุบันในรูปแบบ DD/MM/YYYY
-    //         var currentDate = now.toLocaleDateString("th-TH", options);
-
-    //         // ตั้งค่าวันที่ตามตัวเลือกที่เลือก
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown5(); // ขยับ label ลงของ date-stamp-register-1
-    //             moveLabelDown6(); // ขยับ label ลงของ date-stamp-register-2
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown5(); // ขยับ label ลงของ date-stamp-register-1
-    //             moveLabelDown6(); // ขยับ label ลงของ date-stamp-register-2
-    //         } else {
-    //             return;
-    //         }
-
-    //         // วันในอนาคตในรูปแบบ DD/MM/YYYY
-    //         var futureDate = now.toLocaleDateString("th-TH", options);
-
-    //         $("#date-stamp-register-1").val(currentDate); // ตั้งค่าวันที่ปัจจุบัน
-    //         $("#date-stamp-register-2").val(futureDate); // ตั้งค่าวันที่ในอนาคต
-    //     });
-
-
-    //     // สำหรับ select-input-act
-    //     $("#select-input-act").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         // ถ้าไม่มีการเลือก
-    //         if (selectedValue === "act_reset") {
-    //             $("#date-stamp-act-1").val(""); // ล้างค่า
-    //             $("#date-stamp-act-2").val(""); // ล้างค่า
-    //             resetLabel3(); // รีเซ็ต label ของ date-stamp-act-1
-    //             resetLabel4(); // รีเซ็ต label ของ date-stamp-act-2
-    //             return;
-    //         }
-
-    //         // วันปัจจุบันในรูปแบบ DD/MM/YYYY
-    //         var currentDate = now.toLocaleDateString("th-TH", options);
-
-    //         // ตั้งค่าวันที่ตามตัวเลือกที่เลือก
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown3(); // ขยับ label ลงของ date-stamp-act-1
-    //             moveLabelDown4(); // ขยับ label ลงของ date-stamp-act-2
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown3(); // ขยับ label ลงของ date-stamp-act-1
-    //             moveLabelDown4(); // ขยับ label ลงของ date-stamp-act-2
-    //         } else {
-    //             return;
-    //         }
-
-    //         // วันในอนาคตในรูปแบบ DD/MM/YYYY
-    //         var futureDate = now.toLocaleDateString("th-TH", options);
-
-    //         $("#date-stamp-act-1").val(currentDate); // ตั้งค่าวันที่ปัจจุบัน
-    //         $("#date-stamp-act-2").val(futureDate); // ตั้งค่าวันที่ในอนาคต
-    //     });
-
-
-    //     $("#select-input-insurance").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-insurance-1").val(""); // ล้างค่า
-    //             $("#date-stamp-insurance-2").val(""); // ล้างค่า
-    //             resetLabel(); // รีเซ็ต label ที่วันที่ต่อประกัน
-    //             resetLabel2('label-date-insurance-2'); // รีเซ็ต label ที่วันหมดอายุ
-    //             return;
-    //         }
-
-    //         var currentDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown(); // ขยับ label ลงสำหรับวันที่ต่อประกัน
-    //             moveLabelDown2('label-date-insurance-2'); // ขยับ label ลงสำหรับวันหมดอายุ
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown(); // ขยับ label ลงสำหรับวันที่ต่อประกัน
-    //             moveLabelDown2('label-date-insurance-2'); // ขยับ label ลงสำหรับวันหมดอายุ
-    //         }
-
-    //         var futureDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-
-    //         $("#date-stamp-insurance-1").val(currentDate);
-    //         $("#date-stamp-insurance-2").val(futureDate);
-    //     });
-    // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
+    ////////////////////////////////////////////////////////เช็ค ส่งค่า 1 ปี และ ส่งค่า 7 วัน////////////////////////////////////////////////////////////////////
 
     $(document).ready(function() {
-        // ฟังก์ชันแปลงวันที่จาก DD/MM/YYYY เป็น YYYY-MM-DD
-        function formatDateToYMD(dateString) {
-            var parts = dateString.split("/");
-            return parts[2] + "-" + parts[1] + "-" + parts[0]; // เปลี่ยนเป็น YYYY-MM-DD
+        // ฟังก์ชันแปลงวันที่จาก YYYY-MM-DD เป็น DD/MM/YYYY
+        function formatDateToDMY(dateString) {
+            var parts = dateString.split("-");
+            return parts[2] + "/" + parts[1] + "/" + parts[0]; // เปลี่ยนเป็น DD/MM/YYYY
         }
 
         // สำหรับ select-input-register
@@ -614,7 +131,6 @@
 
             // วันปัจจุบันในรูปแบบ DD/MM/YYYY
             var currentDate = now.toLocaleDateString("th-TH", options);
-            currentDate = formatDateToYMD(currentDate); // แปลงเป็น YYYY-MM-DD
 
             // ตั้งค่าวันที่ตามตัวเลือกที่เลือก
             if (selectedValue === "7-days") {
@@ -631,8 +147,8 @@
 
             // วันในอนาคตในรูปแบบ DD/MM/YYYY
             var futureDate = now.toLocaleDateString("th-TH", options);
-            futureDate = formatDateToYMD(futureDate); // แปลงเป็น YYYY-MM-DD
 
+            // ส่งค่ากลับในรูปแบบ DD/MM/YYYY
             $("#date-stamp-register-1").val(currentDate); // ตั้งค่าวันที่ปัจจุบัน
             $("#date-stamp-register-2").val(futureDate); // ตั้งค่าวันที่ในอนาคต
         });
@@ -659,7 +175,6 @@
 
             // วันปัจจุบันในรูปแบบ DD/MM/YYYY
             var currentDate = now.toLocaleDateString("th-TH", options);
-            currentDate = formatDateToYMD(currentDate); // แปลงเป็น YYYY-MM-DD
 
             // ตั้งค่าวันที่ตามตัวเลือกที่เลือก
             if (selectedValue === "7-days") {
@@ -676,7 +191,6 @@
 
             // วันในอนาคตในรูปแบบ DD/MM/YYYY
             var futureDate = now.toLocaleDateString("th-TH", options);
-            futureDate = formatDateToYMD(futureDate); // แปลงเป็น YYYY-MM-DD
 
             $("#date-stamp-act-1").val(currentDate); // ตั้งค่าวันที่ปัจจุบัน
             $("#date-stamp-act-2").val(futureDate); // ตั้งค่าวันที่ในอนาคต
@@ -702,7 +216,6 @@
             }
 
             var currentDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-            currentDate = formatDateToYMD(currentDate); // แปลงเป็น YYYY-MM-DD
 
             if (selectedValue === "7-days") {
                 now.setDate(now.getDate() + 7);
@@ -715,306 +228,13 @@
             }
 
             var futureDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-            futureDate = formatDateToYMD(futureDate); // แปลงเป็น YYYY-MM-DD
 
             $("#date-stamp-insurance-1").val(currentDate);
-            $("#date-stamp-insurance-2").val(futureDate);
+            $("#date-stamp-insurance-2").val(futureDate); // ตั้งค่าวันหมดอายุในรูปแบบ DD/MM/YYYY
         });
     });
 
-    // $(document).ready(function() {
-    //     // ฟังก์ชันแปลงวันที่จาก YYYY-MM-DD เป็น DD/MM/YYYY
-    //     function formatDateToDMY(dateString) {
-    //         var parts = dateString.split("-");
-    //         return parts[2] + "/" + parts[1] + "/" + parts[0]; // เปลี่ยนเป็น DD/MM/YYYY
-    //     }
-
-    //     // สำหรับ select-input-register
-    //     $("#select-input-register").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         // ถ้าไม่มีการเลือก
-    //         if (selectedValue === "register_reset") {
-    //             $("#date-stamp-register-1").val(""); // ล้างค่า
-    //             $("#date-stamp-register-2").val(""); // ล้างค่า
-    //             resetLabel5(); // รีเซ็ต label ของ date-stamp-register-1
-    //             resetLabel6(); // รีเซ็ต label ของ date-stamp-register-2
-    //             return;
-    //         }
-
-    //         // วันปัจจุบันในรูปแบบ DD/MM/YYYY
-    //         var currentDate = now.toLocaleDateString("th-TH", options);
-    //         currentDate = formatDateToDMY(currentDate); // แปลงเป็น DD/MM/YYYY
-
-    //         // ตั้งค่าวันที่ตามตัวเลือกที่เลือก
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown5(); // ขยับ label ลงของ date-stamp-register-1
-    //             moveLabelDown6(); // ขยับ label ลงของ date-stamp-register-2
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown5(); // ขยับ label ลงของ date-stamp-register-1
-    //             moveLabelDown6(); // ขยับ label ลงของ date-stamp-register-2
-    //         } else {
-    //             return;
-    //         }
-
-    //         // วันในอนาคตในรูปแบบ DD/MM/YYYY
-    //         var futureDate = now.toLocaleDateString("th-TH", options);
-    //         futureDate = formatDateToDMY(futureDate); // แปลงเป็น DD/MM/YYYY
-
-    //         $("#date-stamp-register-1").val(currentDate); // ตั้งค่าวันที่ปัจจุบัน
-    //         $("#date-stamp-register-2").val(futureDate); // ตั้งค่าวันที่ในอนาคต
-    //     });
-
-    //     // สำหรับ select-input-act
-    //     $("#select-input-act").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         // ถ้าไม่มีการเลือก
-    //         if (selectedValue === "act_reset") {
-    //             $("#date-stamp-act-1").val(""); // ล้างค่า
-    //             $("#date-stamp-act-2").val(""); // ล้างค่า
-    //             resetLabel3(); // รีเซ็ต label ของ date-stamp-act-1
-    //             resetLabel4(); // รีเซ็ต label ของ date-stamp-act-2
-    //             return;
-    //         }
-
-    //         // วันปัจจุบันในรูปแบบ DD/MM/YYYY
-    //         var currentDate = now.toLocaleDateString("th-TH", options);
-    //         currentDate = formatDateToDMY(currentDate); // แปลงเป็น DD/MM/YYYY
-
-    //         // ตั้งค่าวันที่ตามตัวเลือกที่เลือก
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown3(); // ขยับ label ลงของ date-stamp-act-1
-    //             moveLabelDown4(); // ขยับ label ลงของ date-stamp-act-act-2
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown3(); // ขยับ label ลงของ date-stamp-act-1
-    //             moveLabelDown4(); // ขยับ label ลงของ date-stamp-act-2
-    //         } else {
-    //             return;
-    //         }
-
-    //         // วันในอนาคตในรูปแบบ DD/MM/YYYY
-    //         var futureDate = now.toLocaleDateString("th-TH", options);
-    //         futureDate = formatDateToDMY(futureDate); // แปลงเป็น DD/MM/YYYY
-
-    //         $("#date-stamp-act-1").val(currentDate); // ตั้งค่าวันที่ปัจจุบัน
-    //         $("#date-stamp-act-2").val(futureDate); // ตั้งค่าวันที่ในอนาคต
-    //     });
-
-    //     // สำหรับ select-input-insurance
-    //     $("#select-input-insurance").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-insurance-1").val(""); // ล้างค่า
-    //             $("#date-stamp-insurance-2").val(""); // ล้างค่า
-    //             resetLabel(); // รีเซ็ต label ที่วันที่ต่อประกัน
-    //             resetLabel2('label-date-insurance-2'); // รีเซ็ต label ที่วันหมดอายุ
-    //             return;
-    //         }
-
-    //         var currentDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-    //         currentDate = formatDateToDMY(currentDate); // แปลงเป็น DD/MM/YYYY
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown(); // ขยับ label ลงสำหรับวันที่ต่อประกัน
-    //             moveLabelDown2('label-date-insurance-2'); // ขยับ label ลงสำหรับวันหมดอายุ
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown(); // ขยับ label ลงสำหรับวันที่ต่อประกัน
-    //             moveLabelDown2('label-date-insurance-2'); // ขยับ label ลงสำหรับวันหมดอายุ
-    //         }
-
-    //         var futureDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-    //         futureDate = formatDateToDMY(futureDate); // แปลงเป็น DD/MM/YYYY
-
-    //         $("#date-stamp-insurance-1").val(currentDate);
-    //         $("#date-stamp-insurance-2").val(futureDate);
-    //     });
-    // });
-
-    // $(document).ready(function() {
-    //     // ฟังก์ชันแปลงวันที่จาก YYYY-MM-DD เป็น DD/MM/YYYY
-    //     function formatDateToDMY(dateString) {
-    //         var parts = dateString.split("-");
-    //         return parts[2] + "/" + parts[1] + "/" + parts[0]; // เปลี่ยนเป็น DD/MM/YYYY
-    //     }
-
-    //     // ฟังก์ชันแปลงวันที่จาก DD/MM/YYYY เป็น YYYY-MM-DD
-    //     function formatDateToYMD(dateString) {
-    //         var parts = dateString.split("/");
-    //         return parts[2] + "-" + parts[1] + "-" + parts[0]; // เปลี่ยนเป็น YYYY-MM-DD
-    //     }
-
-    //     // สำหรับ select-input-register
-    //     $("#select-input-register").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         // ถ้าไม่มีการเลือก
-    //         if (selectedValue === "register_reset") {
-    //             $("#date-stamp-register-1").val(""); // ล้างค่า
-    //             $("#date-stamp-register-2").val(""); // ล้างค่า
-    //             resetLabel5(); // รีเซ็ต label ของ date-stamp-register-1
-    //             resetLabel6(); // รีเซ็ต label ของ date-stamp-register-2
-    //             return;
-    //         }
-
-    //         // วันปัจจุบันในรูปแบบ DD/MM/YYYY
-    //         var currentDate = now.toLocaleDateString("th-TH", options);
-    //         currentDate = formatDateToYMD(currentDate); // แปลงเป็น YYYY-MM-DD
-
-    //         // ตั้งค่าวันที่ตามตัวเลือกที่เลือก
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown5(); // ขยับ label ลงของ date-stamp-register-1
-    //             moveLabelDown6(); // ขยับ label ลงของ date-stamp-register-2
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown5(); // ขยับ label ลงของ date-stamp-register-1
-    //             moveLabelDown6(); // ขยับ label ลงของ date-stamp-register-2
-    //         } else {
-    //             return;
-    //         }
-
-    //         // วันในอนาคตในรูปแบบ DD/MM/YYYY
-    //         var futureDate = now.toLocaleDateString("th-TH", options);
-    //         futureDate = formatDateToYMD(futureDate); // แปลงเป็น YYYY-MM-DD
-
-    //         // ส่งค่ากลับในรูปแบบ DD/MM/YYYY
-    //         $("#date-stamp-register-1").val(currentDate); // ตั้งค่าวันที่ปัจจุบัน
-    //         $("#date-stamp-register-2").val(formatDateToDMY(futureDate)); // ตั้งค่าวันที่ในอนาคต
-    //     });
-
-    //     // สำหรับ select-input-act
-    //     $("#select-input-act").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         // ถ้าไม่มีการเลือก
-    //         if (selectedValue === "act_reset") {
-    //             $("#date-stamp-act-1").val(""); // ล้างค่า
-    //             $("#date-stamp-act-2").val(""); // ล้างค่า
-    //             resetLabel3(); // รีเซ็ต label ของ date-stamp-act-1
-    //             resetLabel4(); // รีเซ็ต label ของ date-stamp-act-2
-    //             return;
-    //         }
-
-    //         // วันปัจจุบันในรูปแบบ DD/MM/YYYY
-    //         var currentDate = now.toLocaleDateString("th-TH", options);
-    //         currentDate = formatDateToYMD(currentDate); // แปลงเป็น YYYY-MM-DD
-
-    //         // ตั้งค่าวันที่ตามตัวเลือกที่เลือก
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown3(); // ขยับ label ลงของ date-stamp-act-1
-    //             moveLabelDown4(); // ขยับ label ลงของ date-stamp-act-2
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown3(); // ขยับ label ลงของ date-stamp-act-1
-    //             moveLabelDown4(); // ขยับ label ลงของ date-stamp-act-2
-    //         } else {
-    //             return;
-    //         }
-
-    //         // วันในอนาคตในรูปแบบ DD/MM/YYYY
-    //         var futureDate = now.toLocaleDateString("th-TH", options);
-    //         futureDate = formatDateToYMD(futureDate); // แปลงเป็น YYYY-MM-DD
-
-    //         $("#date-stamp-act-1").val(currentDate); // ตั้งค่าวันที่ปัจจุบัน
-    //         $("#date-stamp-act-2").val(formatDateToDMY(futureDate)); // ตั้งค่าวันที่ในอนาคต
-    //     });
-
-    //     // สำหรับ select-input-insurance
-    //     $("#select-input-insurance").change(function() {
-    //         var selectedValue = $(this).val();
-    //         var now = new Date();
-    //         var options = {
-    //             timeZone: "Asia/Bangkok",
-    //             year: "numeric",
-    //             month: "2-digit",
-    //             day: "2-digit",
-    //         };
-
-    //         if (selectedValue === "") {
-    //             $("#date-stamp-insurance-1").val(""); // ล้างค่า
-    //             $("#date-stamp-insurance-2").val(""); // ล้างค่า
-    //             resetLabel(); // รีเซ็ต label ที่วันที่ต่อประกัน
-    //             resetLabel2('label-date-insurance-2'); // รีเซ็ต label ที่วันหมดอายุ
-    //             return;
-    //         }
-
-    //         var currentDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-    //         currentDate = formatDateToYMD(currentDate); // แปลงเป็น YYYY-MM-DD
-
-    //         if (selectedValue === "7-days") {
-    //             now.setDate(now.getDate() + 7);
-    //             moveLabelDown(); // ขยับ label ลงสำหรับวันที่ต่อประกัน
-    //             moveLabelDown2('label-date-insurance-2'); // ขยับ label ลงสำหรับวันหมดอายุ
-    //         } else if (selectedValue === "1-year") {
-    //             now.setFullYear(now.getFullYear() + 1);
-    //             moveLabelDown(); // ขยับ label ลงสำหรับวันที่ต่อประกัน
-    //             moveLabelDown2('label-date-insurance-2'); // ขยับ label ลงสำหรับวันหมดอายุ
-    //         }
-
-    //         var futureDate = now.toLocaleDateString("th-TH", options); // Format: DD/MM/YYYY
-    //         futureDate = formatDateToYMD(futureDate); // แปลงเป็น YYYY-MM-DD
-
-    //         $("#date-stamp-insurance-1").val(currentDate);
-    //         $("#date-stamp-insurance-2").val(formatDateToDMY(
-    //         futureDate)); // ตั้งค่าวันหมดอายุในรูปแบบ DD/MM/YYYY
-    //     });
-    // });
-
-
-
-
-
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
     $(document).ready(function() {
         // ซ่อน tooltip ตอนเริ่มต้น
@@ -1048,7 +268,7 @@
         });
     });
 
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $(document).ready(function() {
         // ซ่อน tooltip ตอนเริ่มต้น
@@ -1082,7 +302,7 @@
         });
     });
 
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $(document).ready(function() {
         // ซ่อน tooltip ตอนเริ่มต้น
@@ -1593,6 +813,9 @@
     }
 </script>
 
+
+
+
 <script>
     // ฟังก์ชันสำหรับ label ของ date-stamp-act-1
     function moveLabelDown3() {
@@ -1651,4 +874,66 @@
             label.classList.remove('translate-y-4', 'text-sm'); // คืนค่า label กลับสู่ตำแหน่งเดิม
         }
     }
+</script>
+
+
+
+<!-- jQuery Script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#Vehicle_Group').on('change', function() {
+            // Check if a value is selected
+            if ($(this).val()) {
+                // Show hidden options in Vehicle_Gear
+                $('#Vehicle_Gear option[hidden]').show();
+                $('#Vehicle_Gear').val(''); // Reset Vehicle_Gear selection
+            } else {
+                // Hide options again if no value is selected
+                $('#Vehicle_Gear option').hide().filter(':first').show(); // Show the first option only
+            }
+        });
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#Vehicle_OldLicense_Province').focus(function() {
+            $('#provinceLabel')
+                .removeClass('top-1/2 translate-y-1/2 text-red-400 border-red-400') // ลบ border สีแดงเข้มออก
+                .addClass('top-[-3px] left-3 text-red-300 text-lg border-red-300'); // เพิ่ม border สีแดงอ่อน
+        }).blur(function() {
+            if ($(this).val() === "") {
+                $('#provinceLabel')
+                    .addClass('top-1/2 -translate-y-1/2 text-red-400 text-sm border-red-400') // เพิ่ม border สีแดงเข้ม
+                    .removeClass('top-[-3px] left-3 text-red-300 text-lg border-red-300'); // ลบ border สีแดงอ่อนออก
+            } else {
+                $('#provinceLabel')
+                    .addClass('text-red-300 border-red-300'); // ถ้ามีค่าใน input ให้ border สีแดงอ่อน
+            }
+        });
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+     $(document).ready(function() {
+    // สำหรับ NewProvince
+        $('#Vehicle_NewLicense_Province').focus(function() {
+            $('#newProvinceLabel')
+                .removeClass('top-1/2 translate-y-1/2 text-gray-400') // แก้ไขให้ตรงกับสีที่ต้องการ
+                .addClass('top-[-2px] left-3 text-gray-300 text-lg'); // ปรับให้เลื่อนลงมากขึ้น
+        }).blur(function() {
+            if ($(this).val() === "") {
+                $('#newProvinceLabel')
+                    .addClass('top-1/2 -translate-y-1/2 text-gray-400 text-sm')
+                    .removeClass('top-[-2px] left-3 text-gray-300 text-lg'); // เปลี่ยน text-gray-300 เป็น text-gray-400
+            } else {
+                $('#newProvinceLabel').addClass('text-gray-300');
+            }
+        });
+    });
 </script>
