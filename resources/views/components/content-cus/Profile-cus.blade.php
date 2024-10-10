@@ -211,6 +211,7 @@
 
 
     @include('components.content-cus.preloader')
+    @include('components.content-cus.component_css')
 
 
 @endsection
