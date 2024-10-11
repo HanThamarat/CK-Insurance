@@ -75,27 +75,52 @@
 </script>
 
 
+
+<style>
+    .scale-75 {
+        transform: scale(0.75);
+    }
+
+    .-translate-y-1.5 {
+        transform: translateY(-0.7rem);
+    }
+
+    .-translate-y-2 {
+        transform: translateY(-1rem);
+    }
+
+    .text-orange-600 {
+        color: #d97706;
+    }
+
+    .text-sm {
+        font-size: 0.875rem;
+    }
+
+</style>
+
 <script>
     function moveLabel() {
         const input = document.getElementById('first_name');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput() {
         const input = document.getElementById('first_name');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
+
 </script>
-
-
 
 
 <script>
@@ -103,22 +128,22 @@
         const input = document.getElementById('last_name');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_lastname() {
         const input = document.getElementById('last_name');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
-
-
 
 
 <script>
@@ -126,42 +151,44 @@
         const input = document.getElementById('phone');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_phone() {
         const input = document.getElementById('phone');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
-
 
 <script>
     function moveLabel_phone2() {
         const input = document.getElementById('phone2');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_phone2() {
         const input = document.getElementById('phone2');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
-
 
 
 <script>
@@ -169,22 +196,25 @@
         const input = document.getElementById('id_card_number');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        input.style.outline = 'none';
+        label.style.transform = 'scale(0.75) translateY(-0.9rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_id_card_number() {
         const input = document.getElementById('id_card_number');
         const label = input.nextElementSibling;
 
-        // คืนค่า label เป็นปกติเมื่อ input ไม่มีค่า
         if (input.value.trim() === '') {
-            label.classList.remove('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-xs');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+            input.style.outline = 'none';
         }
     }
+
 </script>
-
-
 
 
 <script>
@@ -192,21 +222,22 @@
         const input = document.getElementById('expiry_date');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.9rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_expiry_date() {
         const input = document.getElementById('expiry_date');
         const label = input.nextElementSibling;
 
-        // คืนค่า label เป็นปกติเมื่อ input ไม่มีค่า
         if (input.value.trim() === '') {
-            label.classList.remove('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-xs');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
-
 
 
 <script>
@@ -214,17 +245,19 @@
         const input = document.getElementById('dob');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.9rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_dob() {
         const input = document.getElementById('dob');
         const label = input.nextElementSibling;
 
-        // คืนค่า label เป็นปกติเมื่อ input ไม่มีค่า
         if (input.value.trim() === '') {
-            label.classList.remove('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-xs');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
@@ -236,21 +269,22 @@
         const input = document.getElementById('facebook');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_facebook() {
         const input = document.getElementById('facebook');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
-
 
 
 <script>
@@ -258,22 +292,22 @@
         const input = document.getElementById('line_id');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_line_id() {
         const input = document.getElementById('line_id');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
-
-
 
 
 <script>
@@ -281,21 +315,45 @@
         const input = document.getElementById('spouse_name');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_spouse_name() {
         const input = document.getElementById('spouse_name');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
 
+
+<script>
+    function moveLabel_spouse_name() {
+        const input = document.getElementById('spouse_name');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_spouse_name() {
+        const input = document.getElementById('spouse_name');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
 
 
 <script>
@@ -303,21 +361,22 @@
         const input = document.getElementById('spouse_phone');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_spouse_phone() {
         const input = document.getElementById('spouse_phone');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
-
 
 
 <script>
@@ -325,142 +384,22 @@
         const input = document.getElementById('note');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-1.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_note() {
         const input = document.getElementById('note');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>
-
-
-
-
-<script>
-    function moveLabel_marital_status() {
-        const input = document.getElementById('marital_status');
-        const label = input.nextElementSibling;
-
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
-    }
-
-    function checkInput_marital_status() {
-        const input = document.getElementById('marital_status');
-        const label = input.nextElementSibling;
-
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
-        if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
-        }
-    }
-</script>
-
-
-
-
-
-<script>
-    function moveLabel_driving_license() {
-        const input = document.getElementById('driving_license');
-        const label = input.nextElementSibling;
-
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
-    }
-
-    function checkInput_driving_license() {
-        const input = document.getElementById('driving_license');
-        const label = input.nextElementSibling;
-
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
-        if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
-        }
-    }
-</script>
-
-
-
-
-
-<script>
-    function moveLabel_religion() {
-        const input = document.getElementById('religion');
-        const label = input.nextElementSibling;
-
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
-    }
-
-    function checkInput_religion() {
-        const input = document.getElementById('religion');
-        const label = input.nextElementSibling;
-
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
-        if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
-        }
-    }
-</script>
-
-
-
-
-
-<script>
-    function moveLabel_nationality() {
-        const input = document.getElementById('nationality');
-        const label = input.nextElementSibling;
-
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
-    }
-
-    function checkInput_nationality() {
-        const input = document.getElementById('nationality');
-        const label = input.nextElementSibling;
-
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
-        if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
-        }
-    }
-</script>
-
-
-
-
-
-
-<script>
-    function moveLabel_gender() {
-        const input = document.getElementById('gender');
-        const label = input.nextElementSibling;
-
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
-    }
-
-    function checkInput_gender() {
-        const input = document.getElementById('gender');
-        const label = input.nextElementSibling;
-
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
-        if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
-        }
-    }
-</script>
-
-
 
 
 <script>
@@ -468,17 +407,133 @@
         const input = document.getElementById('prefix');
         const label = input.nextElementSibling;
 
-        // ย้าย label ขึ้นเมื่อ input ถูก focus
-        label.classList.add('scale-75', '-translate-y-1.5', 'text-orange-600', 'text-sm');
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
     }
 
     function checkInput_prefix() {
         const input = document.getElementById('prefix');
         const label = input.nextElementSibling;
 
-        // ถ้า input ไม่มีข้อมูล ให้คืนค่า label กลับไปยังตำแหน่งเดิม
         if (input.value.trim() === '') {
-            label.classList.remove('-translate-y-1.5', 'text-orange-600', 'text-sm');
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
+
+<script>
+    function moveLabel_marital_status() {
+        const input = document.getElementById('marital_status');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_marital_status() {
+        const input = document.getElementById('marital_status');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
+
+
+<script>
+    function moveLabel_driving_license() {
+        const input = document.getElementById('driving_license');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_driving_license() {
+        const input = document.getElementById('driving_license');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
+
+
+<script>
+    function moveLabel_religion() {
+        const input = document.getElementById('religion');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_religion() {
+        const input = document.getElementById('religion');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
+
+
+<script>
+    function moveLabel_nationality() {
+        const input = document.getElementById('nationality');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_nationality() {
+        const input = document.getElementById('nationality');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
+
+
+<script>
+    function moveLabel_gender() {
+        const input = document.getElementById('gender');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_gender() {
+        const input = document.getElementById('gender');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
         }
     }
 </script>

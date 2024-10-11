@@ -47,9 +47,25 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <!-- Prefix Dropdown -->
-                                <div class="relative">
+                                {{-- <div class="relative">
                                     <select id="prefix" name="prefix" onfocus="moveLabel_prefix()" onblur="checkInput_prefix()"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
+                                        <option value="">คำนำหน้า</option>
+                                        <option value="นาย">นาย</option>
+                                        <option value="นาง">นาง</option>
+                                        <option value="นางสาว">นางสาว</option>
+                                    </select>
+
+                                    <label for="prefix"
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        คำนำหน้า
+                                    </label>
+                                </div> --}}
+
+                                <div class="relative">
+                                    <select id="prefix" name="prefix" onfocus="moveLabel_prefix()" onblur="checkInput_prefix()"
+                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                        required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')" oninput="this.setCustomValidity('')">
                                         <option value="">คำนำหน้า</option>
                                         <option value="นาย">นาย</option>
                                         <option value="นาง">นาง</option>
@@ -103,6 +119,8 @@
                                         class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         เบอร์โทรติดต่อ 1
                                     </label>
+                                    <i
+                                        class="fa-solid fa-phone absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
                                 </div>
 
 
@@ -117,6 +135,8 @@
                                         class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         เบอร์โทรติดต่อ 2
                                     </label>
+                                    <i
+                                        class="fa-solid fa-phone absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
                                 </div>
                             </div>
 
@@ -400,8 +420,8 @@
                         if (!$('#driving_license').val()) errors.push('กรุณากรอกใบขับขี่');
                         if (!$('#facebook').val()) errors.push('กรุณากรอก Facebook');
                         if (!$('#line_id').val()) errors.push('กรุณากรอก Line ID');
-                        if (!$('#marital_status').val()) errors.push('กรุณาเลือกสถานภาพสมรส');
-                        if (!$('#spouse_phone').val()) errors.push('กรุณากรอกเบอร์โทรศัพท์ของคู่สมรส');
+                        // if (!$('#marital_status').val()) errors.push('กรุณาเลือกสถานภาพสมรส');
+                        // if (!$('#spouse_phone').val()) errors.push('กรุณากรอกเบอร์โทรศัพท์ของคู่สมรส');
 
                         if (errors.length > 0) {
                             Swal.fire({

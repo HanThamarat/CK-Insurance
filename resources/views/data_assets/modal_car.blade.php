@@ -598,7 +598,7 @@
 
                         <div class="relative w-full">
                             <label for="date-stamp-insurance-1"
-                                class="rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm"
+                                class="shadow-lg rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm"
                                 style="font-size: 0.9rem;" id="label-date-insurance">วันที่ต่อประกัน</label>
                             <input type="datetime-local"
                                 class="border rounded-l-lg w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
@@ -609,7 +609,7 @@
 
                         <div class="relative w-full mb-4">
                             <label for="date-stamp-insurance-2"
-                                class="rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100"
+                                class="shadow-lg rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100"
                                 style="font-size: 0.9rem;" id="label-date-insurance-2">วันประกันหมดอายุ</label>
                             <input type="datetime-local"
                                 class="border rounded-none w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
@@ -638,7 +638,7 @@
 
                         <div class="relative w-full">
                             <label for="date-stamp-act-1"
-                                class="rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm"
+                                class="shadow-lg rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm"
                                 style="font-size: 0.9rem;" id="label-date-act">วันที่ต่อ พ.ร.บ</label>
                             <input type="datetime-local"
                                 class="border rounded-l-lg w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
@@ -649,7 +649,7 @@
 
                         <div class="relative w-full mb-4">
                             <label for="date-stamp-act-2"
-                                class="rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100"
+                                class="shadow-lg rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100"
                                 style="font-size: 0.9rem;" id="label-date-act-2">วัน พ.ร.บ หมดอายุ</label>
                             <input type="datetime-local"
                                 class="border rounded-none w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
@@ -676,7 +676,7 @@
 
                         <div class="relative w-full">
                             <label for="date-stamp-register-1"
-                                class="rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm"
+                                class="shadow-lg rounded-lg absolute left-2 top-2 transform transition-transform duration-200 ease-in-out text-gray-600 text-ms bg-white px-3 peer-focus:text-gray-500 peer-focus:-translate-y-4 peer-focus:left-1 peer-focus:text-sm"
                                 style="font-size: 0.9rem;" id="label-date-register">วันที่ต่อทะเบียน</label>
                             <input type="datetime-local"
                                 class="border rounded-l-lg w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
@@ -687,7 +687,7 @@
 
                         <div class="relative w-full mb-4">
                             <label for="date-stamp-register-2"
-                                class="rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100"
+                                class="shadow-lg rounded-lg absolute left-2 top-2 transform transition-all duration-300 ease-in-out text-gray-600 text-ms bg-white px-3 bg-opacity-100"
                                 style="font-size: 0.9rem;" id="label-date-register-2">วันทะเบียนหมดอายุ</label>
                             <input type="datetime-local"
                                 class="border rounded-none w-full p-2 h-9 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 peer"
