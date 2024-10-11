@@ -33,10 +33,22 @@
                 </div>
             </div>
 
+
+
             <!-- Right Section: Form -->
             <div class="xl:w-10/12 lg:w-9/12 md:w-9/12 w-full">
                 {{-- <form action="{{ route('customers.store') }}" method="POST" class="space-y-6">
                     @csrf --}}
+
+                    <div class="flex items-center space-x-3">
+                        <img src="https://ckl.co.th/assets/images/gif/video-confer.gif" alt="report" class="avatar-sm"
+                            style="width:50px;height:50px">
+                        <div class="flex-grow">
+                            <h5 class="text-orange-400 font-semibold">เพิ่มข้อมูลลูกค้า</h5>
+                            <p class="text-muted font-semibold text-sm mt-1">Add Data Customers</p>
+                            <div class="border-b-2 border-primary mt-2 w-full"></div>
+                        </div>
+                    </div>
                 <form id="formCustomer" class="space-y-6">
 
                     @csrf <!-- เพิ่มบรรทัดนี้ -->
@@ -47,21 +59,6 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <!-- Prefix Dropdown -->
-                                {{-- <div class="relative">
-                                    <select id="prefix" name="prefix" onfocus="moveLabel_prefix()" onblur="checkInput_prefix()"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
-                                        <option value="">คำนำหน้า</option>
-                                        <option value="นาย">นาย</option>
-                                        <option value="นาง">นาง</option>
-                                        <option value="นางสาว">นางสาว</option>
-                                    </select>
-
-                                    <label for="prefix"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        คำนำหน้า
-                                    </label>
-                                </div> --}}
-
                                 <div class="relative">
                                     <select id="prefix" name="prefix" onfocus="moveLabel_prefix()" onblur="checkInput_prefix()"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
@@ -373,7 +370,7 @@
                             </div>
 
 
-                            <div class="relative pt-2"> <!-- ปรับ pt ตามต้องการ -->
+                            <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
                                 <textarea id="note" name="note" rows="4"
                                     class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" " onfocus="moveLabel_note()" onblur="checkInput_note()"></textarea>
@@ -388,10 +385,11 @@
                     <!-- Submit Button -->
                     <div class="flex justify-end">
                         <button type="submit"
-                            class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm">
-                            สร้างลูกค้าใหม่
+                            class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
+                            <i class="fas fa-user-plus"></i> สร้างลูกค้าใหม่
                         </button>
                     </div>
+
                 </form>
 
 

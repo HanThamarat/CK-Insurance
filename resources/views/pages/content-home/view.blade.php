@@ -3,6 +3,20 @@
 <!-- เพิ่ม jQuery CDN ก่อนสคริปต์ของคุณ -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<style>
+    body {
+        background-image: url('{{ asset('images/home.jpg') }}');
+        background-size: cover;
+        /* ขยายภาพให้ครอบคลุมพื้นที่ */
+        background-position: center;
+        /* จัดตำแหน่งภาพที่ตรงกลาง */
+        background-repeat: no-repeat;
+        /* ไม่ทำซ้ำภาพ */
+        background-blend-mode: overlay;
+        /* ผสมสีพื้นหลังกับภาพพื้นหลัง */
+    }
+</style>
+
 
 @section('content')
     <div class="w-full h-[70vh] flex items-center justify-center">

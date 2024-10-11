@@ -384,7 +384,7 @@
         const input = document.getElementById('note');
         const label = input.nextElementSibling;
 
-        label.style.transform = 'scale(0.75) translateY(-1.7rem)';
+        label.style.transform = 'scale(0.75) translateY(-2.3rem)';
         label.style.color = '#d97706';
         label.style.fontSize = '0.875rem';
     }
