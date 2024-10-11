@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DataAssetController;
+use App\Http\Controllers\ProfileController;
 
 
 Route::get('/', function () { return view('auth.login'); });
@@ -15,6 +16,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // page router
     Route::resource('views', App\Http\Controllers\pageController::class);
 });
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
 
 
 // CUSTOMER ROUTE
