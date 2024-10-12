@@ -203,7 +203,6 @@
 
 
     <script>
-
         $(document).ready(function() {
             // วางข้อความเตือนที่แสดงเมื่อไม่พบข้อมูล
             const noResultsMessage = $('#noResultsMessage'); // นำเข้า div ที่สร้างไว้
@@ -216,7 +215,7 @@
 
                 $('#customersTable tbody tr').filter(function() {
                     const isVisible = $(this).text().toLowerCase().indexOf(value) > -
-                    1; // ตรวจสอบแถวที่มีข้อความตรง
+                        1; // ตรวจสอบแถวที่มีข้อความตรง
                     $(this).toggle(isVisible); // แสดงหรือซ่อนแถว
                     if (isVisible) {
                         found = true; // ถ้ามีแถวที่ตรงกับค่าที่ค้นหา
@@ -272,17 +271,14 @@
                             <td class="px-4 py-2 text-center">${customer.religion}</td>
                             <td class="px-4 py-2 text-center">
                                 <div class="flex justify-center space-x-2">
-                                   <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded">
+                                   <!--<a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded">
+                                        <i class="fas fa-edit mr-1"></i> Edit
+                                    </a>-->
+
+                                    <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg" onclick="fetchCustomerData(${customer.id})">
                                         <i class="fas fa-edit mr-1"></i> Edit
                                     </a>
 
-                                    <form action="{{ url('data_assets') }}/${customer.id}" method="POST" class="delete-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded">
-                                            <i class="fas fa-trash mr-1"></i> Delete
-                                        </button>
-                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -299,28 +295,31 @@
                 });
             }
 
+            // $(document).on('click', '.edit-button', function(event) {
+            //     event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            //     let customerId = $(this).data('id');
+
+            //     // เปลี่ยน URL เพื่อ redirect ไปยังหน้าที่แสดงโปรไฟล์ลูกค้า
+            //     window.location.href = "{{ url('customer/profile') }}/" + customerId;
+            // });
 
             $(document).on('click', '.edit-button', function(event) {
                 event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
                 let customerId = $(this).data('id');
 
-                $.ajax({
-                    url: "{{ route('customers.profile') }}", // URL สำหรับการดึงโปรไฟล์
-                    method: 'GET',
-                    data: { id: customerId }, // ส่ง ID ลูกค้า
-                    dataType: 'json',
-                    success: function(data) {
-                        // แสดงข้อมูลโปรไฟล์ลูกค้าในรูปแบบที่ต้องการ
-                        $('#profileName').text(data.prefix + ' ' + data.first_name + ' ' + data.last_name);
-                        $('#profileIdCard').text(data.id_card_number);
-                        // เพิ่มข้อมูลอื่น ๆ ตามต้องการ
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching customer profile:', error);
-                        alert('Could not load customer profile.');
-                    }
-                });
+                // เปลี่ยน URL เพื่อ redirect ไปยังหน้าที่แสดงโปรไฟล์ลูกค้า
+                window.location.href = "{{ url('customer/profile') }}/" + customerId;
             });
+
+            // เพิ่ม event listener ให้กับลิงค์
+            $(document).on('click', '.nav-link', function(event) {
+                event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+                let customerId = $(this).data('id');
+
+                // เปลี่ยน URL เพื่อ redirect ไปยังหน้าที่แสดงโปรไฟล์ลูกค้า
+                window.location.href = "{{ url('customer/profile') }}/" + customerId;
+            });
+
 
 
             // เมื่อคลิกปุ่ม pagination

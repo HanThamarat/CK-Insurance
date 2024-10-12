@@ -205,34 +205,6 @@
 
 
     <script>
-        // $(document).ready(function() {
-        //     // วางข้อความเตือนที่แสดงเมื่อไม่พบข้อมูล
-        //     const noResultsMessage = $('#noResultsMessage'); // นำเข้า div ที่สร้างไว้
-
-        //     // ฟังก์ชันค้นหา
-        //     $('.search-box input[type="text"]').on('keyup', function() {
-        //         let value = $(this).val().toLowerCase(); // รับค่าที่ถูกพิมพ์และเปลี่ยนเป็นตัวพิมพ์เล็ก
-        //         let found = false; // ตัวแปรสำหรับตรวจสอบว่าพบข้อมูลหรือไม่
-
-        //         $('#customersTable tbody tr').filter(function() {
-        //             const isVisible = $(this).text().toLowerCase().indexOf(value) > -
-        //                 1; // ตรวจสอบแถวที่มีข้อความตรง
-        //             $(this).toggle(isVisible); // แสดงหรือซ่อนแถว
-        //             if (isVisible) {
-        //                 found = true; // ถ้ามีแถวที่ตรงกับค่าที่ค้นหา
-        //             }
-        //         });
-
-        //         // แสดงข้อความเมื่อไม่พบข้อมูล
-        //         if (!found) {
-        //             noResultsMessage.show(); // แสดง div เตือน
-        //         } else {
-        //             noResultsMessage.hide(); // ซ่อน div เตือน
-        //         }
-        //     });
-        // });
-
-
         $(document).ready(function() {
             // วางข้อความเตือนที่แสดงเมื่อไม่พบข้อมูล
             const noResultsMessage = $('#noResultsMessage'); // นำเข้า div ที่สร้างไว้
@@ -327,20 +299,6 @@
                 });
             }
 
-            // ฟังก์ชันเพื่ออัพเดต pagination
-            // function updatePagination(data) {
-            //     const paginationContainer = $('#pagination');
-            //     paginationContainer.empty(); // ล้างข้อมูลเก่า
-
-            //     // สร้างปุ่ม pagination
-            //     for (let i = 1; i <= data.last_page; i++) {
-            //         const activeClass = (i === currentPage) ? 'active' : '';
-            //         paginationContainer.append(`
-            //     <button class="pagination-button ${activeClass}" data-page="${i}">${i}</button>
-            // `);
-            //     }
-            // }
-
             // เมื่อคลิกปุ่ม pagination
             $(document).on('click', '.pagination-button', function() {
                 currentPage = $(this).data('page'); // เปลี่ยนหน้าที่จะโหลด
@@ -353,23 +311,6 @@
                 currentPage = 1; // รีเซ็ตหน้าเป็น 1
                 fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
             });
-
-            // function updatePagination(data) {
-            //     const paginationContainer = $('#pagination');
-            //     paginationContainer.empty(); // ล้างข้อมูลเก่า
-
-            //     // ตรวจสอบว่ามีมากกว่าหนึ่งหน้า
-            //     if (data.last_page > 1) {
-            //         for (let i = 1; i <= data.last_page; i++) {
-            //             const activeClass = (i === currentPage) ? 'bg-blue-500 text-white' : 'bg-white text-gray-500 hover:bg-gray-100';
-            //             paginationContainer.append(`
-            //                 <button class="pagination-button ${activeClass} border border-gray-300 px-3 py-1 mx-1 rounded-md" data-page="${i}">
-            //                     ${i}
-            //                 </button>
-            //             `);
-            //         }
-            //     }
-            // }
 
 
             function updatePagination(data) {

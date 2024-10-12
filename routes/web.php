@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
 
 
 // CUSTOMER ROUTE
+Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])->name('customers.profile');
+// <!------------------------------------------------------------------------------------------------------------------->
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
 Route::resource('customers', CustomerController::class);
 

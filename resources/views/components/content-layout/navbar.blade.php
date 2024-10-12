@@ -51,7 +51,7 @@
             </button>
 
             <div class="dropdown-menu absolute hidden bg-white text-orange-500 rounded-b-lg pb-2 w-48">
-                <a href="{{ route('customers.profile') }}" class="block px-6 py-2 hover:bg-gray-600">ข้อมูลลูกค้า</a>
+                {{-- <a href="{{ route('customers.profile') }}" class="block px-6 py-2 hover:bg-gray-600">ข้อมูลลูกค้า</a> --}}
                 <a href="{{ route('customers.create') }}" class="block px-6 py-2 hover:bg-gray-600">เพิ่มลูกค้า</a>
                 <a href="{{ route('data_assets.index') }}" class="block px-6 py-2 hover:bg-gray-600">สินทรัพย์</a>
             </div>

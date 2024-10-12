@@ -12,15 +12,38 @@ class CustomerController extends Controller
 
     public function index(Request $request) {
         $perPage = $request->get('per_page', 5); // ค่าเริ่มต้นคือ 5
-        $customers = Customer::paginate($perPage); // ใช้ paginate แทน all
+        $customers = Customer::orderBy('id', 'desc')->paginate($perPage); // เรียงลำดับตาม ID ในลำดับที่ลดลง
         return response()->json($customers); // ส่งกลับเป็น JSON response
     }
 
 
-    public function profile()
+
+
+
+    public function profile(Request $request)
     {
-        return view('components.content-cus.Profile-cus');
+        $customer = Customer::find($request->id); // ค้นหาลูกค้าจาก ID
+
+        if (!$customer) {
+            return response()->json(['error' => 'Customer not found.'], 404);
+        }
+
+        return response()->json($customer);
     }
+
+
+
+    public function showProfile($id)
+    {
+        $customer = Customer::find($id); // ใช้ find แทน findOrFail
+
+        if (!$customer) {
+            return response()->json(['error' => 'Customer not found.'], 404); // ส่งคืน JSON error response
+        }
+
+        return view('components.content-cus.Profile-cus', compact('customer'));
+    }
+
 
 
 
@@ -175,6 +198,41 @@ class CustomerController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function showProfile($id)
+    // {
+    //     $customer = Customer::findOrFail($id);
+    //     return view('components.content-cus.Profile-cus', compact('customer'));
+    // }
+
+
+
+
+
+
+    // public function profile()
+    // {
+    //     return view('components.content-cus.Profile-cus');
+    // }
 
 
 
