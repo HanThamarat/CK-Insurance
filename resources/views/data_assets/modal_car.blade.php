@@ -68,8 +68,7 @@
                         </legend>
 
 
-
-                        <div class="w-full md:w-60 h-10 relative flex rounded-xl group">
+                        <div class="w-full md:w-60 relative flex flex-col rounded-xl">
                             <input required=""
                                 class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
                                 id="Vehicle_OldLicense_Text" name="Vehicle_OldLicense_Text" type="text" />
@@ -741,7 +740,6 @@
                         <i class="fas fa-times"></i> <!-- ไอคอน "ยกเลิก" ของ Font Awesome -->
                         <span>ยกเลิก</span>
                     </button>
-
                 </div>
         </form>
     </div>
@@ -771,63 +769,106 @@
             if ($('#Vehicle_OldLicense_Text').val().trim() === '') {
                 valid = false;
                 missingFields.push('อักษรป้ายทะเบียนเก่า');
+                $('#Vehicle_OldLicense_Text').addClass('border-red-500'); // เพิ่มคลาสสีแดง
+            } else {
+                $('#Vehicle_OldLicense_Text').removeClass('border-red-500'); // ลบคลาสเมื่อกรอกข้อมูลแล้ว
             }
 
             if ($('#Vehicle_OldLicense_Number').val().trim() === '') {
                 valid = false;
                 missingFields.push('เลขป้ายทะเบียนเก่า');
+                $('#Vehicle_OldLicense_Number').addClass('border-red-500');
+            } else {
+                $('#Vehicle_OldLicense_Number').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_OldLicense_Province').val().trim() === '') {
                 valid = false;
                 missingFields.push('จังหวัดป้ายทะเบียนเก่า');
+                $('#Vehicle_OldLicense_Province').addClass('border-red-500');
+            } else {
+                $('#Vehicle_OldLicense_Province').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Chassis').val().trim() === '') {
                 valid = false;
                 missingFields.push('หมายเลขตัวถังรถ');
+                $('#Vehicle_Chassis').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Chassis').removeClass('border-red-500');
+            }
+
+            if ($('#Vehicle_Engine').val().trim() === '') {
+                valid = false;
+                missingFields.push('หมายเลขเครื่องยนต์');
+                $('#Vehicle_Engine').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Engine').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Color').val().trim() === '') {
                 valid = false;
                 missingFields.push('สีรถ');
+                $('#Vehicle_Color').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Color').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_CC').val().trim() === '') {
                 valid = false;
                 missingFields.push('CC');
+                $('#Vehicle_CC').addClass('border-red-500');
+            } else {
+                $('#Vehicle_CC').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Type').val().trim() === '') {
                 valid = false;
                 missingFields.push('ประเภทรถ 1');
+                $('#Vehicle_Type').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Type').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Type_PLT').val().trim() === '') {
                 valid = false;
                 missingFields.push('ประเภทรถ 2');
+                $('#Vehicle_Type_PLT').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Type_PLT').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Brand').val().trim() === '') {
                 valid = false;
                 missingFields.push('ยี่ห้อรถ');
+                $('#Vehicle_Brand').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Brand').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Group').val().trim() === '') {
                 valid = false;
                 missingFields.push('กลุ่มรถ');
+                $('#Vehicle_Group').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Group').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Years').val().trim() === '') {
                 valid = false;
                 missingFields.push('ปีรถ');
+                $('#Vehicle_Years').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Years').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Gear').val().trim() === '') {
                 valid = false;
                 missingFields.push('เกียร์รถ');
+                $('#Vehicle_Gear').addClass('border-red-500');
+            } else {
+                $('#Vehicle_Gear').removeClass('border-red-500');
             }
-
             // ถ้าข้อมูลไม่ครบให้แสดง SweetAlert แจ้งเตือนและไม่ส่งฟอร์ม
             if (!valid) {
                 $('#errorAlert').show(); // แสดงกล่องข้อความ error
