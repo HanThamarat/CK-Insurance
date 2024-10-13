@@ -94,7 +94,7 @@
                             <img src="{{ asset('img/list.png') }}" alt="List Icon" class="w-14 h-14 object-cover img-effect">
                             <!-- ข้อมูลผู้ใช้งาน -->
                             <div class="w-full">
-                                <h1 class="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-bold mb-1 dark:text-white">
+                                <h1 class="lg:text-3xl md:text-sm sm:text-xl xs:text-xl font-bold mb-1 dark:text-white">
                                     ข้อมูลผู้ใช้งานระบบ
                                 </h1>
                                 <h2 class="text-gray-500 text-sm dark:text-gray-400">(System Information)</h2>
@@ -151,7 +151,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <h2 class="text-center mt-1 font-semibold dark:text-gray-300">ข้อมูลของผู้ใช้งานระบบ</h2>
+                            <h2 class="text-center mt-3 font-semibold dark:text-gray-300">ข้อมูลของผู้ใช้งานระบบ</h2>
                             <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                 <div class="w-full mb-4 mt-6">
                                     <label for="name" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชื่อ - นามสกุล</label>

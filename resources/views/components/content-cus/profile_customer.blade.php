@@ -49,7 +49,7 @@
             <div class="text-gray-500 font-semibold text-sm">ผู้ลงบันทึก</div>
         </div>
         <div class="ml-8 text-gray-400 text-sm">
-            {{ 'Tester System' }}
+            {{-- {{ 'Tester System' }} --}} -
         </div>
     </div>
 @else

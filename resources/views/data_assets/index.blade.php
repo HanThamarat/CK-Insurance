@@ -19,7 +19,7 @@
 
                 <div class="flex flex-col sm:flex-row ml-10 mt-5 space-y-4 sm:space-y-0 sm:space-x-4 mb-[100px]">
                     <!-- Left Card -->
-                    <div
+                    {{-- <div
                         class="flex-none rounded-lg shadow-2xl dark:bg-white dark:border-gray-400 p-6 w-full sm:w-1/3 md:w-1/4 lg:w-2/7 xl:w-2/7 relative">
                         <!-- Layer สำหรับพื้นหลังที่มี opacity (สำหรับการ์ดอื่น) -->
                         <div class="absolute inset-0 bg-cover bg-center rounded-lg"
@@ -141,70 +141,7 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        {{-- <div class="card bg-white shadow-lg rounded-md p-4 relative z-5">
-                            <h2 class="text-sm font-bold mb-4 text-gray-500">Personal Information</h2>
-
-                            @if($customer)
-                                <!-- ชื่อ-นามสกุล -->
-                                <div class="mb-6">
-                                    <div class="flex items-center mb-2">
-                                        <i class="fa-regular fa-user mr-4 text-orange-700"></i>
-                                        <div class="text-gray-500 font-semibold text-sm">ชื่อ-นามสกุล</div>
-                                    </div>
-                                    <div class="ml-8 text-gray-400 text-sm">
-                                        {{ $customer->prefix }} {{ $customer->first_name }} {{ $customer->last_name }}
-                                    </div>
-                                </div>
-
-                                <div class="mb-6">
-                                    <div class="flex items-center mb-2">
-                                        <i class="fa-solid fa-address-card mr-4 text-orange-700"></i>
-                                        <div class="text-gray-500 font-semibold text-sm">เลขประจำตัวประชาชน</div>
-                                    </div>
-                                    <div class="ml-8 text-gray-400 text-sm">
-                                        {{ $customer->id_card_number }}
-                                    </div>
-                                </div>
-
-                                <div class="mb-6">
-                                    <div class="flex items-center mb-2">
-                                        <i class="fa-solid fa-phone mr-4 text-orange-700"></i>
-                                        <div class="text-gray-500 font-semibold text-sm">เบอร์ติดต่อ</div>
-                                    </div>
-                                    <div class="ml-8 text-gray-400 text-sm">
-                                        {{ $customer->phone }}
-                                    </div>
-                                </div>
-
-                                <h2 class="text-sm font-bold mb-4 text-gray-500">General Information</h2>
-                                <!-- วันที่เข้าระบบ -->
-                                <div class="mb-6">
-                                    <div class="flex items-center mb-2">
-                                        <i class="fa-solid fa-calendar-day mr-4 text-orange-700"></i>
-                                        <div class="text-gray-500 font-semibold text-sm">วันที่เข้าระบบ</div>
-                                    </div>
-                                    <div class="ml-8 text-gray-400 text-sm">
-                                        {{ $customer->created_at }}
-                                    </div>
-                                </div>
-
-                                <!-- ผู้ลงบันทึก -->
-                                <div class="mb-6">
-                                    <div class="flex items-center mb-2">
-                                        <i class="fa-solid fa-user mr-4 text-orange-700"></i>
-                                        <div class="text-gray-500 font-semibold text-sm">ผู้ลงบันทึก</div>
-                                    </div>
-                                    <div class="ml-8 text-gray-400 text-sm">
-                                        {{ 'Tester System' }}
-                                    </div>
-                                </div>
-                            @else
-                                <div class="text-red-500 text-lg font-bold">ไม่มีข้อมูลลูกค้า</div>
-                            @endif
-                        </div> --}}
-                    </div>
+                    </div> --}}
 
                     <!-- Cards for รถยนต์ and มอเตอร์ไซค์ -->
                     <div class="flex flex-col md:flex-row md:justify-center gap-4 w-full h-3/4">

@@ -40,19 +40,17 @@
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <!-- Prefix Dropdown -->
                                 <div class="relative">
-                                    <select id="prefix" name="prefix" onfocus="moveLabel_prefix()"
-                                        onblur="checkInput_prefix()"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
-                                        required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')"
-                                        oninput="this.setCustomValidity('')">
-                                        <option value="">คำนำหน้า</option>
+                                    <select id="prefix" name="prefix"
+                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-700">
+                                        <option value="">{{ $customer->prefix }}</option>
                                         <option value="นาย">นาย</option>
                                         <option value="นาง">นาง</option>
                                         <option value="นางสาว">นางสาว</option>
+
                                     </select>
 
                                     <label for="prefix"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         คำนำหน้า
                                     </label>
                                 </div>
@@ -60,11 +58,9 @@
                                 <div class="relative">
                                     <input type="text" id="first_name" name="first_name"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel()" onblur="checkInput()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
-                                        oninput="this.setCustomValidity('')">
+                                        value="{{ $customer->first_name }}">
                                     <label for="first_name"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         ชื่อจริง
                                     </label>
                                 </div>
@@ -74,12 +70,9 @@
                                 <div class="relative">
                                     <input type="text" id="last_name" name="last_name"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
-                                        placeholder=" " required onfocus="moveLabel_lastname()"
-                                        onblur="checkInput_lastname()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
-                                        oninput="this.setCustomValidity('')">
+                                        value="{{ $customer->last_name }}">
                                     <label for="last_name"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
                                         นามสกุล
                                     </label>
                                 </div>
@@ -92,11 +85,9 @@
                                 <div class="relative">
                                     <input type="text" id="phone" name="phone"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel_phone()" onblur="checkInput_phone()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรศัพท์')"
-                                        oninput="this.setCustomValidity('')">
+                                        value="{{ $customer->phone }}">
                                     <label for="phone"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         เบอร์โทรติดต่อ 1
                                     </label>
                                     <i
@@ -108,12 +99,9 @@
                                 <div class="relative">
                                     <input type="text" id="phone2" name="phone2"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel_phone2()"
-                                        onblur="checkInput_phone2()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรติดต่อ 2')"
-                                        oninput="this.setCustomValidity('')">
+                                        value="{{ $customer->phone2}}">
                                     <label for="phone2"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         เบอร์โทรติดต่อ 2
                                     </label>
                                     <i
@@ -126,12 +114,9 @@
                                 <div class="relative">
                                     <input type="text" id="id_card_number" name="id_card_number"
                                         class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel_id_card_number()"
-                                        onblur="checkInput_id_card_number()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกหมายเลขบัตรประชาชน')"
-                                        oninput="this.setCustomValidity('')">
+                                        value="{{ $customer->id_card_number}}">
                                     <label for="id_card_number"
-                                        class="absolute text-sm text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-0 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-1/2 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-orange-600 peer-focus:bg-white px-2 rounded-full shadow-md">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         หมายเลขบัตรประชาชน
                                     </label>
 
@@ -144,12 +129,9 @@
                                 <div class="relative">
                                     <input type="text" id="expiry_date" name="expiry_date"
                                         class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel_expiry_date()"
-                                        onblur="checkInput_expiry_date()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกบัตรหมดอายุ')"
-                                        oninput="this.setCustomValidity('')">
+                                        value="{{ $customer->expiry_date}}">
                                     <label for="expiry_date"
-                                        class="absolute text-sm text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-0 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-1/2 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-orange-600 peer-focus:bg-white px-2 rounded-full shadow-md">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         บัตรหมดอายุ
                                     </label>
 
@@ -166,7 +148,7 @@
                                         oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
                                         oninput="this.setCustomValidity('')">
                                     <label for="dob"
-                                        class="absolute text-sm text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-0 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-1/2 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-orange-600 peer-focus:bg-white px-2 rounded-full shadow-md">
+                                        class="absolute text-sm text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-0 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-1/2 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-orange-600 peer-focus:bg-white px-2 rounded-full shadow-md">
                                         วันออกบัตร
                                     </label>
 
@@ -179,7 +161,7 @@
                                         class="p-2 border border-gray-300 rounded-lg w-full pr-12 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                         placeholder=" " required>
                                     <label for="age"
-                                        class="absolute text-sm text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-0 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-1/2 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-orange-600 peer-focus:bg-white px-2 rounded-full shadow-md">
+                                        class="absolute text-sm text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-0 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-1/2 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-orange-600 peer-focus:bg-white px-2 rounded-full shadow-md">
                                         อายุ
                                     </label>
                                     <span
@@ -197,7 +179,7 @@
                                     </select>
 
                                     <label for="gender"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         เพศ
                                     </label>
                                 </div>
@@ -213,7 +195,7 @@
                                     </select>
 
                                     <label for="nationality"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         สัญชาติ
                                     </label>
                                 </div>
@@ -230,7 +212,7 @@
                                     </select>
 
                                     <label for="religion"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         ศาสนา
                                     </label>
                                 </div>
@@ -246,7 +228,7 @@
                                     </select>
 
                                     <label for="driving_license"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         ใบขับขี่
                                     </label>
                                 </div>
@@ -263,7 +245,7 @@
                                         oninvalid="this.setCustomValidity('กรุณากรอก Facebook')"
                                         oninput="this.setCustomValidity('')">
                                     <label for="facebook"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         Facebook
                                     </label>
                                     <i class="fa-brands fa-facebook absolute right-3 top-3 text-blue-700 text-md"></i>
@@ -280,7 +262,7 @@
                                         oninvalid="this.setCustomValidity('กรุณากรอก Line ID')"
                                         oninput="this.setCustomValidity('')">
                                     <label for="line_id"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         Line ID
                                     </label>
                                     <i class="fa-brands fa-line absolute right-3 top-3 text-green-600 text-md"></i>
@@ -304,7 +286,7 @@
                                 </select>
 
                                 <label for="marital_status"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     สถานะสมรส
                                 </label>
                             </div>
@@ -319,7 +301,7 @@
                                         placeholder=" " onfocus="moveLabel_spouse_name()"
                                         onblur="checkInput_spouse_name()">
                                     <label for="spouse_name"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         ชื่อนามสกุลคู่สมรส
                                     </label>
                                 </div>
@@ -330,7 +312,7 @@
                                         placeholder=" " onfocus="moveLabel_spouse_phone()"
                                         onblur="checkInput_spouse_phone()">
                                     <label for="spouse_phone"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/4 scale-75 left-2 top-[-25] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         เบอร์โทรคู่สมรส
                                     </label>
                                     <i
