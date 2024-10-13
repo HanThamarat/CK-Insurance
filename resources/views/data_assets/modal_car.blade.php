@@ -754,7 +754,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<style>
+    /* CSS สำหรับทำให้ placeholder เป็นสีแดง */
+    ::placeholder {
+        color: red;
+        /* สีแดง */
+    }
 
+    /* เพิ่ม transition เพื่อให้เกิดการ fade out */
+    .fade-placeholder {
+        transition: opacity 1s ease-in-out;
+        /* ค่อยๆ หายไปอย่างช้าๆ */
+        opacity: 1;
+    }
+
+    .fade-out {
+        opacity: 0;
+        /* ลดความโปร่งใสไป 0 */
+    }
+</style>
 
 <script>
     $(document).ready(function() {
@@ -765,19 +783,44 @@
             let valid = true;
             let missingFields = [];
 
-            // ตัวอย่างการตรวจสอบฟิลด์
+
+            // Function for setting placeholder
+            function showPlaceholder(selector, message, labelSelector) {
+                // ซ่อน label ก่อน
+                $(labelSelector).hide();
+
+                // เพิ่มข้อความ placeholder และทำให้เป็นสีแดง
+                $(selector).attr('placeholder', message).addClass('fade-placeholder');
+
+                // ทำให้ placeholder หายไปช้าๆ ใน 5 วินาที
+                setTimeout(function() {
+                    $(selector).addClass('fade-out');
+                }, 4000); // เริ่ม fade out หลังจาก 4 วินาที
+
+                // ลบ placeholder และแสดง label หลังจากครบ 5 วินาที
+                setTimeout(function() {
+                    $(selector).attr('placeholder', '').removeClass('fade-out');
+                    $(labelSelector).show(); // แสดง label อีกครั้ง
+                }, 5000);
+            }
+
+            // ตรวจสอบฟิลด์ต่าง ๆ
             if ($('#Vehicle_OldLicense_Text').val().trim() === '') {
                 valid = false;
                 missingFields.push('อักษรป้ายทะเบียนเก่า');
-                $('#Vehicle_OldLicense_Text').addClass('border-red-500'); // เพิ่มคลาสสีแดง
+                $('#Vehicle_OldLicense_Text').addClass('border-red-500');
+                showPlaceholder('#Vehicle_OldLicense_Text', 'กรุณากรอกข้อมูลนี้',
+                    'label[for="Vehicle_OldLicense_Text"]');
             } else {
-                $('#Vehicle_OldLicense_Text').removeClass('border-red-500'); // ลบคลาสเมื่อกรอกข้อมูลแล้ว
+                $('#Vehicle_OldLicense_Text').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_OldLicense_Number').val().trim() === '') {
                 valid = false;
                 missingFields.push('เลขป้ายทะเบียนเก่า');
                 $('#Vehicle_OldLicense_Number').addClass('border-red-500');
+                showPlaceholder('#Vehicle_OldLicense_Number', 'กรุณากรอกข้อมูลนี้',
+                    'label[for="Vehicle_OldLicense_Number"]');
             } else {
                 $('#Vehicle_OldLicense_Number').removeClass('border-red-500');
             }
@@ -786,6 +829,8 @@
                 valid = false;
                 missingFields.push('จังหวัดป้ายทะเบียนเก่า');
                 $('#Vehicle_OldLicense_Province').addClass('border-red-500');
+                showPlaceholder('#Vehicle_OldLicense_Province', 'กรุณากรอกข้อมูลนี้',
+                    'label[for="Vehicle_OldLicense_Province"]');
             } else {
                 $('#Vehicle_OldLicense_Province').removeClass('border-red-500');
             }
@@ -794,6 +839,8 @@
                 valid = false;
                 missingFields.push('หมายเลขตัวถังรถ');
                 $('#Vehicle_Chassis').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Chassis', 'กรุณากรอกข้อมูลนี้',
+                    'label[for="Vehicle_Chassis"]');
             } else {
                 $('#Vehicle_Chassis').removeClass('border-red-500');
             }
@@ -802,6 +849,7 @@
                 valid = false;
                 missingFields.push('หมายเลขเครื่องยนต์');
                 $('#Vehicle_Engine').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Engine', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Engine"]');
             } else {
                 $('#Vehicle_Engine').removeClass('border-red-500');
             }
@@ -810,6 +858,7 @@
                 valid = false;
                 missingFields.push('สีรถ');
                 $('#Vehicle_Color').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Color', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Color"]');
             } else {
                 $('#Vehicle_Color').removeClass('border-red-500');
             }
@@ -818,6 +867,7 @@
                 valid = false;
                 missingFields.push('CC');
                 $('#Vehicle_CC').addClass('border-red-500');
+                showPlaceholder('#Vehicle_CC', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_CC"]');
             } else {
                 $('#Vehicle_CC').removeClass('border-red-500');
             }
@@ -826,6 +876,7 @@
                 valid = false;
                 missingFields.push('ประเภทรถ 1');
                 $('#Vehicle_Type').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Type', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Type"]');
             } else {
                 $('#Vehicle_Type').removeClass('border-red-500');
             }
@@ -834,6 +885,8 @@
                 valid = false;
                 missingFields.push('ประเภทรถ 2');
                 $('#Vehicle_Type_PLT').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Type_PLT', 'กรุณากรอกข้อมูลนี้',
+                    'label[for="Vehicle_Type_PLT"]');
             } else {
                 $('#Vehicle_Type_PLT').removeClass('border-red-500');
             }
@@ -842,6 +895,7 @@
                 valid = false;
                 missingFields.push('ยี่ห้อรถ');
                 $('#Vehicle_Brand').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Brand', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Brand"]');
             } else {
                 $('#Vehicle_Brand').removeClass('border-red-500');
             }
@@ -850,25 +904,40 @@
                 valid = false;
                 missingFields.push('กลุ่มรถ');
                 $('#Vehicle_Group').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Group', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Group"]');
             } else {
                 $('#Vehicle_Group').removeClass('border-red-500');
+            }
+
+
+            if ($('#Vehicle_Models').val().trim() === '') {
+                valid = false;
+                missingFields.push('รุ่นรถ');
+                $('#Vehicle_Models').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Models', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Models"]');
+            } else {
+                $('#Vehicle_Models').removeClass('border-red-500');
             }
 
             if ($('#Vehicle_Years').val().trim() === '') {
                 valid = false;
                 missingFields.push('ปีรถ');
                 $('#Vehicle_Years').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Years', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Years"]');
             } else {
                 $('#Vehicle_Years').removeClass('border-red-500');
             }
+
 
             if ($('#Vehicle_Gear').val().trim() === '') {
                 valid = false;
                 missingFields.push('เกียร์รถ');
                 $('#Vehicle_Gear').addClass('border-red-500');
+                showPlaceholder('#Vehicle_Gear', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Gear"]');
             } else {
                 $('#Vehicle_Gear').removeClass('border-red-500');
             }
+
             // ถ้าข้อมูลไม่ครบให้แสดง SweetAlert แจ้งเตือนและไม่ส่งฟอร์ม
             if (!valid) {
                 $('#errorAlert').show(); // แสดงกล่องข้อความ error
@@ -913,7 +982,8 @@
                     error: function(jqXHR) {
                         if (jqXHR.status === 409) {
                             // ตรวจสอบข้อผิดพลาดที่ส่งกลับจากเซิร์ฟเวอร์
-                            let errorMessage = jqXHR.responseJSON.message_error_chassis || 'เกิดข้อผิดพลาดในการส่งข้อมูล';
+                            let errorMessage = jqXHR.responseJSON.message_error_chassis ||
+                                'เกิดข้อผิดพลาดในการส่งข้อมูล';
                             Swal.fire({
                                 icon: 'error',
                                 title: 'เกิดข้อผิดพลาด!',
@@ -926,7 +996,8 @@
                                 icon: 'error',
                                 title: 'เกิดข้อผิดพลาด!',
                                 text: 'ระบบมีปัญหากับคำขอของคุณ',
-                                footer: jqXHR.responseText // แสดงข้อความตอบกลับจากเซิร์ฟเวอร์
+                                footer: jqXHR
+                                    .responseText // แสดงข้อความตอบกลับจากเซิร์ฟเวอร์
                             });
                         }
                     }
@@ -935,4 +1006,3 @@
         });
     });
 </script>
-
