@@ -8,7 +8,7 @@
             <!-- ข้อมูลผู้ใช้งาน -->
             <div class="w-full overflow-hidden">
                 <div class="flex flex-col">
-                    <h1 class="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-bold mb-1 dark:text-white">
+                    <h1 class="lg:text-base text-orange-500 sm:text-xl xs:text-xl font-bold mb-1 dark:text-white">
                         เปลี่ยนรหัสผ่าน
                     </h1>
                     <h2 class="text-gray-500 text-sm dark:text-gray-400">(Edit Password)</h2>

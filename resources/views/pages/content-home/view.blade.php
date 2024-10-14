@@ -22,7 +22,7 @@
     <div class="w-full h-[70vh] flex items-center justify-center">
         <div>
             <div>
-                <img src="{{ URL::asset('assets/images/svg/home-screen.svg') }}" class="w-[350px]" alt="">
+                <img src="{{ URL::asset('assets/images/svg/home-screen.svg') }}" class="w-[300px]" alt="">
             </div>
             <div class="w-full flex justify-center text-[20px] mt-5 font-primaryMedium">
                 <span class="text-red-500">Welcome to Insurance <span class="text-orange-500">Management System.</span></span>

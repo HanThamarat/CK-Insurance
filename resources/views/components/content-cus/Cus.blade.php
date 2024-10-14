@@ -14,13 +14,15 @@
             <!-- Left Section: Card -->
             <div class="xl:w-2/12 lg:w-3/12 md:w-3/12 w-full">
                 <div class="card rounded-lg text-center h-full"
-                    style="background-image: url('{{ asset('img/Insurance_picture5.jpg') }}'); background-size: cover;
+                    style="background-image: url('{{ asset('img/theme3.jpg') }}'); background-size: cover;
                 background-position: center;">
                     <div class="card-body h-full pt-6 pb-10">
                         <h5
-                            class="font-bold mt-4 mb-5 rounded-lg px-5 py-2 text-center bg-white text-orange-500 hover:scale-105 mx-4">
+                            class="font-bold mt-4 mb-5 rounded-lg px-5 py-2 text-center bg-white text-orange-500
+                                transition-transform duration-300 ease-in-out hover:scale-105 mx-4">
                             ลูกค้าใหม่
                         </h5>
+
 
                         <div class="hidden sm:flex justify-center pt-10">
                             <div class="w-32 h-32">

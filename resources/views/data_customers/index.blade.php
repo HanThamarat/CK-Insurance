@@ -1,11 +1,13 @@
 <!-- Customer Modal -->
 @section('content')
-    <div id="customerModal" class="fixed inset-0 flex justify-center items-center z-50 hidden mt-[-300]">
-        <div class="bg-white rounded-lg shadow-lg p-4 w-full max-w-[90%] max-h-[90vh] overflow-y-scroll"
-            style="overflow-y: scroll; scrollbar-width: none;">
-            {{-- <h2 class="text-lg font-bold mb-4">ข้อมูลลูกค้า</h2> --}}
 
-            <h2 class="text-lg font-bold mb-4 flex justify-between items-center">
+<div id="customerModal" class="fixed inset-0 flex justify-center items-center z-50 hidden mt-[-300]">
+    <div class="bg-white rounded-lg shadow-lg p-1 w-full max-w-[90%] max-h-[90vh] overflow-y-scroll"
+        style="overflow-y: scroll; scrollbar-width: none;" id="modalContent">
+
+        <!-- Header ที่ sticky -->
+        <div id="modalHeader" class="bg-white sticky top-0 z-10 p-2 w-full transition-shadow duration-300">
+            <h2 class="text-lg font-bold mb-3 flex justify-between items-center">
                 ข้อมูลลูกค้า
                 <!-- ปุ่มกากบาท (X) สำหรับปิด -->
                 <button type="button" id="closeModal_x" class="text-gray-500 hover:text-gray-700" aria-label="Close">
@@ -16,19 +18,39 @@
                 </button>
             </h2>
 
-            <div class="flex items-center m-3 mb-0">
+            <div class="flex items-center mb-0">
                 <div class="flex-shrink-0 mr-4">
                     <img src="https://ckl.co.th/assets/images/gif/video-confer.gif" alt="report" class="w-12 h-12">
                 </div>
                 <div class="flex-grow">
-                    <h5 class="text-primary font-semibold">ค้นหาลูกค้า / เลขที่สัญญา</h5>
+                    <h5 class="text-primary font-semibold">ค้นหาลูกค้า / ข้อมูลลูกค้า</h5>
                     <p class="text-gray-500 -mt-1 font-semibold text-xs">( Search Data informations )</p>
                     <p class="border-b border-primary mt-2"></p>
                 </div>
             </div>
+        </div>
+
+        <script>
+            // เพิ่มฟังก์ชันสำหรับตรวจสอบการเลื่อน
+            const modalContent = document.getElementById('modalContent');
+            const modalHeader = document.getElementById('modalHeader');
+
+            modalContent.addEventListener('scroll', () => {
+                // ตรวจสอบว่าเลื่อนลงไปมากกว่า 0 หรือไม่
+                if (modalContent.scrollTop > 0) {
+                    modalHeader.classList.add('shadow-md');
+                    modalHeader.classList.remove('top-[-40]'); // ลบ top-[-30] เมื่อเลื่อน
+                } else {
+                    modalHeader.classList.remove('shadow-md');
+                    modalHeader.classList.add('top-[-1]'); // เพิ่ม top-[-19] กลับคืนเมื่ออยู่ที่ด้านบน
+                }
+            });
+        </script>
 
 
-            <div class="modal-body mt-2">
+
+
+            <div class="modal-body mt-[-10] p-4">
                 <div class="row mb-1 search-box-top">
                     <div class="col-12">
 

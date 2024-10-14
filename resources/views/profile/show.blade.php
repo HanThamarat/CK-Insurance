@@ -94,9 +94,10 @@
                             <img src="{{ asset('img/list.png') }}" alt="List Icon" class="w-14 h-14 object-cover img-effect">
                             <!-- ข้อมูลผู้ใช้งาน -->
                             <div class="w-full">
-                                <h1 class="lg:text-3xl md:text-sm sm:text-xl xs:text-xl font-bold mb-1 dark:text-white">
+                                <h5 class="lg:text-base text-orange-500 md:text-xs sm:text-sm xs:text-sm font-bold mb-1 dark:text-white">
                                     ข้อมูลผู้ใช้งานระบบ
-                                </h1>
+                                </h5>
+
                                 <h2 class="text-gray-500 text-sm dark:text-gray-400">(System Information)</h2>
                                 <div class="border-b-2 border-primary mt-2 w-full"></div> <!-- ยังคงมี w-full เพื่อให้ border เต็มความกว้าง -->
                             </div>
@@ -106,7 +107,7 @@
 
                         <form>
                             <!-- Cover Image -->
-                            <div class="w-full rounded-sm bg-[url('https://images.unsplash.com/photo-1449844908441-8829872d2607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw2fHxob21lfGVufDB8MHx8fDE3MTA0MDE1NDZ8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat items-center">
+                            <div class="w-full rounded-sm bg-cover bg-center bg-no-repeat items-center" style="background-image: url('{{ asset('img/theme3.jpg') }}');">
                                 <!-- Profile Image -->
                                 <div class="mx-auto flex justify-center w-[130px] h-[130px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat transition-transform duration-500 hover:scale-110 shadow-lg"
                                     style="background-image: url('{{ asset('img/user.png') }}');">

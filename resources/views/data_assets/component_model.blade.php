@@ -226,7 +226,7 @@
                             '<option value="' + carModel.Model_car + '">' + vehicleName +
                             ' ' + carModel.Model_car + '</option>'
                         );
-                    } else if (selectedGroup === 'everest' && modelCar.startsWith('everest')) {
+                    } else if (selectedGroup === 'everrest' && modelCar.startsWith('everest 2.0')) {
                         var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
                         $('#Vehicle_Models').append(
                             '<option value="' + carModel.Model_car + '">' + vehicleName +
@@ -436,6 +436,12 @@
                             '<option value="' + carModel.Model_car + '">' + vehicleName +
                             ' ' + carModel.Model_car + '</option>'
                         );
+                    }  else if (selectedGroup === '730li' && modelCar.startsWith('730li')) {
+                        var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
+                        $('#Vehicle_Models').append(
+                            '<option value="' + carModel.Model_car + '">' + vehicleName +
+                            ' ' + carModel.Model_car + '</option>'
+                        );
                     } else if (selectedGroup === '370ll' && modelCar.startsWith('370ll')) {
                         var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
                         $('#Vehicle_Models').append(
@@ -629,7 +635,7 @@
                             '<option value="' + carModel.Model_car + '">' + vehicleName +
                             ' ' + carModel.Model_car + '</option>'
                         );
-                    } else if (selectedGroup === 'canter' && modelCar.startsWith('canter')) {
+                    } else if (selectedGroup === 'canter' && modelCar.startsWith('fe535e')) {
                         var vehicleName = carModel.vehicle_name ? carModel.vehicle_name : '';
                         $('#Vehicle_Models').append(
                             '<option value="' + carModel.Model_car + '">' + vehicleName +

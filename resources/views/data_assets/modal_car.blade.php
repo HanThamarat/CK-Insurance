@@ -71,12 +71,14 @@
                         <div class="w-full md:w-60 relative flex flex-col rounded-xl">
                             <input required=""
                                 class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
-                                id="Vehicle_OldLicense_Text" name="Vehicle_OldLicense_Text" type="text" />
+                                id="Vehicle_OldLicense_Text" name="Vehicle_OldLicense_Text" type="text"
+                                placeholder=" " />
                             <label
-                                class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
+                                class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none peer-valid:shadow-lg"
                                 for="Vehicle_OldLicense_Text">
                                 อักษร/คำ
                             </label>
+
 
 
                             <!-- Tooltip -->
@@ -95,9 +97,10 @@
                                 class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
                                 id="Vehicle_OldLicense_Number" name="Vehicle_OldLicense_Number" type="text" />
                             <label
-                                class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
+                                class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none peer-valid:shadow-lg"
                                 for="Vehicle_OldLicense_Number">
                                 ตัวเลข</label>
+
 
                             <!-- Tooltip -->
                             <div id="tooltip-number"
@@ -125,11 +128,12 @@
                                 </select>
 
                                 <label id="provinceLabel"
-                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1.5">
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg peer-placeholder-shown:shadow-none">
                                     จังหวัด
                                 </label>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -153,10 +157,9 @@
                                 class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
                                 id="Vehicle_NewLicense_Text" name="Vehicle_NewLicense_Text" type="text" />
                             <label
-                                class="absolute top-1/2 translate-y-[-50%] text-gray-600 bg-white left-4 px-2 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-gray-500 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-gray-500 duration-150 rounded-md"
+                                class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-gray-600 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-gray-400 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-gray-400 peer-valid:shadow-lg duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none"
                                 for="Vehicle_NewLicense_Text">
-                                อักษร/คำ
-                            </label>
+                                อักษร/คำ</label>
 
 
                             <!-- Tooltip for text input -->
@@ -175,7 +178,7 @@
                                 class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
                                 id="Vehicle_NewLicense_Number" name="Vehicle_NewLicense_Number" type="text" />
                             <label
-                                class="absolute top-1/2 translate-y-[-50%] text-gray-600  bg-white left-4 px-2 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-gray-500 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-gray-500 duration-150 rounded-md"
+                                class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-gray-600 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-gray-400 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-gray-400 peer-valid:shadow-lg duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none"
                                 for="Vehicle_NewLicense_Number">
                                 ตัวเลข</label>
 
@@ -203,7 +206,7 @@
                                 </select>
 
                                 <label id="newProvinceLabel"
-                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full p-1.5">
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
                                     จังหวัด
                                 </label>
                             </div>
@@ -216,11 +219,16 @@
                     <input required=""
                         class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
                         id="Vehicle_Chassis" name="Vehicle_Chassis" type="text" />
-                    <label
+                    {{-- <label
                         class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
                         for="Vehicle_Chassis">
                         เลขถัง
-                    </label>
+                    </label> --}}
+
+                    <label
+                        class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 peer-valid:shadow-lg duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none"
+                        for="Vehicle_Chassis">
+                        เลขถัง</label>
                 </div>
 
 
@@ -239,11 +247,16 @@
                         <input required=""
                             class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md mt-1"
                             id="Vehicle_New_Number" name="Vehicle_New_Number" type="text" />
-                        <label
+                        {{-- <label
                             class="absolute top-1/2 translate-y-[-50%] text-gray-600 bg-white left-4 px-2 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
                             for="Vehicle_Newlabel_Number" id="Vehicle_Newlabel_Number">
                             เลขตัวรถไหม่
-                        </label>
+                        </label> --}}
+
+                        <label
+                            class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-gray-600 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 peer-valid:shadow-lg duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none"
+                            for="Vehicle_Newlabel_Number">
+                            เลขตัวรถไหม่</label>
                     </div>
                 </div>
 
@@ -253,11 +266,16 @@
                         <input required=""
                             class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:border-gray-700 mt-1"
                             id="Vehicle_Engine" name="Vehicle_Engine" type="text" />
-                        <label
+                        {{-- <label
                             class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
                             for="Vehicle_Engine">
                             เลขเครื่อง
-                        </label>
+                        </label> --}}
+
+                        <label
+                            class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 peer-valid:shadow-lg duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none"
+                            for="Vehicle_Engine">
+                            เลขเครื่อง</label>
                     </div>
 
 
@@ -265,8 +283,13 @@
                         <input required=""
                             class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md  mt-1"
                             id="Vehicle_Color" name="Vehicle_Color" type="text" />
-                        <label
+                        {{-- <label
                             class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
+                            for="Vehicle_Color">
+                            สีรถ</label> --}}
+
+                        <label
+                            class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 peer-valid:shadow-lg duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none"
                             for="Vehicle_Color">
                             สีรถ</label>
                     </div>
@@ -275,10 +298,16 @@
                         <input required=""
                             class="peer w-full bg-transparent outline-none px-4 text-sm rounded-xl bg-white border border-gray-300 focus:shadow-md  mt-1"
                             id="Vehicle_CC" name="Vehicle_CC" type="text" />
-                        <label
+                        {{-- <label
                             class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 duration-150 rounded-md"
                             for="Vehicle_CC">
+                            CC</label> --}}
+
+                        <label
+                            class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 text-red-400 peer-focus:top-0 peer-focus:left-3 font-semibold text-xs peer-focus:text-red-300 peer-valid:-top-0 peer-valid:left-3 peer-valid:text-xs peer-valid:text-red-300 peer-valid:shadow-lg duration-150 rounded-md peer-focus:shadow-md peer-placeholder-shown:shadow-none"
+                            for="Vehicle_CC">
                             CC</label>
+
                     </div>
                 </div>
 
@@ -299,20 +328,21 @@
                             <!-- ประเภทรถ 1 -->
                             <div class="relative mb-1">
                                 <label for="Vehicle_Type"
-                                    class="block text-gray-700 mb-2 transition-all duration-300 transform
+                                    class="block text-red-500 mb-2 transition-all duration-300 transform
                                 {{ $errors->has('Vehicle_Type') ? 'text-red-500' : 'text-red-500' }}
                                 {{ old('Vehicle_Type') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
                                 absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                     ประเภทรถ 1
                                 </label>
+
                                 <select
-                                    class="form-select block w-full border border-red-300 rounded-md shadow-sm
-                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                    class="form-select block w-full border border-red-500 rounded-md shadow-sm
+                                focus:ring-red-500 focus:border-red-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out text-red-500"
                                     id="Vehicle_Type" name="Vehicle_Type" required
                                     onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
-                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                           this.classList.add('text-red-500');
-                                           this.style.color = this.value ? 'red' : '';"
+                                          this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                          this.classList.add('text-red-500');
+                                          this.style.color = this.value ? 'red' : '';"
                                     onblur="this.classList.remove('text-red-500');">
                                     <option value="" class="text-red-500">ประเภทรถ 1</option>
 
@@ -380,29 +410,33 @@
                             <div class="relative mb-1">
                                 <label for="Vehicle_Type_PLT"
                                     class="block text-red-500 mb-2 transition-all duration-300 transform
-                                {{ $errors->has('Vehicle_Type_PLT') ? 'text-red-500' : 'text-red-500' }}
-                                {{ old('Vehicle_Type_PLT') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                    {{ $errors->has('Vehicle_Type_PLT') ? 'text-red-500' : 'text-red-500' }}
+                                    {{ old('Vehicle_Type_PLT') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                    absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                     ประเภทรถ 2
                                 </label>
                                 <select
-                                    class="form-select block w-full border {{ $errors->has('Vehicle_Type_PLT') ? 'border-red-300' : 'border-red-300' }} rounded-md shadow-sm
-                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                    class="form-select block w-full border {{ $errors->has('Vehicle_Type_PLT') ? 'border-red-500' : 'border-red-500' }} rounded-md shadow-sm
+                                    focus:ring-red-500 focus:border-red-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out text-red-500"
                                     id="Vehicle_Type_PLT" name="Vehicle_Type_PLT" required
+                                    {{-- onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                              this.classList.remove('border-red-300');
+                                              this.classList.add('border-red-500');
+                                              this.style.color = this.value ? 'red' : '';"
+                                    onblur="if (!this.value) { this.classList.add('border-red-500'); } else { this.classList.remove('border-red-500'); }"> --}}
                                     onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
-                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                           this.classList.remove('border-red-300');
-                                           this.classList.add('border-red-500');
-                                           this.style.color = this.value ? 'red' : '';"
-                                    onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
+                                          this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                          this.classList.add('text-red-500');
+                                          this.style.color = this.value ? 'red' : '';"
+                                    onblur="this.classList.remove('text-red-500');">
                                     <option value="" class="text-red-500">ประเภทรถ 2</option>
-
                                     @foreach ($typeVehicles as $vehicle)
-                                        <option hidden value="{{ $vehicle->id }}">{{ $vehicle->Name_Vehicle }}
-                                        </option>
+                                        <option hidden value="{{ $vehicle->id }}" class="text-red-500">
+                                            {{ $vehicle->Name_Vehicle }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
 
 
 
@@ -410,21 +444,26 @@
                             <div class="relative mb-1">
                                 <label for="Vehicle_Brand"
                                     class="block text-red-500 mb-2 transition-all duration-300 transform
-                                {{ $errors->has('Vehicle_Brand') ? 'text-red-500' : 'text-red-500' }}
-                                {{ old('Vehicle_Brand') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                    {{ $errors->has('Vehicle_Brand') ? 'text-red-500' : 'text-red-500' }}
+                                    {{ old('Vehicle_Brand') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                    absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                     ยี่ห้อรถ
                                 </label>
                                 <select
-                                    class="form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Brand') ? 'border-red-300' : 'border-red-300' }} rounded-md shadow-sm
-                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out text-red-500"
+                                    class="form-select block w-full border border-red-500 {{ $errors->has('Vehicle_Brand') ? 'border-red-500' : 'border-red-500' }} rounded-md shadow-sm
+                                    focus:ring-red-500 focus:border-red-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out text-red-500"
                                     id="Vehicle_Brand" name="Vehicle_Brand" required
-                                    onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                    {{-- onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                              this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                              this.classList.remove('border-red-300');
+                                              this.classList.add('border-red-500');
+                                              this.style.color = this.value ? 'red' : '';"
+                                    onblur="if (!this.value) { this.classList.add('border-red-500'); } else { this.classList.remove('border-red-500'); }"> --}}
+                                    onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                          this.classList.remove('border-red-300');
-                                          this.classList.add('border-red-500');
-                                          this.style.color = this.value ? 'red' : ''; "
-                                    onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
+                                          this.classList.add('text-red-500');
+                                          this.style.color = this.value ? 'red' : '';"
+                                    onblur="this.classList.remove('text-red-500');">
                                     <option value="" class="text-red-500">ยี่ห้อรถ</option>
 
                                     <!-- foreach for car brands -->
@@ -454,33 +493,33 @@
                             <div class="relative mb-1">
                                 <label for="Vehicle_Group"
                                     class="block text-red-500 mb-2 transition-all duration-300 transform
-                                {{ $errors->has('Vehicle_Group') ? 'text-red-500' : 'text-red-500' }}
-                                {{ old('Vehicle_Group') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                    {{ $errors->has('Vehicle_Group') ? 'text-red-500' : 'text-red-500' }}
+                                    {{ old('Vehicle_Group') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                    absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                     กลุ่มรถ
                                 </label>
                                 <select
-                                    class="text-red-500 form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Group') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
-                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                    class="text-red-500 form-select block w-full border border-red-500 {{ $errors->has('Vehicle_Group') ? 'border-red-500' : 'border-gray-300' }} rounded-md shadow-sm
+                                    focus:ring-red-500 focus:border-red-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
                                     id="Vehicle_Group" name="Vehicle_Group" required
                                     onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
-                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                           this.classList.remove('border-red-300');
-                                           this.classList.add('border-red-500');"
+                                              this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                              this.classList.remove('border-gray-300');
+                                              this.classList.add('border-red-500');"
                                     onblur="if (!this.value) { this.classList.add('border-gray-300'); } else { this.classList.remove('border-gray-300'); }">
-                                    <option value="">กลุ่มรถ</option>
+                                    <option value="" class="text-red-500">กลุ่มรถ</option>
 
                                     {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                     @foreach ($cars->unique('Group_car') as $car)
-                                        <option hidden id="car_group_{{ $car->id }}"
-                                            value="{{ $car->Group_car }}">
+                                        <option id="car_group_{{ $car->id }}" value="{{ $car->Group_car }}"
+                                            class="text-red-500">
                                             {{ $car->vehicle_name ?? '' . $car->Group_car }}
                                         </option>
                                     @endforeach
 
                                     @foreach ($motoGroups->unique('Group_moto') as $moto)
-                                        <option hidden id="moto_group_{{ $moto->id }}"
-                                            value="{{ $moto->Group_moto }}">
+                                        <option id="moto_group_{{ $moto->id }}" value="{{ $moto->Group_moto }}"
+                                            class="text-red-500">
                                             {{ $moto->vehicle_name ?? '' . $moto->Group_moto }}
                                         </option>
                                     @endforeach
@@ -489,28 +528,38 @@
 
 
 
+
                             {{-- ปีรถ --}}
                             <div class="relative mb-1">
                                 <label for="Vehicle_Years"
                                     class="block text-red-500 mb-2 transition-all duration-300 transform
-                                {{ $errors->has('Vehicle_Years') ? 'text-red-500' : 'text-red-500' }}
-                                {{ old('Vehicle_Years') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                    {{ $errors->has('Vehicle_Years') ? 'text-red-500' : 'text-red-500' }}
+                                    {{ old('Vehicle_Years') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                    absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                     ปีรถ
                                 </label>
                                 <select
-                                    class="text-red-500 form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Years') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
-                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                    class="text-red-500 form-select block w-full border border-red-500 {{ $errors->has('Vehicle_Years') ? 'border-red-500' : 'border-gray-300' }} rounded-md shadow-sm
+                                    focus:ring-red-500 focus:border-red-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
                                     id="Vehicle_Years" name="Vehicle_Years" required
+                                    {{-- onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                              this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                              this.classList.remove('border-red-300');
+                                              this.classList.add('border-red-500');"
+                                    onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }"> --}}
+                                    {{-- onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                          this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                          this.classList.add('text-red-500');
+                                          this.style.color = this.value ? 'red' : '';"
+                                    onblur="this.classList.remove('text-red-500');"> --}}
                                     onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
-                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                           this.classList.remove('border-red-300');
-                                           this.classList.add('border-red-500');"
-                                    onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
-                                    <option value="">ปีรถ</option>
+                                    this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                    this.classList.remove('border-gray-300');
+                                    this.classList.add('border-red-500');"
+                                    onblur="if (!this.value) { this.classList.add('border-gray-300'); } else { this.classList.remove('border-gray-300'); }">
+                                    <option value="" class="text-red-500">ปีรถ</option>
                                     @foreach ($carYears->unique('Year_car')->sortBy('Year_car') as $car)
-                                        <option hidden id="year_car_{{ $car->Year_car }}"
-                                            value="{{ $car->Year_car }}">
+                                        <option hidden id="year_car_{{ $car->Year_car }}" value="{{ $car->Year_car }}">
                                             {{ $car->vehicle_name ?? '' . $car->Year_car }}
                                         </option>
                                     @endforeach
@@ -524,21 +573,26 @@
                             <div class="relative mb-1">
                                 <label for="Vehicle_Models"
                                     class="block text-red-500 mb-2 transition-all duration-300 transform
-                                {{ $errors->has('Vehicle_Models') ? 'text-red-500' : 'text-red-500' }}
-                                {{ old('Vehicle_Models') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                    {{ $errors->has('Vehicle_Models') ? 'text-red-500' : 'text-red-500' }}
+                                    {{ old('Vehicle_Models') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                    absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                     รุ่นรถ
                                 </label>
                                 <select
-                                    class="text-red-500 form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Models') ? 'border-red-300' : 'border-gray-300' }} rounded-md shadow-sm
-                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                    class="text-red-500 form-select block w-full border border-red-500 {{ $errors->has('Vehicle_Models') ? 'border-red-500' : 'border-red-500' }} rounded-md shadow-sm
+                                    focus:ring-red-500 focus:border-red-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
                                     id="Vehicle_Models" name="Vehicle_Models" required
+                                    {{-- onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                              this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                              this.classList.remove('border-red-300');
+                                              this.classList.add('border-red-500');"
+                                    onblur="if (!this.value) { this.classList.add('border-red-500'); } else { this.classList.remove('border-red-500'); }"> --}}
                                     onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
-                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                           this.classList.remove('border-red-300');
-                                           this.classList.add('border-red-500');"
-                                    onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
-                                    <option value="">รุ่นรถ</option>
+                                          this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                          this.classList.add('text-red-500');
+                                          this.style.color = this.value ? 'red' : '';"
+                                    onblur="this.classList.remove('text-red-500');">
+                                    <option value="" class="text-red-500">รุ่นรถ</option>
 
                                     {{-- ใช้ unique() เพื่อกรองข้อมูล id ที่ซ้ำกัน --}}
                                     @foreach ($carModels->unique('Model_car') as $car)
@@ -561,21 +615,26 @@
                             <div class="relative mb-1">
                                 <label for="Vehicle_Gear"
                                     class="block text-red-500 mb-2 transition-all duration-300 transform
-                                {{ $errors->has('Vehicle_Gear') ? 'text-red-500' : 'text-red-500' }}
-                                {{ old('Vehicle_Gear') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
-                                absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
+                                    {{ $errors->has('Vehicle_Gear') ? 'text-red-500' : 'text-red-500' }}
+                                    {{ old('Vehicle_Gear') ? 'translate-y-[-1.25rem] scale-75' : 'translate-y-0 scale-100' }}
+                                    absolute left-2 top-2 bg-white px-2 py-1 rounded-md text-sm">
                                     เกียร์รถ
                                 </label>
                                 <select
-                                    class="form-select block w-full border border-red-300 {{ $errors->has('Vehicle_Gear') ? 'border-red-300' : 'border-red-300' }} rounded-md shadow-sm
-                                focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out"
+                                    class="form-select block w-full border border-red-500 {{ $errors->has('Vehicle_Gear') ? 'border-red-500' : 'border-red-500' }} rounded-md shadow-sm
+                                    focus:ring-red-500 focus:border-red-500 sm:text-sm h-11 py-1 px-2 transition duration-200 ease-in-out text-red-500"
                                     id="Vehicle_Gear" name="Vehicle_Gear" required
+                                    {{-- onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
+                                              this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                              this.classList.remove('border-red-300');
+                                              this.classList.add('border-red-500');
+                                              this.style.color = this.value ? 'red' : '';"
+                                    onblur="if (!this.value) { this.classList.add('border-red-500'); } else { this.classList.remove('border-red-500'); }"> --}}
                                     onchange="this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value) &&
-                                           this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
-                                           this.classList.remove('border-red-300');
-                                           this.classList.add('border-red-500');
-                                           this.style.color = this.value ? 'red' : '';"
-                                    onblur="if (!this.value) { this.classList.add('border-red-300'); } else { this.classList.remove('border-red-300'); }">
+                                          this.previousElementSibling.classList.toggle('translate-y-[-1.25rem]', this.value);
+                                          this.classList.add('text-red-500');
+                                          this.style.color = this.value ? 'red' : '';"
+                                    onblur="this.classList.remove('text-red-500');">
                                     <option value="" class="text-red-500">เกียร์รถ</option>
                                     <option hidden value="manual" class="text-red-500">Manual</option>
                                     <option hidden value="auto" class="text-red-500">Auto</option>
@@ -756,7 +815,24 @@
 
 <style>
     /* CSS สำหรับทำให้ placeholder เป็นสีแดง */
-    ::placeholder {
+    input::placeholder {
+        color: red;
+        /* สีแดง */
+    }
+
+    /* สำหรับ placeholder ที่อยู่ใน input ที่มี class .fade-placeholder */
+    input.fade-placeholder::placeholder {
+        color: red;
+        /* สีแดง */
+    }
+
+    select::placeholder {
+        color: red;
+        /* สีแดง */
+    }
+
+    /* สำหรับ placeholder ที่อยู่ใน select ที่มี class .fade-placeholder */
+    select.fade-placeholder::placeholder {
         color: red;
         /* สีแดง */
     }
@@ -764,7 +840,6 @@
     /* เพิ่ม transition เพื่อให้เกิดการ fade out */
     .fade-placeholder {
         transition: opacity 1s ease-in-out;
-        /* ค่อยๆ หายไปอย่างช้าๆ */
         opacity: 1;
     }
 
@@ -773,6 +848,12 @@
         /* ลดความโปร่งใสไป 0 */
     }
 </style>
+
+
+
+
+
+
 
 <script>
     $(document).ready(function() {
@@ -809,7 +890,7 @@
                 valid = false;
                 missingFields.push('อักษรป้ายทะเบียนเก่า');
                 $('#Vehicle_OldLicense_Text').addClass('border-red-500');
-                showPlaceholder('#Vehicle_OldLicense_Text', 'กรุณากรอกข้อมูลนี้',
+                showPlaceholder('#Vehicle_OldLicense_Text', '*กรุณากรอกข้อมูลนี้*',
                     'label[for="Vehicle_OldLicense_Text"]');
             } else {
                 $('#Vehicle_OldLicense_Text').removeClass('border-red-500');
@@ -819,7 +900,7 @@
                 valid = false;
                 missingFields.push('เลขป้ายทะเบียนเก่า');
                 $('#Vehicle_OldLicense_Number').addClass('border-red-500');
-                showPlaceholder('#Vehicle_OldLicense_Number', 'กรุณากรอกข้อมูลนี้',
+                showPlaceholder('#Vehicle_OldLicense_Number', '*กรุณากรอกข้อมูลนี้*',
                     'label[for="Vehicle_OldLicense_Number"]');
             } else {
                 $('#Vehicle_OldLicense_Number').removeClass('border-red-500');
@@ -829,7 +910,17 @@
                 valid = false;
                 missingFields.push('จังหวัดป้ายทะเบียนเก่า');
                 $('#Vehicle_OldLicense_Province').addClass('border-red-500');
-                showPlaceholder('#Vehicle_OldLicense_Province', 'กรุณากรอกข้อมูลนี้',
+                showPlaceholder('#Vehicle_OldLicense_Province', '*กรุณากรอกข้อมูลนี้*',
+                    'label[for="Vehicle_OldLicense_Province"]');
+            } else {
+                $('#Vehicle_OldLicense_Province').removeClass('border-red-500');
+            }
+
+            if ($('#Vehicle_OldLicense_Province').val().trim() === '') {
+                valid = false;
+                missingFields.push('จังหวัดป้ายทะเบียนเก่า');
+                $('#Vehicle_OldLicense_Province').addClass('border-red-500');
+                showPlaceholder('#Vehicle_OldLicense_Province', '*กรุณากรอกข้อมูลนี้*',
                     'label[for="Vehicle_OldLicense_Province"]');
             } else {
                 $('#Vehicle_OldLicense_Province').removeClass('border-red-500');
@@ -839,7 +930,7 @@
                 valid = false;
                 missingFields.push('หมายเลขตัวถังรถ');
                 $('#Vehicle_Chassis').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Chassis', 'กรุณากรอกข้อมูลนี้',
+                showPlaceholder('#Vehicle_Chassis', '*กรุณากรอกข้อมูลนี้*',
                     'label[for="Vehicle_Chassis"]');
             } else {
                 $('#Vehicle_Chassis').removeClass('border-red-500');
@@ -849,7 +940,8 @@
                 valid = false;
                 missingFields.push('หมายเลขเครื่องยนต์');
                 $('#Vehicle_Engine').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Engine', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Engine"]');
+                showPlaceholder('#Vehicle_Engine', '*กรุณากรอกข้อมูลนี้*',
+                    'label[for="Vehicle_Engine"]');
             } else {
                 $('#Vehicle_Engine').removeClass('border-red-500');
             }
@@ -858,7 +950,7 @@
                 valid = false;
                 missingFields.push('สีรถ');
                 $('#Vehicle_Color').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Color', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Color"]');
+                showPlaceholder('#Vehicle_Color', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Color"]');
             } else {
                 $('#Vehicle_Color').removeClass('border-red-500');
             }
@@ -867,7 +959,7 @@
                 valid = false;
                 missingFields.push('CC');
                 $('#Vehicle_CC').addClass('border-red-500');
-                showPlaceholder('#Vehicle_CC', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_CC"]');
+                showPlaceholder('#Vehicle_CC', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_CC"]');
             } else {
                 $('#Vehicle_CC').removeClass('border-red-500');
             }
@@ -876,7 +968,7 @@
                 valid = false;
                 missingFields.push('ประเภทรถ 1');
                 $('#Vehicle_Type').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Type', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Type"]');
+                showPlaceholder('#Vehicle_Type', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Type"]');
             } else {
                 $('#Vehicle_Type').removeClass('border-red-500');
             }
@@ -885,7 +977,7 @@
                 valid = false;
                 missingFields.push('ประเภทรถ 2');
                 $('#Vehicle_Type_PLT').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Type_PLT', 'กรุณากรอกข้อมูลนี้',
+                showPlaceholder('#Vehicle_Type_PLT', '*กรุณากรอกข้อมูลนี้*',
                     'label[for="Vehicle_Type_PLT"]');
             } else {
                 $('#Vehicle_Type_PLT').removeClass('border-red-500');
@@ -895,7 +987,7 @@
                 valid = false;
                 missingFields.push('ยี่ห้อรถ');
                 $('#Vehicle_Brand').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Brand', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Brand"]');
+                showPlaceholder('#Vehicle_Brand', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Brand"]');
             } else {
                 $('#Vehicle_Brand').removeClass('border-red-500');
             }
@@ -904,7 +996,7 @@
                 valid = false;
                 missingFields.push('กลุ่มรถ');
                 $('#Vehicle_Group').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Group', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Group"]');
+                showPlaceholder('#Vehicle_Group', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Group"]');
             } else {
                 $('#Vehicle_Group').removeClass('border-red-500');
             }
@@ -914,7 +1006,8 @@
                 valid = false;
                 missingFields.push('รุ่นรถ');
                 $('#Vehicle_Models').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Models', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Models"]');
+                showPlaceholder('#Vehicle_Models', '*กรุณากรอกข้อมูลนี้*',
+                    'label[for="Vehicle_Models"]');
             } else {
                 $('#Vehicle_Models').removeClass('border-red-500');
             }
@@ -923,7 +1016,7 @@
                 valid = false;
                 missingFields.push('ปีรถ');
                 $('#Vehicle_Years').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Years', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Years"]');
+                showPlaceholder('#Vehicle_Years', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Years"]');
             } else {
                 $('#Vehicle_Years').removeClass('border-red-500');
             }
@@ -933,7 +1026,7 @@
                 valid = false;
                 missingFields.push('เกียร์รถ');
                 $('#Vehicle_Gear').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Gear', 'กรุณากรอกข้อมูลนี้', 'label[for="Vehicle_Gear"]');
+                showPlaceholder('#Vehicle_Gear', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Gear"]');
             } else {
                 $('#Vehicle_Gear').removeClass('border-red-500');
             }
