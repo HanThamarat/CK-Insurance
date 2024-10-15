@@ -54,9 +54,9 @@
         </div>
 
         <!-- Right Section: Notes -->
-        <div class="flex flex-col mt-[-5]">
+        <div class="flex flex-col mt-[-1]">
             <strong class="text-gray-8005">หมายเหตุ :</strong>
-            <textarea class="mt-3 w-full border border-orange-500  text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
+            <textarea class="mt-1 w-full border border-orange-500  text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
                 rows="5">{{ $customer->note ?? 'ยังไม่มีหมายเหตุ' }}</textarea>
         </div>
 

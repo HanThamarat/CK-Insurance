@@ -99,7 +99,34 @@
 
 </style>
 
+
 <script>
+    function moveLabel(id) {
+        const input = document.getElementById(id);
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput(id) {
+        const input = document.getElementById(id);
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
+
+
+
+
+
+{{-- <script>
     function moveLabel() {
         const input = document.getElementById('first_name');
         const label = input.nextElementSibling;
@@ -120,6 +147,28 @@
         }
     }
 
+</script> --}}
+{{--
+<script>
+    function moveLabel_firstname() {
+        const input = document.getElementById('first_name');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_firstname() {
+        const input = document.getElementById('first_name');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
 </script>
 
 
@@ -536,4 +585,104 @@
             label.style.fontSize = '';
         }
     }
+</script> --}}
+
+
+{{-- <script>
+    function moveLabel_occupation() {
+        const input = document.getElementById('occupation');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_occupation() {
+        const input = document.getElementById('occupation');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
 </script>
+
+
+
+<script>
+    function moveLabel_district() {
+        const input = document.getElementById('district');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_district() {
+        const input = document.getElementById('district');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
+
+
+
+<script>
+    function moveLabel_amphor() {
+        const input = document.getElementById('amphor');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_amphor() {
+        const input = document.getElementById('amphor');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script>
+
+
+
+<script>
+    function moveLabel_province() {
+        const input = document.getElementById('province');
+        const label = input.nextElementSibling;
+
+        label.style.transform = 'scale(0.75) translateY(-0.7rem)';
+        label.style.color = '#d97706';
+        label.style.fontSize = '0.875rem';
+    }
+
+    function checkInput_province() {
+        const input = document.getElementById('province');
+        const label = input.nextElementSibling;
+
+        if (input.value.trim() === '') {
+            label.style.transform = '';
+            label.style.color = '';
+            label.style.fontSize = '';
+        }
+    }
+</script> --}}
+
+
+
+
+
