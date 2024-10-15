@@ -287,7 +287,7 @@
 
 
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 
                                 <div class="relative">
                                     <input type="text" id="facebook" name="facebook"
@@ -303,9 +303,6 @@
                                     <i class="fa-brands fa-facebook absolute right-3 top-3 text-blue-700 text-md"></i>
                                 </div>
 
-
-
-
                                 <div class="relative">
                                     <input type="text" id="line_id" name="line_id"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
@@ -318,6 +315,65 @@
                                         Line ID
                                     </label>
                                     <i class="fa-brands fa-line absolute right-3 top-3 text-green-600 text-md"></i>
+                                </div>
+
+                                <div class="relative">
+                                    <input type="text" id="occupation" name="occupation"
+                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                        placeholder=" " required onfocus="moveLabel_occupation()"
+                                        onblur="checkInput_occupation()"
+                                        oninvalid="this.setCustomValidity('กรุณากรอก Line ID')"
+                                        oninput="this.setCustomValidity('')">
+                                    <label for="occupation"
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        อาชีพ
+                                    </label>
+                                </div>
+
+
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <!-- Prefix Dropdown -->
+
+
+                                <div class="relative">
+                                    <input type="text" id="district" name="district"
+                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                        placeholder=" " required onfocus="moveLabel_district()" onblur="checkInput_district()"
+                                        oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
+                                        oninput="this.setCustomValidity('')">
+                                    <label for="district"
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        ที่อยู่ (ตำบล)
+                                    </label>
+                                </div>
+
+
+
+                                <div class="relative">
+                                    <input type="text" id="amphor" name="amphor"
+                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
+                                        placeholder=" " required onfocus="moveLabel_amphor()" onblur="checkInput_amphor()"
+                                        oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
+                                        oninput="this.setCustomValidity('')">
+                                    <label for="amphor"
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
+                                        ที่อยู่ (อำเภอ)
+                                    </label>
+                                </div>
+
+
+                                <div class="relative">
+                                    <input type="text" id="province" name="province"
+                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
+                                        placeholder=" " required onfocus="moveLabel_province()" onblur="checkInput_province()"
+                                        oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
+                                        oninput="this.setCustomValidity('')">
+                                    <label for="province"
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
+                                        ที่อยู่ (จังหวัด)
+                                    </label>
                                 </div>
                             </div>
 

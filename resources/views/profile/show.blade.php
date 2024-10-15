@@ -107,7 +107,8 @@
 
                         <form>
                             <!-- Cover Image -->
-                            <div class="w-full rounded-sm bg-cover bg-center bg-no-repeat items-center" style="background-image: url('{{ asset('img/theme3.jpg') }}');">
+                            <div class="w-full rounded-sm bg-cover bg-center bg-no-repeat items-center" style="background-image: url('{{ asset('img/theme4.jpg') }}');">
+
                                 <!-- Profile Image -->
                                 <div class="mx-auto flex justify-center w-[130px] h-[130px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat transition-transform duration-500 hover:scale-110 shadow-lg"
                                     style="background-image: url('{{ asset('img/user.png') }}');">
@@ -156,48 +157,36 @@
                             <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                 <div class="w-full mb-4 mt-6">
                                     <label for="name" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชื่อ - นามสกุล</label>
-                                    <input type="text" name="name" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        id="name" value="{{ old('name', $user->name) }}" required>
-                                    @error('name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="text" name="name" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                        id="name" value="{{ old('name', $user->name) }}" readonly>
                                 </div>
 
                                 <div class="w-full mb-4 mt-6">
                                     <label for="email" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">อีเมล</label>
-                                    <input type="email" name="email" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        id="email" value="{{ old('email', $user->email) }}" required>
-                                    @error('email')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="email" name="email" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                        id="email" value="{{ old('email', $user->email) }}" readonly>
                                 </div>
                             </div>
 
                             <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                 <div class="w-full mb-0 mt-0">
                                     <label for="username" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Username</label>
-                                    <input type="username" name="username" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        id="username" value="{{ old('username', $user->username) }}" required>
-                                    @error('username')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="text" name="username" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                        id="username" value="{{ old('username', $user->username) }}" readonly>
                                 </div>
 
                                 <div class="w-full mb-0 mt-0">
                                     <label for="password_token" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">รหัสผ่าน</label>
-                                    <input type="password_token" name="password_token" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        id="password_token" value="{{ old('password_token', $user->password_token) }}" required>
-                                    @error('password_token')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="text" name="password_token" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                        id="password_token" value="{{ old('password_token', $user->password_token) }}" readonly>
                                 </div>
                             </div>
 
                             <div class="flex justify-end mt-3">
-                                <button type="submit" onclick="openModal()"
+                                {{-- <button type="submit" onclick="openModal()"
                                     class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
                                     <i class="fas fa-user-plus"></i> แก้ไขข้อมูล
-                                </button>
+                                </button> --}}
 
                                 <button type="submit" onclick="openModal_password()"
                                     class="ml-2 p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
@@ -213,7 +202,7 @@
         </section>
 
 
-        @include('profile.modal_edit_profile')
+        {{-- @include('profile.modal_edit_profile') --}}
         @include('profile.edit_password')
 
         <script>

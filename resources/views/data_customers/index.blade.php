@@ -2,11 +2,11 @@
 @section('content')
 
 <div id="customerModal" class="fixed inset-0 flex justify-center items-center z-50 hidden mt-[-300]">
-    <div class="bg-white rounded-lg shadow-lg p-1 w-full max-w-[90%] max-h-[90vh] overflow-y-scroll"
+    <div class="bg-white rounded-lg shadow-lg p-0 w-full max-w-[90%] max-h-[90vh] overflow-y-scroll"
         style="overflow-y: scroll; scrollbar-width: none;" id="modalContent">
 
         <!-- Header ที่ sticky -->
-        <div id="modalHeader" class="bg-white sticky top-0 z-10 p-2 w-full transition-shadow duration-300">
+        <div id="modalHeader" class="bg-white sticky top-0 z-10 p-5 w-full transition-shadow duration-300">
             <h2 class="text-lg font-bold mb-3 flex justify-between items-center">
                 ข้อมูลลูกค้า
                 <!-- ปุ่มกากบาท (X) สำหรับปิด -->
@@ -39,7 +39,7 @@
                 // ตรวจสอบว่าเลื่อนลงไปมากกว่า 0 หรือไม่
                 if (modalContent.scrollTop > 0) {
                     modalHeader.classList.add('shadow-md');
-                    modalHeader.classList.remove('top-[-40]'); // ลบ top-[-30] เมื่อเลื่อน
+                    modalHeader.classList.remove('top-[-45]'); // ลบ top-[-30] เมื่อเลื่อน
                 } else {
                     modalHeader.classList.remove('shadow-md');
                     modalHeader.classList.add('top-[-1]'); // เพิ่ม top-[-19] กลับคืนเมื่ออยู่ที่ด้านบน
@@ -297,9 +297,13 @@
                                         <i class="fas fa-edit mr-1"></i> Edit
                                     </a>-->
 
-                                    <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg" onclick="fetchCustomerData(${customer.id})">
+                                    <a href="#"
+                                    data-id="${customer.id}"
+                                    class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-orange-500 hover:bg-orange-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg"
+                                    onclick="fetchCustomerData(${customer.id})">
                                         <i class="fas fa-edit mr-1"></i> Edit
                                     </a>
+
 
                                 </div>
                             </td>

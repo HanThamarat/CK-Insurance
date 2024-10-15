@@ -206,7 +206,7 @@
                                 </select>
 
                                 <label id="newProvinceLabel"
-                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-gray-700 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg ">
                                     จังหวัด
                                 </label>
                             </div>
@@ -885,6 +885,26 @@
                 }, 5000);
             }
 
+
+            function showPlaceholderSelect(selector, message, labelSelector) {
+                // ซ่อน label ก่อน
+                $(labelSelector).hide();
+
+                // เพิ่มข้อความ placeholder และทำให้เป็นสีแดงใน option แรก
+                $(selector).find('option:first').text(message).addClass('red-option fade-placeholder');
+
+                // ทำให้ placeholder หายไปช้าๆ ใน 5 วินาที
+                setTimeout(function() {
+                    $(selector).find('option:first').addClass('fade-out');
+                }, 4000); // เริ่ม fade out หลังจาก 4 วินาที
+
+                // ลบ placeholder และแสดง label หลังจากครบ 5 วินาที
+                setTimeout(function() {
+                    $(selector).find('option:first').text('จังหวัด').removeClass('fade-out');
+                    $(labelSelector).show(); // แสดง label อีกครั้ง
+                }, 5000);
+            }
+
             // ตรวจสอบฟิลด์ต่าง ๆ
             if ($('#Vehicle_OldLicense_Text').val().trim() === '') {
                 valid = false;
@@ -910,8 +930,7 @@
                 valid = false;
                 missingFields.push('จังหวัดป้ายทะเบียนเก่า');
                 $('#Vehicle_OldLicense_Province').addClass('border-red-500');
-                showPlaceholder('#Vehicle_OldLicense_Province', '*กรุณากรอกข้อมูลนี้*',
-                    'label[for="Vehicle_OldLicense_Province"]');
+                showPlaceholderSelect('#Vehicle_OldLicense_Province', '*กรุณากรอกข้อมูลนี้*', '#provinceLabel');
             } else {
                 $('#Vehicle_OldLicense_Province').removeClass('border-red-500');
             }
@@ -968,7 +987,7 @@
                 valid = false;
                 missingFields.push('ประเภทรถ 1');
                 $('#Vehicle_Type').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Type', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Type"]');
+                showPlaceholderSelect('#Vehicle_Type', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Type"]');
             } else {
                 $('#Vehicle_Type').removeClass('border-red-500');
             }
@@ -977,7 +996,7 @@
                 valid = false;
                 missingFields.push('ประเภทรถ 2');
                 $('#Vehicle_Type_PLT').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Type_PLT', '*กรุณากรอกข้อมูลนี้*',
+                showPlaceholderSelect('#Vehicle_Type_PLT', '*กรุณากรอกข้อมูลนี้*',
                     'label[for="Vehicle_Type_PLT"]');
             } else {
                 $('#Vehicle_Type_PLT').removeClass('border-red-500');
@@ -987,7 +1006,7 @@
                 valid = false;
                 missingFields.push('ยี่ห้อรถ');
                 $('#Vehicle_Brand').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Brand', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Brand"]');
+                showPlaceholderSelect('#Vehicle_Brand', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Brand"]');
             } else {
                 $('#Vehicle_Brand').removeClass('border-red-500');
             }
@@ -996,7 +1015,7 @@
                 valid = false;
                 missingFields.push('กลุ่มรถ');
                 $('#Vehicle_Group').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Group', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Group"]');
+                showPlaceholderSelect('#Vehicle_Group', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Group"]');
             } else {
                 $('#Vehicle_Group').removeClass('border-red-500');
             }
@@ -1006,7 +1025,7 @@
                 valid = false;
                 missingFields.push('รุ่นรถ');
                 $('#Vehicle_Models').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Models', '*กรุณากรอกข้อมูลนี้*',
+                showPlaceholderSelect('#Vehicle_Models', '*กรุณากรอกข้อมูลนี้*',
                     'label[for="Vehicle_Models"]');
             } else {
                 $('#Vehicle_Models').removeClass('border-red-500');
@@ -1016,7 +1035,7 @@
                 valid = false;
                 missingFields.push('ปีรถ');
                 $('#Vehicle_Years').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Years', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Years"]');
+                showPlaceholderSelect('#Vehicle_Years', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Years"]');
             } else {
                 $('#Vehicle_Years').removeClass('border-red-500');
             }
@@ -1026,7 +1045,7 @@
                 valid = false;
                 missingFields.push('เกียร์รถ');
                 $('#Vehicle_Gear').addClass('border-red-500');
-                showPlaceholder('#Vehicle_Gear', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Gear"]');
+                showPlaceholderSelect('#Vehicle_Gear', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Gear"]');
             } else {
                 $('#Vehicle_Gear').removeClass('border-red-500');
             }
