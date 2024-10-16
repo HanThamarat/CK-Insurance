@@ -9,7 +9,7 @@
             <!-- ปุ่มปิด modal -->
             <div id="header" class=" top-0 z-10 p-0 transition-bg duration-300 bg-white p-2"
                 style="background-color: white;">
-                <button class="absolute top-2 right-2 p-1 text-gray-400 hover:text-gray-600 focus:outline-none"
+                <button class="absolute top-7 right-6 p-1 text-gray-400 hover:text-gray-600 focus:outline-none"
                     onclick="hideModal()">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -19,8 +19,7 @@
                 </button>
 
                 <div class="flex items-center space-x-3">
-                    <img src="https://ckl.co.th/assets/images/gif/video-confer.gif" alt="report" class="avatar-sm"
-                        style="width:50px;height:50px">
+                    <img src="{{ asset('img/user.gif') }}" alt="career icon" class="avatar-sm" style="width:50px;height:50px">
                     <div class="flex-grow">
                         <h5 class="text-orange-400 font-semibold">แก้ไขข้อมูลลูกค้า</h5>
                         <p class="text-muted font-semibold text-sm mt-1">Edit Data Customers</p>
@@ -415,8 +414,8 @@
                             </div>
 
 
-                            <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
-                                <textarea id="note" name="note" rows="6"
+                            <div class="relative pt-[-5]"> <!-- ปรับ pt ตามต้องการ -->
+                                <textarea id="note" name="note" rows="9"
                                     class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" " onfocus="moveLabel('note')" onblur="checkInput('note')"></textarea>
                                 <label for="note"
@@ -431,7 +430,7 @@
                     <div class="flex justify-end">
                         <button type="submit"
                             class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
-                            <i class="fas fa-user-plus"></i> สร้างลูกค้าใหม่
+                            <i class="fas fa-user-plus"></i> แก้ไขข้อมูลลูกค้า
                         </button>
                     </div>
 

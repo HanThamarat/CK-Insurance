@@ -43,8 +43,7 @@
                     @csrf --}}
 
                     <div class="flex items-center space-x-3">
-                        <img src="https://ckl.co.th/assets/images/gif/video-confer.gif" alt="report" class="avatar-sm"
-                            style="width:50px;height:50px">
+                        <img src="{{ asset('img/user.gif') }}" alt="career icon" class="avatar-sm" style="width:50px;height:50px">
                         <div class="flex-grow">
                             <h5 class="text-orange-400 font-semibold">เพิ่มข้อมูลลูกค้า</h5>
                             <p class="text-muted font-semibold text-sm mt-1">Add Data Customers</p>
@@ -436,7 +435,7 @@
 
 
                             <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
-                                <textarea id="note" name="note" rows="6"
+                                <textarea id="note" name="note" rows="9"
                                     class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" " onfocus="moveLabel('note')" onblur="checkInput('note')"></textarea>
                                 <label for="note"

@@ -5,6 +5,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DataAssetController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DataCusCareerController;
+use App\Http\Controllers\DataCusAddressController;
 
 
 Route::get('/', function () { return view('auth.login'); });
@@ -28,22 +30,19 @@ Route::middleware(['auth'])->group(function () {
 
 // CUSTOMER ROUTE
 Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])->name('customers.profile');
-// <!------------------------------------------------------------------------------------------------------------------->
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
 Route::resource('customers', CustomerController::class);
 
 // ASSET ROUTE
 Route::get('/data_assets', [DataAssetController::class, 'index'])->name('data_assets.index');
 Route::resource('data_assets', DataAssetController::class);
+Route::post('/check-vehicle-chassis', [DataAssetController::class, 'checkVehicleChassis']); // ASSET ROUTE VEHICLE CHASSIE
 
-// ASSET ROUTE VEHICLE CHASSIE
-Route::post('/check-vehicle-chassis', [DataAssetController::class, 'checkVehicleChassis']);
+// CAREER ROUTE
+Route::resource('customers/career', DataCusCareerController::class);
 
-
-
-
-
-
+// ADDRESS ROUTE
+Route::resource('customers/address', DataCusAddressController::class);
 
 
 
@@ -72,6 +71,16 @@ Route::post('/check-vehicle-chassis', [DataAssetController::class, 'checkVehicle
 
 
 
+
+
+
+
+
+
+
+
+// CAREER ROUTE
+// Route::resource('customers', DataCusCareerController::class);
 
 
 

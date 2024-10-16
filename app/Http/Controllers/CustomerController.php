@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\DataCusCareer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Helpers; // เพิ่มการนำเข้าฟังก์ชันจาก Helper
 
 class CustomerController extends Controller
@@ -15,8 +17,6 @@ class CustomerController extends Controller
         $customers = Customer::orderBy('id', 'desc')->paginate($perPage); // เรียงลำดับตาม ID ในลำดับที่ลดลง
         return response()->json($customers); // ส่งกลับเป็น JSON response
     }
-
-
 
 
 
@@ -147,15 +147,46 @@ class CustomerController extends Controller
         Customer::create($data);
 
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
-
-        // public function destroy($id)
-        // {
-        //     $customer = Customer::findOrFail($id);
-        //     $customer->delete();
-
-        //     return redirect()->route('customers.index')->with('success', 'ลูกค้าได้ถูกลบเรียบร้อยแล้ว');
-        // }
     }
+
+
+
+    public function career_store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'DataCus_id' => 'required|integer',
+            'date_Cus' => 'required|date',
+            'Code_Cus' => 'string|max:50',
+            'Main_Career' => 'string|max:100',
+            'Ordinal_Cus' => 'integer',
+            'Status_Cus' => 'string|max:50',
+            'Career_Cus' => 'string|max:100',
+            'DetailCareer_Cus' => 'string|max:255',
+            'Workplace_Cus' => 'string|max:100',
+            'Income_Cus' => 'numeric',
+            'BeforeIncome_Cus' => 'numeric',
+            'AfterIncome_Cus' => 'numeric',
+            'IncomeNote_Cus' => 'string|max:255',
+            'Coordinates' => 'string|max:100',
+            'UserZone' => 'string|max:50',
+            'UserBranch' => 'string|max:50',
+            'UserInsert' => 'integer',
+            'UserUpdate' => 'integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        // ตรวจสอบว่าค่า DataCus_id เป็น int หรือไม่
+        if (!is_int($request->DataCus_id)) {
+            return response()->json(['error' => 'DataCus_id must be an integer.'], 400);
+        }
+
+        $career = DataCusCareer::create($request->all());
+        return response()->json($career, 201);
+    }
+
 }
 
 
@@ -215,6 +246,13 @@ class CustomerController extends Controller
 
 
 
+        // public function destroy($id)
+        // {
+        //     $customer = Customer::findOrFail($id);
+        //     $customer->delete();
+
+        //     return redirect()->route('customers.index')->with('success', 'ลูกค้าได้ถูกลบเรียบร้อยแล้ว');
+        // }
 
 
 

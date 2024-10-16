@@ -14,7 +14,7 @@
                 </button>
 
                 <div class="flex items-center space-x-3">
-                    <img src="https://ckl.co.th/assets/images/gif/home.gif" alt="report" class="avatar-sm" style="width:50px;height:50px">
+                    <img src="{{ asset('img/home.gif') }}" alt="career icon" class="avatar-sm" style="width:50px;height:50px">
                     <div class="flex-grow">
                         <h5 class="text-orange-400 font-semibold">เพิ่มที่อยู่ลูกค้า</h5>
                         <p class="text-muted font-semibold text-sm mt-1">(Add Customer Address)</p>
@@ -22,6 +22,7 @@
                     </div>
                 </div>
             </div>
+            <form id="addressForm">
             <!-- เพิ่มเนื้อหาของ Modal ที่นี่ -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Left Column -->
@@ -51,6 +52,10 @@
                                 </label>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="relative">
+                        <img src="{{ asset('img/home2.jpg') }}" alt="theme image" class="avatar-sm">
                     </div>
                 </div>
 
@@ -260,7 +265,7 @@
                     </div>
 
                     <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
-                        <textarea id="Detail_Adds" name="Detail_Adds" rows="4"
+                        <textarea id="Detail_Adds" name="Detail_Adds" rows="1"
                             class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                             placeholder=" " onfocus="moveLabel('Detail_Adds')" onblur="checkInput('Detail_Adds')"></textarea>
                         <label for="Detail_Adds"
@@ -271,7 +276,7 @@
 
                     <div class="flex justify-end space-x-2">
                         <!-- ปุ่ม บันทึก -->
-                        <button type="submit" id="submitBtn"
+                        <button type="submit" id="submitBtnAddress"
                             class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-700 hover:shadow-lg hover:translate-y-[-2px] focus:outline-none focus:ring-2 focus:ring-orange-500 flex items-center space-x-2 transition duration-300">
                             <i class="fas fa-save"></i> <!-- ไอคอน "บันทึก" ของ Font Awesome -->
                             <span>สร้างทรัพย์ใหม่</span>
@@ -284,6 +289,7 @@
                             <span>ยกเลิก</span>
                         </button>
                     </div>
+                </form>
 
                 </div>
             </div>
@@ -293,7 +299,65 @@
 </div>
 
 
+<script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        // ตรวจสอบการคลิกปุ่มบันทึก
+        $('#submitBtnAddress').on('click', function(event) {
+            event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
+            $('#addressForm').submit(); // ส่งฟอร์ม
+        });
+
+        $('#addressForm').on('submit', function(event) {
+            event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: '{{ route('address.store') }}', // URL ที่ถูกต้อง
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    Swal.fire({
+                        title: 'สำเร็จ!',
+                        text: 'สร้างอาชีพลูกค้าสำเร็จแล้ว!',
+                        icon: 'success',
+                        confirmButtonText: 'ตกลง'
+                    }).then(() => {
+                        location.reload(); // รีเฟรชหน้าหลังจากแสดงข้อความสำเร็จ
+                    });
+                    $('#addressForm')[0].reset(); // รีเซ็ตฟอร์ม
+                },
+                error: function(xhr) {
+                    var errors = xhr.responseJSON.errors;
+                    if (errors) {
+                        $.each(errors, function(key, value) {
+                            Swal.fire({
+                                title: 'ข้อผิดพลาด!',
+                                text: value[0],
+                                icon: 'error',
+                                confirmButtonText: 'ตกลง'
+                            });
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'ข้อผิดพลาด!',
+                            text: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง.',
+                            icon: 'error',
+                            confirmButtonText: 'ตกลง'
+                        });
+                    }
+                }
+            });
+        });
+
+
+    });
+</script>
 
 
 <script>

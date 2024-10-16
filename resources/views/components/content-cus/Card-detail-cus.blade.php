@@ -152,14 +152,13 @@
                     </div>
                     <p class="mt-4 text-gray-600 text-center">ยังไม่มีข้อมูลที่อยู่ลูกค้านี้</p>
 
-                    <button class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                    <button id="addCareerButton" class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
                         </svg>
-                        เพิ่มที่อยู่
+                        เพิ่มอาชีพ
                     </button>
-                </div>
 
             </div>
         </div>
@@ -167,6 +166,7 @@
 </div>
 @include('components.content-cus.Modal-Edit-Cus')
 @include('components.content-cus.Modal_address')
+@include('components.content-cus.Modal_Career')
 
 <script src="{{ URL::asset('assets/libs/jquery.js') }}"></script>
 <!-- Script for Tabs -->
