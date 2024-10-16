@@ -7,6 +7,7 @@ use App\Http\Controllers\DataAssetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DataCusCareerController;
 use App\Http\Controllers\DataCusAddressController;
+use App\Http\Controllers\ProvinceController;
 
 
 Route::get('/', function () { return view('auth.login'); });
@@ -47,6 +48,11 @@ Route::resource('customers/address', DataCusAddressController::class);
 
 
 
+Route::get('/zones', [ProvinceController::class, 'getZones']);
+Route::get('/provinces', [ProvinceController::class, 'getProvince']);
+Route::get('/districts', [ProvinceController::class, 'getDistrict']);
+Route::get('/tambons', [ProvinceController::class, 'getTambon']);
+Route::get('/postcodes', [ProvinceController::class, 'getPostcode']);
 
 
 
@@ -76,6 +82,15 @@ Route::resource('customers/address', DataCusAddressController::class);
 
 
 
+
+
+
+
+// Route สำหรับดึงข้อมูลจังหวัด
+// Route::get('/provinces', [ProvinceController::class, 'index']);
+
+// // Route สำหรับสร้างจังหวัดใหม่
+// Route::post('/provinces', [ProvinceController::class, 'store']);
 
 
 

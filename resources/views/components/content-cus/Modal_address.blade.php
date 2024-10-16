@@ -64,7 +64,7 @@
                     <div class="relative">
                         <input type="text" id="Registration_number" name="Registration_number"
                             class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                            placeholder=" " required onfocus="moveLabel('Registration_number')" onblur="checkInput('Registration_number')"
+                            placeholder="----- -----" required onfocus="moveLabel('Registration_number')" onblur="checkInput('Registration_number')"
                             oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
                             oninput="this.setCustomValidity('')">
                         <label for="Registration_number"
@@ -72,6 +72,13 @@
                             เลขทะเบียนบ้าน
                         </label>
                     </div>
+
+                    <script>
+                        $(document).ready(function(){
+                            $('#Registration_number').mask('00000000000'); // กำหนดรูปแบบเป็น 11 หลัก
+                        });
+                    </script>
+
 
 
 
@@ -175,9 +182,6 @@
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
                                 required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')" oninput="this.setCustomValidity('')">
                                 <option value="">ภูมิภาค</option>
-                                <option value="นาย">นาย</option>
-                                <option value="นาง">นาง</option>
-                                <option value="นางสาว">นางสาว</option>
                             </select>
 
                             <label for="houseZone_Adds"
@@ -186,14 +190,12 @@
                             </label>
                         </div>
 
+
                         <div class="relative">
                             <select id="houseProvince_Adds" name="houseProvince_Adds" onfocus="moveLabel('houseProvince_Adds')" onblur="checkInput('houseProvince_Adds')"
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
-                                required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')" oninput="this.setCustomValidity('')">
+                                required oninvalid="this.setCustomValidity('กรุณาเลือกจังหวัด')" oninput="this.setCustomValidity('')">
                                 <option value="">จังหวัด</option>
-                                <option value="นาย">นาย</option>
-                                <option value="นาง">นาง</option>
-                                <option value="นางสาว">นางสาว</option>
                             </select>
 
                             <label for="houseProvince_Adds"
@@ -201,6 +203,7 @@
                                 จังหวัด
                             </label>
                         </div>
+
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -209,9 +212,6 @@
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
                                 required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')" oninput="this.setCustomValidity('')">
                                 <option value="">อำเภอ</option>
-                                <option value="นาย">นาย</option>
-                                <option value="นาง">นาง</option>
-                                <option value="นางสาว">นางสาว</option>
                             </select>
 
                             <label for="houseDistrict_Adds"
@@ -225,9 +225,6 @@
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
                                 required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')" oninput="this.setCustomValidity('')">
                                 <option value="">ตำบล</option>
-                                <option value="นาย">นาย</option>
-                                <option value="นาง">นาง</option>
-                                <option value="นางสาว">นางสาว</option>
                             </select>
 
                             <label for="houseTambon_Adds"
@@ -240,15 +237,28 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                         <div class="relative">
-                            <input type="text" id="Postal_Adds" name="Postal_Adds"
+                            {{-- <input type="text" id="Postal_Adds" name="Postal_Adds"
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                 placeholder=" " onfocus="moveLabel('Postal_Adds')"
-                                onblur="checkInput('Postal_Adds')">
+                                onblur="checkInput('Postal_Adds')"> --}}
+                                <div class="relative">
+                                    <select id="Postal_Adds" name="Postal_Adds" onfocus="moveLabel('Postal_Adds')" onblur="checkInput('Postal_Adds')"
+                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                        required oninvalid="this.setCustomValidity('กรุณาเลือกรหัสไปรษณีย์')" oninput="this.setCustomValidity('')">
+                                        <option value="">รหัสไปรษณีย์</option>
+                                    </select>
 
-                            <label for="Postal_Adds"
+                                    <label for="Postal_Adds"
+                                        class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        รหัสไปรษณีย์
+                                    </label>
+                                </div>
+
+
+                            {{-- <label for="Postal_Adds"
                                 class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                 รหัสไปรณีย์
-                            </label>
+                            </label> --}}
                         </div>
 
                         <div class="relative">
@@ -319,6 +329,126 @@
 
 
 </style>
+
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/zones',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // เพิ่มตัวเลือกใน select
+                data.forEach(function(zone) {
+                    $('#houseZone_Adds').append(
+                        $('<option>', {
+                            value: zone.Zone_pro,
+                            text: zone.Zone_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching zones:', error);
+            }
+        });
+
+        $.ajax({
+            url: '/provinces', // URL สำหรับดึงข้อมูล
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // ตรวจสอบว่าข้อมูลที่ได้รับคืออะไร
+                console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+
+                // เพิ่มตัวเลือกใน select
+                data.forEach(function(province) {
+                    $('#houseProvince_Adds').append(
+                        $('<option>', {
+                            value: province.Province_pro,
+                            text: province.Province_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching provinces:', error);
+            }
+        });
+
+        // ดึงข้อมูล Districts
+        $.ajax({
+            url: '/districts', // URL สำหรับดึงข้อมูล
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+                data.forEach(function(district) {
+                    $('#houseDistrict_Adds').append(
+                        $('<option>', {
+                            value: district.District_pro,
+                            text: district.District_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching districts:', error);
+            }
+        });
+
+        // ดึงข้อมูล Tambons
+        $.ajax({
+            url: '/tambons', // URL สำหรับดึงข้อมูล
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+                data.forEach(function(tambon) {
+                    $('#houseTambon_Adds').append(
+                        $('<option>', {
+                            value: tambon.Tambon_pro,
+                            text: tambon.Tambon_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching tambons:', error);
+            }
+        });
+
+
+        // ดึงข้อมูล Postcodes
+        $.ajax({
+            url: '/postcodes', // URL สำหรับดึงข้อมูล
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+                // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+                $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+
+                data.forEach(function(postcode) {
+                    $('#Postal_Adds').append(
+                        $('<option>', {
+                            value: postcode.Postcode_pro,
+                            text: postcode.Postcode_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching postcodes:', error);
+            }
+        });
+
+    });
+</script>
+
+
+
+
 
 
 <script>

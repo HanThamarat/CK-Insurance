@@ -127,6 +127,9 @@
                         </svg>
                         เพิ่มที่อยู่
                     </button>
+
+                    {{-- @include('components.content-cus.card_address') --}}
+
                 </div>
             </div>
         </div>

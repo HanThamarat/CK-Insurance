@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataCusAddress;
+use App\Models\Province; // ใช้ Province Model
 use Illuminate\Http\Request;
 
 class DataCusAddressController extends Controller
