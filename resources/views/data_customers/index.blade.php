@@ -20,7 +20,7 @@
 
             <div class="flex items-center mb-0">
                 <div class="flex-shrink-0 mr-4">
-                    <img src="https://ckl.co.th/assets/images/gif/video-confer.gif" alt="report" class="w-12 h-12">
+                    <img src="{{ asset('img/icon_cus.gif') }}" alt="report" class="w-12 h-12">
                 </div>
                 <div class="flex-grow">
                     <h5 class="text-primary font-semibold">ค้นหาลูกค้า / ข้อมูลลูกค้า</h5>

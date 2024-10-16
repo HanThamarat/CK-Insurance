@@ -35,7 +35,7 @@
                         <div
                             class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                             <div class="form-check">
-                                <input class="form-check-input text-lg" type="radio" value="ADR-0001" name="Type_Adds"
+                                <input class="form-check-input text-lg" type="radio" value="ADR-0001" name="Type_Career"
                                     id="adds-0">
                                 <label class="form-check-label text-base text-gray-700" for="adds-0">
                                     กำหนดเป็นอาชีพหลัก
@@ -45,7 +45,7 @@
                         <div
                             class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                             <div class="form-check">
-                                <input class="form-check-input text-lg" type="radio" value="ADR-0002" name="Type_Adds"
+                                <input class="form-check-input text-lg" type="radio" value="ADR-0002" name="Type_Career"
                                     id="adds-1">
                                 <label class="form-check-label text-base text-gray-700" for="adds-1">
                                     กำหนดเป็นอาชีพรอง
@@ -144,7 +144,7 @@
                         </div>
 
                         <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
-                            <textarea id="IncomeNote_Cus" name="IncomeNote_Cus" rows="9"
+                            <textarea id="IncomeNote_Cus" name="IncomeNote_Cus" rows="8"
                                 class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                 placeholder=" " onfocus="moveLabel('IncomeNote_Cus')" onblur="checkInput('IncomeNote_Cus')"></textarea>
                             <label for="IncomeNote_Cus"
@@ -153,12 +153,12 @@
                             </label>
                         </div>
 
-                        <div class="flex justify-end space-x-2">
+                        <div class="relative flex justify-end space-x-2">
                             <!-- ปุ่ม บันทึก -->
                             <button type="submit" id="submitBtnCareer"
                                 class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-700 hover:shadow-lg hover:translate-y-[-2px] focus:outline-none focus:ring-2 focus:ring-orange-500 flex items-center space-x-2 transition duration-300">
                                 <i class="fas fa-save"></i> <!-- ไอคอน "บันทึก" ของ Font Awesome -->
-                                <span>สร้างทรัพย์ใหม่</span>
+                                <span>เพิ่มข้อมูลอาชีพ</span>
                             </button>
 
                             <!-- ปุ่ม ยกเลิก -->
@@ -182,6 +182,50 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<style>
+    /* เปลี่ยน cursor เป็นเครื่องหมายห้าม สำหรับ input, select และ textarea ที่ถูก disabled */
+    input[disabled], select[disabled], textarea[disabled] {
+        cursor: not-allowed;
+    }
+
+    /* เปลี่ยน cursor เป็นเครื่องหมายห้าม สำหรับ label ที่เกี่ยวข้องกับ input, select และ textarea ที่ถูก disabled */
+    input[disabled] + label,
+    select[disabled] + label,
+    textarea[disabled] + label {
+        cursor: not-allowed; /* เปลี่ยน cursor เป็นเครื่องหมายห้าม */
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Disable the input fields, selects, and textarea initially
+        $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', true);
+
+        // Enable fields when a radio button is checked
+        $('input[name="Type_Career"]').change(function() {
+            if ($(this).is(':checked')) {
+                $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', false);
+            }
+        });
+
+        // Optional: If you want to disable again if both radio buttons are unchecked
+        $('input[name="Type_Career"]').on('change', function() {
+            if (!$('input[name="Type_Career"]:checked').length) {
+                $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', true);
+            }
+        });
+    });
+</script>
+
+
+
+
+
 <script>
     $(document).ready(function() {
         $.ajaxSetup({
@@ -193,8 +237,81 @@
         // ตรวจสอบการคลิกปุ่มบันทึก
         $('#submitBtnCareer').on('click', function(event) {
             event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
-            $('#careerForm').submit(); // ส่งฟอร์ม
+            validateForm(); // เรียกใช้ฟังก์ชัน validateForm
         });
+
+        function validateForm() {
+            var isValid = true; // เริ่มต้นสถานะเป็นจริง
+            $('.error').remove(); // ลบข้อความแสดงข้อผิดพลาดก่อนหน้า
+
+            // ตรวจสอบฟิลด์ที่จำเป็น
+            if ($('#Career_Cus').val().trim() === '') {
+                $('#Career_Cus').addClass('border-red-500');
+                $('#Career_Cus').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณาเลือกอาชีพ</span>');
+                isValid = false;
+            } else {
+                $('#Career_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#Income_Cus').val().trim() === '') {
+                $('#Income_Cus').addClass('border-red-500');
+                $('#Income_Cus').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกรายได้</span>');
+                isValid = false;
+            } else {
+                $('#Income_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#BeforeIncome_Cus').val().trim() === '') {
+                $('#BeforeIncome_Cus').addClass('border-red-500');
+                $('#BeforeIncome_Cus').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกหักค่าใช้จ่าย</span>');
+                isValid = false;
+            } else {
+                $('#BeforeIncome_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#AfterIncome_Cus').val().trim() === '') {
+                $('#AfterIncome_Cus').addClass('border-red-500');
+                $('#AfterIncome_Cus').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกคงเหลือ</span>');
+                isValid = false;
+            } else {
+                $('#AfterIncome_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#Workplace_Cus').val().trim() === '') {
+                $('#Workplace_Cus').addClass('border-red-500');
+                $('#Workplace_Cus').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกสถานที่ทำงาน</span>');
+                isValid = false;
+            } else {
+                $('#Workplace_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#Coordinates').val().trim() === '') {
+                $('#Coordinates').addClass('border-red-500');
+                $('#Coordinates').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกพิกัด</span>');
+                isValid = false;
+            } else {
+                $('#Coordinates').removeClass('border-red-500');
+            }
+
+            if ($('#IncomeNote_Cus').val().trim() === '') {
+                $('#IncomeNote_Cus').addClass('border-red-500');
+                $('#IncomeNote_Cus').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกรายละเอียด</span>');
+                isValid = false;
+            } else {
+                $('#IncomeNote_Cus').removeClass('border-red-500');
+            }
+
+            if (!isValid) {
+                // ตั้งเวลาให้ข้อความ error แสดงเป็นเวลา 4 วินาที แล้วค่อย fade out หายไปอย่างช้า ๆ
+                setTimeout(function() {
+                    $('.error').fadeOut(1000, function() { // fade out ภายใน 3 วินาที
+                        $(this).remove(); // ลบ element เมื่อ fade out เสร็จ
+                    });
+                }, 2000); // 4000 milliseconds = 4 seconds
+
+                return; // หยุดการทำงานถ้าฟอร์มไม่ valid
+            }
+        }
 
         $('#careerForm').on('submit', function(event) {
             event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
@@ -237,16 +354,9 @@
                 }
             });
         });
-
-        // ตรวจสอบการคลิกปุ่มยกเลิก
-        $('#closeModal_career_button').on('click', function() {
-            $('#careerForm')[0].reset(); // รีเซ็ตฟอร์ม
-            // ปิด Modal (คุณสามารถใช้ jQuery หรือ Bootstrap modal method ได้)
-            $('#careerModal').modal('hide'); // เปลี่ยน #careerModal เป็น ID ของ modal ของคุณ
-        });
     });
-</script>
 
+</script>
 
 
 

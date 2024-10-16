@@ -298,8 +298,54 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    /* เปลี่ยน cursor เป็นเครื่องหมายห้าม สำหรับ input, select และ textarea ที่ถูก disabled */
+    input[disabled], select[disabled], textarea[disabled] {
+        cursor: not-allowed;
+    }
+
+    /* เปลี่ยน cursor เป็นเครื่องหมายห้าม สำหรับ label ที่เกี่ยวข้องกับ input, select และ textarea ที่ถูก disabled */
+    input[disabled] + label,
+    select[disabled] + label,
+    textarea[disabled] + label {
+        cursor: not-allowed; /* เปลี่ยน cursor เป็นเครื่องหมายห้าม */
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar {
+        display: none;
+    }
+
+
+</style>
+
 
 <script>
+    $(document).ready(function() {
+        // Disable the input fields, selects, and textarea initially
+        $('#addressForm input:not([name="Type_Adds"]), #addressForm select, #addressForm textarea').prop('disabled', true);
+
+        // Enable fields when a radio button is checked
+        $('input[name="Type_Adds"]').change(function() {
+            if ($(this).is(':checked')) {
+                $('#addressForm input:not([name="Type_Adds"]), #addressForm select, #addressForm textarea').prop('disabled', false);
+            }
+        });
+
+        // Optional: If you want to disable again if both radio buttons are unchecked
+        $('input[name="Type_Adds"]').on('change', function() {
+            if (!$('input[name="Type_Adds"]:checked').length) {
+                $('#addressForm input:not([name="Type_Adds"]), #addressForm select, #addressForm textarea').prop('disabled', true);
+            }
+        });
+    });
+</script>
+
+
+
+<script>
+
     $(document).ready(function() {
         $.ajaxSetup({
             headers: {
@@ -315,6 +361,89 @@
 
         $('#addressForm').on('submit', function(event) {
             event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
+
+            // Clear previous errors
+            $('.error').remove();
+
+            var isValid = true;
+
+            // เช็คฟิลด์บ้านเลขที่
+            if ($('#houseNumber_Adds').val().trim() === '') {
+                $('#houseNumber_Adds').addClass('border-red-500');
+                $('#houseNumber_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกบ้านเลขที่</span>');
+                isValid = false;
+            }
+
+            // เช็คฟิลด์หมู่
+            if ($('#houseGroup_Adds').val().trim() === '') {
+                $('#houseGroup_Adds').addClass('border-red-500');
+                $('#houseGroup_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกหมู่บ้าน</span>');
+                isValid = false;
+            }
+
+            // เช็คฟิลด์ภูมิภาค
+            if ($('#houseZone_Adds').val().trim() === '') {
+                $('#houseZone_Adds').addClass('border-red-500');
+                $('#houseZone_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกภูมิภาค</span>');
+                isValid = false;
+            }
+
+            // เช็คฟิลด์จังหวัด
+            if ($('#houseProvince_Adds').val().trim() === '') {
+                $('#houseProvince_Adds').addClass('border-red-500');
+                $('#houseProvince_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกจังหวัด</span>');
+                isValid = false;
+            }
+
+            // เช็คฟิลด์อำเภอ
+            if ($('#houseDistrict_Adds').val().trim() === '') {
+                $('#houseDistrict_Adds').addClass('border-red-500');
+                $('#houseDistrict_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกอำเภอ</span>');
+                isValid = false;
+            }
+
+            // เช็คฟิลด์ตำบล
+            if ($('#houseTambon_Adds').val().trim() === '') {
+                $('#houseTambon_Adds').addClass('border-red-500');
+                $('#houseTambon_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกตำบล</span>');
+                isValid = false;
+            }
+
+            // เช็คฟิลด์รหัสไปรษณีย์
+            if ($('#Postal_Adds').val().trim() === '') {
+                $('#Postal_Adds').addClass('border-red-500');
+                $('#Postal_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกรหัสไปรษณีย์</span>');
+                isValid = false;
+            }
+
+            // เช็คฟิลด์พิกัด
+            if ($('#Coordinates_Adds').val().trim() === '') {
+                $('#Coordinates_Adds').addClass('border-red-500');
+                $('#Coordinates_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกพิกัด</span>');
+                isValid = false;
+            }
+
+            // เช็คฟิลด์รายละเอียด
+            if ($('#Detail_Adds').val().trim() === '') {
+                $('#Detail_Adds').addClass('border-red-500');
+                $('#Detail_Adds').after('<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกรายละเอียด</span>');
+                isValid = false;
+            }
+
+
+            // ถ้ามี error และไม่ผ่าน validation
+            if (!isValid) {
+                // ตั้งเวลาให้ข้อความ error แสดงเป็นเวลา 4 วินาที แล้วค่อย fade out หายไปอย่างช้า ๆ
+                setTimeout(function() {
+                    $('.error').fadeOut(1000, function() { // fade out ภายใน 3 วินาที
+                        $(this).remove(); // ลบ element เมื่อ fade out เสร็จ
+                    });
+                }, 2000); // 4000 milliseconds = 4 seconds
+
+                return; // หยุดการทำงานถ้าฟอร์มไม่ valid
+            }
+
+
             var formData = $(this).serialize();
 
             $.ajax({
@@ -354,9 +483,8 @@
                 }
             });
         });
-
-
     });
+
 </script>
 
 
