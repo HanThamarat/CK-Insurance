@@ -48,11 +48,14 @@ Route::resource('customers/address', DataCusAddressController::class);
 
 
 
+
+
+// ใน routes/web.php
 Route::get('/zones', [ProvinceController::class, 'getZones']);
-Route::get('/provinces', [ProvinceController::class, 'getProvince']);
-Route::get('/districts', [ProvinceController::class, 'getDistrict']);
-Route::get('/tambons', [ProvinceController::class, 'getTambon']);
-Route::get('/postcodes', [ProvinceController::class, 'getPostcode']);
+Route::get('/getDataByZone', [ProvinceController::class, 'getDataByZone']);
+Route::get('/getDistrictsByProvince', [ProvinceController::class, 'getDistrictsByProvince']);
+Route::get('/getTambonsByDistrict', [ProvinceController::class, 'getTambonsByDistrict']);
+Route::get('/getPostcodesByTambon', [ProvinceController::class, 'getPostcodesByTambon']);
 
 
 
@@ -77,6 +80,27 @@ Route::get('/postcodes', [ProvinceController::class, 'getPostcode']);
 
 
 
+
+
+
+
+
+
+// Route::get('/getDistrictsByProvince', [ProvinceController::class, 'getDistrictsByProvince']);
+
+
+
+
+
+
+
+
+
+// Route::get('/zones', [ProvinceController::class, 'getZones']);
+// Route::get('/provinces', [ProvinceController::class, 'getProvince']);
+// Route::get('/districts', [ProvinceController::class, 'getDistrict']);
+// Route::get('/tambons', [ProvinceController::class, 'getTambon']);
+// Route::get('/postcodes', [ProvinceController::class, 'getPostcode']);
 
 
 

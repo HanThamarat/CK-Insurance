@@ -1243,7 +1243,7 @@
             });
         }
 
-        if (selectedDistrict === 'เมื่องแม่ฮ่องสอน') {
+        if (selectedDistrict === 'เมืองแม่ฮ่องสอน') {
             // ตำบลในแม่ฮ่องสอน
             var tambonsMaeHongSon = ['บ้านหลวง', 'บ้านแม่ทราย', 'บ้านป่าแป๋', 'บ้านแม่ลาน', 'บ้านแม่ฮ่องสอน'];
             tambonsMaeHongSon.forEach(function(tambon) {
@@ -1257,3 +1257,856 @@
         }
     });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- // $.ajax({
+    //     url: '/provinces', // URL สำหรับดึงข้อมูล
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         // ตรวจสอบว่าข้อมูลที่ได้รับคืออะไร
+    //         console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+
+    //         // เพิ่มตัวเลือกใน select
+    //         data.forEach(function(province) {
+    //             $('#houseProvince_Adds').append(
+    //                 $('<option>', {
+    //                     value: province.Province_pro,
+    //                     text: province.Province_pro
+    //                 })
+    //             );
+    //         });
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error('Error fetching provinces:', error);
+    //     }
+    // });
+
+    // ดึงข้อมูล Districts
+    // $.ajax({
+    //     url: '/districts', // URL สำหรับดึงข้อมูล
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+    //         data.forEach(function(district) {
+    //             $('#houseDistrict_Adds').append(
+    //                 $('<option>', {
+    //                     value: district.District_pro,
+    //                     text: district.District_pro
+    //                 })
+    //             );
+    //         });
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error('Error fetching districts:', error);
+    //     }
+    // });
+
+    // // ดึงข้อมูล Tambons
+    // $.ajax({
+    //     url: '/tambons', // URL สำหรับดึงข้อมูล
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+    //         data.forEach(function(tambon) {
+    //             $('#houseTambon_Adds').append(
+    //                 $('<option>', {
+    //                     value: tambon.Tambon_pro,
+    //                     text: tambon.Tambon_pro
+    //                 })
+    //             );
+    //         });
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error('Error fetching tambons:', error);
+    //     }
+    // });
+
+
+    // // ดึงข้อมูล Postcodes
+    // $.ajax({
+    //     url: '/postcodes', // URL สำหรับดึงข้อมูล
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+    //         // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+    //         $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+
+    //         data.forEach(function(postcode) {
+    //             $('#Postal_Adds').append(
+    //                 $('<option>', {
+    //                     value: postcode.Postcode_pro,
+    //                     text: postcode.Postcode_pro
+    //                 })
+    //             );
+    //         });
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error('Error fetching postcodes:', error);
+    //     }
+    // }); --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+{{--
+    // กรณีที่เลือกภูมิภาคอื่น ๆ
+    // $.ajax({
+    //     url: '/provinces', // URL สำหรับดึงข้อมูลจังหวัดทั้งหมด
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         // เพิ่มตัวเลือกใหม่
+    //         data.forEach(function(province) {
+    //             $('#houseProvince_Adds').append(
+    //                 $('<option>', {
+    //                     value: province.Province_pro,
+    //                     text: province.Province_pro
+    //                 })
+    //             );
+    //         });
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error('Error fetching provinces:', error);
+    //     }
+    // }); --}}
+
+
+
+{{-- <script>
+    $(document).ready(function() {
+
+        // เมื่อมีการเปลี่ยนแปลงค่าใน houseZone_Adds
+        $('#houseZone_Adds').change(function() {
+            var selectedZone = $(this).val();
+
+            if (selectedZone !== "") {
+                // เรียก AJAX เพื่อดึงข้อมูลตาม Zone_pro ที่เลือก
+                $.ajax({
+                    url: '/getDataByZone', // แทนที่ด้วย URL ของคุณ
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        zone: selectedZone
+                    },
+                    success: function(data) {
+                        console.log(data); // สำหรับตรวจสอบข้อมูล
+
+                        // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+                        $('#houseProvince_Adds').empty().append(
+                            '<option value="">จังหวัด</option>');
+                        $('#houseDistrict_Adds').empty().append(
+                            '<option value="">อำเภอ</option>');
+                        $('#houseTambon_Adds').empty().append(
+                            '<option value="">ตำบล</option>');
+                        $('#Postal_Adds').empty().append(
+                            '<option value="">รหัสไปรษณีย์</option>');
+
+
+                        // เพิ่มข้อมูลจังหวัด
+                        data.provinces.forEach(function(province) {
+                            $('#houseProvince_Adds').append(
+                                $('<option>', {
+                                    value: province.Province_pro,
+                                    text: province.Province_pro
+                                })
+                            );
+                        });
+
+                        // เพิ่มข้อมูลอำเภอ
+                        data.districts.forEach(function(district) {
+                            $('#houseDistrict_Adds').append(
+                                $('<option>', {
+                                    value: district.District_pro,
+                                    text: district.District_pro
+                                })
+                            );
+                        });
+
+                        // เพิ่มข้อมูลตำบล
+                        data.tambons.forEach(function(tambon) {
+                            $('#houseTambon_Adds').append(
+                                $('<option>', {
+                                    value: tambon.Tambon_pro,
+                                    text: tambon.Tambon_pro
+                                })
+                            );
+                        });
+
+                        // เพิ่มข้อมูลรหัสไปรษณีย์
+                        data.postcodes.forEach(function(postcode) {
+                            $('#Postal_Adds').append(
+                                $('<option>', {
+                                    value: postcode.Postcode_pro,
+                                    text: postcode.Postcode_pro
+                                })
+                            );
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            } else {
+                // ถ้าไม่ได้เลือก Zone_pro ให้ลบข้อมูลใน select อื่น ๆ
+                $('#houseProvince_Adds').empty().append('<option value="">จังหวัด</option>');
+                $('#houseDistrict_Adds').empty().append('<option value="">อำเภอ</option>');
+                $('#houseTambon_Adds').empty().append('<option value="">ตำบล</option>');
+                $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+            }
+        });
+    });
+</script> --}}
+
+
+
+
+                            {{-- <div class="relative">
+                                <select id="houseZone_Adds" name="houseZone_Adds"
+                                    onfocus="moveLabel('houseZone_Adds')" onblur="checkInput('houseZone_Adds')"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500 peer"
+                                    required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')"
+                                    oninput="this.setCustomValidity('')">
+                                    <option value="">ภูมิภาค</option>
+                                    <!-- เพิ่มตัวเลือกของ Zone -->
+                                    <option value="ภาคกลาง">ภาคกลาง</option>
+                                    <option value="ภาคตะวันตก">ภาคตะวันตก</option>
+                                    <option value="ภาคตะวันออก">ภาคตะวันออก</option>
+                                    <option value="ภาคตะวันออกเฉียงเหนือ">ภาคตะวันออกเฉียงเหนือ</option>
+                                    <option value="ภาคใต้">ภาคใต้</option>
+                                    <option value="ภาคเหนือ">ภาคเหนือ</option>
+                                </select>
+                                <label for="houseZone_Adds"
+                                    class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    ภูมิภาค
+                                </label>
+                            </div> --}}
+
+{{-- <script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/zones',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // เพิ่มตัวเลือกใน select
+                data.forEach(function(zone) {
+                    $('#houseZone_Adds').append(
+                        $('<option>', {
+                            value: zone.Zone_pro,
+                            text: zone.Zone_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching zones:', error);
+            }
+        });
+
+        $.ajax({
+            url: '/provinces', // URL สำหรับดึงข้อมูล
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // ตรวจสอบว่าข้อมูลที่ได้รับคืออะไร
+                console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+
+                // เพิ่มตัวเลือกใน select
+                data.forEach(function(province) {
+                    $('#houseProvince_Adds').append(
+                        $('<option>', {
+                            value: province.Province_pro,
+                            text: province.Province_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching provinces:', error);
+            }
+        });
+
+        // ดึงข้อมูล Districts
+        $.ajax({
+            url: '/districts', // URL สำหรับดึงข้อมูล
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+                data.forEach(function(district) {
+                    $('#houseDistrict_Adds').append(
+                        $('<option>', {
+                            value: district.District_pro,
+                            text: district.District_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching districts:', error);
+            }
+        });
+
+        // ดึงข้อมูล Tambons
+        $.ajax({
+            url: '/tambons', // URL สำหรับดึงข้อมูล
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+                data.forEach(function(tambon) {
+                    $('#houseTambon_Adds').append(
+                        $('<option>', {
+                            value: tambon.Tambon_pro,
+                            text: tambon.Tambon_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching tambons:', error);
+            }
+        });
+
+
+        // ดึงข้อมูล Postcodes
+        $.ajax({
+            url: '/postcodes', // URL สำหรับดึงข้อมูล
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data); // เพิ่มการตรวจสอบข้อมูลที่ได้รับ
+                // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+                $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+
+                data.forEach(function(postcode) {
+                    $('#Postal_Adds').append(
+                        $('<option>', {
+                            value: postcode.Postcode_pro,
+                            text: postcode.Postcode_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching postcodes:', error);
+            }
+        });
+
+    });
+</script> --}}
+
+
+{{-- <script>
+    $(document).ready(function() {
+        // กำหนดตัวแปรเก็บข้อมูลทั้งหมด
+        let allZones = [];
+        let allProvinces = [];
+        let allDistricts = [];
+        let allTambons = [];
+        let allPostcodes = [];
+
+        // ดึงข้อมูล Zones
+        $.ajax({
+            url: '/zones',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                allZones = data; // เก็บข้อมูล zones ไว้ในตัวแปร
+                console.log('Zones:', data); // ตรวจสอบข้อมูล zones ที่ได้รับ
+
+                // เพิ่มตัวเลือกใน select สำหรับภาค
+                data.forEach(function(zone) {
+                    $('#houseZone_Adds').append(
+                        $('<option>', {
+                            value: zone.Zone_pro,
+                            text: zone.Zone_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching zones:', error);
+            }
+        });
+
+        // ดึงข้อมูล Provinces
+        $.ajax({
+            url: '/provinces',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                allProvinces = data; // เก็บข้อมูล provinces ไว้ในตัวแปร
+                console.log('Provinces:', data); // ตรวจสอบข้อมูล provinces ที่ได้รับ
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching provinces:', error);
+            }
+        });
+
+        // ดึงข้อมูล Districts
+        $.ajax({
+            url: '/districts',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                allDistricts = data; // เก็บข้อมูล districts ไว้ในตัวแปร
+                console.log('Districts:', data); // ตรวจสอบข้อมูล districts ที่ได้รับ
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching districts:', error);
+            }
+        });
+
+        // ดึงข้อมูล Tambons
+        $.ajax({
+            url: '/tambons',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                allTambons = data; // เก็บข้อมูล tambons ไว้ในตัวแปร
+                console.log('Tambons:', data); // ตรวจสอบข้อมูล tambons ที่ได้รับ
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching tambons:', error);
+            }
+        });
+
+        // ดึงข้อมูล Postcodes
+        $.ajax({
+            url: '/postcodes',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                allPostcodes = data; // เก็บข้อมูล postcodes ไว้ในตัวแปร
+                console.log('Postcodes:', data); // ตรวจสอบข้อมูล postcodes ที่ได้รับ
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching postcodes:', error);
+            }
+        });
+
+        // Event handler เมื่อเลือก zone (ภาค)
+        $('#houseZone_Adds').change(function() {
+            var selectedZone = $(this).val();
+            console.log('Selected Zone:', selectedZone); // ตรวจสอบว่าเลือกค่าอะไร
+
+            // กรอง Provinces ที่ตรงกับ Zone
+            var filteredProvinces = allProvinces.filter(function(province) {
+                console.log('Province Zone:', province.Zone_pro); // ตรวจสอบค่า Zone ของ province
+                return province.Zone_pro === selectedZone;
+            });
+
+            // ล้างตัวเลือกเก่าก่อนเพิ่มใหม่
+            $('#houseProvince_Adds').empty().append('<option value="">เลือกจังหวัด</option>');
+            filteredProvinces.forEach(function(province) {
+                $('#houseProvince_Adds').append(
+                    $('<option>', {
+                        value: province.Province_pro,
+                        text: province.Province_pro
+                    })
+                );
+            });
+
+            // กรองและแสดงข้อมูลที่เกี่ยวข้องในฟิลด์อื่น ๆ
+            filterRelatedData(selectedZone);
+        });
+
+        function filterRelatedData(zone) {
+            // กรอง Districts
+            var filteredDistricts = allDistricts.filter(function(district) {
+                return district.Zone_pro === zone;
+            });
+
+            // กรอง Tambons
+            var filteredTambons = allTambons.filter(function(tambon) {
+                return tambon.Zone_pro === zone;
+            });
+
+            // กรอง Postcodes
+            var filteredPostcodes = allPostcodes.filter(function(postcode) {
+                return postcode.Zone_pro === zone;
+            });
+
+            // แสดง Districts
+            $('#houseDistrict_Adds').empty().append('<option value="">เลือกอำเภอ</option>');
+            filteredDistricts.forEach(function(district) {
+                $('#houseDistrict_Adds').append(
+                    $('<option>', {
+                        value: district.District_pro,
+                        text: district.District_pro
+                    })
+                );
+            });
+
+            // แสดง Tambons
+            $('#houseTambon_Adds').empty().append('<option value="">เลือกตำบล</option>');
+            filteredTambons.forEach(function(tambon) {
+                $('#houseTambon_Adds').append(
+                    $('<option>', {
+                        value: tambon.Tambon_pro,
+                        text: tambon.Tambon_pro
+                    })
+                );
+            });
+
+            // แสดง Postcodes
+            $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+            filteredPostcodes.forEach(function(postcode) {
+                $('#Postal_Adds').append(
+                    $('<option>', {
+                        value: postcode.Postcode_pro,
+                        text: postcode.Postcode_pro
+                    })
+                );
+            });
+        }
+    });
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/getZones',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#houseZone_Adds').empty().append('<option value="">ภูมิภาค</option>');
+                data.zones.forEach(function(zone) {
+                    $('#houseZone_Adds').append(
+                        $('<option>', {
+                            value: zone.Zone_pro,
+                            text: zone.Zone_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching zones:', error);
+            }
+        });
+        // เมื่อมีการเปลี่ยนแปลงค่าใน houseZone_Adds
+        $('#houseZone_Adds').change(function() {
+            var selectedZone = $(this).val();
+
+            if (selectedZone !== "") {
+                // เรียก AJAX เพื่อดึงข้อมูลตาม Zone_pro ที่เลือก
+                $.ajax({
+                    url: '/getDataByZone', // แทนที่ด้วย URL ของคุณ
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        zone: selectedZone
+                    },
+                    success: function(data) {
+                        console.log(data); // สำหรับตรวจสอบข้อมูล
+
+                        // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+                        $('#houseProvince_Adds').empty().append(
+                            '<option value="">จังหวัด</option>');
+                        $('#houseDistrict_Adds').empty().append(
+                            '<option value="">อำเภอ</option>');
+                        $('#houseTambon_Adds').empty().append(
+                            '<option value="">ตำบล</option>');
+                        $('#Postal_Adds').empty().append(
+                            '<option value="">รหัสไปรษณีย์</option>');
+
+
+                        // เพิ่มข้อมูลจังหวัด
+                        data.provinces.forEach(function(province) {
+                            $('#houseProvince_Adds').append(
+                                $('<option>', {
+                                    value: province.Province_pro,
+                                    text: province.Province_pro
+                                })
+                            );
+                        });
+
+                        // เพิ่มข้อมูลอำเภอ
+                        data.districts.forEach(function(district) {
+                            $('#houseDistrict_Adds').append(
+                                $('<option>', {
+                                    value: district.District_pro,
+                                    text: district.District_pro
+                                })
+                            );
+                        });
+
+                        // เพิ่มข้อมูลตำบล
+                        data.tambons.forEach(function(tambon) {
+                            $('#houseTambon_Adds').append(
+                                $('<option>', {
+                                    value: tambon.Tambon_pro,
+                                    text: tambon.Tambon_pro
+                                })
+                            );
+                        });
+
+                        // เพิ่มข้อมูลรหัสไปรษณีย์
+                        data.postcodes.forEach(function(postcode) {
+                            $('#Postal_Adds').append(
+                                $('<option>', {
+                                    value: postcode.Postcode_pro,
+                                    text: postcode.Postcode_pro
+                                })
+                            );
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            } else {
+                // ถ้าไม่ได้เลือก Zone_pro ให้ลบข้อมูลใน select อื่น ๆ
+                $('#houseProvince_Adds').empty().append('<option value="">จังหวัด</option>');
+                $('#houseDistrict_Adds').empty().append('<option value="">อำเภอ</option>');
+                $('#houseTambon_Adds').empty().append('<option value="">ตำบล</option>');
+                $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+            }
+        });
+    });
+</script>
+
+{{-- <script>
+    $(document).ready(function() {
+        // เมื่อโหลดหน้าเว็บ ดึงข้อมูลภูมิภาค
+        $.ajax({
+            url: '/getZones', // URL สำหรับดึงข้อมูลภูมิภาค
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#houseZone_Adds').empty().append('<option value="">ภูมิภาค</option>');
+                data.zones.forEach(function(zone) {
+                    $('#houseZone_Adds').append(
+                        $('<option>', {
+                            value: zone.Zone_pro,
+                            text: zone.Zone_pro
+                        })
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching zones:', error);
+            }
+        });
+
+        // เมื่อมีการเปลี่ยนแปลงค่าใน houseZone_Adds
+        $('#houseZone_Adds').change(function() {
+            var selectedZone = $(this).val();
+
+            if (selectedZone !== "") {
+                // เรียก AJAX เพื่อดึงข้อมูลจังหวัดตาม Zone_pro ที่เลือก
+                $.ajax({
+                    url: '/getProvincesByZone', // URL สำหรับดึงข้อมูลจังหวัด
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        zone: selectedZone
+                    },
+                    success: function(data) {
+                        // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+                        $('#houseProvince_Adds').empty().append('<option value="">จังหวัด</option>');
+                        $('#houseDistrict_Adds').empty().append('<option value="">อำเภอ</option>');
+                        $('#houseTambon_Adds').empty().append('<option value="">ตำบล</option>');
+                        $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+
+                        // เพิ่มข้อมูลจังหวัด
+                        data.provinces.forEach(function(province) {
+                            $('#houseProvince_Adds').append(
+                                $('<option>', {
+                                    value: province.Province_pro,
+                                    text: province.Province_pro
+                                })
+                            );
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching provinces:', error);
+                    }
+                });
+            } else {
+                // ล้างข้อมูลเมื่อไม่ได้เลือก Zone_pro
+                $('#houseProvince_Adds').empty().append('<option value="">จังหวัด</option>');
+                $('#houseDistrict_Adds').empty().append('<option value="">อำเภอ</option>');
+                $('#houseTambon_Adds').empty().append('<option value="">ตำบล</option>');
+                $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+            }
+        });
+
+        // เมื่อมีการเปลี่ยนแปลงค่าใน houseProvince_Adds
+        $('#houseProvince_Adds').change(function() {
+            var selectedProvince = $(this).val();
+
+            if (selectedProvince !== "") {
+                // เรียก AJAX เพื่อดึงข้อมูลอำเภอ
+                $.ajax({
+                    url: '/getDistrictsByProvince', // URL สำหรับดึงข้อมูลอำเภอ
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        province: selectedProvince
+                    },
+                    success: function(data) {
+                        // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+                        $('#houseDistrict_Adds').empty().append('<option value="">อำเภอ</option>');
+                        $('#houseTambon_Adds').empty().append('<option value="">ตำบล</option>');
+                        $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+
+                        // เพิ่มข้อมูลอำเภอ
+                        data.districts.forEach(function(district) {
+                            $('#houseDistrict_Adds').append(
+                                $('<option>', {
+                                    value: district.District_pro,
+                                    text: district.District_pro
+                                })
+                            );
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching districts:', error);
+                    }
+                });
+            } else {
+                // ล้างข้อมูลเมื่อไม่ได้เลือกจังหวัด
+                $('#houseDistrict_Adds').empty().append('<option value="">อำเภอ</option>');
+                $('#houseTambon_Adds').empty().append('<option value="">ตำบล</option>');
+                $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+            }
+        });
+
+        // เมื่อมีการเปลี่ยนแปลงค่าใน houseDistrict_Adds
+        $('#houseDistrict_Adds').change(function() {
+            var selectedDistrict = $(this).val();
+
+            if (selectedDistrict !== "") {
+                // เรียก AJAX เพื่อดึงข้อมูลตำบล
+                $.ajax({
+                    url: '/getTambonsByDistrict', // URL สำหรับดึงข้อมูลตำบล
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        district: selectedDistrict
+                    },
+                    success: function(data) {
+                        // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+                        $('#houseTambon_Adds').empty().append('<option value="">ตำบล</option>');
+                        $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+
+                        // เพิ่มข้อมูลตำบล
+                        data.tambons.forEach(function(tambon) {
+                            $('#houseTambon_Adds').append(
+                                $('<option>', {
+                                    value: tambon.Tambon_pro,
+                                    text: tambon.Tambon_pro
+                                })
+                            );
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching tambons:', error);
+                    }
+                });
+            } else {
+                // ล้างข้อมูลเมื่อไม่ได้เลือกอำเภอ
+                $('#houseTambon_Adds').empty().append('<option value="">ตำบล</option>');
+                $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+            }
+        });
+
+        // เมื่อมีการเปลี่ยนแปลงค่าใน houseTambon_Adds
+        $('#houseTambon_Adds').change(function() {
+            var selectedTambon = $(this).val();
+
+            if (selectedTambon !== "") {
+                // เรียก AJAX เพื่อดึงข้อมูลรหัสไปรษณีย์
+                $.ajax({
+                    url: '/getPostcodeByTambon', // URL สำหรับดึงข้อมูลรหัสไปรษณีย์
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        tambon: selectedTambon
+                    },
+                    success: function(data) {
+                        // ลบตัวเลือกเก่าก่อนเพิ่มใหม่
+                        $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+
+                        // เพิ่มข้อมูลรหัสไปรษณีย์
+                        data.postcodes.forEach(function(postcode) {
+                            $('#Postal_Adds').append(
+                                $('<option>', {
+                                    value: postcode.Postcode_pro,
+                                    text: postcode.Postcode_pro
+                                })
+                            );
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching postcodes:', error);
+                    }
+                });
+            } else {
+                // ล้างข้อมูลเมื่อไม่ได้เลือกตำบล
+                $('#Postal_Adds').empty().append('<option value="">รหัสไปรษณีย์</option>');
+            }
+        });
+    });
+</script> --}}

@@ -6,6 +6,7 @@ use App\Models\Province;
 use App\Models\ProvinceDLT;
 use App\Models\StatCarGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProvinceController extends Controller
 {
@@ -31,7 +32,6 @@ class ProvinceController extends Controller
         return response()->json($province, 201); // ส่งข้อมูลที่สร้างใหม่เป็น JSON พร้อมรหัสสถานะ 201
     }
 
-    // ฟังก์ชันสำหรับดึงข้อมูล Zone_pro
     public function getZones()
     {
         $zones = Province::select('Zone_pro')->distinct()->get();
@@ -39,29 +39,95 @@ class ProvinceController extends Controller
     }
 
 
-    public function getProvince()
+    public function getDataByZone(Request $request)
     {
-        $provinces = Province::select('Province_pro')->distinct()->get();
-        return response()->json($provinces);
+        $zone = $request->input('zone');
+
+        // ดึงข้อมูลที่กรองตาม Zone_pro
+        $provinces = DB::table('TB_Provinces')
+            ->where('Zone_pro', $zone)
+            ->select('Province_pro')
+            ->distinct()
+            ->orderBy('Province_pro', 'asc')
+            ->get();
+
+        $districts = DB::table('TB_Provinces')
+            ->where('Zone_pro', $zone)
+            ->select('District_pro')
+            ->distinct()
+            ->orderBy('District_pro', 'asc')
+            ->get();
+
+        $tambons = DB::table('TB_Provinces')
+            ->where('Zone_pro', $zone)
+            ->select('Tambon_pro')
+            ->distinct()
+            ->orderBy('Tambon_pro', 'asc')
+            ->get();
+
+        $postcodes = DB::table('TB_Provinces')
+            ->where('Zone_pro', $zone)
+            ->select('Postcode_pro')
+            ->distinct()
+            ->orderBy('Postcode_pro', 'asc')
+            ->get();
+
+        return response()->json([
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'tambons' => $tambons,
+            'postcodes' => $postcodes
+        ]);
     }
 
-    public function getDistrict()
+    public function getDistrictsByProvince(Request $request)
     {
-        $districts = Province::select('District_pro')->distinct()->get();
+        $province = $request->input('province');
+
+        // ดึงข้อมูลที่กรองตาม Province_pro
+        $districts = DB::table('TB_Provinces')
+            ->where('Province_pro', $province)
+            ->select('District_pro')
+            ->distinct()
+            ->orderBy('District_pro', 'asc')
+            ->get();
+
         return response()->json($districts);
     }
 
-    public function getTambon()
+
+    public function getTambonsByDistrict(Request $request)
     {
-        $tambons = Province::select('Tambon_pro')->distinct()->get();
+        $district = $request->input('district');
+
+        // ดึงข้อมูลที่กรองตาม District_pro
+        $tambons = DB::table('TB_Provinces')
+            ->where('District_pro', $district)
+            ->select('Tambon_pro')
+            ->distinct()
+            ->orderBy('Tambon_pro', 'asc')
+            ->get();
+
         return response()->json($tambons);
     }
 
-    public function getPostcode()
+    public function getPostcodesByTambon(Request $request)
     {
-        $postcodes = Province::select('Postcode_pro')->distinct()->get();
+        $tambon = $request->input('tambon');
+
+        // ดึงข้อมูลที่กรองตาม Tambon_pro
+        $postcodes = DB::table('TB_Provinces')
+            ->where('Tambon_pro', $tambon)
+            ->select('Postcode_pro')
+            ->distinct()
+            ->orderBy('Postcode_pro', 'asc')
+            ->get();
+
         return response()->json($postcodes);
     }
+
+
+
 
 }
 
@@ -86,6 +152,110 @@ class ProvinceController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    // public function filterByZone(Request $request)
+    // {
+    //     // ตรวจสอบว่ามีค่า 'zone' หรือไม่
+    //     $zone = $request->input('zone');
+
+    //     // ตรวจสอบว่าผู้ใช้ได้เลือกโซนหรือไม่
+    //     if (empty($zone)) {
+    //         return response()->json([
+    //             'message' => 'Zone not selected.',
+    //             'data' => null,
+    //         ]);
+    //     }
+
+    //     // ดึงข้อมูลตาม Zone_pro
+    //     $provinces = DB::table('TB_Provinces')->where('Zone_pro', $zone)->distinct()->get(['Province_pro']);
+    //     $districts = DB::table('TB_Provinces')->where('Zone_pro', $zone)->distinct()->get(['District_pro']);
+    //     $tambons = DB::table('TB_Provinces')->where('Zone_pro', $zone)->distinct()->get(['Tambon_pro']);
+    //     $postcodes = DB::table('TB_Provinces')->where('Zone_pro', $zone)->distinct()->get(['Postcode_pro']);
+
+    //     // เช็คว่ามีข้อมูลหรือไม่
+    //     if ($provinces->isEmpty() && $districts->isEmpty() && $tambons->isEmpty() && $postcodes->isEmpty()) {
+    //         return response()->json([
+    //             'message' => 'No data found for the selected zone.',
+    //             'data' => null,
+    //         ]);
+    //     }
+
+    //     // ส่งข้อมูลกลับเป็น JSON
+    //     return response()->json([
+    //         'message' => 'Data fetched successfully.',
+    //         'data' => [
+    //             'provinces' => $provinces,
+    //             'districts' => $districts,
+    //             'tambons' => $tambons,
+    //             'postcodes' => $postcodes,
+    //         ],
+    //     ]);
+    // }
+
+
+
+
+
+
+
+
+    // ฟังก์ชันสำหรับดึงข้อมูล Zone_pro
+    // public function getZones()
+    // {
+    //     $zones = Province::select('Zone_pro')->distinct()->get();
+    //     return response()->json($zones);
+    // }
+
+
+    // public function getProvince()
+    // {
+    //     $provinces = Province::select('Province_pro')->distinct()->get();
+    //     return response()->json($provinces);
+    // }
+
+    // public function getDistrict()
+    // {
+    //     $districts = Province::select('District_pro')->distinct()->get();
+    //     return response()->json($districts);
+    // }
+
+    // public function getTambon()
+    // {
+    //     $tambons = Province::select('Tambon_pro')->distinct()->get();
+    //     return response()->json($tambons);
+    // }
+
+    // public function getPostcode()
+    // {
+    //     $postcodes = Province::select('Postcode_pro')->distinct()->get();
+    //     return response()->json($postcodes);
+    // }
+
+
+
+    // public function getDistrictsByProvince(Request $request)
+    // {
+    //     $province = $request->input('province');
+
+    //     $districts = DB::table('TB_Provinces')
+    //         ->where('Province_pro', $province)
+    //         ->select('District_pro')
+    //         ->distinct()
+    //         ->orderBy('District_pro', 'asc')
+    //         ->get();
+
+    //     return response()->json(['districts' => $districts]);
+    // }
 
 
 // public function index_ajax()

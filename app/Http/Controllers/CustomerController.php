@@ -7,6 +7,7 @@ use App\Models\DataCusCareer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\DataCusAddress; // ใช้ DataCusAddress Model
 use App\Helpers; // เพิ่มการนำเข้าฟังก์ชันจาก Helper
 
 class CustomerController extends Controller
@@ -43,6 +44,20 @@ class CustomerController extends Controller
 
         return view('components.content-cus.Profile-cus', compact('customer'));
     }
+
+    // public function showProfile($id)
+    // {
+    //     $customer = Customer::find($id); // ใช้ find แทน findOrFail
+
+    //     if (!$customer) {
+    //         return response()->json(['error' => 'Customer not found.'], 404); // ส่งคืน JSON error response
+    //     }
+
+    //     // แสดงข้อมูลที่อยู่ของลูกค้ารายนี้
+    //     $addresses = DataCusAddress::where('DataCus_id', $id)->get();
+
+    //     return view('components.content-cus.Profile-cus', compact('customer', 'addresses'));
+    // }
 
 
 
