@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataCusCareer;
+use App\Models\CareerCus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -86,4 +87,24 @@ class DataCusCareerController extends Controller
         $career->delete();
         return response()->json(['message' => 'Career deleted successfully']);
     }
+
+    // ฟังก์ชันเพื่อดึงข้อมูลอาชีพ
+    // public function getCareerOptions(Request $request)
+    // {
+    //     // ดึงข้อมูลจาก TB_CareerCus
+    //     $careers = CareerCus::select('Name_Career')->get();
+
+    //     // ส่งข้อมูลกลับในรูปแบบ JSON
+    //     return response()->json($careers);
+    // }
+
+    public function getCareerOptions(Request $request)
+    {
+        // ดึงข้อมูลจาก TB_CareerCus รวม Code_Career และ Name_Career
+        $careers = CareerCus::select('Code_Career', 'Name_Career')->get();
+
+        // ส่งข้อมูลกลับในรูปแบบ JSON
+        return response()->json($careers);
+    }
+
 }

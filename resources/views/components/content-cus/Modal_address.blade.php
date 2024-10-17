@@ -36,7 +36,7 @@
                             <div
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
-                                    <input class="form-check-input text-lg" type="radio" value="ADR-0001"
+                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ปัจจุบัน"
                                         name="Type_Adds" id="adds-0">
                                     <label class="form-check-label text-base text-gray-700" for="adds-0">
                                         ที่อยู่ปัจจุบัน
@@ -46,7 +46,7 @@
                             <div
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
-                                    <input class="form-check-input text-lg" type="radio" value="ADR-0002"
+                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ส่งเอกสาร"
                                         name="Type_Adds" id="adds-1">
                                     <label class="form-check-label text-base text-gray-700" for="adds-1">
                                         ที่อยู่ส่งเอกสาร
@@ -56,7 +56,7 @@
                             <div
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
-                                    <input class="form-check-input text-lg" type="radio" value="ADR-0003"
+                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ตามสำเนา"
                                         name="Type_Adds" id="adds-2">
                                     <label class="form-check-label text-base text-gray-700" for="adds-2">
                                         ที่อยู่ตามสำเนา
@@ -72,6 +72,9 @@
 
                     <!-- Right Column -->
                     <div class="space-y-4 mt-2">
+                        <input type="text" id="dataCusIdField" name="DataCus_id" hidden value="{{ $customer->id }}">
+
+
                         <div class="relative">
                             <input type="text" id="Registration_number" name="Registration_number"
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"

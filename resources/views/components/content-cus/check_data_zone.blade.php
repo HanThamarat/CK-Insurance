@@ -1,4 +1,4 @@
-<script>
+{{-- <script>
     $(document).ready(function() {
         $.ajax({
             url: '/zones',
@@ -1256,7 +1256,7 @@
             });
         }
     });
-</script>
+</script> --}}
 
 
 
@@ -1372,6 +1372,162 @@
 
 
 
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // ตรวจสอบการคลิกปุ่มบันทึก
+        $('#submitBtnCareer').on('click', function(event) {
+            event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
+            validateForm(); // เรียกใช้ฟังก์ชัน validateForm
+        });
+
+        function validateForm() {
+            var isValid = true; // เริ่มต้นสถานะเป็นจริง
+            $('.error').remove(); // ลบข้อความแสดงข้อผิดพลาดก่อนหน้า
+
+            // ตรวจสอบฟิลด์ที่จำเป็น
+            if ($('#Career_Cus').val().trim() === '') {
+                $('#Career_Cus').addClass('border-red-500');
+                $('#Career_Cus').after(
+                    '<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณาเลือกอาชีพ</span>'
+                    );
+                isValid = false;
+            } else {
+                $('#Career_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#Income_Cus').val().trim() === '') {
+                $('#Income_Cus').addClass('border-red-500');
+                $('#Income_Cus').after(
+                    '<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกรายได้</span>'
+                    );
+                isValid = false;
+            } else {
+                $('#Income_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#BeforeIncome_Cus').val().trim() === '') {
+                $('#BeforeIncome_Cus').addClass('border-red-500');
+                $('#BeforeIncome_Cus').after(
+                    '<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกหักค่าใช้จ่าย</span>'
+                    );
+                isValid = false;
+            } else {
+                $('#BeforeIncome_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#AfterIncome_Cus').val().trim() === '') {
+                $('#AfterIncome_Cus').addClass('border-red-500');
+                $('#AfterIncome_Cus').after(
+                    '<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกคงเหลือ</span>'
+                    );
+                isValid = false;
+            } else {
+                $('#AfterIncome_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#Workplace_Cus').val().trim() === '') {
+                $('#Workplace_Cus').addClass('border-red-500');
+                $('#Workplace_Cus').after(
+                    '<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกสถานที่ทำงาน</span>'
+                    );
+                isValid = false;
+            } else {
+                $('#Workplace_Cus').removeClass('border-red-500');
+            }
+
+            if ($('#Coordinates').val().trim() === '') {
+                $('#Coordinates').addClass('border-red-500');
+                $('#Coordinates').after(
+                    '<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกพิกัด</span>'
+                    );
+                isValid = false;
+            } else {
+                $('#Coordinates').removeClass('border-red-500');
+            }
+
+            if ($('#IncomeNote_Cus').val().trim() === '') {
+                $('#IncomeNote_Cus').addClass('border-red-500');
+                $('#IncomeNote_Cus').after(
+                    '<span class="error text-red-500 text-xs flex items-center mt-1"><i class="fas fa-exclamation-circle mr-2"></i>กรุณากรอกรายละเอียด</span>'
+                    );
+                isValid = false;
+            } else {
+                $('#IncomeNote_Cus').removeClass('border-red-500');
+            }
+
+            if (!isValid) {
+                // ตั้งเวลาให้ข้อความ error แสดงเป็นเวลา 4 วินาที แล้วค่อย fade out หายไปอย่างช้า ๆ
+                setTimeout(function() {
+                    $('.error').fadeOut(1000, function() { // fade out ภายใน 3 วินาที
+                        $(this).remove(); // ลบ element เมื่อ fade out เสร็จ
+                    });
+                }, 2000); // 4000 milliseconds = 4 seconds
+
+                return; // หยุดการทำงานถ้าฟอร์มไม่ valid
+            }
+        }
+
+        $(document).ready(function() {
+            $('#careerForm').on('submit', function(e) {
+                e.preventDefault(); // ป้องกันการรีเฟรชหน้าจอเมื่อส่งฟอร์ม
+
+                var formData = $(this).serialize(); // แปลงฟอร์มเป็นข้อมูลที่สามารถส่งได้
+
+                $.ajax({
+                    url: '{{ route('career.store') }}', // URL ที่ถูกต้อง
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'สำเร็จ!',
+                            text: 'สร้างอาชีพลูกค้าสำเร็จแล้ว!',
+                            icon: 'success',
+                            confirmButtonText: 'ตกลง'
+                        }).then(() => {
+                            location
+                        .reload(); // รีเฟรชหน้าหลังจากแสดงข้อความสำเร็จ
+                        });
+                        $('#careerForm')[0].reset(); // รีเซ็ตฟอร์ม
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            $.each(errors, function(key, value) {
+                                Swal.fire({
+                                    title: 'ข้อผิดพลาด!',
+                                    text: value[0],
+                                    icon: 'error',
+                                    confirmButtonText: 'ตกลง'
+                                });
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'ข้อผิดพลาด!',
+                                text: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง.',
+                                icon: 'error',
+                                confirmButtonText: 'ตกลง'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // หากต้องการจัดการกับปุ่มยกเลิก
+            $('#closeModal_career_button').on('click', function() {
+                // ปิดโมดัล หรือทำการดำเนินการอื่น ๆ ที่ต้องการ
+            });
+        });
+
+    });
+</script> --}}
 
 
 
@@ -1400,7 +1556,6 @@
 
 
 
-    
 
 
 

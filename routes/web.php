@@ -50,7 +50,7 @@ Route::resource('customers/address', DataCusAddressController::class);
 
 
 
-// ใน routes/web.php
+// ใน routes/web.php/ดึงอาณาจักร
 Route::get('/zones', [ProvinceController::class, 'getZones']);
 Route::get('/getDataByZone', [ProvinceController::class, 'getDataByZone']);
 Route::get('/getDistrictsByProvince', [ProvinceController::class, 'getDistrictsByProvince']);
@@ -59,7 +59,8 @@ Route::get('/getPostcodesByTambon', [ProvinceController::class, 'getPostcodesByT
 
 
 
-
+// ใน routes/web.php/ดึงอาชีพ
+Route::get('/get-careers', [DataCusCareerController::class, 'getCareerOptions']);
 
 
 
