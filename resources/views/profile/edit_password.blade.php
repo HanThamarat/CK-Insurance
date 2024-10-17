@@ -20,7 +20,6 @@
         <form action="" method="POST" enctype="multipart/form-data">
             @csrf
 
-
             <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                 <div class="w-full mb-3 mt-3">
                     <label for="password_token" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">รหัสผ่านปัจจุบัน</label>
@@ -45,10 +44,10 @@
 
             <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                 <div class="w-full mb-1 mt-1">
-                    <label for="password" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ยืนยันรหัสผ่าน</label>
-                    <input type="password" name="password" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        id="password"  required>
-                    @error('password')
+                    <label for="password_token" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ยืนยันรหัสผ่าน</label>
+                    <input type="password_token" name="password_token" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        id="password_token"  required>
+                    @error('password_token')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -56,7 +55,7 @@
 
 
             <div class="flex justify-end mt-3">
-                <button type="submit"
+                <button type="submit" id="summit_password_confirmed"
                     class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
                     <i class="fas fa-key"></i> บันทึกรหัสผ่าน
                 </button>
