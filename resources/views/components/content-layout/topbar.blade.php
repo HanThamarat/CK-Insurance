@@ -63,9 +63,21 @@
                         {{ __('Manage Account') }}
                     </div>
 
+                    {{-- <x-dropdown-link href="{{ route('profile.show') }}">
+                        {{ __('Profile') }}
+                    </x-dropdown-link> --}}
                     <x-dropdown-link href="{{ route('profile.show') }}">
+                        <img src="{{ asset('img/icon_cus.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
                         {{ __('Profile') }}
                     </x-dropdown-link>
+
+                    <div class="border-t border-gray-200"></div>
+
+                    <x-dropdown-link href="{{ route('users.index') }}">
+                        <img src="{{ asset('img/User.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
+                        {{ __('Add User') }}
+                    </x-dropdown-link>
+
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                         <x-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -80,6 +92,7 @@
                         @csrf
 
                         <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                            <img src="{{ asset('img/logout.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
                             {{ __('Log Out') }}
                         </x-dropdown-link>
                     </form>

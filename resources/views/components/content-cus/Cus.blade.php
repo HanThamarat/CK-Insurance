@@ -246,7 +246,7 @@
                                 </div> --}}
 
                                 <div class="relative">
-                                    <select id="nationality" name="nationality" onfocus="moveLabel_nationality()" onblur="checkInput_nationality()"
+                                    <select id="nationality" name="nationality" onfocus="moveLabel('nationality')" onblur="checkInput('nationality')"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
                                         <option value="">สัญชาติ</option>
                                         <option value="ไทย">ไทย</option>

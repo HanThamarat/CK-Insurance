@@ -48,40 +48,7 @@
 
 
     @section('content')
-        {{-- <div class="container">
-            <h1>Your Profile</h1>
 
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            <form action="{{ route('profile.update') }}" method="POST">
-                @csrf
-                @method('POST')
-
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $user->name) }}" required>
-                    @error('name')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" value="{{ old('email', $user->email) }}" required>
-                    @error('email')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <!-- เพิ่มฟิลด์อื่นๆ ตามต้องการ -->
-
-                <button type="submit" class="btn btn-primary">Update Profile</button>
-            </form>
-        </div> --}}
 
 
         <section class="py-10 my-auto dark:bg-gray-900 mt-[-50] ">
@@ -105,9 +72,8 @@
 
 
 
-                        <form>
                             <!-- Cover Image -->
-                            <div class="w-full rounded-sm bg-cover bg-center bg-no-repeat items-center" style="background-image: url('{{ asset('img/theme4.jpg') }}');">
+                            <div class="w-full rounded-sm bg-cover bg-center bg-no-repeat items-center" style="background-image: url('{{ asset('img/home.jpg') }}');">
 
                                 <!-- Profile Image -->
                                 <div class="mx-auto flex justify-center w-[130px] h-[130px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat transition-transform duration-500 hover:scale-110 shadow-lg"
@@ -115,7 +81,8 @@
 
                                     <div class="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
 
-                                        <input type="file" name="profile" id="upload_profile" hidden required>
+                                        {{-- <input type="file" name="profile" id="upload_profile" hidden required> --}}
+
 
                                         <label for="upload_profile">
                                             <svg data-slot="icon" class="w-6 h-5 text-blue-700" fill="none"
@@ -133,7 +100,7 @@
                                 </div>
                                 <div class="flex justify-end">
                                     <!--  -->
-                                    <input type="file" name="profile" id="upload_cover" hidden required>
+                                    {{-- <input type="file" name="profile" id="upload_cover" hidden required> --}}
 
                                     <div class="bg-white flex items-center gap-1 rounded-tl-md px-2 text-center font-semibold">
                                         <label for="upload_cover"
@@ -183,14 +150,21 @@
                             </div>
 
                             <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                                <div class="w-full mb-4 mt-6">
+                                {{-- <div class="w-full mb-4 mt-6">
                                     <label for="zone" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">พื้นที่</label>
                                     <input type="text" name="zone" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                         id="zone" value="{{ old('zone', $user->zone) }}" readonly>
-                                </div>
+                                </div> --}}
 
                                 <div class="w-full mb-4 mt-6">
-                                    <label for="branch" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">พื้นที่</label>
+                                    <label for="zone" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">พื้นที่</label>
+                                    <input type="text" name="zone" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                        id="zone" value="{{ old('zone', $zone->Zone_Name ?? 'ไม่ระบุ') }}" readonly>
+                                </div>
+
+
+                                <div class="w-full mb-4 mt-6">
+                                    <label for="branch" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">สาขา</label>
                                     <input type="text" name="branch" class="form-control block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                         id="branch" value="{{ old('branch', $user->branch) }}" readonly>
                                 </div>
@@ -211,7 +185,7 @@
 
                             </div>
 
-                        </form>
+
                     </div>
                 </div>
             </div>

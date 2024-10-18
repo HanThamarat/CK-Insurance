@@ -126,9 +126,6 @@ class ProvinceController extends Controller
         return response()->json($postcodes);
     }
 
-
-
-
 }
 
 

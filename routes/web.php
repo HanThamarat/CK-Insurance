@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DataCusCareerController;
 use App\Http\Controllers\DataCusAddressController;
 use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () { return view('auth.login'); });
@@ -32,10 +34,10 @@ Route::middleware(['auth'])->group(function () {
 // CUSTOMER ROUTE
 Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])->name('customers.profile');
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
+Route::put('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
 Route::resource('customers', CustomerController::class);
 
 // ASSET ROUTE
-Route::get('/data_assets', [DataAssetController::class, 'index'])->name('data_assets.index');
 Route::resource('data_assets', DataAssetController::class);
 Route::post('/check-vehicle-chassis', [DataAssetController::class, 'checkVehicleChassis']); // ASSET ROUTE VEHICLE CHASSIE
 
@@ -45,7 +47,8 @@ Route::resource('customers/career', DataCusCareerController::class);
 // ADDRESS ROUTE
 Route::resource('customers/address', DataCusAddressController::class);
 
-
+// RESET PASSWORD
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset.password');
 
 
 
@@ -72,6 +75,12 @@ Route::get('/get-careers', [DataCusCareerController::class, 'getCareerOptions'])
 
 
 
+Route::resource('users', UserController::class);
+// Route::get('/users', [UserController::class, 'index'])->name('users.index');
+// Route::post('/users', [UserController::class, 'store'])->name('users.store');
+// Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+// Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+// Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
 
@@ -83,16 +92,43 @@ Route::get('/get-careers', [DataCusCareerController::class, 'getCareerOptions'])
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('data_assets/getVehicleTypes', [DataAssetController::class, 'getVehicleTypes']);
+
+
+
+// Route::get('/data_assets', [DataAssetController::class, 'index'])->name('data_assets.index');
 
 
 
 
 // Route::get('/getDistrictsByProvince', [ProvinceController::class, 'getDistrictsByProvince']);
-
-
-
-
-
 
 
 
