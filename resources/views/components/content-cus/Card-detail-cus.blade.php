@@ -102,6 +102,13 @@
                     <span hidden>{{ $customer->postal_code ?? '-' }}</span>
                 </div>
 
+                <div class="grid grid-cols-2 gap-4">
+                    @include('components.content-cus.card_address')
+
+                </div>
+
+
+
 
                 <!-- ส่วนที่แสดงข้อมูล -->
                 <div class="flex flex-col items-center mt-4">
@@ -120,6 +127,7 @@
                     </button> --}}
 
 
+
                     <button id="addAddressButton" class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg" data-bs-toggle="modal" data-bs-target="#modalAddress">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -128,7 +136,7 @@
                         เพิ่มที่อยู่
                     </button>
 
-                    {{-- @include('components.content-cus.card_address') --}}
+
 
                 </div>
             </div>
@@ -149,6 +157,11 @@
                     <strong hidden class="text-gray-800">บริษัท:</strong>
                     <span hidden >{{ $customer->company ?? '-' }}</span>
                 </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    @include('components.content-cus.card_career')
+                </div>
+
                 <div class="flex flex-col items-center mt-4">
                     <div class="shadow-effect">
                         <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce" alt="Out of Stock">

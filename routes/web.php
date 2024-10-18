@@ -67,7 +67,7 @@ Route::get('/get-careers', [DataCusCareerController::class, 'getCareerOptions'])
 
 
 
-
+Route::get('/customer/{id}/addresses', [CustomerController::class, 'DataCusAddressManage']);
 
 
 

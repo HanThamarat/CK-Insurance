@@ -34,7 +34,7 @@
                         </p>
                     </div>
                     <div class="flex-shrink-0">
-                        <img src="{{ asset('img/home2.jpg') }}" alt="ที่อยู่ปัจจุบัน" class="w-36 h-20">
+                        <img src="{{ asset('img/career.jpg') }}" alt="ที่อยู่ปัจจุบัน" class="w-36 h-20">
                     </div>
                 </div>
             </div>
@@ -53,8 +53,4 @@
         </div>
     </div>
 </div>
-
-
-
-
 

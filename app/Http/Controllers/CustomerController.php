@@ -217,6 +217,12 @@ class CustomerController extends Controller
         return response()->json($career, 201);
     }
 
+
+
+
+
+
+
 }
 
 
@@ -251,6 +257,77 @@ class CustomerController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function DataCusAddressManage($id)
+    // {
+    //     // ค้นหาข้อมูลใน Customers ตาม id ที่ให้มา
+    //     $customer = Customer::find($id);
+
+    //     if (!$customer) {
+    //         return response()->json([
+    //             'message' => 'Customer not found',
+    //         ], 404);
+    //     }
+
+    //     // ค้นหาข้อมูลใน DataCusAddress ที่ตรงกับ DataCus_id
+    //     $dataCusAddress = DataCusAddress::where('DataCus_id', $customer->id)->get();
+
+    //     return response()->json([
+    //         'customer' => $customer,
+    //         'dataCusAddress' => $dataCusAddress,
+    //     ]);
+    // }
+
+    // public function DataCusAddressManage($id)
+    // {
+    //     // ตรวจสอบว่า $id เป็นตัวเลขหรือไม่
+    //     if (!is_numeric($id)) {
+    //         return response()->json(['error' => 'Invalid customer ID'], 400);
+    //     }
+
+    //     // ดึงข้อมูลจากฐานข้อมูล
+    //     $customerAddresses = DataCusAddress::where('DataCus_id', $id)->get();
+
+    //     return response()->json($customerAddresses);
+    // }
+
+    // public function DataCusAddressManage($id)
+    // {
+    //     // ตรวจสอบว่า $id เป็นตัวเลขหรือไม่
+    //     if (!is_numeric($id)) {
+    //         return response()->json(['error' => 'Invalid customer ID'], 400);
+    //     }
+
+    //     // ดึงข้อมูลจากฐานข้อมูล
+    //     $customerAddresses = DataCusAddress::where('DataCus_id', $id)->get();
+
+    //     // ตรวจสอบว่ามีข้อมูลหรือไม่
+    //     if ($customerAddresses->isEmpty()) {
+    //         return response()->json(['message' => 'No addresses found'], 404);
+    //     }
+
+    //     return response()->json($customerAddresses);
+    // }
 
     // public function showProfile($id)
     // {
