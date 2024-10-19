@@ -84,7 +84,31 @@ class DataCusAddressController extends Controller
 
         return response()->json(null, 204);
     }
+
+
+    public function getAddressData()
+    {
+        $addresses = DataCusAddress::all();
+        return response()->json($addresses);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

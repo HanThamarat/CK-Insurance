@@ -50,30 +50,6 @@ class CustomerController extends Controller
     }
 
 
-
-
-
-
-    public function show($id)
-    {
-        // ดึงข้อมูลลูกค้าตาม ID
-        $customer = Customer::find($id);
-
-        // ตรวจสอบว่าพบข้อมูลลูกค้าหรือไม่
-        if (!$customer) {
-            return redirect()->route('customers.index')->with('error', 'Customer not found.');
-        }
-
-        // ส่งข้อมูลลูกค้าไปยัง view
-        return view('customers.profile', compact('customer'));
-    }
-
-    public function index_2()
-    {
-        $customers = Customer::all();
-        return view('components.content-cus.Cus', compact('customers'));
-    }
-
     public function create()
     {
         return view('components.content-cus.Cus');
@@ -218,6 +194,13 @@ class CustomerController extends Controller
     }
 
 
+    public function getCareerData()
+    {
+        $careers = DataCusCareer::all();
+        return response()->json($careers);
+    }
+
+
 
 
 
@@ -269,13 +252,29 @@ class CustomerController extends Controller
 
 
 
+// public function show($id)
+// {
+//     // ดึงข้อมูลลูกค้าตาม ID
+//     $customer = Customer::find($id);
+
+//     // ตรวจสอบว่าพบข้อมูลลูกค้าหรือไม่
+//     if (!$customer) {
+//         return redirect()->route('customers.index')->with('error', 'Customer not found.');
+//     }
+
+//     // ส่งข้อมูลลูกค้าไปยัง view
+//     return view('customers.profile', compact('customer'));
+// }
 
 
 
 
 
-
-
+// public function index_2()
+// {
+//     $customers = Customer::all();
+//     return view('components.content-cus.Cus', compact('customers'));
+// }
 
 
     // public function DataCusAddressManage($id)

@@ -369,12 +369,12 @@
                             </div>
 
 
-                            <div class="relative pt-5"> <!-- ปรับ pt ตามต้องการ -->
-                                <textarea id="note" name="note" rows="8"
+                            <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
+                                <textarea id="note" name="note" rows="9"
                                     class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" " onfocus="moveLabel('note')" onblur="checkInput('note')">{{ $customer->note }}</textarea>
                                 <label for="note" id="note-label"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-5 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-3 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     หมายเหตุ
                                 </label>
                             </div>
@@ -422,7 +422,8 @@
                 type: 'PUT',
                 data: customerData,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                        'content') // ส่ง CSRF token
                 },
                 success: function(response) {
                     // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
@@ -436,14 +437,16 @@
                         setTimeout(function() {
                             location.reload(); // รีเฟรชหน้า
                             setTimeout(function() {
-                                location.reload(); // รีเฟรชหน้าอีกครั้ง
+                                location
+                            .reload(); // รีเฟรชหน้าอีกครั้ง
                             }, 1000); // รอ 1 วินาทีก่อนรีเฟรชครั้งที่สอง
                         }, 3000); // 3000 milliseconds = 3 seconds
                     });
                 },
                 error: function(xhr) {
                     // จัดการข้อผิดพลาดด้วย SweetAlert
-                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
+                    let errorMessage =
+                    'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
                     if (xhr.responseJSON && xhr.responseJSON.error) {
                         errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
                     }
@@ -463,6 +466,7 @@
 
 
 
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <script>
     // ฟังก์ชันเพื่อตรวจสอบค่าของ label
@@ -552,7 +556,7 @@
             const inputElement = document.getElementById(inputId);
             const labelElement = document.getElementById(labelId);
             if (inputElement && inputElement.value) {
-                labelElement.classList.add('translate-y-[-50%]', 'top-[-2]', 'scale-75', 'text-xs');
+                labelElement.classList.add('translate-y-[-50%]', 'top-[0]', 'scale-75', 'text-xs');
             }
         });
     }

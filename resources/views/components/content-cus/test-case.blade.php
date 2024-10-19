@@ -1,237 +1,348 @@
+{{-- <div class="flex space-x-4">
+    <div class="w-full">
+        <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500"
+            id="cmptask-1">
+            <div class="bg-info bg-opacity-25 rounded-t-lg p-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex-1">
+                        <h6 class="text-primary font-semibold">
+                            <i class="fas fa-tag"></i> <!-- ใช้ Font Awesome -->
+                        </h6>
+                    </div>
+                    <div class="relative">
+                        <div class="dropdown float-right">
+                            <a href="#" class="dropdown-toggle text-muted" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="mdi mdi-dots-vertical text-muted h-5"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <span class="text-primary text-center dropdown-item" disabled="">รายการ</span>
+                                <div class="dropdown-divider"></div>
+                                <a id="edit-about-cus"
+                                    class="dropdown-item flex justify-between pe-auto edittask-details data-modal-xl"
+                                    data-link="https://ckl.co.th/cus/57129/edit?funs=manage-adds">แก้ไข <i
+                                        class="fas fa-edit text-warning fs-4"></i></a> <!-- ใช้ Font Awesome -->
+                                <a id="edit-about-cus"
+                                    class="dropdown-item flex justify-between pe-auto edittask-details data-modal-xl"
+                                    data-link="https://ckl.co.th/cus/57129?funs=manage-adds">ดูข้อมูล <i
+                                        class="fas fa-eye text-primary fs-4"></i></a> <!-- ใช้ Font Awesome -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex">
 
-                            {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <!-- Prefix Dropdown -->
+                    <div class="flex-1">
+                        <h1>ข้อมูลที่อยู่</h1>
+                        <div class="row" id="address-list">
+                            <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <img src="{{ asset('img/home2.jpg') }}" alt="ที่อยู่ปัจจุบัน" class="w-36 h-20">
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t">
+                <small class="text-muted">
+                    <div class="flex justify-between items-center">
+                        <div title="4 เดือนที่แล้ว">
+                            <i class="fas fa-clock"></i> 4 เดือนที่แล้ว <!-- ใช้ Font Awesome -->
+                        </div>
+                        <div class="text-right">
+                            <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p>
+                            <!-- ใช้ Font Awesome -->
+                        </div>
+                    </div>
+                </small>
+            </div>
+        </div>
+    </div>
+</div> --}}
 
 
-                                <div class="relative">
-                                    <input type="text" id="district" name="district"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel_district()" onblur="checkInput_district()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
-                                        oninput="this.setCustomValidity('')">
-                                    <label for="district"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        ที่อยู่ (ตำบล)
-                                    </label>
+{{-- <div class="flex-1">
+    <a href="javascript:void(0);" class="text-warning fs-6 font-semibold" id="task-name" title="ที่อยู่ปัจจุบัน">ที่อยู่ปัจจุบัน <i class="fas fa-check-circle text-primary d-none"></i></a> <!-- ใช้ Font Awesome -->
+    <p class="font-semibold text-truncate">
+        <i class="fas fa-info-circle text-success h-5"></i> : หาดใหญ่<br> <!-- ใช้ Font Awesome -->
+        <i class="fas fa-bookmark text-success h-5"></i> : หาดใหญ่<br> <!-- ใช้ Font Awesome -->
+        <i class="fas fa-table text-success h-5"></i> : สงขลา <!-- ใช้ Font Awesome -->
+    </p>
+</div> --}}
+
+
+
+
+
+{{-- $(document).ready(function() {
+    // ฟังก์ชันดึงข้อมูลที่อยู่
+    function fetchAddresses() {
+        $.ajax({
+            url: '/get-address-data', // URL ที่เชื่อมต่อกับเส้นทางที่เราสร้างไว้
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                $('#address-list').empty(); // เคลียร์เนื้อหาที่มีอยู่
+                $.each(response, function(index, address) {
+                    $('#address-list').append(`
+                        <div class="flex space-x-4">
+                            <div class="w-full">
+                                <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-1">
+                                    <div class="bg-info bg-opacity-25 rounded-t-lg p-4">
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex-1">
+                                                <h6 class="text-primary font-semibold">
+                                                    <i class="fas fa-tag"></i> <!-- ใช้ Font Awesome -->
+                                                </h6>
+                                            </div>
+                                            <div class="relative">
+                                                <div class="dropdown float-right">
+                                                    <a href="#" class="dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical text-muted h-5"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <span class="text-primary text-center dropdown-item" disabled="">รายการ</span>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a id="edit-about-cus" class="dropdown-item flex justify-between pe-auto edittask-details data-modal-xl" data-link="https://ckl.co.th/cus/57129/edit?funs=manage-adds">แก้ไข <i class="fas fa-edit text-warning fs-4"></i></a> <!-- ใช้ Font Awesome -->
+                                                        <a id="edit-about-cus" class="dropdown-item flex justify-between pe-auto edittask-details data-modal-xl" data-link="https://ckl.co.th/cus/57129?funs=manage-adds">ดูข้อมูล <i class="fas fa-eye text-primary fs-4"></i></a> <!-- ใช้ Font Awesome -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="flex">
+                                            <div class="flex-1">
+                                                <div class="col-md-4 mb-3">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                <i class="fa fa-map-marker-alt text-primary"></i> <strong>ที่อยู่ : </strong> ${address.houseNumber_Adds}, ${address.road_Adds}
+                                                            </h5>
+                                                            <p class="card-text">
+                                                                <i class="fa fa-home text-success"></i> <strong>หมู่บ้าน : </strong> ${address.village_Adds}
+                                                            </p>
+                                                            <p class="card-text">
+                                                                <i class="fa fa-city text-info"></i> <strong>จังหวัด : </strong> ${address.houseProvince_Adds}
+                                                            </p>
+                                                            <p class="card-text">
+                                                                <i class="fa fa-envelope text-warning"></i> <strong>รหัสไปรษณีย์ : </strong> ${address.Postal_Adds}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <img src="{{ asset('img/home2.jpg') }}" alt="ที่อยู่ปัจจุบัน" class="w-36 h-20">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 border-t">
+                                        <small class="text-muted">
+                                            <div class="flex justify-between items-center">
+                                                <div title="4 เดือนที่แล้ว">
+                                                    <i class="fas fa-clock"></i> 4 เดือนที่แล้ว <!-- ใช้ Font Awesome -->
+                                                </div>
+                                                <div class="text-right">
+                                                    <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p> <!-- ใช้ Font Awesome -->
+                                                </div>
+                                            </div>
+                                        </small>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log('Error: ' + error);
+            }
+        });
+    }
+
+    // เรียกฟังก์ชันดึงข้อมูลเมื่อหน้าเว็บโหลด
+    fetchAddresses();
+}); --}}
 
 
 
-                                <div class="relative">
-                                    <input type="text" id="amphor" name="amphor"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
-                                        placeholder=" " required onfocus="moveLabel_amphor()" onblur="checkInput_amphor()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
-                                        oninput="this.setCustomValidity('')">
-                                    <label for="amphor"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
-                                        ที่อยู่ (อำเภอ)
-                                    </label>
+                {{-- <div class="grid grid-cols-2 gap-4">
+                    @include('components.content-cus.card_career')
+                    <div id="career-container"></div>
+
+                </div> --}}
+{{-- <div class="grid grid-cols-2 gap-4">
+    @include('components.content-cus.card_address')
+    <div class="row" id="address-list">
+        <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+    </div>
+</div> --}}
+
+
+{{-- <div class="grid grid-cols-2 gap-4">
+    @include('components.content-cus.card_address')
+    <div class="row grid grid-cols-2 gap-4" id="address-list">
+        <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+    </div>
+</div> --}}
+
+
+
+
+                    <!-- ปุ่มเพิ่มที่อยู่ -->
+                    {{-- <button class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
+                        </svg>
+                        เพิ่มที่อยู่
+                    </button> --}}
+
+
+
+
+
+                    {{-- <div class="flex space-x-4">
+    <div class="w-full">
+        <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-1">
+            <div class="bg-info bg-opacity-25 rounded-t-lg p-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex-1">
+                        <h6 class="text-primary font-semibold">
+                            <i class="fas fa-tag"></i> <!-- ใช้ Font Awesome -->
+                        </h6>
+                    </div>
+                    <div class="relative">
+                        <div class="dropdown float-right">
+                            <a href="#" class="dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi mdi-dots-vertical text-muted h-5"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <span class="text-primary text-center dropdown-item" disabled="">รายการ</span>
+                                <div class="dropdown-divider"></div>
+                                <a id="edit-about-cus" class="dropdown-item flex justify-between pe-auto edittask-details data-modal-xl" data-link="https://ckl.co.th/cus/57129/edit?funs=manage-adds">แก้ไข <i class="fas fa-edit text-warning fs-4"></i></a> <!-- ใช้ Font Awesome -->
+                                <a id="edit-about-cus" class="dropdown-item flex justify-between pe-auto edittask-details data-modal-xl" data-link="https://ckl.co.th/cus/57129?funs=manage-adds">ดูข้อมูล <i class="fas fa-eye text-primary fs-4"></i></a> <!-- ใช้ Font Awesome -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex">
+                    <div class="flex-1">
+                        <a href="javascript:void(0);" class="text-warning fs-6 font-semibold" id="task-name" title="ที่อยู่ปัจจุบัน">ที่อยู่ปัจจุบัน <i class="fas fa-check-circle text-primary d-none"></i></a> <!-- ใช้ Font Awesome -->
+                        <p class="font-semibold text-truncate">
+                            <i class="fas fa-info-circle text-success h-5"></i> : หาดใหญ่<br> <!-- ใช้ Font Awesome -->
+                            <i class="fas fa-bookmark text-success h-5"></i> : หาดใหญ่<br> <!-- ใช้ Font Awesome -->
+                            <i class="fas fa-table text-success h-5"></i> : สงขลา <!-- ใช้ Font Awesome -->
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <img src="{{ asset('img/career.jpg') }}" alt="ที่อยู่ปัจจุบัน" class="w-36 h-20">
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t">
+                <small class="text-muted">
+                    <div class="flex justify-between items-center">
+                        <div title="4 เดือนที่แล้ว">
+                            <i class="fas fa-clock"></i> 4 เดือนที่แล้ว <!-- ใช้ Font Awesome -->
+                        </div>
+                        <div class="text-right">
+                            <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p> <!-- ใช้ Font Awesome -->
+                        </div>
+                    </div>
+                </small>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+
+
+{{-- <script>
+    $(document).ready(function() {
+        // ฟังก์ชันสำหรับดึงข้อมูล
+        function fetchCareerData() {
+            $.ajax({
+                url: '/get-career-data',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // เริ่มต้น HTML ที่จะแสดงผล
+                    let html = '';
+                    $.each(data, function(index, career) {
+                        html += `
+                        <div class="flex space-x-4">
+                            <div class="w-full">
+                                <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
+                                    <div class="bg-info bg-opacity-25 rounded-t-lg p-4">
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex-1">
+                                                <h6 class="text-primary font-semibold">
+                                                    <i class="fas fa-tag"></i>
+                                                </h6>
+                                            </div>
+                                            <div class="relative">
+                                                <div class="dropdown float-right">
+                                                    <a href="#" class="dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical text-muted h-5"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <span class="text-primary text-center dropdown-item" disabled="">รายการ</span>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a id="edit-about-cus" class="dropdown-item flex justify-between pe-auto edittask-details data-modal-xl" data-link="https://ckl.co.th/cus/${career.id}/edit?funs=manage-adds">แก้ไข <i class="fas fa-edit text-warning fs-4"></i></a>
+                                                        <a id="edit-about-cus" class="dropdown-item flex justify-between pe-auto edittask-details data-modal-xl" data-link="https://ckl.co.th/cus/${career.id}?funs=manage-adds">ดูข้อมูล <i class="fas fa-eye text-primary fs-4"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="flex">
+                                            <div class="flex-1">
+                                                <a href="javascript:void(0);" class="text-warning fs-6 font-semibold" id="task-name" title="${career.current_address}">${career.current_address} <i class="fas fa-check-circle text-primary d-none"></i></a>
+                                                <p class="font-semibold text-truncate">
+                                                    <i class="fas fa-info-circle text-success h-5"></i> : ${career.info}<br>
+                                                    <i class="fas fa-bookmark text-success h-5"></i> : ${career.bookmark}<br>
+                                                    <i class="fas fa-table text-success h-5"></i> : ${career.location}
+                                                </p>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <img src="${career.image_url}" alt="${career.current_address}" class="w-36 h-20">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 border-t">
+                                        <small class="text-muted">
+                                            <div class="flex justify-between items-center">
+                                                <div title="${career.created_at}">
+                                                    <i class="fas fa-clock"></i> ${career.created_at}
+                                                </div>
+                                                <div class="text-right">
+                                                    <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i> ${career.user_name}</p>
+                                                </div>
+                                            </div>
+                                        </small>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>`;
+                    });
+                    // เพิ่ม HTML ลงในองค์ประกอบที่ต้องการแสดง
+                    $('#career-container').html(html);
+                },
+                error: function(xhr, status, error) {
+                    console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+                }
+            });
+        }
 
-
-                                <div class="relative">
-                                    <input type="text" id="province" name="province"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
-                                        placeholder=" " required onfocus="moveLabel_province()" onblur="checkInput_province()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
-                                        oninput="this.setCustomValidity('')">
-                                    <label for="province"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
-                                        ที่อยู่ (จังหวัด)
-                                    </label>
-                                </div>
-                            </div> --}}
-
-
-
-                                                            {{-- <div class="relative">
-                                    <input type="text" id="occupation" name="occupation"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel_occupation()"
-                                        onblur="checkInput_occupation()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอก Line ID')"
-                                        oninput="this.setCustomValidity('')">
-                                    <label for="occupation"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        อาชีพ
-                                    </label>
-                                </div> --}}
-
-
-
-                                                                <!-- Nationality Dropdown -->
-                                {{-- <div class="relative">
-                                    <select id="nationality" name="nationality"
-                                        class=" text-gray-500 p-2 border border-gray-300 rounded-lg w-full text-sm focus:outline-none focus:border-orange-600 focus:ring-0">
-                                        <option value="">สัญชาติ</option>
-                                        <option value="ไทย">ไทย</option>
-                                        <!-- Add more options as needed -->
-                                    </select>
-                                </div> --}}
-
-
-                                                                <!-- Gender Dropdown -->
-                                {{-- <div class="relative">
-                                    <select id="gender" name="gender"
-                                        class=" text-gray-500 p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0">
-                                        <option value=""> -----เพศ----- </option>
-                                        <option value="ชาย">ชาย</option>
-                                        <option value="หญิง">หญิง</option>
-                                    </select>
-                                </div> --}}
-
-
-
-
-                                                            {{-- <script>
-                                // ฟังก์ชันเพื่อเช็คค่าสำหรับ label
-                                function checkInitialValue() {
-                                    const selectElement = document.getElementById('prefix');
-                                    const firstNameElement = document.getElementById('first_name');
-                                    const lastNameElement = document.getElementById('last_name');
-                                    const phoneElement = document.getElementById('phone');
-                                    const phone2Element = document.getElementById('phone2');
-                                    const idCardElement = document.getElementById('id_card_number');
-                                    const expiryDateElement = document.getElementById('expiry_date');
-
-                                    const labelElement = document.getElementById('prefix-label');
-                                    const firstNameLabelElement = document.getElementById('first_name-label');
-                                    const lastNameLabelElement = document.getElementById('lastname_name-label');
-                                    const phoneLabelElement = document.getElementById('phone-label');
-                                    const phone2LabelElement = document.getElementById('phone2-label');
-                                    const idCardLabelElement = document.getElementById('id_card_number-label');
-                                    const expiryDateLabelElement = document.getElementById('expiry_date-label');
-
-
-                                    // เช็คว่ามีค่าใน select, first_name, last_name, phone หรือ phone2
-                                    if (selectElement.value) {
-                                        labelElement.classList.add('translate-y-[-30%]', 'scale-75'); // ย้าย label ไปข้างบน
-                                    }
-
-                                    if (firstNameElement.value) {
-                                        firstNameLabelElement.classList.add('translate-y-[-30%]', 'scale-75'); // ย้าย label ไปข้างบน
-                                    }
-
-                                    if (lastNameElement.value) {
-                                        lastNameLabelElement.classList.add('translate-y-[-30%]', 'scale-75'); // ย้าย label ไปข้างบน
-                                    }
-
-                                    if (phoneElement.value) {
-                                        phoneLabelElement.classList.add('translate-y-[-30%]', 'scale-75'); // ย้าย label ไปข้างบน
-                                    }
-
-                                    if (phone2Element.value) {
-                                        phone2LabelElement.classList.add('translate-y-[-30%]', 'scale-75'); // ย้าย label ไปข้างบน
-                                    }
-
-                                    if (idCardElement.value) {
-                                        idCardLabelElement.classList.add('translate-y-[-30%]', 'scale-75'); // ย้าย label ไปข้างบน
-                                    }
-
-                                    if (expiryDateElement.value) {
-                                        expiryDateLabelElement.classList.add('translate-y-[-30%]', 'scale-75'); // ย้าย label ไปข้างบน
-                                    }
-                                }
-
-                                // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
-                                window.onload = checkInitialValue;
-                            </script> --}}
-
-
-
-
-
-
-                                                            <!-- Prefix Dropdown -->
-                                {{-- <div class="relative">
-                                    <select id="prefix" name="prefix" onfocus="moveLabel('prefix')" onblur="checkInput('prefix')"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
-                                        required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')" oninput="this.setCustomValidity('')">
-                                        <option value="{{ $customer->prefix }}">{{ $customer->prefix }}</option>
-                                        <option value="นาย">นาย</option>
-                                        <option value="นาง">นาง</option>
-                                        <option value="นางสาว">นางสาว</option>
-                                    </select>
-
-                                    <label for="prefix"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                         คำนำหน้า
-                                    </label>
-                                </div> --}}
-
-
-
-
-                                {{-- data-id="{{ $customer->id }}" --}}
-
-
-
-
-
-
-
-
-
-
-
-
-                                
-
-                                {{-- @if ($customer)
-    <!-- ชื่อ-นามสกุล -->
-    <div class="mb-6">
-        <div class="flex items-center mb-2">
-            <i class="fa-regular fa-user mr-4 text-orange-700"></i>
-            <div class="text-gray-500 font-semibold text-sm">ชื่อ-นามสกุล</div>
-        </div>
-        <div class="ml-8 text-gray-400 text-sm">
-            {{ $customer->prefix }} {{ $customer->first_name }} {{ $customer->last_name }}
-        </div>
-    </div>
-
-    <div class="mb-6">
-        <div class="flex items-center mb-2">
-            <i class="fa-solid fa-address-card mr-4 text-orange-700"></i>
-            <div class="text-gray-500 font-semibold text-sm">เลขประจำตัวประชาชน</div>
-        </div>
-        <div class="ml-8 text-gray-400 text-sm">
-            {{ $customer->id_card_number }}
-        </div>
-    </div>
-
-    <div class="mb-6">
-        <div class="flex items-center mb-2">
-            <i class="fa-solid fa-phone mr-4 text-orange-700"></i>
-            <div class="text-gray-500 font-semibold text-sm">เบอร์ติดต่อ</div>
-        </div>
-        <div class="ml-8 text-gray-400 text-sm">
-            {{ $customer->phone }}
-        </div>
-    </div>
-
-    <h2 class="text-sm font-bold mb-4 text-gray-500">General Information</h2>
-    <!-- วันที่เข้าระบบ -->
-    <div class="mb-6">
-        <div class="flex items-center mb-2">
-            <i class="fa-solid fa-calendar-day mr-4 text-orange-700"></i>
-            <div class="text-gray-500 font-semibold text-sm">วันที่เข้าระบบ</div>
-        </div>
-        <div class="ml-8 text-gray-400 text-sm">
-            {{ $customer->created_at }}
-        </div>
-    </div>
-
-    <!-- ผู้ลงบันทึก -->
-    <div class="mb-6">
-        <div class="flex items-center mb-2">
-            <i class="fa-solid fa-user mr-4 text-orange-700"></i>
-            <div class="text-gray-500 font-semibold text-sm">ผู้ลงบันทึก</div>
-        </div>
-        <div class="ml-8 text-gray-400 text-sm">
-            {{-- {{ 'Tester System' }} --}} -
-        </div>
-    </div>
-@else
-    <div class="text-red-500 text-lg font-bold">ไม่มีข้อมูลลูกค้า</div>
-@endif --}}
+        // เรียกฟังก์ชันเพื่อดึงข้อมูลเมื่อโหลดหน้า
+        fetchCareerData();
+    });
+</script> --}}
