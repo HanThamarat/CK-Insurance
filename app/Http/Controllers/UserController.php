@@ -9,11 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     // // ฟังก์ชันสำหรับแสดงข้อมูลผู้ใช้
-    // public function index()
-    // {
-    //     $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมด
-    //     return view('UserManagement.index', compact('users')); // ส่งข้อมูลไปยัง view
-    // }
+
 
     public function index(Request $request)
     {
@@ -25,27 +21,6 @@ class UserController extends Controller
 
         return view('UserManagement.index', compact('users'));
     }
-
-    public function fetchData(Request $request)
-    {
-        $rowsPerPage = $request->input('rowsPerPage', 10); // รับจำนวนแถวจาก request
-        $users = User::paginate($rowsPerPage); // ดึงข้อมูลผู้ใช้ตามจำนวนแถว
-
-        // เตรียมข้อมูลที่จำเป็นสำหรับการแสดงผลในหน้า
-        $data = [
-            'data' => $users->items(), // ข้อมูลผู้ใช้
-            'links' => [
-                'current_page' => $users->currentPage(),
-                'last_page' => $users->lastPage(),
-                'per_page' => $users->perPage(),
-                'total' => $users->total(),
-            ],
-        ];
-
-        return response()->json($data); // ส่งข้อมูลในรูปแบบ JSON
-    }
-
-
 
 
     // ฟังก์ชันสำหรับสร้างผู้ใช้ใหม่
@@ -114,6 +89,43 @@ class UserController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function fetchData(Request $request)
+    // {
+    //     $rowsPerPage = $request->input('rowsPerPage', 10); // รับจำนวนแถวจาก request
+    //     $users = User::paginate($rowsPerPage); // ดึงข้อมูลผู้ใช้ตามจำนวนแถว
+
+    //     // เตรียมข้อมูลที่จำเป็นสำหรับการแสดงผลในหน้า
+    //     $data = [
+    //         'data' => $users->items(), // ข้อมูลผู้ใช้
+    //         'links' => [
+    //             'current_page' => $users->currentPage(),
+    //             'last_page' => $users->lastPage(),
+    //             'per_page' => $users->perPage(),
+    //             'total' => $users->total(),
+    //         ],
+    //     ];
+
+    //     return response()->json($data); // ส่งข้อมูลในรูปแบบ JSON
+    // }
+
+
+    
     // public function fetchUsers()
     // {
     //     // ดึงข้อมูลผู้ใช้ทั้งหมด
@@ -132,5 +144,11 @@ class UserController extends Controller
     //         'status' => 'success',
     //         'data' => $users
     //     ]);
+    // }
+
+        // public function index()
+    // {
+    //     $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมด
+    //     return view('UserManagement.index', compact('users')); // ส่งข้อมูลไปยัง view
     // }
 }

@@ -2,8 +2,8 @@
 
 
 @section('content')
-    <div class="container mx-auto p-4 mt-[-20]">
-        <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+    <div class="container mx-auto p-4 mt-[-10]">
+        <div class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
             <div id="modalHeader" class="bg-white sticky top-0 z-10 p-5 w-full transition-shadow duration-300">
                 <h2 class="text-lg font-bold mb-3 flex justify-between items-center">
                     ข้อมูลผู้ใช้งานระบบ
@@ -22,7 +22,7 @@
 
             <!-- Dropdown สำหรับเลือกจำนวนข้อมูลต่อหน้า -->
             <div class="mb-4">
-                <label for="rowsPerPage" class="block mb-2">Rows per page:</label>
+                <label for="rowsPerPage" class="block mb-2" id="row_per_page">Rows per page:</label>
                 <select id="rowsPerPage"
                     class="border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 rounded-md shadow-sm"
                     onchange="fetchUsers()">
@@ -32,7 +32,6 @@
                     <option value="100">100</option>
                 </select>
             </div>
-
 
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200 text-sm" id="customersTable">
@@ -90,64 +89,9 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        function fetchUsers() {
-            const rowsPerPage = $('#rowsPerPage').val(); // รับค่าจาก dropdown
 
-            $.ajax({
-                url: '{{ route('users.fetchData') }}', // URL สำหรับ AJAX
-                type: 'GET',
-                data: {
-                    rowsPerPage: rowsPerPage, // ส่งจำนวนแถวที่เลือก
-                },
-                success: function(response) {
-                    const users = response.data; // ข้อมูลผู้ใช้
-                    const pagination = response.links; // ข้อมูล pagination
 
-                    // ล้างตารางเดิม
-                    $('#usersTableBody').empty();
-
-                    // เพิ่มข้อมูลผู้ใช้ใหม่ในตาราง
-                    users.forEach(user => {
-                        $('#usersTableBody').append(`
-                            <tr class="text-center">
-                                <td class="px-4 py-2">${user.id}</td>
-                                <td class="px-4 py-2">${user.name}</td>
-                                <td class="px-4 py-2">${user.username}</td>
-                                <td class="px-4 py-2">${user.email}</td>
-                                <td class="px-4 py-2">${user.phone}</td>
-                                <td class="px-4 py-2">${user.status ? 'Active' : 'Inactive'}</td>
-                                <td class="px-4 py-2">
-                                    <a href="/users/${user.id}/edit" class="text-blue-500">Edit</a>
-                                    <form action="/users/${user.id}" method="POST" class="inline-block">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="text-red-500">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        `);
-                    });
-
-                    // ปรับปรุง pagination
-                    $('#pagination').html(`
-                        <div class="flex justify-between">
-                            <button onclick="fetchUsers(${pagination.current_page - 1})" ${pagination.current_page === 1 ? 'disabled' : ''}>Previous</button>
-                            <span>Page ${pagination.current_page} of ${pagination.last_page}</span>
-                            <button onclick="fetchUsers(${pagination.current_page + 1})" ${pagination.current_page === pagination.last_page ? 'disabled' : ''}>Next</button>
-                        </div>
-                    `);
-                }
-            });
-        }
-
-        // เรียกฟังก์ชัน fetchUsers เมื่อต้องการโหลดข้อมูลเริ่มต้น
-        $(document).ready(function() {
-            fetchUsers(); // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
-        });
-    </script>
 
 
 

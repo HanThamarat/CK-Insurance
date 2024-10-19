@@ -56,7 +56,8 @@
         <!-- Right Section: Notes -->
         <div class="flex flex-col mt-[-1]">
             <strong class="text-gray-8005">หมายเหตุ :</strong>
-            <textarea class="mt-1 w-full border border-orange-500  text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
+            <textarea
+                class="mt-1 w-full border border-orange-500  text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
                 rows="5">{{ $customer->note ?? 'ยังไม่มีหมายเหตุ' }}</textarea>
         </div>
 
@@ -119,7 +120,8 @@
                 <!-- ส่วนที่แสดงข้อมูล -->
                 <div class="flex flex-col items-center mt-4 address-master">
                     <div class="shadow-effect">
-                        <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce" alt="Out of Stock">
+                        <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce"
+                            alt="Out of Stock">
                     </div>
                     <p class="mt-4 text-gray-600 text-center">ยังไม่มีข้อมูลที่อยู่ลูกค้านี้</p>
 
@@ -129,13 +131,16 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
                         </svg>
                         เพิ่มที่อยู่
-                    </button>--}}
+                    </button> --}}
                 </div>
 
-                <div class="flex justify-center mt-4">
-                    <button id="addAddressButton" class="flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                <div class="flex justify-center mt-0">
+                    <button id="addAddressButton"
+                        class="flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
                         </svg>
                         เพิ่มที่อยู่
@@ -150,15 +155,15 @@
             <div class="grid grid-cols-1 gap-4 text-sm text-gray-600">
                 <div class="flex flex-col">
                     <strong hidden class="text-gray-800">อาชีพ:</strong>
-                    <span hidden >{{ $customer->occupation ?? '-' }}</span>
+                    <span hidden>{{ $customer->occupation ?? '-' }}</span>
                 </div>
                 <div class="flex flex-col">
                     <strong hidden class="text-gray-800">ตำแหน่ง:</strong>
-                    <span hidden >{{ $customer->position ?? '-' }}</span>
+                    <span hidden>{{ $customer->position ?? '-' }}</span>
                 </div>
                 <div class="flex flex-col">
                     <strong hidden class="text-gray-800">บริษัท:</strong>
-                    <span hidden >{{ $customer->company ?? '-' }}</span>
+                    <span hidden>{{ $customer->company ?? '-' }}</span>
                 </div>
 
 
@@ -168,129 +173,143 @@
                     <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
                 </div>
 
-                <div class="flex flex-col items-center mt-4 mastery">
+                <div class="flex flex-col items-center mt-4 career-master">
                     <div class="shadow-effect">
-                        <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce" alt="Out of Stock">
+                        <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce"
+                            alt="Out of Stock">
                     </div>
                     <p class="mt-4 text-gray-600 text-center">ยังไม่มีข้อมูลที่อยู่ลูกค้านี้</p>
 
-                    <button id="addCareerButton" class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                    {{-- <button id="addCareerButton" class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
                         </svg>
                         เพิ่มอาชีพ
+                    </button> --}}
+                </div>
+                <div class="flex justify-center mt-0">
+                    <button id="addCareerButton"
+                        class="mt-0 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 22V12h6v10" />
+                        </svg>
+                        เพิ่มอาชีพ
                     </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-@include('components.content-cus.Modal-Edit-Cus')
-@include('components.content-cus.Modal_address')
-@include('components.content-cus.Modal_Career')
+    @include('components.content-cus.Modal-Edit-Cus')
+    @include('components.content-cus.Modal_address')
+    @include('components.content-cus.Modal_Career')
 
-<script src="{{ URL::asset('assets/libs/jquery.js') }}"></script>
-<!-- Script for Tabs -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initial setup for active tab from localStorage
-        function setInitialActiveTab() {
-            const activeTab = localStorage.getItem('activeTab');
-            const defaultTab = 'address-info'; // Default tab if no value is found
+    <script src="{{ URL::asset('assets/libs/jquery.js') }}"></script>
+    <!-- Script for Tabs -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial setup for active tab from localStorage
+            function setInitialActiveTab() {
+                const activeTab = localStorage.getItem('activeTab');
+                const defaultTab = 'address-info'; // Default tab if no value is found
 
-            // Remove 'active' class from all tab links and hide all tab panes
-            document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('border-b-2',
-                'border-orange-500', 'text-orange-500'));
-            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+                // Remove 'active' class from all tab links and hide all tab panes
+                document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('border-b-2',
+                    'border-orange-500', 'text-orange-500'));
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
 
-            // Show the active tab or default tab
-            const activeTabId = activeTab || defaultTab;
-            document.querySelector(`a[data-tab="${activeTabId}"]`).classList.add('border-b-2',
-                'border-orange-500', 'text-orange-500');
-            document.querySelector(`#${activeTabId}`).classList.remove('hidden');
-        }
+                // Show the active tab or default tab
+                const activeTabId = activeTab || defaultTab;
+                document.querySelector(`a[data-tab="${activeTabId}"]`).classList.add('border-b-2',
+                    'border-orange-500', 'text-orange-500');
+                document.querySelector(`#${activeTabId}`).classList.remove('hidden');
+            }
 
-        setInitialActiveTab();
+            setInitialActiveTab();
 
-        // Tab click event
-        document.querySelectorAll('.tab-link').forEach(tabLink => {
-            tabLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const tabId = this.getAttribute('data-tab');
+            // Tab click event
+            document.querySelectorAll('.tab-link').forEach(tabLink => {
+                tabLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
 
-                // Hide all tab panes and remove 'active' class from all tab links
-                document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.add(
-                    'hidden'));
-                document.querySelectorAll('.tab-link').forEach(link => link.classList.remove(
-                    'border-b-2', 'border-orange-500', 'text-orange-500'));
+                    // Hide all tab panes and remove 'active' class from all tab links
+                    document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.add(
+                        'hidden'));
+                    document.querySelectorAll('.tab-link').forEach(link => link.classList.remove(
+                        'border-b-2', 'border-orange-500', 'text-orange-500'));
 
-                // Show the selected tab pane and add 'active' class to the clicked tab link
-                document.querySelector(`#${tabId}`).classList.remove('hidden');
-                this.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+                    // Show the selected tab pane and add 'active' class to the clicked tab link
+                    document.querySelector(`#${tabId}`).classList.remove('hidden');
+                    this.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
 
-                // Save the active tab in localStorage
-                localStorage.setItem('activeTab', tabId);
+                    // Save the active tab in localStorage
+                    localStorage.setItem('activeTab', tabId);
+                });
             });
         });
-    });
-</script>
+    </script>
 
 
 
-<style>
-    @keyframes slow-bounce {
+    <style>
+        @keyframes slow-bounce {
 
-        0%,
-        100% {
-            transform: translateY(0);
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(0.3rem);
+                /* ปรับความสูงที่ต้องการ */
+            }
         }
 
-        50% {
-            transform: translateY(0.3rem);
-            /* ปรับความสูงที่ต้องการ */
+        .slow-bounce {
+            animation: slow-bounce 1s ease-in-out infinite;
+            /* ปรับเวลาที่ต้องการ */
         }
-    }
 
-    .slow-bounce {
-        animation: slow-bounce 1s ease-in-out infinite;
-        /* ปรับเวลาที่ต้องการ */
-    }
+        /* เงากระทบพื้น */
+        .shadow-effect {
+            position: relative;
+        }
 
-    /* เงากระทบพื้น */
-    .shadow-effect {
-        position: relative;
-    }
-
-    .shadow-effect::after {
-        content: '';
-        position: absolute;
-        bottom: -15px;
-        /* ปรับระยะห่างจากรูปภาพ */
-        left: 0;
-        right: 0;
-        height: 10px;
-        /* ความสูงของเงา */
-        background: rgba(0, 0, 0, 0.2);
-        /* สีและความโปร่งใสของเงา */
-        border-radius: 50%;
-        /* ทำให้เงากลมมน */
-        transform: scaleX(0);
-        /* เริ่มต้นด้วยการซ่อน */
-        animation: shadow-animation 1s ease-in-out infinite;
-        /* ใช้การเคลื่อนไหว */
-    }
-
-    @keyframes shadow-animation {
-
-        0%,
-        100% {
+        .shadow-effect::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            /* ปรับระยะห่างจากรูปภาพ */
+            left: 0;
+            right: 0;
+            height: 10px;
+            /* ความสูงของเงา */
+            background: rgba(0, 0, 0, 0.2);
+            /* สีและความโปร่งใสของเงา */
+            border-radius: 50%;
+            /* ทำให้เงากลมมน */
             transform: scaleX(0);
-            /* เริ่มต้นและจบด้วยการซ่อน */
+            /* เริ่มต้นด้วยการซ่อน */
+            animation: shadow-animation 1s ease-in-out infinite;
+            /* ใช้การเคลื่อนไหว */
         }
 
-        50% {
-            transform: scaleX(1);
-            /* ขยายเงาในกลางการเด้ง */
+        @keyframes shadow-animation {
+
+            0%,
+            100% {
+                transform: scaleX(0);
+                /* เริ่มต้นและจบด้วยการซ่อน */
+            }
+
+            50% {
+                transform: scaleX(1);
+                /* ขยายเงาในกลางการเด้ง */
+            }
         }
-    }
-</style>
+    </style>

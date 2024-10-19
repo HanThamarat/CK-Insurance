@@ -62,29 +62,29 @@
                                                             <div class="card-body">
                                                                 <input type="hidden" name="DataCus_id" value="${address.DataCus_id}">
                                                                 <h5 class="card-title">
-                                                                    <i class="fa fa-map-marker-alt text-primary"></i> <strong>ที่อยู่ : </strong> ${houseNumber}
+                                                                    <i class="fa fa-map-marker-alt text-primary"></i> <strong>ที่อยู่ :  ${houseNumber} </strong>
                                                                 </h5>
                                                                 <p class="card-text">
-                                                                    <i class="fa fa-home text-success"></i> <strong>หมู่บ้าน : </strong> ${village}
+                                                                    <i class="fa fa-home text-success"></i> <strong>หมู่บ้าน :  ${village} </strong>
                                                                 </p>
                                                                 <div class="d-flex justify-content-between">
                                                                     <p class="card-text mb-0">
-                                                                        <i class="fa fa-city text-info"></i> <strong>จังหวัด : </strong> ${province}
+                                                                        <i class="fa fa-city text-info"></i> <strong>จังหวัด :  ${province} </strong>
                                                                     </p>
                                                                     <p class="card-text mb-0">
-                                                                        <i class="fa fa-map-signs text-warning"></i> <strong>อำเภอ : </strong> ${district}
+                                                                        <i class="fa fa-map-signs text-warning"></i> <strong>อำเภอ :  ${district} </strong>
                                                                     </p>
                                                                     <p class="card-text mb-0">
-                                                                        <i class="fa fa-map-marker text-info"></i> <strong>ตำบล : </strong> ${tambon}
+                                                                        <i class="fa fa-map-marker text-info"></i> <strong>ตำบล :  ${tambon} </strong>
                                                                     </p>
                                                                 </div>
 
                                                                 <p class="card-text">
-                                                                    <i class="fa fa-envelope text-warning"></i> <strong>รหัสไปรษณีย์ : </strong> ${postalCode}
+                                                                    <i class="fa fa-envelope text-warning"></i> <strong>รหัสไปรษณีย์ :  ${postalCode} </strong>
                                                                 </p>
 
                                                                 <p class="card-text">
-                                                                    <i class="fa fa-map text-primary"></i> <strong>โซนบ้าน : </strong> ${houseZone}
+                                                                    <i class="fa fa-map text-primary"></i> <strong>โซนบ้าน :  ${houseZone} </strong>
                                                                 </p>
                                                             </div>
                                                         </div>
