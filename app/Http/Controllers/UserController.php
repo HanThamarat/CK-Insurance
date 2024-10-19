@@ -8,12 +8,45 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    // ฟังก์ชันสำหรับแสดงข้อมูลผู้ใช้
-    public function index()
+    // // ฟังก์ชันสำหรับแสดงข้อมูลผู้ใช้
+    // public function index()
+    // {
+    //     $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมด
+    //     return view('UserManagement.index', compact('users')); // ส่งข้อมูลไปยัง view
+    // }
+
+    public function index(Request $request)
     {
-        $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมด
-        return view('UserManagement.index', compact('users')); // ส่งข้อมูลไปยัง view
+        // รับจำนวน rows per page จาก request หรือใช้ค่าเริ่มต้นเป็น 10
+        $rowsPerPage = $request->input('rowsPerPage', 10);
+
+        // ดึงข้อมูลผู้ใช้ทั้งหมดพร้อม pagination
+        $users = User::paginate($rowsPerPage);
+
+        return view('UserManagement.index', compact('users'));
     }
+
+    public function fetchData(Request $request)
+    {
+        $rowsPerPage = $request->input('rowsPerPage', 10); // รับจำนวนแถวจาก request
+        $users = User::paginate($rowsPerPage); // ดึงข้อมูลผู้ใช้ตามจำนวนแถว
+
+        // เตรียมข้อมูลที่จำเป็นสำหรับการแสดงผลในหน้า
+        $data = [
+            'data' => $users->items(), // ข้อมูลผู้ใช้
+            'links' => [
+                'current_page' => $users->currentPage(),
+                'last_page' => $users->lastPage(),
+                'per_page' => $users->perPage(),
+                'total' => $users->total(),
+            ],
+        ];
+
+        return response()->json($data); // ส่งข้อมูลในรูปแบบ JSON
+    }
+
+
+
 
     // ฟังก์ชันสำหรับสร้างผู้ใช้ใหม่
     public function store(Request $request)
@@ -78,4 +111,26 @@ class UserController extends Controller
         User::destroy($id);
         return response()->json(['success' => 'User deleted successfully.']);
     }
+
+
+
+    // public function fetchUsers()
+    // {
+    //     // ดึงข้อมูลผู้ใช้ทั้งหมด
+    //     $users = User::all();
+
+    //     // ตรวจสอบว่ามีข้อมูลผู้ใช้หรือไม่
+    //     if ($users->isEmpty()) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'No users found.'
+    //         ]);
+    //     }
+
+    //     // ส่งข้อมูลกลับในรูปแบบ JSON
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'data' => $users
+    //     ]);
+    // }
 }

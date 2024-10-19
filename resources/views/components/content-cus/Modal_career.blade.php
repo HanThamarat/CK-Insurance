@@ -36,7 +36,7 @@
                             class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                             <div class="form-check">
                                 <input class="form-check-input text-lg" type="radio" value="กำหนดเป็นอาชีพหลัก"
-                                    name="Type_Career" id="adds-0">
+                                    name="Career_cus" id="adds-0">
                                 <label class="form-check-label text-base text-gray-700" for="adds-0">
                                     กำหนดเป็นอาชีพหลัก
                                 </label>
@@ -46,7 +46,7 @@
                             class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                             <div class="form-check">
                                 <input class="form-check-input text-lg" type="radio" value="กำหนดเป็นอาชีพรอง"
-                                    name="Type_Career" id="adds-1">
+                                    name="Career_cus" id="adds-1">
                                 <label class="form-check-label text-base text-gray-700" for="adds-1">
                                     กำหนดเป็นอาชีพรอง
                                 </label>
@@ -228,7 +228,7 @@
         $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', true);
 
         // Enable fields when a radio button is checked
-        $('input[name="Type_Career"]').change(function() {
+        $('input[name="Career_cus"]').change(function() {
             if ($(this).is(':checked')) {
                 $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled',
                     false);
@@ -236,8 +236,8 @@
         });
 
         // Optional: If you want to disable again if both radio buttons are unchecked
-        $('input[name="Type_Career"]').on('change', function() {
-            if (!$('input[name="Type_Career"]:checked').length) {
+        $('input[name="Career_cus"]').on('change', function() {
+            if (!$('input[name="Career_cus"]:checked').length) {
                 $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', true);
             }
         });

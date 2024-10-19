@@ -72,6 +72,7 @@ Route::get('/customer/{id}/addresses', [CustomerController::class, 'DataCusAddre
 
 // USER
 Route::resource('users', UserController::class);
+Route::get('/users/data', [UserController::class, 'fetchData'])->name('users.fetchData');
 
 
 
@@ -107,6 +108,19 @@ Route::get('/get-career-data', [CustomerController::class, 'getCareerData']);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('/users', [UserController::class, 'index'])->name('users.fetch');
 
 
 // Route::resource('users', UserController::class);
