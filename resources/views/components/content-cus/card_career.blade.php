@@ -50,10 +50,20 @@
                                             <small class="text-muted">
                                                 <div class="flex justify-between items-center">
                                                     <div title="${career.created_at}">
-                                                        <i class="fas fa-clock"></i> ${new Date(career.created_at).toLocaleDateString()} <!-- แสดงวันที่ในรูปแบบที่เข้าใจได้ -->
+                                                        <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ
+                                                        ${new Date(career.created_at).toLocaleDateString('th-TH', {
+                                                            day: 'numeric',
+                                                            month: 'long',
+                                                            year: 'numeric'
+                                                        })} เวลา ${new Date(career.created_at).toLocaleTimeString('th-TH', {
+                                                            hour: '2-digit',
+                                                            minute: '2-digit',
+                                                            hour12: false // ใช้ 24 ชั่วโมง
+                                                        })} น.
                                                     </div>
+
                                                     <div class="text-right">
-                                                        <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i> ${career.UserInsert}</p>
+                                                        <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p>
                                                     </div>
                                                 </div>
                                             </small>

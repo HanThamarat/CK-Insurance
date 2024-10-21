@@ -109,7 +109,7 @@
                                             <small class="text-muted">
                                                 <div class="flex justify-between items-center">
                                                     <div title="4 เดือนที่แล้ว">
-                                                        <i class="fas fa-clock"></i> ${address.created_at}
+                                                        <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ {{ \Carbon\Carbon::parse($customer->created_at)->locale('th')->translatedFormat('j F Y เวลา H:i น.') }}
                                                     </div>
                                                     <div class="text-right">
                                                         <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p> <!-- ใช้ Font Awesome -->

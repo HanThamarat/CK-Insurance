@@ -1,51 +1,52 @@
 <!-- Customer Modal -->
 @section('content')
 
-<div id="customerModal" class="fixed inset-0 flex justify-center items-center z-50 hidden mt-[-300]">
-    <div class="bg-white rounded-lg shadow-lg p-0 w-full max-w-[90%] max-h-[90vh] overflow-y-scroll"
-        style="overflow-y: scroll; scrollbar-width: none;" id="modalContent">
+    <div id="customerModal" class="fixed inset-0 flex justify-center items-center z-50 hidden mt-[-300]">
+        <div class="bg-white rounded-lg shadow-lg p-0 w-full max-w-[90%] max-h-[90vh] overflow-y-scroll"
+            style="overflow-y: scroll; scrollbar-width: none;" id="modalContent">
 
-        <!-- Header ที่ sticky -->
-        <div id="modalHeader" class="bg-white sticky top-0 z-10 p-5 w-full transition-shadow duration-300">
-            <h2 class="text-lg font-bold mb-3 flex justify-between items-center">
-                ข้อมูลลูกค้า
-                <!-- ปุ่มกากบาท (X) สำหรับปิด -->
-                <button type="button" id="closeModal_x" class="text-gray-500 hover:text-gray-700" aria-label="Close">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </h2>
+            <!-- Header ที่ sticky -->
+            <div id="modalHeader" class="bg-white sticky top-0 z-10 p-5 w-full transition-shadow duration-300">
+                <h2 class="text-lg font-bold mb-3 flex justify-between items-center">
+                    ข้อมูลลูกค้า
+                    <!-- ปุ่มกากบาท (X) สำหรับปิด -->
+                    <button type="button" id="closeModal_x" class="text-gray-500 hover:text-gray-700" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </h2>
 
-            <div class="flex items-center mb-0">
-                <div class="flex-shrink-0 mr-4">
-                    <img src="{{ asset('img/icon_cus.gif') }}" alt="report" class="w-12 h-12">
-                </div>
-                <div class="flex-grow">
-                    <h5 class="text-primary font-semibold">ค้นหาลูกค้า / ข้อมูลลูกค้า</h5>
-                    <p class="text-gray-500 -mt-1 font-semibold text-xs">( Search Data informations )</p>
-                    <p class="border-b border-primary mt-2"></p>
+                <div class="flex items-center mb-0">
+                    <div class="flex-shrink-0 mr-4">
+                        <img src="{{ asset('img/icon_cus.gif') }}" alt="report" class="w-12 h-12">
+                    </div>
+                    <div class="flex-grow">
+                        <h5 class="text-primary font-semibold">ค้นหาลูกค้า / ข้อมูลลูกค้า</h5>
+                        <p class="text-gray-500 -mt-1 font-semibold text-xs">( Search Data informations )</p>
+                        <p class="border-b border-primary mt-2"></p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <script>
-            // เพิ่มฟังก์ชันสำหรับตรวจสอบการเลื่อน
-            const modalContent = document.getElementById('modalContent');
-            const modalHeader = document.getElementById('modalHeader');
+            <script>
+                // เพิ่มฟังก์ชันสำหรับตรวจสอบการเลื่อน
+                const modalContent = document.getElementById('modalContent');
+                const modalHeader = document.getElementById('modalHeader');
 
-            modalContent.addEventListener('scroll', () => {
-                // ตรวจสอบว่าเลื่อนลงไปมากกว่า 0 หรือไม่
-                if (modalContent.scrollTop > 0) {
-                    modalHeader.classList.add('shadow-md');
-                    modalHeader.classList.remove('top-[-45]'); // ลบ top-[-30] เมื่อเลื่อน
-                } else {
-                    modalHeader.classList.remove('shadow-md');
-                    modalHeader.classList.add('top-[-1]'); // เพิ่ม top-[-19] กลับคืนเมื่ออยู่ที่ด้านบน
-                }
-            });
-        </script>
+                modalContent.addEventListener('scroll', () => {
+                    // ตรวจสอบว่าเลื่อนลงไปมากกว่า 0 หรือไม่
+                    if (modalContent.scrollTop > 0) {
+                        modalHeader.classList.add('shadow-md');
+                        modalHeader.classList.remove('top-[-45]'); // ลบ top-[-30] เมื่อเลื่อน
+                    } else {
+                        modalHeader.classList.remove('shadow-md');
+                        modalHeader.classList.add('top-[-1]'); // เพิ่ม top-[-19] กลับคืนเมื่ออยู่ที่ด้านบน
+                    }
+                });
+            </script>
 
 
 
@@ -297,11 +298,18 @@
                                         <i class="fas fa-edit mr-1"></i> Edit
                                     </a>-->
 
-                                    <a href="#"
+                                    <!--<a href="#"
                                     data-id="${customer.id}"
                                     class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-orange-500 hover:bg-orange-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg"
                                     onclick="fetchCustomerData(${customer.id})">
                                         <i class="fas fa-edit mr-1"></i> Edit
+                                    </a>-->
+
+                                    <a href="#"
+                                        data-id="${customer.id}"
+                                        class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-orange-500 hover:bg-orange-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg"
+                                        onclick="fetchCustomerData(${customer.id})">
+                                            <i class="fas fa-edit mr-1"></i> Edit
                                     </a>
 
                                 </div>
@@ -463,3 +471,7 @@
             }
         });
     </script>
+
+
+
+

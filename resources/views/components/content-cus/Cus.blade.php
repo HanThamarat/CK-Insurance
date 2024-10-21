@@ -1,12 +1,10 @@
 @extends('layouts.app')
-{{-- @extends('components.content-cus.Modal-Edit-Cus') --}}
 
 <!-- เพิ่ม jQuery CDN ก่อนสคริปต์ของคุณ -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 @section('content')
-    {{-- @include('components.content-cus.script-cus') --}}
     @include('components.content-cus.component_js')
     @include('components.content-cus.component_css')
     <div class="max-w-7xl mx-auto p-5 bg-white rounded-lg shadow-md flex justify-center items-center mb-[100px]">
@@ -59,6 +57,9 @@
                         <div class="space-y-4">
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+
+
                                 <!-- Prefix Dropdown -->
                                 <div class="relative">
                                     <select id="prefix" name="prefix" onfocus="moveLabel('prefix')" onblur="checkInput('prefix')"
@@ -195,6 +196,20 @@
                                     <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
                                 </div>
 
+                                <div class="relative">
+                                    <input type="text" id="birthday" name="birthday"
+                                        class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                        placeholder=" " required onfocus="moveLabel('birthday')" onblur="checkInput('birthday')"
+                                        oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
+                                        oninput="this.setCustomValidity('')">
+                                    <label for="birthday"
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        วันเกิด
+                                    </label>
+
+                                    <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
+                                </div>
+
 
                                 <div class="relative">
                                     <input type="text" id="age" name="age" readonly
@@ -209,16 +224,9 @@
                                 </div>
 
 
-                                <!-- Gender Dropdown -->
-                                {{-- <div class="relative">
-                                    <select id="gender" name="gender"
-                                        class=" text-gray-500 p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0">
-                                        <option value=""> -----เพศ----- </option>
-                                        <option value="ชาย">ชาย</option>
-                                        <option value="หญิง">หญิง</option>
-                                    </select>
-                                </div> --}}
+                            </div>
 
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                                 <div class="relative">
                                     <select id="gender" name="gender" onfocus="moveLabel('gender')" onblur="checkInput('gender')"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
@@ -232,18 +240,6 @@
                                         เพศ
                                     </label>
                                 </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                                <!-- Nationality Dropdown -->
-                                {{-- <div class="relative">
-                                    <select id="nationality" name="nationality"
-                                        class=" text-gray-500 p-2 border border-gray-300 rounded-lg w-full text-sm focus:outline-none focus:border-orange-600 focus:ring-0">
-                                        <option value="">สัญชาติ</option>
-                                        <option value="ไทย">ไทย</option>
-                                        <!-- Add more options as needed -->
-                                    </select>
-                                </div> --}}
 
                                 <div class="relative">
                                     <select id="nationality" name="nationality" onfocus="moveLabel('nationality')" onblur="checkInput('nationality')"
@@ -275,6 +271,9 @@
                                 </div>
 
 
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+
                                 <div class="relative">
                                     <select id="driving_license" name="driving_license" onfocus="moveLabel('driving_license')" onblur="checkInput('driving_license')"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
@@ -288,10 +287,6 @@
                                         ใบขับขี่
                                     </label>
                                 </div>
-
-
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 
                                 <div class="relative">
                                     <input type="text" id="facebook" name="facebook"
@@ -321,20 +316,6 @@
                                     <i class="fa-brands fa-line absolute right-3 top-3 text-green-600 text-md"></i>
                                 </div>
 
-                                {{-- <div class="relative">
-                                    <input type="text" id="occupation" name="occupation"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel_occupation()"
-                                        onblur="checkInput_occupation()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอก Line ID')"
-                                        oninput="this.setCustomValidity('')">
-                                    <label for="occupation"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        อาชีพ
-                                    </label>
-                                </div> --}}
-
-
                             </div>
 
 
@@ -359,51 +340,6 @@
                                     สถานะสมรส
                                 </label>
                             </div>
-
-                            {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <!-- Prefix Dropdown -->
-
-
-                                <div class="relative">
-                                    <input type="text" id="district" name="district"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel_district()" onblur="checkInput_district()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
-                                        oninput="this.setCustomValidity('')">
-                                    <label for="district"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        ที่อยู่ (ตำบล)
-                                    </label>
-                                </div>
-
-
-
-                                <div class="relative">
-                                    <input type="text" id="amphor" name="amphor"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
-                                        placeholder=" " required onfocus="moveLabel_amphor()" onblur="checkInput_amphor()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
-                                        oninput="this.setCustomValidity('')">
-                                    <label for="amphor"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
-                                        ที่อยู่ (อำเภอ)
-                                    </label>
-                                </div>
-
-
-                                <div class="relative">
-                                    <input type="text" id="province" name="province"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
-                                        placeholder=" " required onfocus="moveLabel_province()" onblur="checkInput_province()"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
-                                        oninput="this.setCustomValidity('')">
-                                    <label for="province"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
-                                        ที่อยู่ (จังหวัด)
-                                    </label>
-                                </div>
-                            </div> --}}
-
 
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -443,6 +379,10 @@
                                     หมายเหตุ
                                 </label>
                             </div>
+
+                            <input type="hidden" name="user_insert" value="{{ auth()->user()->name }}">
+                            <input type="hidden" name="status_cus" id="status_cus" value="active">
+                            
                         </div>
                     </div>
 
@@ -550,6 +490,15 @@
 
 
     @include('components.content-cus.preloader')
-    {{-- @include('components.content-layout.index') --}}
-    {{-- @include('data_customers.index') --}}
 @endsection
+
+
+
+
+
+
+
+
+
+{{-- @include('components.content-layout.index') --}}
+{{-- @include('data_customers.index') --}}

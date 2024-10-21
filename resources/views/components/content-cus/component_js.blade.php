@@ -16,24 +16,35 @@
             disableMobile: true,
             clickOpens: true,
             mode: 'single',
+            // Removed the onChange for dob
+        });
+
+        $('#birthday').flatpickr({
+            locale: "th",
+            dateFormat: "d/m/Y",
+            disableMobile: true,
+            clickOpens: true,
+            mode: 'single',
             onChange: function(selectedDates, dateStr, instance) {
-                // Calculate age when the date changes
+                // Calculate age when the birthday date changes
                 calculateAge(dateStr);
             }
         });
 
-        function calculateAge(dateOfBirth) {
-            // Parse the date of birth
-            const dobParts = dateOfBirth.split('/');
-            const dob = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]); // Note: month is 0-based
+        function calculateAge(birthday) {
+            // Parse the birthday
+            const birthdayParts = birthday.split('/');
+            const year = birthdayParts[2];
+            const month = birthdayParts[1] - 1; // Note: month is 0-based
+            const day = birthdayParts[0];
 
             // Get the current date
             const today = new Date();
-            let age = today.getFullYear() - dob.getFullYear();
-            const monthDifference = today.getMonth() - dob.getMonth();
+            let age = today.getFullYear() - year;
+            const monthDifference = today.getMonth() - month;
 
-            // Adjust age if the birthdate has not occurred yet this year
-            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
+            // Adjust age if the birthday has not occurred yet this year
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < day)) {
                 age--;
             }
 
@@ -46,6 +57,13 @@
                 ageLabel.hide(); // Hide label if age is calculated
             } else {
                 ageLabel.show(); // Show label if age is empty
+                // Show SweetAlert if age is 0
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ไม่สามารถกรอกข้อมูลอายุ 0 ปี',
+                    text: 'กรุณากรอกวัน เดือน ปีเกิดที่ถูกต้อง!',
+                    confirmButtonText: 'ตกลง'
+                });
             }
         }
 
@@ -55,6 +73,7 @@
         // Apply input mask for phone numbers
         $('#phone').mask('00-0000-0000'); // Format: 00-0000-0000
         $('#phone2').mask('00-0000-0000'); // Format: 000-0000-0000
+        $('#spouse_phone').mask('00-0000-0000'); // Format: 000-0000-0000
 
         // Apply input mask for expiry date (MM/YYYY)
         $('#expiry_date').mask('00/00/0000'); // Format: MM/YYYY
@@ -96,7 +115,6 @@
     .text-sm {
         font-size: 0.875rem;
     }
-
 </style>
 
 
@@ -126,6 +144,97 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- // function calculateAge(birthday) {
+    //     // Parse the birthday
+    //     const birthdayParts = birthday.split('/');
+    //     const dob = new Date(birthdayParts[2], birthdayParts[1] - 1, birthdayParts[
+    //     0]); // Note: month is 0-based
+
+    //     // Get the current date
+    //     const today = new Date();
+    //     let age = today.getFullYear() - dob.getFullYear();
+    //     const monthDifference = today.getMonth() - dob.getMonth();
+
+    //     // Adjust age if the birthday has not occurred yet this year
+    //     if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
+    //         age--;
+    //     }
+
+    //     // Set the calculated age to the age input field
+    //     $('#age').val(age);
+
+    //     // Handle age label visibility
+    //     const ageLabel = $('#age').siblings('label');
+    //     if (age > 0) {
+    //         ageLabel.hide(); // Hide label if age is calculated
+    //     } else {
+    //         ageLabel.show(); // Show label if age is empty
+    //         // Show SweetAlert if age is 0
+    //         Swal.fire({
+    //             icon: 'warning',
+    //             title: 'ไม่สามารถกรอกข้อมูลอายุ 0 ปี',
+    //             text: 'กรุณากรอกวัน เดือน ปีเกิดที่ถูกต้อง!',
+    //             confirmButtonText: 'ตกลง'
+    //         });
+    //     }
+    // } --}}
+
+
+
+{{--
+// function calculateAge(dateOfBirth) {
+    //     // Parse the date of birth
+    //     const dobParts = dateOfBirth.split('/');
+    //     const dob = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]); // Note: month is 0-based
+
+    //     // Get the current date
+    //     const today = new Date();
+    //     let age = today.getFullYear() - dob.getFullYear();
+    //     const monthDifference = today.getMonth() - dob.getMonth();
+
+    //     // Adjust age if the birthdate has not occurred yet this year
+    //     if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
+    //         age--;
+    //     }
+
+    //     // Set the calculated age to the age input field
+    //     $('#age').val(age);
+
+    //     // Handle age label visibility
+    //     const ageLabel = $('#age').siblings('label');
+    //     if (age > 0) {
+    //         ageLabel.hide(); // Hide label if age is calculated
+    //     } else {
+    //         ageLabel.show(); // Show label if age is empty
+    //     }
+    // } --}}
 {{-- <script>
     function moveLabel() {
         const input = document.getElementById('first_name');
@@ -681,8 +790,3 @@
         }
     }
 </script> --}}
-
-
-
-
-

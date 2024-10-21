@@ -32,10 +32,7 @@
 
             <!-- เนื้อหาของ modal -->
             <div class="p-2 mt-[-10]">
-                {{-- <form id="formCustomerEdit" class="space-y-6" action="{{ route('customers.update', $customer->id) }}" method="POST">
-                    @csrf <!-- เพิ่มบรรทัดนี้ -->
 
-                    <input type="hidden" id="customerId" value="{{ $customer->id }}"> --}}
 
                 <form id="formCustomerEdit" class="space-y-6">
                     @csrf <!-- เพิ่มบรรทัดนี้ -->
@@ -198,6 +195,21 @@
                                     <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
                                 </div>
 
+                                <div class="relative">
+                                    <input type="text" id="birthday" name="birthday"
+                                        class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                        placeholder=" " required onfocus="moveLabel('birthday')"
+                                        onblur="checkInput('birthday')"
+                                        oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
+                                        oninput="this.setCustomValidity('')" value="{{ $customer->birthday }}">
+                                    <label for="birthday" id="birthday-label"
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        วันออกบัตร
+                                    </label>
+
+                                    <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
+                                </div>
+
 
                                 <div class="relative">
                                     <input type="text" id="age" name="age" readonly
@@ -211,7 +223,9 @@
                                         class="absolute right-3 top-2/4 -translate-y-2/4 bg-white px-2 text-gray-500 text-sm">ปี</span>
                                 </div>
 
+                            </div>
 
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 
 
                                 <div class="relative">
@@ -228,9 +242,6 @@
                                         เพศ
                                     </label>
                                 </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 
 
                                 <div class="relative">
@@ -266,6 +277,12 @@
                                 </div>
 
 
+
+
+
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+
                                 <div class="relative">
                                     <select id="driving_license" name="driving_license"
                                         onfocus="moveLabel('driving_license')" onblur="checkInput('driving_license')"
@@ -281,10 +298,6 @@
                                         ใบขับขี่
                                     </label>
                                 </div>
-
-
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 
                                 <div class="relative">
                                     <input type="text" id="facebook" name="facebook"
@@ -379,6 +392,10 @@
                                 </label>
                             </div>
 
+
+                            <input type="hidden" name="user_insert" value="{{ auth()->user()->name }}">
+                            <input type="hidden" name="status_cus" id="status_cus" value="active">
+
                         </div>
                     </div>
 
@@ -397,7 +414,7 @@
     </div>
 </div>
 
-
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -426,10 +443,14 @@
                         icon: 'success',
                         title: 'Success!',
                         text: response.success,
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        // แสดงผลการอัปเดตบนหน้าโดยไม่ต้องรีเฟรช
-                        $('#customerProfile').html(response.updatedProfileHtml); // ปรับปรุงข้อมูลที่แสดง
+                        confirmButtonText: 'OK',
+                        timer: 5000, // ตั้งเวลา 5 วินาที
+                        timerProgressBar: true
+                    }).then((result) => {
+                        // เมื่อกด OK หรือผ่านไป 5 วินาที รีเฟรชหน้า
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                            location.reload(); // รีเฟรชหน้า
+                        }
                     });
                 },
                 error: function(xhr) {
@@ -452,9 +473,6 @@
 </script>
 
 
-
-
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <script>
     // ฟังก์ชันเพื่อตรวจสอบค่าของ label
@@ -490,6 +508,10 @@
             {
                 inputId: 'dob',
                 labelId: 'dob-label'
+            },
+            {
+                inputId: 'birthday',
+                labelId: 'birthday-label'
             },
             {
                 inputId: 'age',

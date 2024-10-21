@@ -35,7 +35,8 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])->name('customers.profile');
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
 Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
-// Route::post('/customers/update', [CustomerController::class, 'update'])->name('customers.update');
+
+
 
 Route::resource('customers', CustomerController::class);
 
@@ -87,7 +88,7 @@ Route::get('/get-career-data', [CustomerController::class, 'getCareerData']);
 
 
 
-
+Route::get('/customer/{id}', [CustomerController::class, 'showProfile']);
 
 
 
@@ -98,7 +99,7 @@ Route::get('/get-career-data', [CustomerController::class, 'getCareerData']);
 // Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
 // Route::get('customers/{id}', [CustomerController::class, 'show']);
 // Route::get('/customer/profile', [CustomerController::class, 'getCustomerProfile']);
-
+// Route::post('/customers/update', [CustomerController::class, 'update'])->name('customers.update');
 
 
 

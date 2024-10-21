@@ -9,7 +9,7 @@
 // class Customer extends Model
 // {
 //     use HasFactory;
-//     protected $table = 'customers'; 
+//     protected $table = 'customers';
 //     protected $primaryKey = 'Id';
 //     protected $fillable = [
 //         'Prefix', 'FirstName', 'LastName', 'Phone', 'Phone2', 'IDCardNumber', 'ExpiryDate',
@@ -37,6 +37,7 @@ class Customer extends Model
     protected $table = 'customers';
 
     protected $fillable = [
+        'status_cus',
         'prefix',
         'first_name',
         'last_name',
@@ -56,6 +57,8 @@ class Customer extends Model
         'spouse_name',
         'spouse_phone',
         'note',
+        'birthday',
+        'user_insert',
     ];
 
     // You can add any relationships, accessors, or mutators here if needed.
