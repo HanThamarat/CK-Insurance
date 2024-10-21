@@ -4,54 +4,66 @@
         <span class="text-sm font-semibold text-orange-500">
             <i class="fa-regular fa-user mr-2"></i>ข้อมูลลูกค้า (Customer Details)
         </span>
-        {{-- <a href="#"
-            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            data-bs-target="#Cus-modal-wrapper" data-bs-toggle="Cus-modal-wrapper" type="button" onclick="showModal()">
-            <i class="fa-solid fa-user-pen"></i>
-        </a> --}}
-
-        {{-- <a href="#"
-            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            type="button" onclick="showModal()">
-            <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
-        </a> --}}
-
         <a href="#"
             class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300"
             type="button" onclick="showModal()">
             <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
         </a>
-
-
-
-
     </div>
 
     <!-- Customer Details Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 p-4">
         <!-- Left Section: Customer Information -->
-        <div class="flex flex-col space-y-4">
-            <div class="flex justify-between items-center">
-                <strong class="text-gray-800">วันเดือนปีเกิด :</strong>
-                <span class="text-right pl-4">{{ $customer->birth_date ?? '-' }}</span>
-            </div>
-            <div class="flex justify-between items-center">
-                <strong class="text-gray-800">เพศ :</strong>
-                <span class="text-right pl-4">{{ $customer->gender ?? '-' }}</span>
-            </div>
-            <div class="flex justify-between items-center">
-                <strong class="text-gray-800">สัญชาติ :</strong>
-                <span class="text-right pl-4">{{ $customer->nationality ?? '-' }}</span>
-            </div>
-            <div class="flex justify-between items-center">
-                <strong class="text-gray-800">ศาสนา :</strong>
-                <span class="text-right pl-4">{{ $customer->religion ?? '-' }}</span>
-            </div>
-            <div class="flex justify-between items-center">
-                <strong class="text-gray-800">สถานะสมรส :</strong>
-                <span class="text-right pl-4">{{ $customer->marital_status ?? '-' }}</span>
-            </div>
-        </div>
+
+
+        <div id="customer-info-right" class="flex flex-col space-y-4"></div>
+
+        <script>
+            // แปลงข้อมูลลูกค้าเป็น JavaScript
+            var customerData = @json($customer);
+
+            // ฟังก์ชันในการแสดงข้อมูลลูกค้า
+            function displayCustomerInfo(data) {
+                // ตรวจสอบว่ามีข้อมูลหรือไม่
+                if (data) {
+                    // สร้าง HTML สำหรับข้อมูลลูกค้า
+                    const infoHTML = `
+                        <div class="flex justify-between items-center">
+                            <strong class="text-gray-800">วันเดือนปีเกิด :</strong>
+                            <span class="text-right pl-4">${data.birthday ?? '-'}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <strong class="text-gray-800">เพศ :</strong>
+                            <span class="text-right pl-4">${data.gender ?? '-'}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <strong class="text-gray-800">สัญชาติ :</strong>
+                            <span class="text-right pl-4">${data.nationality ?? '-'}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <strong class="text-gray-800">ศาสนา :</strong>
+                            <span class="text-right pl-4">${data.religion ?? '-'}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <strong class="text-gray-800">สถานะสมรส :</strong>
+                            <span class="text-right pl-4">${data.marital_status ?? '-'}</span>
+                        </div>
+                    `;
+
+                    // แสดงข้อมูลใน div ที่กำหนด
+                    document.getElementById('customer-info-right').innerHTML = infoHTML;
+                } else {
+                    // หากไม่มีข้อมูลให้แสดงข้อความ
+                    document.getElementById('customer-info-right').innerHTML = "<p>ไม่พบข้อมูลลูกค้า</p>";
+                }
+            }
+
+            // เรียกใช้ฟังก์ชันเพื่อแสดงข้อมูล
+            displayCustomerInfo(customerData);
+        </script>
+
+
+
 
         <!-- Right Section: Notes -->
         <div class="flex flex-col mt-[-1]">
@@ -313,3 +325,50 @@
             }
         }
     </style>
+
+
+
+
+
+
+
+
+
+
+
+
+        {{-- <div class="flex flex-col space-y-4">
+            <div class="flex justify-between items-center">
+                <strong class="text-gray-800">วันเดือนปีเกิด :</strong>
+                <span class="text-right pl-4">{{ $customer->birthday ?? '-' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <strong class="text-gray-800">เพศ :</strong>
+                <span class="text-right pl-4">{{ $customer->gender ?? '-' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <strong class="text-gray-800">สัญชาติ :</strong>
+                <span class="text-right pl-4">{{ $customer->nationality ?? '-' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <strong class="text-gray-800">ศาสนา :</strong>
+                <span class="text-right pl-4">{{ $customer->religion ?? '-' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <strong class="text-gray-800">สถานะสมรส :</strong>
+                <span class="text-right pl-4">{{ $customer->marital_status ?? '-' }}</span>
+            </div>
+        </div> --}}
+
+
+        {{-- <a href="#"
+            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            data-bs-target="#Cus-modal-wrapper" data-bs-toggle="Cus-modal-wrapper" type="button" onclick="showModal()">
+            <i class="fa-solid fa-user-pen"></i>
+        </a> --}}
+
+        {{-- <a href="#"
+            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            type="button" onclick="showModal()">
+            <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
+        </a> --}}
