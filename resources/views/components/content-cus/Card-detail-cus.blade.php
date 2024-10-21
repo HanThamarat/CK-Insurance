@@ -108,17 +108,17 @@
                 </div>
 
 
-                <div class="grid grid-cols-2 gap-12" id="address-list">
+                <div class="grid grid-cols-2 gap-0 mt-[-60]" id="address-list">
                     @include('components.content-cus.card_address')
                     <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
                 </div>
 
-
+                @include('components.content-cus.Modal_edit_address')
 
 
 
                 <!-- ส่วนที่แสดงข้อมูล -->
-                <div class="flex flex-col items-center mt-4 address-master">
+                <div class="flex flex-col items-center mt-0 address-master">
                     <div class="shadow-effect">
                         <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce"
                             alt="Out of Stock">

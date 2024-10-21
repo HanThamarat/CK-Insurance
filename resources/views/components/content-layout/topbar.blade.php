@@ -73,10 +73,10 @@
 
                     <div class="border-t border-gray-200"></div>
 
-                    <x-dropdown-link href="{{ route('users.index') }}">
+                    {{-- <x-dropdown-link href="{{ route('users.index') }}">
                         <img src="{{ asset('img/User.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
                         {{ __('Add User') }}
-                    </x-dropdown-link>
+                    </x-dropdown-link> --}}
 
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

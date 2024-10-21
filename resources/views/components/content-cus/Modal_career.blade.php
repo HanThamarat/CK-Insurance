@@ -264,11 +264,16 @@
                 $('#Career_Cus').append('<option value="">อาชีพ</option>');
 
                 // แสดงข้อมูลที่ดึงมา
+                // $.each(data, function(index, career) {
+                //     // แสดง Code_Career ก่อน Name_Career
+                //     $('#Career_Cus').append('<option value="' + career.Code_Career + '">' +
+                //         career.Code_Career + ' - ' + career.Name_Career + '</option>');
+                // });
                 $.each(data, function(index, career) {
-                    // แสดง Code_Career ก่อน Name_Career
-                    $('#Career_Cus').append('<option value="' + career.Code_Career + '">' +
+                    $('#Career_Cus').append('<option value="' + career.Code_Career + ' ' + career.Name_Career + '">' +
                         career.Code_Career + ' - ' + career.Name_Career + '</option>');
                 });
+
             },
             error: function(xhr) {
                 console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', xhr);

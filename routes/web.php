@@ -34,7 +34,9 @@ Route::middleware(['auth'])->group(function () {
 // CUSTOMER ROUTE
 Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])->name('customers.profile');
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
-Route::put('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
+Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
+// Route::post('/customers/update', [CustomerController::class, 'update'])->name('customers.update');
+
 Route::resource('customers', CustomerController::class);
 
 // ASSET ROUTE
@@ -93,6 +95,9 @@ Route::get('/get-career-data', [CustomerController::class, 'getCareerData']);
 
 
 
+// Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
+// Route::get('customers/{id}', [CustomerController::class, 'show']);
+// Route::get('/customer/profile', [CustomerController::class, 'getCustomerProfile']);
 
 
 

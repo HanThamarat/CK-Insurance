@@ -1,5 +1,3 @@
-
-
 <script>
     $(document).ready(function() {
         // ฟังก์ชันดึงข้อมูลที่อยู่
@@ -15,7 +13,7 @@
                     // เช็คว่ามีข้อมูลใน response หรือไม่
                     if (response.length === 0) {
                         $('#address-list').append(`
-                            <div class="text-red-500 text-center p-4">
+                            <div class="text-red-500 text-center p-0">
                                 <strong hidden>ไม่มีข้อมูลในระบบ</strong>
                             </div>
                         `);
@@ -43,7 +41,7 @@
                             const tambon = address.houseTambon_Adds ? address.houseTambon_Adds : '<span class="text-red-500">ข้อมูลไม่ระบุ</span>';
 
                             $('#address-list').append(`
-                                <div class="flex flex-col w-full md:w-2/2 p-4 mt-[-50]"> <!-- กำหนดความกว้าง -->
+                                <div class="flex flex-col w-full md:w-2/2 p-4 mt-0"> <!-- กำหนดความกว้าง -->
                                     <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500">
                                         <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">
                                             <div class="flex justify-between items-center">
@@ -51,6 +49,18 @@
                                                     <h6 class="text-primary font-semibold">
                                                         <i class="fa fa-tag text-secondary"></i> <strong>ประเภท : </strong> ${addressType}
                                                     </h6>
+                                                </div>
+                                                <div>
+                                                    <!--<button class="btn btn-primary edit-address"
+                                                            data-id="${address.id}"
+                                                            data-house_number="${address.houseNumber_Adds}"
+                                                            data-road="${address.road_Adds}"
+                                                            data-village="${address.village_Adds}"
+                                                            data-province="${address.houseProvince_Adds}"
+                                                            data-postal_code="${address.Postal_Adds}"
+                                                            onclick="openModal(this)">
+                                                        แก้ไข
+                                                    </button>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -64,9 +74,9 @@
                                                                 <h5 class="card-title">
                                                                     <i class="fa fa-map-marker-alt text-primary"></i> <strong>ที่อยู่ :  ${houseNumber} </strong>
                                                                 </h5>
-                                                                <p class="card-text">
+                                                                <!--<p class="card-text">
                                                                     <i class="fa fa-home text-success"></i> <strong>หมู่บ้าน :  ${village} </strong>
-                                                                </p>
+                                                                </p>-->
                                                                 <div class="d-flex justify-content-between">
                                                                     <p class="card-text mb-0">
                                                                         <i class="fa fa-city text-info"></i> <strong>จังหวัด :  ${province} </strong>

@@ -88,15 +88,7 @@ class DataCusCareerController extends Controller
         return response()->json(['message' => 'Career deleted successfully']);
     }
 
-    // ฟังก์ชันเพื่อดึงข้อมูลอาชีพ
-    // public function getCareerOptions(Request $request)
-    // {
-    //     // ดึงข้อมูลจาก TB_CareerCus
-    //     $careers = CareerCus::select('Name_Career')->get();
 
-    //     // ส่งข้อมูลกลับในรูปแบบ JSON
-    //     return response()->json($careers);
-    // }
 
     public function getCareerOptions(Request $request)
     {
@@ -108,3 +100,15 @@ class DataCusCareerController extends Controller
     }
 
 }
+
+
+
+    // ฟังก์ชันเพื่อดึงข้อมูลอาชีพ
+    // public function getCareerOptions(Request $request)
+    // {
+    //     // ดึงข้อมูลจาก TB_CareerCus
+    //     $careers = CareerCus::select('Name_Career')->get();
+
+    //     // ส่งข้อมูลกลับในรูปแบบ JSON
+    //     return response()->json($careers);
+    // }

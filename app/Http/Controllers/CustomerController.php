@@ -50,6 +50,21 @@ class CustomerController extends Controller
     }
 
 
+    public function show($id)
+    {
+        $customer = Customer::find($id);
+
+        if ($customer) {
+            return response()->json(['customer' => $customer]);
+        }
+
+        return response()->json(['customer' => null]);
+    }
+
+
+
+
+
     public function create()
     {
         return view('components.content-cus.Cus');
@@ -98,51 +113,51 @@ class CustomerController extends Controller
         return view('customers.edit', compact('customer'));
     }
 
-
     public function update(Request $request, $id)
     {
+        // ตรวจสอบข้อมูลที่ได้รับ
+        $request->validate([
+            'prefix' => 'required|string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'phone' => 'required|string',
+            'phone2' => 'nullable|string',
+            'id_card_number' => 'required|string',
+            'age' => 'nullable|integer',
+            'gender' => 'required|string',
+            'nationality' => 'required|string',
+            'religion' => 'required|string',
+            'driving_license' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'line_id' => 'nullable|string',
+            'marital_status' => 'nullable|string',
+            'spouse_name' => 'nullable|string',
+            'spouse_phone' => 'nullable|string',
+            'note' => 'nullable|string',
+            'expiry_date' => 'nullable|date_format:d/m/Y',
+            'dob' => 'nullable|date_format:d/m/Y',
+        ]);
+
         // ค้นหาลูกค้าตาม ID ที่ได้รับ
         $customer = Customer::findOrFail($id);
 
         // กำหนดข้อมูลที่จะอัปเดต
-        $data = [
-            'prefix' => $request->input('prefix'),
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'phone' => $request->input('phone'),
-            'phone2' => $request->input('phone2'),
-            'id_card_number' => $request->input('id_card_number'),
-            'age' => $request->input('age'),
-            'gender' => $request->input('gender'),
-            'nationality' => $request->input('nationality'),
-            'religion' => $request->input('religion'),
-            'driving_license' => $request->input('driving_license'),
-            'facebook' => $request->input('facebook'),
-            'line_id' => $request->input('line_id'),
-            'marital_status' => $request->input('marital_status'),
-            'spouse_name' => $request->input('spouse_name'),
-            'spouse_phone' => $request->input('spouse_phone'),
-            'note' => $request->input('note'),
-            // กำหนดให้ nullable
-            'expiry_date' => $request->input('expiry_date'),
-            'dob' => $request->input('dob'),
-        ];
+        $data = $request->only([
+            'prefix', 'first_name', 'last_name', 'phone', 'phone2', 'id_card_number',
+            'age', 'gender', 'nationality', 'religion', 'driving_license', 'facebook',
+            'line_id', 'marital_status', 'spouse_name', 'spouse_phone', 'note',
+            'expiry_date', 'dob',
+        ]);
 
         // ตรวจสอบและแปลงวันที่อย่างปลอดภัย
         try {
-            // ตรวจสอบและแปลง expiry_date
-            if (!empty($data['expiry_date'])) {
-                $data['expiry_date'] = Carbon::createFromFormat('d/m/Y', $data['expiry_date'])->format('Y-m-d');
-            } else {
-                $data['expiry_date'] = null; // ถ้าเป็น null ให้ตั้งเป็น null
-            }
+            // แปลง expiry_date
+            $data['expiry_date'] = !empty($data['expiry_date']) ?
+                Carbon::createFromFormat('d/m/Y', $data['expiry_date'])->format('Y-m-d') : null;
 
-            // ตรวจสอบและแปลง dob
-            if (!empty($data['dob'])) {
-                $data['dob'] = Carbon::createFromFormat('d/m/Y', $data['dob'])->format('Y-m-d');
-            } else {
-                $data['dob'] = null; // ถ้าเป็น null ให้ตั้งเป็น null
-            }
+            // แปลง dob
+            $data['dob'] = !empty($data['dob']) ?
+                Carbon::createFromFormat('d/m/Y', $data['dob'])->format('Y-m-d') : null;
         } catch (\Exception $e) {
             return response()->json(['error' => 'Invalid date format provided: ' . $e->getMessage()], 400);
         }
@@ -201,11 +216,6 @@ class CustomerController extends Controller
     }
 
 
-
-
-
-
-
 }
 
 
@@ -249,6 +259,194 @@ class CustomerController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// public function update(Request $request, $id)
+    // {
+    //     // ค้นหาลูกค้าตาม ID ที่ได้รับ
+    //     $customer = Customer::findOrFail($id);
+
+    //     // กำหนดข้อมูลที่จะอัปเดต
+    //     $data = [
+    //         'prefix' => $request->input('prefix'),
+    //         'first_name' => $request->input('first_name'),
+    //         'last_name' => $request->input('last_name'),
+    //         'phone' => $request->input('phone'),
+    //         'phone2' => $request->input('phone2'),
+    //         'id_card_number' => $request->input('id_card_number'),
+    //         'age' => $request->input('age'),
+    //         'gender' => $request->input('gender'),
+    //         'nationality' => $request->input('nationality'),
+    //         'religion' => $request->input('religion'),
+    //         'driving_license' => $request->input('driving_license'),
+    //         'facebook' => $request->input('facebook'),
+    //         'line_id' => $request->input('line_id'),
+    //         'marital_status' => $request->input('marital_status'),
+    //         'spouse_name' => $request->input('spouse_name'),
+    //         'spouse_phone' => $request->input('spouse_phone'),
+    //         'note' => $request->input('note'),
+    //         // กำหนดให้ nullable
+    //         'expiry_date' => $request->input('expiry_date'),
+    //         'dob' => $request->input('dob'),
+    //     ];
+
+    //     // ตรวจสอบและแปลงวันที่อย่างปลอดภัย
+    //     try {
+    //         // ตรวจสอบและแปลง expiry_date
+    //         if (!empty($data['expiry_date'])) {
+    //             $data['expiry_date'] = Carbon::createFromFormat('d/m/Y', $data['expiry_date'])->format('Y-m-d');
+    //         } else {
+    //             $data['expiry_date'] = null; // ถ้าเป็น null ให้ตั้งเป็น null
+    //         }
+
+    //         // ตรวจสอบและแปลง dob
+    //         if (!empty($data['dob'])) {
+    //             $data['dob'] = Carbon::createFromFormat('d/m/Y', $data['dob'])->format('Y-m-d');
+    //         } else {
+    //             $data['dob'] = null; // ถ้าเป็น null ให้ตั้งเป็น null
+    //         }
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => 'Invalid date format provided: ' . $e->getMessage()], 400);
+    //     }
+
+    //     // อัปเดตข้อมูลลูกค้า
+    //     try {
+    //         $customer->update($data);
+    //         return response()->json(['success' => 'อัพเดตข้อมูลลูกค้าสำเร็จ!']);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => 'ไม่สามารถอัพเดตข้อมูลลูกค้าได้: ' . $e->getMessage()], 500);
+    //     }
+    // }
+
+
+
+
+//     public function update(Request $request, $id)
+// {
+//     // ค้นหาลูกค้าตาม ID ที่ได้รับ
+//     $customer = Customer::findOrFail($id);
+
+//     // ตรวจสอบข้อมูลจาก request
+//     $validatedData = $request->validate([
+//         'prefix' => 'required|string|max:10',
+//         'first_name' => 'required|string|max:50',
+//         'last_name' => 'required|string|max:50',
+//         'phone' => 'required|string|max:15',
+//         'phone2' => 'nullable|string|max:15',
+//         'id_card_number' => 'required|string|max:20',
+//         'age' => 'required|integer|min:0',
+//         'gender' => 'required|string|in:ชาย,หญิง',
+//         'nationality' => 'required|string|max:50',
+//         'religion' => 'nullable|string|max:50',
+//         'driving_license' => 'required|string|in:Yes,No',
+//         'facebook' => 'nullable|string|max:100',
+//         'line_id' => 'nullable|string|max:100',
+//         'marital_status' => 'required|string|in:โสด,แต่งงาน',
+//         'spouse_name' => 'nullable|string|max:50',
+//         'spouse_phone' => 'nullable|string|max:15',
+//         'note' => 'nullable|string',
+//         'expiry_date' => 'nullable|date_format:d/m/Y',
+//         'dob' => 'nullable|date_format:d/m/Y',
+//     ]);
+
+//     // กำหนดข้อมูลที่จะอัปเดต
+//     $data = [
+//         'prefix' => $validatedData['prefix'],
+//         'first_name' => $validatedData['first_name'],
+//         'last_name' => $validatedData['last_name'],
+//         'phone' => $validatedData['phone'],
+//         'phone2' => $validatedData['phone2'],
+//         'id_card_number' => $validatedData['id_card_number'],
+//         'age' => $validatedData['age'],
+//         'gender' => $validatedData['gender'],
+//         'nationality' => $validatedData['nationality'],
+//         'religion' => $validatedData['religion'],
+//         'driving_license' => $validatedData['driving_license'],
+//         'facebook' => $validatedData['facebook'],
+//         'line_id' => $validatedData['line_id'],
+//         'marital_status' => $validatedData['marital_status'],
+//         'spouse_name' => $validatedData['spouse_name'],
+//         'spouse_phone' => $validatedData['spouse_phone'],
+//         'note' => $validatedData['note'],
+//         // แปลงวันที่เป็น Y-m-d
+//         'expiry_date' => $validatedData['expiry_date'] ? Carbon::createFromFormat('d/m/Y', $validatedData['expiry_date'])->format('Y-m-d') : null,
+//         'dob' => $validatedData['dob'] ? Carbon::createFromFormat('d/m/Y', $validatedData['dob'])->format('Y-m-d') : null,
+//     ];
+
+//     // อัปเดตข้อมูลลูกค้า
+//     try {
+//         $customer->update($data);
+//         return response()->json(['success' => 'อัพเดตข้อมูลลูกค้าสำเร็จ!']);
+//     } catch (\Exception $e) {
+//         return response()->json(['error' => 'ไม่สามารถอัพเดตข้อมูลลูกค้าได้: ' . $e->getMessage()], 500);
+//     }
+// }
+
+
+
+    // public function showProfile($id)
+    // {
+    //     $customer = Customer::find($id); // ใช้ find แทน findOrFail
+
+    //     if (!$customer) {
+    //         return response()->json(['error' => 'Customer not found.'], 404); // ส่งคืน JSON error response
+    //     }
+
+    //     // ส่งคืน JSON ของ customer
+    //     return response()->json($customer);
+    // }
 
 
 

@@ -401,29 +401,24 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+
 <script>
     $(document).ready(function() {
-        $('#updateCustomerBtn').click(function() {
-            // ดึง ID ของลูกค้าจาก input ที่ซ่อนอยู่
-            var customerId = $('#customerId').val();
+        $('#updateCustomerBtn').click(function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
 
             // รวบรวมข้อมูลจากฟอร์ม
-            var customerData = $('#formCustomerEdit').serializeArray();
-
-            // เพิ่ม ID ของลูกค้าเข้าไปในข้อมูล
-            customerData.push({
-                name: 'customerId',
-                value: customerId
-            });
+            var customerData = $('#formCustomerEdit').serialize();
+            var customerId = $('#customerId').val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
 
             // ส่ง AJAX request
             $.ajax({
-                url: '/customers/' + customerId,
+                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
                 type: 'PUT',
                 data: customerData,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                        'content') // ส่ง CSRF token
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
                 },
                 success: function(response) {
                     // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
@@ -433,20 +428,13 @@
                         text: response.success,
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        // แจ้งเตือนผู้ใช้ก่อนรีเฟรชหน้า
-                        setTimeout(function() {
-                            location.reload(); // รีเฟรชหน้า
-                            setTimeout(function() {
-                                location
-                            .reload(); // รีเฟรชหน้าอีกครั้ง
-                            }, 1000); // รอ 1 วินาทีก่อนรีเฟรชครั้งที่สอง
-                        }, 3000); // 3000 milliseconds = 3 seconds
+                        // แสดงผลการอัปเดตบนหน้าโดยไม่ต้องรีเฟรช
+                        $('#customerProfile').html(response.updatedProfileHtml); // ปรับปรุงข้อมูลที่แสดง
                     });
                 },
                 error: function(xhr) {
                     // จัดการข้อผิดพลาดด้วย SweetAlert
-                    let errorMessage =
-                    'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
+                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
                     if (xhr.responseJSON && xhr.responseJSON.error) {
                         errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
                     }

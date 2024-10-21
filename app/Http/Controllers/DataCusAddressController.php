@@ -124,6 +124,19 @@ class DataCusAddressController extends Controller
 
 
 
+    // public function getAddressData(Request $request)
+    // {
+    //     // รับค่า id จาก request
+    //     $id = $request->input('id');
+
+    //     // ค้นหาข้อมูลที่มี id และ DataCus_id ตรงกัน
+    //     $addresses = DataCusAddress::where('id', $id)
+    //                                 ->where('DataCus_id', $id) // ให้ DataCus_id ตรงกับ id
+    //                                 ->get();
+
+    //     return response()->json($addresses);
+    // }
+
 
 
 // public function store(Request $request)
