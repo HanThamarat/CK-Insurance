@@ -44,4 +44,9 @@ class DataCusCareer extends Model
 
     // ถ้าคุณใช้ timestamps ให้เปิดใช้งาน โดย Laravel จะจัดการ created_at และ updated_at ให้โดยอัตโนมัติ
     public $timestamps = true;
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'DataCus_id', 'id');
+    }
 }

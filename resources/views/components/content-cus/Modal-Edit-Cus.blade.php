@@ -6,7 +6,7 @@
     <!-- Modal Content -->
     <div class="flex items-center justify-center w-full h-full">
         <div
-            class="relative bg-white rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
+            class="relative bg-white rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[85%] flex flex-col overflow-y-auto scrollbar-hidden">
             <!-- ปุ่มปิด modal -->
             <div id="header" class=" top-0 z-10 p-0 transition-bg duration-300 bg-white p-2"
                 style="background-color: white;">
@@ -31,7 +31,7 @@
             </div>
 
             <!-- เนื้อหาของ modal -->
-            <div class="p-2 mt-[-10]">
+            <div class="p-2 mt-[-17]">
 
 
                 <form id="formCustomerEdit" class="space-y-6">
@@ -40,370 +40,386 @@
 
                     <input type="hidden" id="customerId" value="{{ $customer->id }}">
 
+                    <div class="border border-gray-300 p-4 rounded-lg">
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Left Column -->
-                        <div class="space-y-4">
 
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="relative">
-                                    <select id="prefix" name="prefix" onfocus="moveLabel('prefix')"
-                                        onblur="checkInput('prefix')"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
-                                        required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')"
-                                        oninput="this.setCustomValidity('')">
-                                        <option value="{{ $customer->prefix }}">{{ $customer->prefix }}</option>
-                                        <!-- ค่านี้จะถูกเซ็ตเป็นค่าที่เข้ามา -->
-                                        <option value="นาย">นาย</option>
-                                        <option value="นาง">นาง</option>
-                                        <option value="นางสาว">นางสาว</option>
-                                    </select>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Left Column -->
+                            <div class="space-y-4">
 
-                                    <label for="prefix"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all"
-                                        id="prefix-label">
-                                        คำนำหน้า
-                                    </label>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="relative">
+                                        <select id="prefix" name="prefix" onfocus="moveLabel('prefix')"
+                                            onblur="checkInput('prefix')"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                            required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')"
+                                            oninput="this.setCustomValidity('')">
+                                            <option value="{{ $customer->prefix }}">{{ $customer->prefix }}</option>
+                                            <!-- ค่านี้จะถูกเซ็ตเป็นค่าที่เข้ามา -->
+                                            <option value="นาย">นาย</option>
+                                            <option value="นาง">นาง</option>
+                                            <option value="นางสาว">นางสาว</option>
+                                        </select>
+
+                                        <label for="prefix"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all"
+                                            id="prefix-label">
+                                            คำนำหน้า
+                                        </label>
+                                    </div>
+
+
+                                    <div class="relative">
+                                        <input type="text" id="first_name" name="first_name"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('first_name')"
+                                            onblur="checkInput('first_name')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->first_name }}">
+                                        <label for="first_name" id="first_name-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            ชื่อจริง
+                                        </label>
+
+                                        <i
+                                            class="fa-solid fa-user absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
+                                    </div>
+
+
+
+                                    <div class="relative">
+                                        <input type="text" id="last_name" name="last_name"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
+                                            placeholder=" " required onfocus="moveLabel('last_name')"
+                                            onblur="checkInput('last_name')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->last_name }}">
+                                        <label for="last_name" id="lastname_name-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
+                                            นามสกุล
+                                        </label>
+
+                                        <i
+                                            class="fa-solid fa-user absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
+                                    </div>
                                 </div>
 
 
-                                <div class="relative">
-                                    <input type="text" id="first_name" name="first_name"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('first_name')"
-                                        onblur="checkInput('first_name')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->first_name }}">
-                                    <label for="first_name" id="first_name-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        ชื่อจริง
-                                    </label>
 
-                                    <i
-                                        class="fa-solid fa-user absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                    <div class="relative">
+                                        <input type="text" id="phone" name="phone"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('phone')"
+                                            onblur="checkInput('phone')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรศัพท์')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->phone }}">
+                                        <label for="phone" id="phone-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            เบอร์โทรติดต่อ 1
+                                        </label>
+                                        <i
+                                            class="fa-solid fa-phone absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
+                                    </div>
+
+
+
+                                    <div class="relative">
+                                        <input type="text" id="phone2" name="phone2"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('phone2')"
+                                            onblur="checkInput('phone2')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรติดต่อ 2')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->phone2 }}">
+                                        <label for="phone2" id="phone2-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            เบอร์โทรติดต่อ 2
+                                        </label>
+                                        <i
+                                            class="fa-solid fa-phone absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
+                                    </div>
+                                </div>
+
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="relative">
+                                        <input type="text" id="id_card_number" name="id_card_number"
+                                            class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('id_card_number')"
+                                            onblur="checkInput('id_card_number')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอกหมายเลขบัตรประชาชน')"
+                                            oninput="this.setCustomValidity('')"
+                                            value="{{ $customer->id_card_number }}">
+                                        <label for="id_card_number" id="id_card_number-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            หมายเลขบัตรประชาชน
+                                        </label>
+
+                                        <i class="fa-solid fa-credit-card absolute right-3 top-2 text-sm"></i>
+                                    </div>
+
+
+
+
+                                    <div class="relative">
+                                        <input type="text" id="expiry_date" name="expiry_date"
+                                            class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('expiry_date')"
+                                            onblur="checkInput('expiry_date')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอกบัตรหมดอายุ')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->expiry_date }}">
+                                        <label for="expiry_date" id="expiry_date-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            บัตรหมดอายุ
+                                        </label>
+
+                                        <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
+                                    </div>
                                 </div>
 
 
 
-                                <div class="relative">
-                                    <input type="text" id="last_name" name="last_name"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300 input-field"
-                                        placeholder=" " required onfocus="moveLabel('last_name')"
-                                        onblur="checkInput('last_name')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->last_name }}">
-                                    <label for="last_name" id="lastname_name-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
-                                        นามสกุล
-                                    </label>
 
-                                    <i
-                                        class="fa-solid fa-user absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
+
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="relative">
+                                        <input type="text" id="dob" name="dob"
+                                            class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('dob')"
+                                            onblur="checkInput('dob')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->dob }}">
+                                        <label for="dob" id="dob-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            วันออกบัตร
+                                        </label>
+
+                                        <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
+                                    </div>
+
+                                    <div class="relative">
+                                        <input type="text" id="birthday" name="birthday"
+                                            class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('birthday')"
+                                            onblur="checkInput('birthday')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->birthday }}">
+                                        <label for="birthday" id="birthday-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            วันออกบัตร
+                                        </label>
+
+                                        <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
+                                    </div>
+
+
+                                    <div class="relative">
+                                        <input type="text" id="age" name="age" readonly
+                                            class="p-2 border border-gray-300 rounded-lg w-full pr-12 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required value="{{ $customer->age }}">
+                                        <label for="age" id="age-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            อายุ
+                                        </label>
+                                        <span
+                                            class="absolute right-3 top-2/4 -translate-y-2/4 bg-white px-2 text-gray-500 text-sm">ปี</span>
+                                    </div>
+
                                 </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+
+
+                                    <div class="relative">
+                                        <select id="gender" name="gender" onfocus="moveLabel('gender')"
+                                            onblur="checkInput('gender')"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
+                                            <option value="{{ $customer->gender }}">{{ $customer->gender }}</option>
+                                            <option value="ชาย">ชาย</option>
+                                            <option value="หญิง">หญิง</option>
+                                        </select>
+
+                                        <label for="gender" id="gender-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            เพศ
+                                        </label>
+                                    </div>
+
+
+                                    <div class="relative">
+                                        <select id="nationality" name="nationality"
+                                            onfocus="moveLabel('nationality')" onblur="checkInput('nationality')"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
+                                            <option value="{{ $customer->nationality }}">{{ $customer->nationality }}
+                                            </option>
+                                            <option value="ไทย">ไทย</option>
+                                        </select>
+
+                                        <label for="nationality" id="nationality-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            สัญชาติ
+                                        </label>
+                                    </div>
+
+
+                                    <div class="relative">
+                                        <select id="religion" name="religion" onfocus="moveLabel('religion')"
+                                            onblur="checkInput('religion')"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
+                                            <option value="{{ $customer->religion }}">{{ $customer->religion }}
+                                            </option>
+                                            <option value="พุทธ">พุทธ</option>
+                                            <option value="คริสต์">คริสต์</option>
+                                            <option value="อิสลาม">อิสลาม</option>
+                                        </select>
+
+                                        <label for="religion" id="religion-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            ศาสนา
+                                        </label>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+
+                                    <div class="relative">
+                                        <select id="driving_license" name="driving_license"
+                                            onfocus="moveLabel('driving_license')"
+                                            onblur="checkInput('driving_license')"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
+                                            <option value="{{ $customer->driving_license }}">
+                                                {{ $customer->driving_license }}</option>
+                                            <option value="Yes">มี</option>
+                                            <option value="No">ไม่มี</option>
+                                        </select>
+
+                                        <label for="driving_license" id="driving_license-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            ใบขับขี่
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <input type="text" id="facebook" name="facebook"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('facebook')"
+                                            onblur="checkInput('facebook')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอก Facebook')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->facebook }}">
+                                        <label for="facebook" id="facebook-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            Facebook
+                                        </label>
+                                        <i
+                                            class="fa-brands fa-facebook absolute right-3 top-3 text-blue-700 text-md"></i>
+                                    </div>
+
+                                    <div class="relative">
+                                        <input type="text" id="line_id" name="line_id"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " required onfocus="moveLabel('line_id')"
+                                            onblur="checkInput('line_id')"
+                                            oninvalid="this.setCustomValidity('กรุณากรอก Line ID')"
+                                            oninput="this.setCustomValidity('')" value="{{ $customer->line_id }}">
+                                        <label for="line_id" id="line_id-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            Line ID
+                                        </label>
+                                        <i class="fa-brands fa-line absolute right-3 top-3 text-green-600 text-md"></i>
+                                    </div>
+                                </div>
+
+
+
                             </div>
 
-
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
+                            <!-- Right Column -->
+                            <div class="space-y-4">
                                 <div class="relative">
-                                    <input type="text" id="phone" name="phone"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('phone')"
-                                        onblur="checkInput('phone')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรศัพท์')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->phone }}">
-                                    <label for="phone" id="phone-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        เบอร์โทรติดต่อ 1
-                                    </label>
-                                    <i
-                                        class="fa-solid fa-phone absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
-                                </div>
-
-
-
-                                <div class="relative">
-                                    <input type="text" id="phone2" name="phone2"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('phone2')"
-                                        onblur="checkInput('phone2')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรติดต่อ 2')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->phone2 }}">
-                                    <label for="phone2" id="phone2-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        เบอร์โทรติดต่อ 2
-                                    </label>
-                                    <i
-                                        class="fa-solid fa-phone absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
-                                </div>
-                            </div>
-
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="relative">
-                                    <input type="text" id="id_card_number" name="id_card_number"
-                                        class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('id_card_number')"
-                                        onblur="checkInput('id_card_number')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกหมายเลขบัตรประชาชน')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->id_card_number }}">
-                                    <label for="id_card_number" id="id_card_number-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        หมายเลขบัตรประชาชน
-                                    </label>
-
-                                    <i class="fa-solid fa-credit-card absolute right-3 top-2 text-sm"></i>
-                                </div>
-
-
-
-
-                                <div class="relative">
-                                    <input type="text" id="expiry_date" name="expiry_date"
-                                        class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('expiry_date')"
-                                        onblur="checkInput('expiry_date')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกบัตรหมดอายุ')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->expiry_date }}">
-                                    <label for="expiry_date" id="expiry_date-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        บัตรหมดอายุ
-                                    </label>
-
-                                    <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
-                                </div>
-                            </div>
-
-
-
-
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="relative">
-                                    <input type="text" id="dob" name="dob"
-                                        class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('dob')"
-                                        onblur="checkInput('dob')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->dob }}">
-                                    <label for="dob" id="dob-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        วันออกบัตร
-                                    </label>
-
-                                    <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
-                                </div>
-
-                                <div class="relative">
-                                    <input type="text" id="birthday" name="birthday"
-                                        class="p-2 border border-gray-300 rounded-lg w-full pr-10 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('birthday')"
-                                        onblur="checkInput('birthday')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->birthday }}">
-                                    <label for="birthday" id="birthday-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        วันออกบัตร
-                                    </label>
-
-                                    <i class="fa-solid fa-calendar-days absolute right-3 top-2 text-sm"></i>
-                                </div>
-
-
-                                <div class="relative">
-                                    <input type="text" id="age" name="age" readonly
-                                        class="p-2 border border-gray-300 rounded-lg w-full pr-12 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required value="{{ $customer->age }}">
-                                    <label for="age" id="age-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        อายุ
-                                    </label>
-                                    <span
-                                        class="absolute right-3 top-2/4 -translate-y-2/4 bg-white px-2 text-gray-500 text-sm">ปี</span>
-                                </div>
-
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-
-
-                                <div class="relative">
-                                    <select id="gender" name="gender" onfocus="moveLabel('gender')"
-                                        onblur="checkInput('gender')"
+                                    <select id="marital_status" name="marital_status"
+                                        onfocus="moveLabel('marital_status')" onblur="checkInput('marital_status')"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
-                                        <option value="{{ $customer->gender }}">{{ $customer->gender }}</option>
-                                        <option value="ชาย">ชาย</option>
-                                        <option value="หญิง">หญิง</option>
-                                    </select>
-
-                                    <label for="gender" id="gender-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        เพศ
-                                    </label>
-                                </div>
-
-
-                                <div class="relative">
-                                    <select id="nationality" name="nationality" onfocus="moveLabel('nationality')"
-                                        onblur="checkInput('nationality')"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
-                                        <option value="{{ $customer->nationality }}">{{ $customer->nationality }}
+                                        <option value="{{ $customer->marital_status }}">
+                                            {{ $customer->marital_status }}
                                         </option>
-                                        <option value="ไทย">ไทย</option>
+                                        <option value="โสด">โสด</option>
+                                        <option value="สมรสจดทะเบียน">สมรสจดทะเบียน</option>
+                                        <option value="สมรสจดทะเบียน">สมรสจดทะเบียน</option>
+                                        <option value="หย่าร้าง">หย่าร้าง</option>
+                                        <option value="หม้าย">หม้าย</option>
                                     </select>
 
-                                    <label for="nationality" id="nationality-label"
+                                    <label for="marital_status" id="marital_status-label"
                                         class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        สัญชาติ
+                                        สถานะสมรส
                                     </label>
                                 </div>
 
 
-                                <div class="relative">
-                                    <select id="religion" name="religion" onfocus="moveLabel('religion')"
-                                        onblur="checkInput('religion')"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
-                                        <option value="{{ $customer->religion }}">{{ $customer->religion }}</option>
-                                        <option value="พุทธ">พุทธ</option>
-                                        <option value="คริสต์">คริสต์</option>
-                                        <option value="อิสลาม">อิสลาม</option>
-                                    </select>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 
-                                    <label for="religion" id="religion-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        ศาสนา
+                                    <div class="relative">
+                                        <input type="text" id="spouse_name" name="spouse_name"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " onfocus="moveLabel('spouse_name')"
+                                            onblur="checkInput('spouse_name')" value="{{ $customer->spouse_name }}">
+                                        <label for="spouse_name" id="spouse_name-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            ชื่อนามสกุลคู่สมรส
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <input type="text" id="spouse_phone" name="spouse_phone"
+                                            class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                            placeholder=" " onfocus="moveLabel('spouse_phone')"
+                                            onblur="checkInput('spouse_phone')"
+                                            value="{{ $customer->spouse_phone }}">
+                                        <label for="spouse_phone" id="spouse_phone-label"
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                            เบอร์โทรคู่สมรส
+                                        </label>
+                                        <i
+                                            class="fa-solid fa-phone absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
+                                    </div>
+                                </div>
+
+
+                                <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
+                                    <textarea id="note" name="note" rows="9"
+                                        class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                        placeholder=" " onfocus="moveLabel('note')" onblur="checkInput('note')">{{ $customer->note }}</textarea>
+                                    <label for="note" id="note-label"
+                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-3 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                        หมายเหตุ
                                     </label>
                                 </div>
 
 
-
-
+                                <input type="hidden" name="user_insert" value="{{ auth()->user()->name }}">
+                                <input type="hidden" name="status_cus" id="status_cus" value="active">
 
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-
-                                <div class="relative">
-                                    <select id="driving_license" name="driving_license"
-                                        onfocus="moveLabel('driving_license')" onblur="checkInput('driving_license')"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
-                                        <option value="{{ $customer->driving_license }}">
-                                            {{ $customer->driving_license }}</option>
-                                        <option value="Yes">มี</option>
-                                        <option value="No">ไม่มี</option>
-                                    </select>
-
-                                    <label for="driving_license" id="driving_license-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        ใบขับขี่
-                                    </label>
-                                </div>
-
-                                <div class="relative">
-                                    <input type="text" id="facebook" name="facebook"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('facebook')"
-                                        onblur="checkInput('facebook')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอก Facebook')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->facebook }}">
-                                    <label for="facebook" id="facebook-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        Facebook
-                                    </label>
-                                    <i class="fa-brands fa-facebook absolute right-3 top-3 text-blue-700 text-md"></i>
-                                </div>
-
-                                <div class="relative">
-                                    <input type="text" id="line_id" name="line_id"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " required onfocus="moveLabel('line_id')"
-                                        onblur="checkInput('line_id')"
-                                        oninvalid="this.setCustomValidity('กรุณากรอก Line ID')"
-                                        oninput="this.setCustomValidity('')" value="{{ $customer->line_id }}">
-                                    <label for="line_id" id="line_id-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        Line ID
-                                    </label>
-                                    <i class="fa-brands fa-line absolute right-3 top-3 text-green-600 text-md"></i>
-                                </div>
-                            </div>
-
-
-
                         </div>
 
-                        <!-- Right Column -->
-                        <div class="space-y-4">
-                            <div class="relative">
-                                <select id="marital_status" name="marital_status"
-                                    onfocus="moveLabel('marital_status')" onblur="checkInput('marital_status')"
-                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
-                                    <option value="{{ $customer->marital_status }}">{{ $customer->marital_status }}
-                                    </option>
-                                    <option value="โสด">โสด</option>
-                                    <option value="สมรสจดทะเบียน">สมรสจดทะเบียน</option>
-                                    <option value="สมรสจดทะเบียน">สมรสจดทะเบียน</option>
-                                    <option value="หย่าร้าง">หย่าร้าง</option>
-                                    <option value="หม้าย">หม้าย</option>
-                                </select>
-
-                                <label for="marital_status" id="marital_status-label"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                    สถานะสมรส
-                                </label>
-                            </div>
-
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-
-                                <div class="relative">
-                                    <input type="text" id="spouse_name" name="spouse_name"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " onfocus="moveLabel('spouse_name')"
-                                        onblur="checkInput('spouse_name')" value="{{ $customer->spouse_name }}">
-                                    <label for="spouse_name" id="spouse_name-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        ชื่อนามสกุลคู่สมรส
-                                    </label>
-                                </div>
-
-                                <div class="relative">
-                                    <input type="text" id="spouse_phone" name="spouse_phone"
-                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                        placeholder=" " onfocus="moveLabel('spouse_phone')"
-                                        onblur="checkInput('spouse_phone')" value="{{ $customer->spouse_phone }}">
-                                    <label for="spouse_phone" id="spouse_phone-label"
-                                        class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                        เบอร์โทรคู่สมรส
-                                    </label>
-                                    <i
-                                        class="fa-solid fa-phone absolute right-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
-                                </div>
-                            </div>
-
-
-                            <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
-                                <textarea id="note" name="note" rows="9"
-                                    class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('note')" onblur="checkInput('note')">{{ $customer->note }}</textarea>
-                                <label for="note" id="note-label"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-3 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
-                                    หมายเหตุ
-                                </label>
-                            </div>
-
-
-                            <input type="hidden" name="user_insert" value="{{ auth()->user()->name }}">
-                            <input type="hidden" name="status_cus" id="status_cus" value="active">
-
-                        </div>
                     </div>
 
                     <!-- Submit Button -->
-                    <div class="flex justify-end">
+                    <div class="flex justify-end space-x-2">
                         <button type="submit" id="updateCustomerBtn"
-                            class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
+                            class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-gray-500/50">
                             <i class="fas fa-user-plus"></i> แก้ไขข้อมูลลูกค้า
+                        </button>
+
+                        <button type="button" id="cancelCustomerBtn"
+                            class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-gray-500/50"
+                            onclick="hideModal()">
+                            <i class="fas fa-times"></i> ยกเลิก
                         </button>
                     </div>
 
@@ -417,6 +433,112 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- <script>
+    $(document).ready(function() {
+        $('#updateCustomerBtn').click(function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
+
+            // รวบรวมข้อมูลจากฟอร์ม
+            var customerData = $('#formCustomerEdit').serialize();
+            var customerId = $('#customerId').val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
+
+            // ส่ง AJAX request
+            $.ajax({
+                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
+                type: 'PUT',
+                data: customerData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
+                },
+                success: function(response) {
+                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.success,
+                        confirmButtonText: 'OK',
+                        timer: 5000, // ตั้งเวลา 5 วินาที
+                        timerProgressBar: true
+                    }).then((result) => {
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                            // เรียกฟังก์ชันเพื่อแสดงข้อมูลลูกค้าใหม่
+                            displayCustomerInfo(response.data); // อัปเดตข้อมูลลูกค้า
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorMessage,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            });
+        });
+    });
+</script> --}}
+
+
+{{-- <script>
+    $(document).ready(function() {
+        $('#updateCustomerBtn').click(function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
+
+            // รวบรวมข้อมูลจากฟอร์ม
+            var customerData = $('#formCustomerEdit').serialize();
+            var customerId = $('#customerId').val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
+
+            // ส่ง AJAX request
+            $.ajax({
+                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
+                type: 'PUT',
+                data: customerData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
+                },
+                success: function(response) {
+                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.success,
+                        confirmButtonText: 'OK',
+                        timer: 5000, // ตั้งเวลา 5 วินาที
+                        timerProgressBar: true
+                    }).then((result) => {
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                            // เรียกฟังก์ชันเพื่อแสดงข้อมูลลูกค้าใหม่
+                            displayCustomerInfo(response.data); // อัปเดตข้อมูลลูกค้า
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorMessage,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            });
+        });
+    });
+
+</script> --}}
+
+
 
 
 
@@ -447,14 +569,28 @@
                         timer: 5000, // ตั้งเวลา 5 วินาที
                         timerProgressBar: true
                     }).then((result) => {
-                        // เมื่อกด OK หรือผ่านไป 5 วินาที รีเฟรชหน้า
                         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            location.reload(); // รีเฟรชหน้า
+                            // เรียกข้อมูลลูกค้าใหม่เพื่อให้แน่ใจว่ามีข้อมูลที่อัปเดตล่าสุด
+                            $.ajax({
+                                url: '/customers/' + customerId, // เรียกข้อมูลลูกค้าตาม ID
+                                type: 'GET', // ใช้ GET เพื่อดึงข้อมูล
+                                success: function(newResponse) {
+                                    displayCustomerInfo(newResponse.data); // อัปเดตข้อมูลลูกค้า
+                                    renderJson(newResponse.data); // Render ข้อมูลในรูปแบบ JSON
+                                },
+                                error: function() {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error!',
+                                        text: 'ไม่สามารถดึงข้อมูลลูกค้าล่าสุดได้',
+                                        confirmButtonText: 'Try Again'
+                                    });
+                                }
+                            });
                         }
                     });
                 },
                 error: function(xhr) {
-                    // จัดการข้อผิดพลาดด้วย SweetAlert
                     let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
                     if (xhr.responseJSON && xhr.responseJSON.error) {
                         errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
@@ -470,7 +606,10 @@
             });
         });
     });
+
 </script>
+
+
 
 
 
@@ -632,3 +771,222 @@
         /* ทำการ fade-in */
     }
 </style>
+
+
+
+
+
+
+{{-- <script>
+    $(document).ready(function() {
+        $('#updateCustomerBtn').click(function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
+
+            // รวบรวมข้อมูลจากฟอร์ม
+            var customerData = $('#formCustomerEdit').serialize();
+            var customerId = $('#customerId')
+        .val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
+
+            // ส่ง AJAX request
+            $.ajax({
+                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
+                type: 'PUT',
+                data: customerData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                        'content') // ส่ง CSRF token
+                },
+                success: function(response) {
+                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.success,
+                        confirmButtonText: 'OK',
+                        timer: 5000, // ตั้งเวลา 5 วินาที
+                        timerProgressBar: true
+                    }).then((result) => {
+                        // เมื่อกด OK หรือผ่านไป 5 วินาที รีเฟรชหน้า
+                        if (result.isConfirmed || result.dismiss === Swal
+                            .DismissReason.timer) {
+                            location.reload(); // รีเฟรชหน้า
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    // จัดการข้อผิดพลาดด้วย SweetAlert
+                    let errorMessage =
+                    'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorMessage,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            });
+        });
+    });
+</script> --}}
+
+{{-- <script>
+    $(document).ready(function() {
+        $('#updateCustomerBtn').click(function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
+
+            // รวบรวมข้อมูลจากฟอร์ม
+            var customerData = $('#formCustomerEdit').serialize();
+            var customerId = $('#customerId').val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
+
+            // ส่ง AJAX request
+            $.ajax({
+                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
+                type: 'PUT',
+                data: customerData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
+                },
+                success: function(response) {
+                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.success,
+                        confirmButtonText: 'OK',
+                        timer: 5000, // ตั้งเวลา 5 วินาที
+                        timerProgressBar: true
+                    }).then((result) => {
+                        // เมื่อกด OK แสดงข้อมูล JSON
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                            // แสดงข้อมูล JSON ใน console หรือที่อื่น ๆ ที่คุณต้องการ
+                            console.log(response.data); // แสดงข้อมูล JSON ใน console
+                            // หรือสามารถแสดงข้อมูลใน HTML ได้ เช่น:
+                            $('#customerInfo').html(JSON.stringify(response.data, null, 2));
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    // จัดการข้อผิดพลาดด้วย SweetAlert
+                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorMessage,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            });
+        });
+    });
+</script> --}}
+
+
+{{--
+<script>
+    $(document).ready(function() {
+        $('#updateCustomerBtn').click(function(e) {
+            e.preventDefault();
+
+            var customerData = $('#formCustomerEdit').serialize();
+            var customerId = $('#customerId').val();
+
+            $.ajax({
+                url: '/customers/' + customerId,
+                type: 'PUT',
+                data: customerData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.success,
+                        confirmButtonText: 'OK',
+                        timer: 5000,
+                        timerProgressBar: true
+                    }).then((result) => {
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                            displayCustomerInfo(response.data); // อัปเดตข้อมูลลูกค้า
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    let errorMessage = 'An unexpected error occurred.';
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error;
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorMessage,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            });
+        });
+    });
+</script> --}}
+
+{{-- <script>
+    $(document).ready(function() {
+        $('#updateCustomerBtn').click(function(e) {
+            e.preventDefault();
+
+            var customerData = $('#formCustomerEdit').serialize();
+            var customerId = $('#customerId').val();
+
+            $.ajax({
+                url: '/customers/' + customerId,
+                type: 'PUT',
+                data: customerData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.success,
+                        confirmButtonText: 'OK',
+                        timer: 5000,
+                        timerProgressBar: true
+                    }).then((result) => {
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                            // ดึงข้อมูลลูกค้าใหม่จากเซิร์ฟเวอร์
+                            $.ajax({
+                                url: '/customers/' + customerId,
+                                type: 'GET',
+                                success: function(updatedData) {
+                                    displayCustomerInfo(updatedData); // เรียกใช้ฟังก์ชันเพื่อแสดงข้อมูลลูกค้าใหม่
+                                }
+                            });
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    let errorMessage = 'An unexpected error occurred.';
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error;
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorMessage,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            });
+        });
+    });
+</script> --}}

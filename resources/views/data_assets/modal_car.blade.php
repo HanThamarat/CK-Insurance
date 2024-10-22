@@ -8,7 +8,7 @@
         <div id="header" class="sticky top-0 z-10 p-0 transition-bg duration-300 bg-white p-6"
             style="background-color: white;">
             <button class="absolute top-2 right-2 p-1 text-gray-400 hover:text-gray-600 focus:outline-none"
-                onclick="closeModal('DataAssetsModal')">
+                onclick="closeModal_data_asset('DataAssetsModal')">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">

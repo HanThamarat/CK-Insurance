@@ -86,11 +86,28 @@ class DataCusAddressController extends Controller
     }
 
 
-    public function getAddressData()
+    // public function getAddressData()
+    // {
+    //     $addresses = DataCusAddress::all();
+    //     return response()->json($addresses);
+    // }
+
+    public function getAddressData($id)
     {
-        $addresses = DataCusAddress::all();
-        return response()->json($addresses);
+        // ดึงข้อมูลที่อยู่ที่ DataCus_id ตรงกับ id ของ Customer
+        $customer = Customer::with('addresses')->where('id', $id)->first();
+
+        if ($customer && $customer->addresses) {
+            // ถ้ามีข้อมูลลูกค้าและข้อมูลที่อยู่ตรงกัน
+            return response()->json([
+                'customer' => $customer,
+                'addresses' => $customer->addresses // เปลี่ยนเป็น addresses เพราะอาจมีหลายที่อยู่
+            ]);
+        } else {
+            return response()->json(['message' => 'No matching address found'], 404);
+        }
     }
+
 }
 
 

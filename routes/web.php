@@ -81,9 +81,9 @@ Route::get('/users/data', [UserController::class, 'fetchData'])->name('users.fet
 
 
 // ADRESS CUSTOIMER
-Route::get('/get-address-data', [DataCusAddressController::class, 'getAddressData']);
+Route::get('/get-address-data/{id}', [DataCusAddressController::class, 'getAddressData']);
 // CAREER CUSTOIMER
-Route::get('/get-career-data', [CustomerController::class, 'getCareerData']);
+Route::get('/get-career-data/{id}', [CustomerController::class, 'getCareerData']);
 
 
 
@@ -96,34 +96,39 @@ Route::get('/customer/{id}', [CustomerController::class, 'showProfile']);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('/get-address-data', [DataCusAddressController::class, 'getAddressData']);
+
+
 // Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
 // Route::get('customers/{id}', [CustomerController::class, 'show']);
 // Route::get('/customer/profile', [CustomerController::class, 'getCustomerProfile']);
 // Route::post('/customers/update', [CustomerController::class, 'update'])->name('customers.update');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Route::get('/users', [UserController::class, 'index'])->name('users.fetch');
