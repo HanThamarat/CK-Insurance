@@ -135,6 +135,32 @@
                             </div>
                         </div>
 
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function() {
+                                // ฟังก์ชันคำนวณยอดคงเหลือ
+                                function calculateRemaining() {
+                                    // รับค่าจาก input
+                                    var income = parseFloat($('#Income_Cus').val()) || 0;
+                                    var expenses = parseFloat($('#BeforeIncome_Cus').val()) || 0;
+                                    var remaining = income - expenses;
+
+                                    $('#AfterIncome_Cus').val(remaining);
+                                }
+
+                                // เพิ่ม event listener เพื่อเรียกใช้ฟังก์ชันคำนวณ
+                                $('#Income_Cus, #BeforeIncome_Cus').on('input', function() {
+                                    calculateRemaining();
+                                });
+                            });
+                        </script>
+
+
+
+
+
+
+
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 
@@ -270,7 +296,8 @@
                 //         career.Code_Career + ' - ' + career.Name_Career + '</option>');
                 // });
                 $.each(data, function(index, career) {
-                    $('#Career_Cus').append('<option value="' + career.Code_Career + ' ' + career.Name_Career + '">' +
+                    $('#Career_Cus').append('<option value="' + career.Code_Career + ' ' +
+                        career.Name_Career + '">' +
                         career.Code_Career + ' - ' + career.Name_Career + '</option>');
                 });
 

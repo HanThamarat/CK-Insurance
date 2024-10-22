@@ -16,7 +16,7 @@
                         $.each(data.careers, function(index, career) {
                             html += `
                             <div class="flex space-x-4">
-                                <div class="w-full mt-[-30]">
+                                <div class="w-full mt-0">
                                     <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
                                         <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">
                                             <div class="flex justify-between items-center">
@@ -79,8 +79,12 @@
                     // ซ่อน career-master ถ้ามีการ์ด
                     if (hasCareerCards) {
                         $('.career-master').hide();
+                        $('#prev-master-2').show();
+                        $('#next-master-2').show();
                     } else {
                         $('.career-master').show();
+                        $('#prev-master-2').hide();
+                        $('#next-master-2').hide();
                     }
                 },
                 error: function(xhr, status, error) {

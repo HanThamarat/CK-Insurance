@@ -12,59 +12,18 @@
     </div>
 
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 p-4 mt-[-10]">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 p-4 mt-[-14]">
         <!-- Left Section: Customer Information -->
         <div id="customer-info-right" class="flex flex-col space-y-4"></div>
 
         <!-- Right Section: Notes -->
-        <div class="flex flex-col mt-[-1]">
+        <div class="flex flex-col mt-[-3]">
             <strong class="text-gray-800">หมายเหตุ :</strong>
             <textarea
-                class="mt-1 w-full border border-orange-500 text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
-                rows="5" id="customer-note"></textarea>
+                class="mt-0 w-full border border-orange-500 text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
+                rows="6" id="customer-note"></textarea>
         </div>
     </div>
-
-    {{-- <script>
-        // แปลงข้อมูลลูกค้าเป็น JavaScript
-        var customerData = @json($customer);
-
-        // ฟังก์ชันในการแสดงข้อมูลลูกค้า
-        function displayCustomerInfo(data) {
-            if (data) {
-                const infoHTML = `
-                    <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-calendar-alt pr-2"></i>วันเดือนปีเกิด :</strong>
-                        <span class="text-right pl-0">${data.birthday ?? '-'}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-venus-mars pr-2"></i>เพศ :</strong>
-                        <span class="text-right pl-0">${data.gender ?? '-'}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-flag pr-2"></i>สัญชาติ :</strong>
-                        <span class="text-right pl-0">${data.nationality ?? '-'}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-cross pr-2"></i>ศาสนา :</strong>
-                        <span class="text-right pl-0">${data.religion ?? '-'}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-heart pr-2"></i>สถานะสมรส :</strong>
-                        <span class="text-right pl-0">${data.marital_status ?? '-'}</span>
-                    </div>
-                `;
-                document.getElementById('customer-info-right').innerHTML = infoHTML;
-                document.getElementById('customer-note').value = data.note ?? 'ยังไม่มีหมายเหตุ';
-            } else {
-                document.getElementById('customer-info-right').innerHTML = "<p>ไม่พบข้อมูลลูกค้า</p>";
-                document.getElementById('customer-note').value = 'ยังไม่มีหมายเหตุ';
-            }
-        }
-
-        displayCustomerInfo(customerData);
-    </script> --}}
-
 
     <script>
         // แปลงข้อมูลลูกค้าเป็น JavaScript
@@ -75,23 +34,27 @@
             if (data) {
                 const infoHTML = `
                     <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-calendar-alt pr-2"></i>วันเดือนปีเกิด :</strong>
-                        <span class="text-right pl-0">${data.birthday ?? '-'}</span>
+                        <strong class="text-gray-800">
+                            <i class="fas fa-calendar-alt pr-1"></i>วันเดือนปีเกิด :
+                        </strong>
+                        <span class="text-right pl-0">
+                            {{ \Carbon\Carbon::parse($customer->birthday)->locale('th')->translatedFormat('j F Y') }}
+                        </span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-venus-mars pr-2"></i>เพศ :</strong>
+                        <strong class="text-gray-800"><i class="fas fa-venus-mars pr-1"></i>เพศ :</strong>
                         <span class="text-right pl-0">${data.gender ?? '-'}</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-flag pr-2"></i>สัญชาติ :</strong>
+                        <strong class="text-gray-800"><i class="fas fa-flag pr-1"></i>สัญชาติ :</strong>
                         <span class="text-right pl-0">${data.nationality ?? '-'}</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-cross pr-2"></i>ศาสนา :</strong>
+                        <strong class="text-gray-800"><i class="fas fa-cross pr-1"></i>ศาสนา :</strong>
                         <span class="text-right pl-0">${data.religion ?? '-'}</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <strong class="text-gray-800"><i class="fas fa-heart pr-2"></i>สถานะสมรส :</strong>
+                        <strong class="text-gray-800"><i class="fas fa-heart pr-1"></i>สถานะสมรส :</strong>
                         <span class="text-right pl-0">${data.marital_status ?? '-'}</span>
                     </div>
                 `;
@@ -103,23 +66,8 @@
             }
         }
 
-        // ฟังก์ชันในการ render ข้อมูลลูกค้าเป็น JSON
-        function renderJson(data) {
-            const jsonOutput = document.getElementById('json-output');
-            if (data) {
-                jsonOutput.textContent = JSON.stringify(data, null, 2); // แสดง JSON ในรูปแบบที่อ่านง่าย
-            } else {
-                jsonOutput.textContent = 'ไม่มีข้อมูลลูกค้า';
-            }
-        }
-
-        // เรียกใช้งานฟังก์ชัน
         displayCustomerInfo(customerData);
-        renderJson(customerData);
     </script>
-
-    <!-- เพิ่ม element สำหรับแสดง JSON output -->
-    <pre id="json-output" class="bg-gray-200 p-4 rounded"></pre>
 
 
     <style>
@@ -155,32 +103,24 @@
         <!-- ข้อมูลที่อยู่ -->
         <div id="address-info" class="tab-pane">
             <div class="grid grid-cols-1 gap-4 text-sm text-gray-600">
-                <div class="flex flex-col">
-                    <strong hidden class="text-gray-800">ที่อยู่:</strong>
-                    <span hidden>{{ $customer->address ?? '-' }}</span>
-                </div>
-                <div class="flex flex-col">
-                    <strong hidden class="text-gray-800">จังหวัด:</strong>
-                    <span hidden>{{ $customer->province ?? '-' }}</span>
-                </div>
-                <div class="flex flex-col">
-                    <strong hidden class="text-gray-800">รหัสไปรษณีย์:</strong>
-                    <span hidden>{{ $customer->postal_code ?? '-' }}</span>
-                </div>
-                <div class="flex flex-col">
-                    <strong hidden class="text-gray-800">id:</strong>
-                    <span hidden>{{ $customer->id ?? '-' }}</span>
+
+                <div class="slider-container">
+                    <div class="slider" id="address-list">
+                        @include('components.content-cus.card_address')
+                        <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+                    </div>
+
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                    <!-- ปุ่มเลื่อนไปทางซ้าย -->
+                    <button class="prev" id="prev-master">←</button>
+                    <!-- ปุ่มเลื่อนไปทางขวา -->
+                    <button class="next" id="next-master">→</button>
                 </div>
 
 
-                <div class="grid grid-cols-2 gap-0 mt-[-60]" id="address-list">
-                    @include('components.content-cus.card_address')
-                    <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
-                </div>
 
                 @include('components.content-cus.Modal_edit_address')
-
-
 
                 <!-- ส่วนที่แสดงข้อมูล -->
                 <div class="flex flex-col items-center mt-0 address-master">
@@ -190,13 +130,7 @@
                     </div>
                     <p class="mt-4 text-gray-600 text-center">ยังไม่มีข้อมูลที่อยู่ลูกค้านี้</p>
 
-                    {{-- <button id="addAddressButton" class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg" data-bs-toggle="modal" data-bs-target="#modalAddress">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
-                        </svg>
-                        เพิ่มที่อยู่
-                    </button> --}}
+
                 </div>
 
                 <div class="flex justify-center mt-0">
@@ -218,40 +152,31 @@
         <!-- ข้อมูลอาชีพ -->
         <div id="job-info" class="tab-pane hidden">
             <div class="grid grid-cols-1 gap-4 text-sm text-gray-600">
-                <div class="flex flex-col">
-                    <strong hidden class="text-gray-800">อาชีพ:</strong>
-                    <span hidden>{{ $customer->occupation ?? '-' }}</span>
+
+
+                <div class="slider-container">
+                    <div class="slider" id="career-container">
+                        @include('components.content-cus.card_career')
+                        <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+                    </div>
+
+                    <!-- ปุ่มเลื่อนไปทางซ้าย -->
+                    <button class="prev-2" id="prev-master-2">←</button>
+                    <!-- ปุ่มเลื่อนไปทางขวา -->
+                    <button class="next-2" id="next-master-2">→</button>
                 </div>
-                <div class="flex flex-col">
-                    <strong hidden class="text-gray-800">ตำแหน่ง:</strong>
-                    <span hidden>{{ $customer->position ?? '-' }}</span>
-                </div>
-                <div class="flex flex-col">
-                    <strong hidden class="text-gray-800">บริษัท:</strong>
-                    <span hidden>{{ $customer->company ?? '-' }}</span>
-                </div>
+
 
 
 
-                <div class="grid grid-cols-2 gap-14" id="career-container">
-                    @include('components.content-cus.card_career')
-                    <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
-                </div>
-
-                <div class="flex flex-col items-center mt-4 career-master">
+                <div class="flex flex-col items-center mt-0 career-master">
                     <div class="shadow-effect">
                         <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce"
                             alt="Out of Stock">
                     </div>
                     <p class="mt-4 text-gray-600 text-center">ยังไม่มีข้อมูลที่อยู่ลูกค้านี้</p>
 
-                    {{-- <button id="addCareerButton" class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
-                        </svg>
-                        เพิ่มอาชีพ
-                    </button> --}}
+
                 </div>
                 <div class="flex justify-center mt-0">
                     <button id="addCareerButton"
@@ -260,8 +185,7 @@
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 22V12h6v10" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
                         </svg>
                         เพิ่มอาชีพ
                     </button>
@@ -382,6 +306,208 @@
 
 
 
+    <style>
+        .slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            /* ซ่อนส่วนที่เกินจาก container */
+        }
+
+        .slider {
+            display: flex;
+            gap: 10px;
+            /* เว้นระยะระหว่างการ์ด */
+            overflow-x: auto;
+            /* เลื่อนในแนวนอน */
+            scroll-behavior: smooth;
+            /* เลื่อนแบบนุ่มนวล */
+            padding: 20px;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+            /* ซ่อน scrollbar */
+        }
+
+        /* ปรับขนาดของการ์ดให้แสดง 2 การ์ดในเวลาเดียวกัน */
+        .slider>* {
+            flex: 0 0 calc(50% - 10px);
+            /* แสดงการ์ด 2 ใบ โดยคิดจากความกว้างที่หัก gap ออกไป */
+        }
+
+        .prev,
+        .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(213, 213, 213, 0.5);
+            /* Transparent background */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            /* Make the button circular */
+            width: 50px;
+            /* Set the width of the button */
+            height: 50px;
+            /* Set the height of the button */
+            padding: 0;
+            /* Remove padding */
+            cursor: pointer;
+            z-index: 1;
+            /* ให้ปุ่มอยู่เหนือ slider */
+            transition: background-color 0.3s;
+            /* Smooth transition */
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(51, 51, 51, 1);
+            /* Solid background on hover */
+        }
+
+
+        .prev {
+            left: 10px;
+            /* ปุ่มทางซ้าย */
+        }
+
+        .next {
+            right: 10px;
+            /* ปุ่มทางขวา */
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: #555;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
+            $('.prev').on('click', function() {
+                const $slider = $('#address-list');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '-=' + cardWidth
+                }, 500); // เลื่อนไปทางซ้าย
+            });
+
+            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
+            $('.next').on('click', function() {
+                const $slider = $('#address-list');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '+=' + cardWidth
+                }, 500); // เลื่อนไปทางขวา
+            });
+        });
+    </script>
+
+
+
+    <style>
+        .slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            /* ซ่อนส่วนที่เกินจาก container */
+        }
+
+        .slider {
+            display: flex;
+            gap: 10px;
+            /* เว้นระยะระหว่างการ์ด */
+            overflow-x: auto;
+            /* เลื่อนในแนวนอน */
+            scroll-behavior: smooth;
+            /* เลื่อนแบบนุ่มนวล */
+            padding: 20px;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+            /* ซ่อน scrollbar */
+        }
+
+        /* ปรับขนาดของการ์ดให้แสดง 2 การ์ดในเวลาเดียวกัน */
+        .slider>* {
+            flex: 0 0 calc(50% - 10px);
+            /* แสดงการ์ด 2 ใบ โดยคิดจากความกว้างที่หัก gap ออกไป */
+        }
+
+        .prev-2,
+        .next-2 {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(213, 213, 213, 0.5);
+            /* Transparent background */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            /* Make the button circular */
+            width: 50px;
+            /* Set the width of the button */
+            height: 50px;
+            /* Set the height of the button */
+            padding: 0;
+            /* Remove padding */
+            cursor: pointer;
+            z-index: 1;
+            /* ให้ปุ่มอยู่เหนือ slider */
+            transition: background-color 0.3s;
+            /* Smooth transition */
+        }
+
+        .prev-2:hover,
+        .next-2:hover {
+            background-color: rgba(51, 51, 51, 1);
+            /* Solid background on hover */
+        }
+
+        .prev-2 {
+            left: 10px;
+            /* ปุ่มทางซ้าย */
+        }
+
+        .next-2 {
+            right: 10px;
+            /* ปุ่มทางขวา */
+        }
+    </style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
+            $('#prev-master-2').on('click', function() {
+                const $slider = $('#career-container');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '-=' + cardWidth
+                }, 500); // เลื่อนไปทางซ้าย
+            });
+
+            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
+            $('#next-master-2').on('click', function() {
+                const $slider = $('#career-container');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '+=' + cardWidth
+                }, 500); // เลื่อนไปทางขวา
+            });
+        });
+    </script>
 
 
 
@@ -390,7 +516,183 @@
 
 
 
-        {{-- <div class="flex flex-col space-y-4">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- <div class="flex justify-between items-center">
+    <strong class="text-gray-800"><i class="fas fa-calendar-alt pr-1"></i>วันเดือนปีเกิด :</strong>
+    <span class="text-right pl-0">${data.birthday ?? '-'}</span>
+</div> --}}
+
+
+                {{-- <div class="flex flex-col">
+                    <strong hidden class="text-gray-800">อาชีพ:</strong>
+                    <span hidden>{{ $customer->occupation ?? '-' }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <strong hidden class="text-gray-800">ตำแหน่ง:</strong>
+                    <span hidden>{{ $customer->position ?? '-' }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <strong hidden class="text-gray-800">บริษัท:</strong>
+                    <span hidden>{{ $customer->company ?? '-' }}</span>
+                </div> --}}
+
+
+
+                {{-- <div class="grid grid-cols-2 gap-14" id="career-container">
+                    @include('components.content-cus.card_career')
+                    <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+                </div> --}}
+
+
+    {{-- <div class="flex flex-col">
+                    <strong hidden class="text-gray-800">ที่อยู่:</strong>
+                    <span hidden>{{ $customer->address ?? '-' }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <strong hidden class="text-gray-800">จังหวัด:</strong>
+                    <span hidden>{{ $customer->province ?? '-' }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <strong hidden class="text-gray-800">รหัสไปรษณีย์:</strong>
+                    <span hidden>{{ $customer->postal_code ?? '-' }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <strong hidden class="text-gray-800">id:</strong>
+                    <span hidden>{{ $customer->id ?? '-' }}</span>
+                </div> --}}
+
+
+    {{-- <div class="grid grid-cols-2 gap-0 mt-[-50]" id="address-list">
+                    @include('components.content-cus.card_address')
+                    <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+                </div> --}}
+
+
+
+
+    {{-- <button id="addCareerButton" class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
+                        </svg>
+                        เพิ่มอาชีพ
+                    </button> --}}
+
+
+
+
+    {{-- <button id="addAddressButton" class="mt-4 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg" data-bs-toggle="modal" data-bs-target="#modalAddress">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
+                        </svg>
+                        เพิ่มที่อยู่
+                    </button> --}}
+    <!-- เพิ่ม element สำหรับแสดง JSON output -->
+    {{-- <pre id="json-output" class="bg-gray-200 p-4 rounded"></pre> --}}
+    {{-- <script>
+    // แปลงข้อมูลลูกค้าเป็น JavaScript
+    var customerData = @json($customer);
+
+    // ฟังก์ชันในการแสดงข้อมูลลูกค้า
+    function displayCustomerInfo(data) {
+        if (data) {
+            const infoHTML = `
+                <div class="flex justify-between items-center">
+                    <strong class="text-gray-800"><i class="fas fa-calendar-alt pr-2"></i>วันเดือนปีเกิด :</strong>
+                    <span class="text-right pl-0">${data.birthday ?? '-'}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <strong class="text-gray-800"><i class="fas fa-venus-mars pr-2"></i>เพศ :</strong>
+                    <span class="text-right pl-0">${data.gender ?? '-'}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <strong class="text-gray-800"><i class="fas fa-flag pr-2"></i>สัญชาติ :</strong>
+                    <span class="text-right pl-0">${data.nationality ?? '-'}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <strong class="text-gray-800"><i class="fas fa-cross pr-2"></i>ศาสนา :</strong>
+                    <span class="text-right pl-0">${data.religion ?? '-'}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <strong class="text-gray-800"><i class="fas fa-heart pr-2"></i>สถานะสมรส :</strong>
+                    <span class="text-right pl-0">${data.marital_status ?? '-'}</span>
+                </div>
+            `;
+            document.getElementById('customer-info-right').innerHTML = infoHTML;
+            document.getElementById('customer-note').value = data.note ?? 'ยังไม่มีหมายเหตุ';
+        } else {
+            document.getElementById('customer-info-right').innerHTML = "<p>ไม่พบข้อมูลลูกค้า</p>";
+            document.getElementById('customer-note').value = 'ยังไม่มีหมายเหตุ';
+        }
+    }
+
+    // ฟังก์ชันในการ render ข้อมูลลูกค้าเป็น JSON
+    function renderJson(data) {
+        const jsonOutput = document.getElementById('json-output');
+        if (data) {
+            jsonOutput.textContent = JSON.stringify(data, null, 2); // แสดง JSON ในรูปแบบที่อ่านง่าย
+        } else {
+            jsonOutput.textContent = 'ไม่มีข้อมูลลูกค้า';
+        }
+    }
+
+    // เรียกใช้งานฟังก์ชัน
+    displayCustomerInfo(customerData);
+    renderJson(customerData);
+</script> --}}
+
+
+
+    {{-- <div class="flex flex-col space-y-4">
             <div class="flex justify-between items-center">
                 <strong class="text-gray-800">วันเดือนปีเกิด :</strong>
                 <span class="text-right pl-4">{{ $customer->birthday ?? '-' }}</span>
@@ -414,13 +716,13 @@
         </div> --}}
 
 
-        {{-- <a href="#"
+    {{-- <a href="#"
             class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
             data-bs-target="#Cus-modal-wrapper" data-bs-toggle="Cus-modal-wrapper" type="button" onclick="showModal()">
             <i class="fa-solid fa-user-pen"></i>
         </a> --}}
 
-        {{-- <a href="#"
+    {{-- <a href="#"
             class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
             type="button" onclick="showModal()">
             <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
@@ -429,7 +731,7 @@
 
 
 
-            <!-- Customer Details Section -->
+    <!-- Customer Details Section -->
     {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 p-4 mt-[-10]">
         <!-- Left Section: Customer Information -->
         <div id="customer-info-right" class="flex flex-col space-y-4"></div>

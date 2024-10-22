@@ -81,6 +81,8 @@
         // Apply input mask for date of birth (DD/MM/YYYY)
         $('#dob').mask('00/00/0000'); // Format: DD/MM/YYYY
 
+        $('#birthday').mask('00/00/0000'); // Format: DD/MM/YYYY
+
 
         // Function to hide/show label based on input value
         function toggleLabel(input, label) {
