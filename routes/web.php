@@ -90,6 +90,8 @@ Route::get('/get-career-data/{id}', [CustomerController::class, 'getCareerData']
 
 Route::get('/customer/{id}', [CustomerController::class, 'showProfile']);
 
+// ดึงค่าจาก การ์ดมาแสดง
+Route::get('/get-address/{id}', [DataCusAddressController::class, 'getAddress']);
 
 
 

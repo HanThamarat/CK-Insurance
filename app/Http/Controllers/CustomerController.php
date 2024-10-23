@@ -245,27 +245,6 @@ class CustomerController extends Controller
     }
 
 
-    // public function getCareerData()
-    // {
-    //     $careers = DataCusCareer::all();
-    //     return response()->json($careers);
-    // }
-
-    // public function getCareerData($id)
-    // {
-    //     // ดึงข้อมูลที่อยู่ที่ DataCus_id ตรงกับ id ของ Customer
-    //     $customer = Customer::with('careers')->where('id', $id)->first();
-
-    //     if ($customer && $customer->careers) {
-    //         // ถ้ามีข้อมูลลูกค้าและข้อมูลที่อยู่ตรงกัน
-    //         return response()->json([
-    //             'customer' => $customer,
-    //             'careers' => $customer->careers // เปลี่ยนเป็น careers เพราะอาจมีหลายที่อยู่
-    //         ]);
-    //     } else {
-    //         return response()->json(['message' => 'No matching careers found'], 404);
-    //     }
-    // }
 
     public function getCareerData($id)
     {
@@ -374,6 +353,27 @@ class CustomerController extends Controller
 
 
 
+    // public function getCareerData()
+    // {
+    //     $careers = DataCusCareer::all();
+    //     return response()->json($careers);
+    // }
+
+    // public function getCareerData($id)
+    // {
+    //     // ดึงข้อมูลที่อยู่ที่ DataCus_id ตรงกับ id ของ Customer
+    //     $customer = Customer::with('careers')->where('id', $id)->first();
+
+    //     if ($customer && $customer->careers) {
+    //         // ถ้ามีข้อมูลลูกค้าและข้อมูลที่อยู่ตรงกัน
+    //         return response()->json([
+    //             'customer' => $customer,
+    //             'careers' => $customer->careers // เปลี่ยนเป็น careers เพราะอาจมีหลายที่อยู่
+    //         ]);
+    //     } else {
+    //         return response()->json(['message' => 'No matching careers found'], 404);
+    //     }
+    // }
 
 
 

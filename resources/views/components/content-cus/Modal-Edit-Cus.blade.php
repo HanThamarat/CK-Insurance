@@ -495,6 +495,7 @@
 
 
 
+
 <script>
     // ฟังก์ชันเพื่อตรวจสอบค่าของ label
     function checkInitialValue() {

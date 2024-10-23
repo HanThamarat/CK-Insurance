@@ -108,6 +108,18 @@ class DataCusAddressController extends Controller
         }
     }
 
+    public function getAddress($id) {
+        // สมมติว่าคุณมี Model ชื่อ Address
+        $address = DataCusAddress::find($id);
+
+        if ($address) {
+            return response()->json($address); // ส่งข้อมูลกลับในรูปแบบ JSON
+        } else {
+            return response()->json(['error' => 'Address not found'], 404);
+        }
+    }
+
+
 }
 
 
