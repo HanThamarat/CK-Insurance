@@ -103,7 +103,8 @@ Route::get('/api/vehicle-names', [DataAssetController::class, 'getVehicleNames']
 Route::get('/api/brand-options', [DataAssetController::class, 'getBrandOptions']);
 Route::get('/api/group-car-options', [DataAssetController::class, 'getGroupCarOptions']);
 Route::get('/api/year-options', [DataAssetController::class, 'getYearOptions']);
-Route::get('/api/model-car-options', [DataAssetController::class, 'getModelCarOptions']);
+Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptions']);
+
 
 
 

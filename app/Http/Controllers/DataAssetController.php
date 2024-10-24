@@ -159,36 +159,77 @@ class DataAssetController extends Controller
         public function getGroupCarOptions()
         {
             // ดึงข้อมูล Group_car ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
-            $groupCarOptions = DB::table('Stat_CarGroup')
+            $carGroups = DB::table('Stat_CarGroup')
                 ->select('Group_car')
-                ->distinct()
+                // ->distinct()
                 ->get();
 
-            return response()->json($groupCarOptions);
+            // ดึงข้อมูล Group_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+            $motoGroups = DB::table('Stat_MotoGroup')
+                ->select('Group_moto')
+                // ->distinct()
+                ->get();
+
+            // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
+            $groups = [
+                'carGroups' => $carGroups,
+                'motoGroups' => $motoGroups,
+            ];
+
+            return response()->json($groups);
         }
+
+
 
 
         public function getYearOptions()
         {
             // ดึงข้อมูล Year_car ที่ไม่ซ้ำกันจากตาราง Stat_CarYear
-            $yearOptions = DB::table('Stat_CarYear')
+            $carYears = DB::table('Stat_CarYear')
                 ->select('Year_car')
                 ->distinct()
                 ->get();
 
-            return response()->json($yearOptions);
-        }
-
-        public function getModelCarOptions()
-        {
-            // ดึงข้อมูล Model_car ที่ไม่ซ้ำกันจากตาราง Stat_CarModel
-            $modelCarOptions = DB::table('Stat_CarModel')
-                ->select('Model_car')
+            // ดึงข้อมูล Year_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoYear
+            $motoYears = DB::table('Stat_MotoYear')
+                ->select('Year_moto')
                 ->distinct()
                 ->get();
 
-            return response()->json($modelCarOptions);
+            // รวมข้อมูลปีของรถยนต์และมอเตอร์ไซค์
+            $years = [
+                'carYears' => $carYears,
+                'motoYears' => $motoYears,
+            ];
+
+            return response()->json($years);
         }
+
+
+
+        public function getModelOptions()
+        {
+            // ดึงข้อมูล Model_car ที่ไม่ซ้ำกันจากตาราง Stat_CarModel
+            $carModels = DB::table('Stat_CarModel')
+                ->select('Model_car')
+                // ->distinct()
+                ->get();
+
+            // ดึงข้อมูล Model_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoModel
+            $motoModels = DB::table('Stat_MotoModel')
+                ->select('Model_moto')
+                // ->distinct()
+                ->get();
+
+            // รวมข้อมูลโมเดลของรถยนต์และมอเตอร์ไซค์
+            $models = [
+                'carModels' => $carModels,
+                'motoModels' => $motoModels,
+            ];
+
+            return response()->json($models);
+        }
+
 
 
 
@@ -318,6 +359,48 @@ class DataAssetController extends Controller
 
 
 
+
+
+
+
+
+        // public function getYearOptions()
+        // {
+        //     // ดึงข้อมูล Year_car ที่ไม่ซ้ำกันจากตาราง Stat_CarYear
+        //     $yearOptions = DB::table('Stat_CarYear')
+        //         ->select('Year_car')
+        //         ->distinct()
+        //         ->get();
+
+        //     return response()->json($yearOptions);
+        // }
+
+
+
+
+        // public function getModelCarOptions()
+        // {
+        //     // ดึงข้อมูล Model_car ที่ไม่ซ้ำกันจากตาราง Stat_CarModel
+        //     $modelCarOptions = DB::table('Stat_CarModel')
+        //         ->select('Model_car')
+        //         ->distinct()
+        //         ->get();
+
+        //     return response()->json($modelCarOptions);
+        // }
+
+
+
+        // public function getGroupCarOptions()
+        // {
+        //     // ดึงข้อมูล Group_car ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $groupCarOptions = DB::table('Stat_CarGroup')
+        //         ->select('Group_car')
+        //         ->distinct()
+        //         ->get();
+
+        //     return response()->json($groupCarOptions);
+        // }
 
 
         // public function getBrandOptions()
