@@ -485,10 +485,6 @@
                             </div>
 
 
-
-
-
-
                             {{-- กลุ่มรถ --}}
                             <div class="relative mb-1">
                                 <label for="Vehicle_Group"
@@ -526,9 +522,6 @@
                                 </select>
                             </div>
 
-
-
-
                             {{-- ปีรถ --}}
                             <div class="relative mb-1">
                                 <label for="Vehicle_Years"
@@ -565,8 +558,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
-
 
 
                             {{-- รุ่นรถ --}}
@@ -609,8 +600,6 @@
                                 </select>
                             </div>
 
-
-
                             <!-- เกียร์ -->
                             <div class="relative mb-1">
                                 <label for="Vehicle_Gear"
@@ -640,6 +629,7 @@
                                     <option hidden value="auto" class="text-red-500">Auto</option>
                                 </select>
                             </div>
+
                         </div>
 
                     </div>

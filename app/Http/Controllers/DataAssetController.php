@@ -23,6 +23,7 @@ use App\Models\StatMotoYear;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
+use Illuminate\Support\Facades\DB;
 
 class DataAssetController extends Controller
 {
@@ -72,6 +73,75 @@ class DataAssetController extends Controller
                 'motoModels',
                 'motoYears'
             ));
+        }
+
+
+        public function getRatetypeOptions()
+        {
+            // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+            $ratetypeOptions = DB::table('Stat_CarGroup')
+                ->select('Ratetype_id')
+                ->distinct()
+                ->get();
+
+            return response()->json($ratetypeOptions);
+        }
+
+
+        public function getVehicleNames()
+        {
+            // ดึงข้อมูล Name_Vehicle ที่ไม่ซ้ำกันจากตาราง TB_TypeVehicle
+            $vehicleNames = DB::table('TB_TypeVehicle')
+                ->select('Name_Vehicle')
+                ->distinct()
+                ->get();
+
+            return response()->json($vehicleNames);
+        }
+
+        public function getBrandOptions()
+        {
+            // ดึงข้อมูล Brand_car ที่ไม่ซ้ำกันจากตาราง Stat_CarBrand
+            $brandOptions = DB::table('Stat_CarBrand')
+                ->select('Brand_car')
+                ->distinct()
+                ->get();
+
+            return response()->json($brandOptions);
+        }
+
+        public function getGroupCarOptions()
+        {
+            // ดึงข้อมูล Group_car ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+            $groupCarOptions = DB::table('Stat_CarGroup')
+                ->select('Group_car')
+                ->distinct()
+                ->get();
+
+            return response()->json($groupCarOptions);
+        }
+
+
+        public function getYearOptions()
+        {
+            // ดึงข้อมูล Year_car ที่ไม่ซ้ำกันจากตาราง Stat_CarYear
+            $yearOptions = DB::table('Stat_CarYear')
+                ->select('Year_car')
+                ->distinct()
+                ->get();
+
+            return response()->json($yearOptions);
+        }
+
+        public function getModelCarOptions()
+        {
+            // ดึงข้อมูล Model_car ที่ไม่ซ้ำกันจากตาราง Stat_CarModel
+            $modelCarOptions = DB::table('Stat_CarModel')
+                ->select('Model_car')
+                ->distinct()
+                ->get();
+
+            return response()->json($modelCarOptions);
         }
 
 

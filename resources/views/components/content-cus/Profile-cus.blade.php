@@ -81,8 +81,7 @@
             <div class="card bg-white shadow-lg rounded-md p-4 relative z-5">
                 <h2 class="text-sm font-bold mb-4 text-gray-500">Personal Information</h2>
 
-                @include('components.content-cus.profile_customer')
-
+                <div id="customer-info"></div>
 
             </div>
 
@@ -121,7 +120,7 @@
 
 
 
-
+                {{-- @include('components.content-cus.profile_customer') --}}
 
 
                 {{-- <script>

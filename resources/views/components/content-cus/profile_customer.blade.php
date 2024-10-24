@@ -1,4 +1,280 @@
-@if ($customer)
+{{-- <div id="customer-info"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // แปลงข้อมูลลูกค้าเป็น JavaScript (ใช้ JSON.encode ใน Blade)
+        var customerData = {!! json_encode($customer) !!};
+
+        // ฟังก์ชันในการแสดงข้อมูลลูกค้า
+        function Info_Customer(data) {
+            if (data) {
+                // สร้าง HTML สำหรับแสดงข้อมูลลูกค้า
+                var html = `
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-regular fa-user mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">ชื่อ-นามสกุล</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${data.prefix} ${data.first_name} ${data.last_name}
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-address-card mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">เลขประจำตัวประชาชน</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${data.id_card_number}
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-phone mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">เบอร์ติดต่อ</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${data.phone}
+                        </div>
+                    </div>
+
+                    <h2 class="text-sm font-bold mb-4 text-gray-500">General Information</h2>
+
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-calendar-day mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">วันที่เข้าระบบ</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${new Date(data.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })} เวลา ${new Date(data.created_at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-user mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">ผู้ลงบันทึก</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${data.user_insert}
+                        </div>
+                    </div>
+                `;
+
+                // แสดงข้อมูลใน div ที่กำหนด
+                $('#customer-info').html(html);
+            } else {
+                $('#customer-info').html('<div class="text-red-500 text-lg font-bold">ไม่มีข้อมูลลูกค้า</div>');
+            }
+        }
+
+        // เรียกฟังก์ชันแสดงข้อมูล
+        Info_Customer(customerData);
+    });
+</script> --}}
+
+
+
+{{-- <div id="customer-info"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // แปลงข้อมูลลูกค้าเป็น JavaScript (ใช้ JSON.encode ใน Blade)
+        var customerData = {!! json_encode($customer) !!};
+
+        // ฟังก์ชันในการแสดงข้อมูลลูกค้า
+        function Info_Customer(data) {
+            if (data) {
+                // สร้าง HTML สำหรับแสดงข้อมูลลูกค้า
+                var html = `
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-regular fa-user mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">ชื่อ-นามสกุล</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${data.prefix} ${data.first_name} ${data.last_name}
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-address-card mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">เลขประจำตัวประชาชน</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${data.id_card_number}
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-phone mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">เบอร์ติดต่อ</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${data.phone}
+                        </div>
+                    </div>
+
+                    <h2 class="text-sm font-bold mb-4 text-gray-500">General Information</h2>
+
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-calendar-day mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">วันที่เข้าระบบ</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${new Date(data.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })} เวลา ${new Date(data.created_at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-user mr-4 text-orange-700"></i>
+                            <div class="text-gray-500 font-semibold text-sm">ผู้ลงบันทึก</div>
+                        </div>
+                        <div class="ml-8 text-gray-400 text-sm">
+                            ${data.user_insert}
+                        </div>
+                    </div>
+                `;
+
+                // แสดงข้อมูลใน div ที่กำหนด
+                $('#customer-info').html(html);
+            } else {
+                $('#customer-info').html('<div class="text-red-500 text-lg font-bold">ไม่มีข้อมูลลูกค้า</div>');
+            }
+        }
+
+        // เรียกฟังก์ชันแสดงข้อมูล
+        Info_Customer(customerData);
+
+        // การจัดการคลิกปุ่มอัปเดตลูกค้า
+
+    });
+</script> --}}
+
+
+
+
+
+
+
+
+{{-- @if ($customer)
+    <script>
+        var customerData = {!! json_encode($customer) !!};
+    </script>
+@else
+    <script>
+        var customerData = null;
+    </script>
+@endif
+
+<div id="customer-info"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // ฟังก์ชันเก็บข้อมูลลูกค้า
+        function saveCustomerData(data) {
+            // เก็บข้อมูลใน localStorage หรือ sessionStorage
+            // localStorage.setItem('customerData', JSON.stringify(data)); // ถ้าต้องการเก็บถาวร
+            sessionStorage.setItem('customerData', JSON.stringify(data)); // ถ้าต้องการเก็บชั่วคราว
+        }
+
+        if (customerData) {
+            // เก็บข้อมูลลูกค้าลงใน sessionStorage
+            saveCustomerData(customerData);
+
+            // สร้าง HTML สำหรับแสดงข้อมูลลูกค้า
+            var html = `
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-regular fa-user mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">ชื่อ-นามสกุล</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${customerData.prefix} ${customerData.first_name} ${customerData.last_name}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-solid fa-address-card mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">เลขประจำตัวประชาชน</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${customerData.id_card_number}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-solid fa-phone mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">เบอร์ติดต่อ</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${customerData.phone}
+                    </div>
+                </div>
+
+                <h2 class="text-sm font-bold mb-4 text-gray-500">General Information</h2>
+
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-solid fa-calendar-day mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">วันที่เข้าระบบ</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${new Date(customerData.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })} เวลา ${new Date(customerData.created_at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-solid fa-user mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">ผู้ลงบันทึก</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${customerData.user_insert}
+                    </div>
+                </div>
+            `;
+
+            // แสดงข้อมูลใน div ที่กำหนด
+            $('#customer-info').html(html);
+        } else {
+            $('#customer-info').html('<div class="text-red-500 text-lg font-bold">ไม่มีข้อมูลลูกค้า</div>');
+        }
+    });
+</script> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- @if ($customer)
     <script>
         var customerData = @json($customer);
     </script>
@@ -76,7 +352,7 @@
             $('#customer-info').html('<div class="text-red-500 text-lg font-bold">ไม่มีข้อมูลลูกค้า</div>');
         }
     });
-</script>
+</script> --}}
 
 
 

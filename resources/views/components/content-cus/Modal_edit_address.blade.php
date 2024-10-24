@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="mt-4 flex justify-end">
-                    <button type="button" class="btn btn-secondary mr-2" onclick="hideModalEditAddress()">ปิด</button>
+                    <button type="button" class="btn btn-secondary mr-2" onclick="hideModalEditAddress_customer()">ปิด</button>
                     <button type="submit" class="btn btn-primary">บันทึกการเปลี่ยนแปลง</button>
                 </div>
             </form>
@@ -64,7 +64,7 @@
 
 
 <script>
-    function openModal(button) {
+    function openModal_Edit_address_customer(button) {
         const addressId = $(button).data('id');
         // ส่ง request เพื่อดึงข้อมูลที่อยู่จากเซิร์ฟเวอร์ผ่าน AJAX
         $.ajax({
@@ -99,7 +99,7 @@
         });
     }
 
-    function hideModalEditAddress() {
+    function hideModalEditAddress_customer() {
         // ซ่อน modal ด้วยเอฟเฟกต์ fade out
         $('#modal_edit_address_customer').fadeOut(400, function() {
             // เมื่อ fade out เสร็จสิ้นสามารถทำสิ่งที่ต้องการได้ เช่น รีเซ็ตฟอร์ม

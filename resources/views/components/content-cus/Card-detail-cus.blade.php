@@ -26,8 +26,8 @@
     </div>
 
     <script>
-        // แปลงข้อมูลลูกค้าเป็น JavaScript
-        var customerData = @json($customer);
+        // แปลงข้อมูลลูกค้าเป็น JavaScript (ใช้ JSON.encode ใน Blade)
+        var customerData = {!! json_encode($customer) !!};
 
         // ฟังก์ชันในการแสดงข้อมูลลูกค้า
         function displayCustomerInfo(data) {
@@ -38,7 +38,11 @@
                             <i class="fas fa-calendar-alt pr-1"></i>วันเดือนปีเกิด :
                         </strong>
                         <span class="text-right pl-0">
-                            {{ \Carbon\Carbon::parse($customer->birthday)->locale('th')->translatedFormat('j F Y') }}
+                            ${data.birthday ? new Date(data.birthday).toLocaleDateString('th-TH', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            }) : '-'}
                         </span>
                     </div>
                     <div class="flex justify-between items-center">
@@ -65,9 +69,10 @@
                 document.getElementById('customer-note').value = 'ยังไม่มีหมายเหตุ';
             }
         }
-
+        // เรียกฟังก์ชันแสดงข้อมูล
         displayCustomerInfo(customerData);
     </script>
+
 
 
     <style>
@@ -801,3 +806,48 @@
             }
         </style>
     </div> --}}
+
+
+        {{-- <script>
+        // แปลงข้อมูลลูกค้าเป็น JavaScript
+        var customerData = @json($customer);
+
+        // ฟังก์ชันในการแสดงข้อมูลลูกค้า
+        function displayCustomerInfo(data) {
+            if (data) {
+                const infoHTML = `
+                    <div class="flex justify-between items-center">
+                        <strong class="text-gray-800">
+                            <i class="fas fa-calendar-alt pr-1"></i>วันเดือนปีเกิด :
+                        </strong>
+                        <span class="text-right pl-0">
+                            {{ \Carbon\Carbon::parse($customer->birthday)->locale('th')->translatedFormat('j F Y') }}
+                        </span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <strong class="text-gray-800"><i class="fas fa-venus-mars pr-1"></i>เพศ :</strong>
+                        <span class="text-right pl-0">${data.gender ?? '-'}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <strong class="text-gray-800"><i class="fas fa-flag pr-1"></i>สัญชาติ :</strong>
+                        <span class="text-right pl-0">${data.nationality ?? '-'}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <strong class="text-gray-800"><i class="fas fa-cross pr-1"></i>ศาสนา :</strong>
+                        <span class="text-right pl-0">${data.religion ?? '-'}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <strong class="text-gray-800"><i class="fas fa-heart pr-1"></i>สถานะสมรส :</strong>
+                        <span class="text-right pl-0">${data.marital_status ?? '-'}</span>
+                    </div>
+                `;
+                document.getElementById('customer-info-right').innerHTML = infoHTML;
+                document.getElementById('customer-note').value = data.note ?? 'ยังไม่มีหมายเหตุ';
+            } else {
+                document.getElementById('customer-info-right').innerHTML = "<p>ไม่พบข้อมูลลูกค้า</p>";
+                document.getElementById('customer-note').value = 'ยังไม่มีหมายเหตุ';
+            }
+        }
+
+        displayCustomerInfo(customerData);
+    </script> --}}

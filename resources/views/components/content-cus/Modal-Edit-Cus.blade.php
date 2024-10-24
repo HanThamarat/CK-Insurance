@@ -439,10 +439,80 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-
 <script>
+    // ฟังก์ชันในการแสดงข้อมูลลูกค้า (ปรับเป็น global)
+    function Info_Customer(data) {
+        if (data) {
+            // สร้าง HTML สำหรับแสดงข้อมูลลูกค้า
+            var html = `
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-regular fa-user mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">ชื่อ-นามสกุล</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${data.prefix} ${data.first_name} ${data.last_name}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-solid fa-address-card mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">เลขประจำตัวประชาชน</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${data.id_card_number}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-solid fa-phone mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">เบอร์ติดต่อ</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${data.phone}
+                    </div>
+                </div>
+
+                <h2 class="text-sm font-bold mb-4 text-gray-500">General Information</h2>
+
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-solid fa-calendar-day mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">วันที่เข้าระบบ</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${new Date(data.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })} เวลา ${new Date(data.created_at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <i class="fa-solid fa-user mr-4 text-orange-700"></i>
+                        <div class="text-gray-500 font-semibold text-sm">ผู้ลงบันทึก</div>
+                    </div>
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${data.user_insert}
+                    </div>
+                </div>
+            `;
+
+            // แสดงข้อมูลใน div ที่กำหนด
+            $('#customer-info').html(html);
+        } else {
+            $('#customer-info').html('<div class="text-red-500 text-lg font-bold">ไม่มีข้อมูลลูกค้า</div>');
+        }
+    }
+
     $(document).ready(function() {
+        // แปลงข้อมูลลูกค้าเป็น JavaScript (ใช้ JSON.encode ใน Blade)
+        var customerData = {!! json_encode($customer) !!};
+
+        // เรียกฟังก์ชันแสดงข้อมูล
+        Info_Customer(customerData);
+
+        // การจัดการคลิกปุ่มอัปเดตลูกค้า
         $('#updateCustomerBtn').click(function(e) {
             e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
 
@@ -459,7 +529,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
                 },
                 success: function(response) {
-                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
+                    console.log(response);  // ตรวจสอบข้อมูลที่ได้จากการตอบกลับ
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
@@ -469,8 +540,8 @@
                         timerProgressBar: true
                     }).then((result) => {
                         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            // รีเฟรชหน้าเว็บเมื่ออัปเดตสำเร็จ
-                            location.reload();
+                            Info_Customer(response.data); // เรียก Info_Customer เพื่อแสดงข้อมูลใหม่
+                            displayCustomerInfo(response.data);
                         }
                     });
                 },
@@ -657,324 +728,24 @@
 
 
 
-
-{{-- <script>
-    $(document).ready(function() {
-        $('#updateCustomerBtn').click(function(e) {
-            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
-
-            // รวบรวมข้อมูลจากฟอร์ม
-            var customerData = $('#formCustomerEdit').serialize();
-            var customerId = $('#customerId').val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
-
-            // ส่ง AJAX request
-            $.ajax({
-                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
-                type: 'PUT',
-                data: customerData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
-                },
-                success: function(response) {
-                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.success,
-                        confirmButtonText: 'OK',
-                        timer: 5000, // ตั้งเวลา 5 วินาที
-                        timerProgressBar: true
-                    }).then((result) => {
-                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            // เรียกฟังก์ชันเพื่อแสดงข้อมูลลูกค้าใหม่
-                            displayCustomerInfo(response.data); // อัปเดตข้อมูลลูกค้า
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
-                    if (xhr.responseJSON && xhr.responseJSON.error) {
-                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
-                    }
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: errorMessage,
-                        confirmButtonText: 'Try Again'
-                    });
-                }
-            });
-        });
-    });
-
-</script> --}}
-
-{{-- <script>
-    $(document).ready(function() {
-        $('#updateCustomerBtn').click(function(e) {
-            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
-
-            // รวบรวมข้อมูลจากฟอร์ม
-            var customerData = $('#formCustomerEdit').serialize();
-            var customerId = $('#customerId').val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
-
-            // ส่ง AJAX request เพื่ออัปเดตข้อมูล
-            $.ajax({
-                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
-                type: 'PUT',
-                data: customerData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
-                },
-                success: function(response) {
-                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.success,
-                        confirmButtonText: 'OK',
-                        timer: 5000, // ตั้งเวลา 5 วินาที
-                        timerProgressBar: true
-                    }).then((result) => {
-                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            // ดึงข้อมูลหน้า view ใหม่และอัปเดตเฉพาะส่วนเนื้อหา
-                            $('#content-cus').load('/content-cus/Modal-Edit-Cus.blade.php #content-cus');
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
-                    if (xhr.responseJSON && xhr.responseJSON.error) {
-                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
-                    }
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: errorMessage,
-                        confirmButtonText: 'Try Again'
-                    });
-                }
-            });
-        });
-    });
-</script> --}}
+{{-- // success: function(response) {
+    //     // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
+    //     Swal.fire({
+    //         icon: 'success',
+    //         title: 'Success!',
+    //         text: response.success,
+    //         confirmButtonText: 'OK',
+    //         timer: 5000, // ตั้งเวลา 5 วินาที
+    //         timerProgressBar: true
+    //     }).then((result) => {
+    //         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+    //             // เรียกฟังก์ชันเพื่อแสดงข้อมูลลูกค้าใหม่
+    //             displayCustomerInfo(response.data); // อัปเดตข้อมูลลูกค้า
+    //         }
+    //     });
+    // }, --}}
 
 
-{{-- <script>
-    $(document).ready(function() {
-        $('#updateCustomerBtn').click(function(e) {
-            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
-
-            // รวบรวมข้อมูลจากฟอร์ม
-            var customerData = $('#formCustomerEdit').serialize();
-            var customerId = $('#customerId')
-        .val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
-
-            // ส่ง AJAX request
-            $.ajax({
-                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
-                type: 'PUT',
-                data: customerData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                        'content') // ส่ง CSRF token
-                },
-                success: function(response) {
-                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.success,
-                        confirmButtonText: 'OK',
-                        timer: 5000, // ตั้งเวลา 5 วินาที
-                        timerProgressBar: true
-                    }).then((result) => {
-                        // เมื่อกด OK หรือผ่านไป 5 วินาที รีเฟรชหน้า
-                        if (result.isConfirmed || result.dismiss === Swal
-                            .DismissReason.timer) {
-                            location.reload(); // รีเฟรชหน้า
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    // จัดการข้อผิดพลาดด้วย SweetAlert
-                    let errorMessage =
-                    'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
-                    if (xhr.responseJSON && xhr.responseJSON.error) {
-                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
-                    }
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: errorMessage,
-                        confirmButtonText: 'Try Again'
-                    });
-                }
-            });
-        });
-    });
-</script> --}}
-
-{{-- <script>
-    $(document).ready(function() {
-        $('#updateCustomerBtn').click(function(e) {
-            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
-
-            // รวบรวมข้อมูลจากฟอร์ม
-            var customerData = $('#formCustomerEdit').serialize();
-            var customerId = $('#customerId').val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
-
-            // ส่ง AJAX request
-            $.ajax({
-                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
-                type: 'PUT',
-                data: customerData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
-                },
-                success: function(response) {
-                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.success,
-                        confirmButtonText: 'OK',
-                        timer: 5000, // ตั้งเวลา 5 วินาที
-                        timerProgressBar: true
-                    }).then((result) => {
-                        // เมื่อกด OK แสดงข้อมูล JSON
-                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            // แสดงข้อมูล JSON ใน console หรือที่อื่น ๆ ที่คุณต้องการ
-                            console.log(response.data); // แสดงข้อมูล JSON ใน console
-                            // หรือสามารถแสดงข้อมูลใน HTML ได้ เช่น:
-                            $('#customerInfo').html(JSON.stringify(response.data, null, 2));
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    // จัดการข้อผิดพลาดด้วย SweetAlert
-                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
-                    if (xhr.responseJSON && xhr.responseJSON.error) {
-                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
-                    }
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: errorMessage,
-                        confirmButtonText: 'Try Again'
-                    });
-                }
-            });
-        });
-    });
-</script> --}}
-
-
-{{--
-<script>
-    $(document).ready(function() {
-        $('#updateCustomerBtn').click(function(e) {
-            e.preventDefault();
-
-            var customerData = $('#formCustomerEdit').serialize();
-            var customerId = $('#customerId').val();
-
-            $.ajax({
-                url: '/customers/' + customerId,
-                type: 'PUT',
-                data: customerData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.success,
-                        confirmButtonText: 'OK',
-                        timer: 5000,
-                        timerProgressBar: true
-                    }).then((result) => {
-                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            displayCustomerInfo(response.data); // อัปเดตข้อมูลลูกค้า
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    let errorMessage = 'An unexpected error occurred.';
-                    if (xhr.responseJSON && xhr.responseJSON.error) {
-                        errorMessage = xhr.responseJSON.error;
-                    }
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: errorMessage,
-                        confirmButtonText: 'Try Again'
-                    });
-                }
-            });
-        });
-    });
-</script> --}}
-
-{{-- <script>
-    $(document).ready(function() {
-        $('#updateCustomerBtn').click(function(e) {
-            e.preventDefault();
-
-            var customerData = $('#formCustomerEdit').serialize();
-            var customerId = $('#customerId').val();
-
-            $.ajax({
-                url: '/customers/' + customerId,
-                type: 'PUT',
-                data: customerData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.success,
-                        confirmButtonText: 'OK',
-                        timer: 5000,
-                        timerProgressBar: true
-                    }).then((result) => {
-                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            // ดึงข้อมูลลูกค้าใหม่จากเซิร์ฟเวอร์
-                            $.ajax({
-                                url: '/customers/' + customerId,
-                                type: 'GET',
-                                success: function(updatedData) {
-                                    displayCustomerInfo(updatedData); // เรียกใช้ฟังก์ชันเพื่อแสดงข้อมูลลูกค้าใหม่
-                                }
-                            });
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    let errorMessage = 'An unexpected error occurred.';
-                    if (xhr.responseJSON && xhr.responseJSON.error) {
-                        errorMessage = xhr.responseJSON.error;
-                    }
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: errorMessage,
-                        confirmButtonText: 'Try Again'
-                    });
-                }
-            });
-        });
-    });
-</script> --}}
 
 
 
@@ -1006,23 +777,8 @@
                         timerProgressBar: true
                     }).then((result) => {
                         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            // เรียกข้อมูลลูกค้าใหม่เพื่อให้แน่ใจว่ามีข้อมูลที่อัปเดตล่าสุด
-                            $.ajax({
-                                url: '/customers/' + customerId, // เรียกข้อมูลลูกค้าตาม ID
-                                type: 'GET', // ใช้ GET เพื่อดึงข้อมูล
-                                success: function(newResponse) {
-                                    displayCustomerInfo(newResponse.data); // อัปเดตข้อมูลลูกค้า
-                                    renderJson(newResponse.data); // Render ข้อมูลในรูปแบบ JSON
-                                },
-                                error: function() {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error!',
-                                        text: 'ไม่สามารถดึงข้อมูลลูกค้าล่าสุดได้',
-                                        confirmButtonText: 'Try Again'
-                                    });
-                                }
-                            });
+                            // รีเฟรชหน้าเว็บเมื่ออัปเดตสำเร็จ
+                            location.reload();
                         }
                     });
                 },
@@ -1042,7 +798,6 @@
             });
         });
     });
-
 </script> --}}
 
 
@@ -1063,8 +818,11 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
                 },
+
+
                 success: function(response) {
-                    // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
+                    console.log(response);  // ตรวจสอบข้อมูลที่ได้จากการตอบกลับ
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
@@ -1074,11 +832,12 @@
                         timerProgressBar: true
                     }).then((result) => {
                         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                            // เรียกฟังก์ชันเพื่อแสดงข้อมูลลูกค้าใหม่
-                            displayCustomerInfo(response.data); // อัปเดตข้อมูลลูกค้า
+                            displayCustomerInfo(response.data);
+                            Info_Customer(response.data);
                         }
                     });
                 },
+
                 error: function(xhr) {
                     let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
                     if (xhr.responseJSON && xhr.responseJSON.error) {
@@ -1095,4 +854,60 @@
             });
         });
     });
+</script> --}}
+
+
+{{-- <script>
+    $(document).ready(function() {
+        $('#updateCustomerBtn').click(function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกดปุ่ม
+
+            // รวบรวมข้อมูลจากฟอร์ม
+            var customerData = $('#formCustomerEdit').serialize();
+            var customerId = $('#customerId').val(); // สมมติว่าในฟอร์มมี hidden field สำหรับ customer ID
+
+            // ส่ง AJAX request
+            $.ajax({
+                url: '/customers/' + customerId, // URL ที่ใช้ในการอัปเดต
+                type: 'PUT',
+                data: customerData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ส่ง CSRF token
+                },
+
+                success: function(response) {
+                    console.log(response);  // ตรวจสอบข้อมูลที่ได้จากการตอบกลับ
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.success,
+                        confirmButtonText: 'OK',
+                        timer: 5000, // ตั้งเวลา 5 วินาที
+                        timerProgressBar: true
+                    }).then((result) => {
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                            // แสดงข้อมูลลูกค้าใหม่
+                            Info_Customer(response.data);
+                        }
+                    });
+                },
+
+                error: function(xhr) {
+                    let errorMessage = 'An unexpected error occurred.'; // ข้อความข้อผิดพลาดทั่วไป
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error; // แสดงข้อความข้อผิดพลาด
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorMessage,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            });
+        });
+    });
+
 </script> --}}
