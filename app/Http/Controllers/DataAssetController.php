@@ -79,12 +79,42 @@ class DataAssetController extends Controller
         public function getRatetypeOptions()
         {
             // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
-            $ratetypeOptions = DB::table('Stat_CarGroup')
+            $carTypes = DB::table('Stat_CarGroup')
                 ->select('Ratetype_id')
                 ->distinct()
                 ->get();
 
-            return response()->json($ratetypeOptions);
+            // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+            $motoTypes = DB::table('Stat_MotoGroup')
+                ->select('Ratetype_id')
+                ->distinct()
+                ->get();
+
+            // รวมข้อมูลทั้งสองตาราง
+            $combinedOptions = $carTypes->merge($motoTypes)->unique('Ratetype_id')->values();
+
+            // สร้าง array สำหรับแมพ Ratetype_id กับชื่อประเภท
+            $typeNames = [
+                'C01' => 'รถเก๋ง',
+                'C02' => 'กระบะตอนเดียว',
+                'C03' => 'กระบะแค็บ',
+                'C04' => 'กระบะ 4 ประตู',
+                'C05' => 'รถตู้',
+                'C06' => 'รถใหญ่',
+                'M01' => 'รถเกียร์ธรรมดา',
+                'M02' => 'รถเกียร์ออโต้',
+                'M03' => 'รถ BigBike'
+            ];
+
+            // แมพค่า Ratetype_id กับชื่อประเภท
+            $optionsWithNames = $combinedOptions->map(function ($item) use ($typeNames) {
+                return [
+                    'id' => $item->Ratetype_id,
+                    'name' => $typeNames[$item->Ratetype_id] ?? 'ไม่ระบุ'
+                ];
+            });
+
+            return response()->json($optionsWithNames);
         }
 
 
@@ -99,16 +129,32 @@ class DataAssetController extends Controller
             return response()->json($vehicleNames);
         }
 
+
+
         public function getBrandOptions()
         {
             // ดึงข้อมูล Brand_car ที่ไม่ซ้ำกันจากตาราง Stat_CarBrand
-            $brandOptions = DB::table('Stat_CarBrand')
+            $carBrands = DB::table('Stat_CarBrand')
                 ->select('Brand_car')
-                ->distinct()
+                // ->distinct()
                 ->get();
 
-            return response()->json($brandOptions);
+            // ดึงข้อมูล Brand_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoBrand
+            $motoBrands = DB::table('Stat_MotoBrand')
+                ->select('Brand_moto')
+                // ->distinct()
+                ->get();
+
+            // รวมข้อมูลแบรนด์รถยนต์และมอเตอร์ไซค์
+            $brands = [
+                'carBrands' => $carBrands,
+                'motoBrands' => $motoBrands,
+            ];
+
+            return response()->json($brands);
         }
+
+
 
         public function getGroupCarOptions()
         {
@@ -274,14 +320,50 @@ class DataAssetController extends Controller
 
 
 
+        // public function getBrandOptions()
+        // {
+        //     // ดึงข้อมูล Brand_car ที่ไม่ซ้ำกันจากตาราง Stat_CarBrand
+        //     $brandOptions = DB::table('Stat_CarBrand')
+        //         ->select('Brand_car')
+        //         ->distinct()
+        //         ->get();
+
+        //     return response()->json($brandOptions);
+        // }
+
+
+        // public function getRatetypeOptions()
+        // {
+        //     // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carTypes = DB::table('Stat_CarGroup')
+        //         ->select('Ratetype_id')
+        //         ->distinct()
+        //         ->get();
+
+        //     // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoTypes = DB::table('Stat_MotoGroup')
+        //         ->select('Ratetype_id')
+        //         ->distinct()
+        //         ->get();
+
+        //     // รวมข้อมูลทั้งสองตาราง
+        //     $combinedOptions = $carTypes->merge($motoTypes)->unique('Ratetype_id')->values();
+
+        //     return response()->json($combinedOptions);
+        // }
 
 
 
+        // public function getRatetypeOptions()
+        // {
+        //     // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $ratetypeOptions = DB::table('Stat_CarGroup')
+        //         ->select('Ratetype_id')
+        //         ->distinct()
+        //         ->get();
 
-
-
-
-
+        //     return response()->json($ratetypeOptions);
+        // }
 
 
 

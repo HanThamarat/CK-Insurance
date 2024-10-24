@@ -304,129 +304,6 @@
     });
 </script>
 
-<script>
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        // ตรวจสอบการคลิกปุ่มบันทึก
-        $('#submitBtnCareer').on('click', function(event) {
-            event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
-            validateForm(); // เรียกใช้ฟังก์ชัน validateForm
-        });
-
-        function validateForm() {
-            var isValid = true; // เริ่มต้นสถานะเป็นจริง
-            $('.error').remove(); // ลบข้อความแสดงข้อผิดพลาดก่อนหน้า
-
-            // ตรวจสอบฟิลด์ที่จำเป็น
-            const fields = [{
-                    id: '#Career_Cus',
-                    message: 'กรุณาเลือกอาชีพ'
-                },
-                {
-                    id: '#Income_Cus',
-                    message: 'กรุณากรอกรายได้'
-                },
-                {
-                    id: '#BeforeIncome_Cus',
-                    message: 'กรุณากรอกหักค่าใช้จ่าย'
-                },
-                {
-                    id: '#AfterIncome_Cus',
-                    message: 'กรุณากรอกคงเหลือ'
-                },
-                {
-                    id: '#Workplace_Cus',
-                    message: 'กรุณากรอกสถานที่ทำงาน'
-                },
-                {
-                    id: '#Coordinates',
-                    message: 'กรุณากรอกพิกัด'
-                },
-                {
-                    id: '#IncomeNote_Cus',
-                    message: 'กรุณากรอกรายละเอียด'
-                }
-            ];
-
-            fields.forEach(function(field) {
-                if ($(field.id).val().trim() === '') {
-                    $(field.id).addClass('border-red-500');
-                    $(field.id).after(
-                        `<span class="error text-red-500 text-xs flex items-center mt-1">
-                            <i class="fas fa-exclamation-circle mr-2"></i>${field.message}
-                        </span>`
-                    );
-                    isValid = false;
-                } else {
-                    $(field.id).removeClass('border-red-500');
-                }
-            });
-
-            if (!isValid) {
-                setTimeout(function() {
-                    $('.error').fadeOut(1000, function() {
-                        $(this).remove();
-                    });
-                }, 2000);
-                return; // หยุดการทำงานถ้าฟอร์มไม่ valid
-            }
-
-            // หากฟอร์ม valid ส่งข้อมูล
-            submitForm();
-        }
-
-        function submitForm() {
-            var formData = $('#careerForm').serialize(); // แปลงฟอร์มเป็นข้อมูลที่สามารถส่งได้
-
-            $.ajax({
-                url: '{{ route('career.store') }}', // URL ที่ถูกต้อง
-                method: 'POST',
-                data: formData,
-                success: function(response) {
-                    Swal.fire({
-                        title: 'สำเร็จ!',
-                        text: 'สร้างอาชีพลูกค้าสำเร็จแล้ว!',
-                        icon: 'success',
-                        confirmButtonText: 'ตกลง'
-                    }).then(() => {
-                        location.reload(); // รีเฟรชหน้าหลังจากแสดงข้อความสำเร็จ
-                    });
-                    $('#careerForm')[0].reset(); // รีเซ็ตฟอร์ม
-                },
-                error: function(xhr) {
-                    var errors = xhr.responseJSON.errors;
-                    if (errors) {
-                        $.each(errors, function(key, value) {
-                            Swal.fire({
-                                title: 'ข้อผิดพลาด!',
-                                text: value[0],
-                                icon: 'error',
-                                confirmButtonText: 'ตกลง'
-                            });
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'ข้อผิดพลาด!',
-                            text: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง.',
-                            icon: 'error',
-                            confirmButtonText: 'ตกลง'
-                        });
-                    }
-                }
-            });
-        }
-
-        // หากต้องการจัดการกับปุ่มยกเลิก
-        $('#closeModal_career_button').on('click', function() {
-            // ปิดโมดัล หรือทำการดำเนินการอื่น ๆ ที่ต้องการ
-        });
-    });
-</script>
 
 
 
@@ -508,3 +385,9 @@
         /* ใช้ transition */
     }
 </style>
+
+
+
+
+
+

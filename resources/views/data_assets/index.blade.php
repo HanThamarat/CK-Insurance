@@ -6,11 +6,11 @@
     {{--  Data Assets Component --}}
     @include('data_assets.component_css')
     @include('data_assets.component_js')
-    @include('data_assets.component_type')
+    {{-- @include('data_assets.component_type')
     @include('data_assets.component_brand')
     @include('data_assets.component_year')
     @include('data_assets.component_group')
-    @include('data_assets.component_model')
+    @include('data_assets.component_model') --}}
 
 
     <div class="container-xl px-4 mt-2">
@@ -144,6 +144,33 @@
                     </div> --}}
 
                     <!-- Cards for รถยนต์ and มอเตอร์ไซค์ -->
+                    {{-- <div class="flex flex-col md:flex-row md:justify-center gap-4 w-full h-3/4">
+                        <!-- การ์ดรถยนต์ -->
+                        <a href="#"
+                            class="m-4 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:w-1/2 lg:w-2/3"
+                            data-bs-toggle="modal" data-bs-target="#DataAssetsModal" data-type="รถยนต์"
+                            onclick="setAssetType(this)">
+                            <img class="object-cover w-full rounded-t-lg h-72 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg"
+                                src="{{ asset('images/car.png') }}" alt="รถยนต์">
+                            <div class="flex flex-col justify-between p-6 leading-normal">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">รถยนต์</h5>
+                            </div>
+                        </a>
+
+                        <!-- การ์ดมอเตอร์ไซค์ -->
+                        <a href="#"
+                            class="m-4 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:w-1/2 lg:w-2/3"
+                            data-bs-toggle="modal" data-bs-target="#DataAssetsModal" data-type="มอเตอร์ไซค์"
+                            onclick="setAssetType(this)">
+                            <img class="object-cover w-full rounded-t-lg h-72 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg"
+                                src="{{ asset('images/motor.png') }}" alt="มอเตอร์ไซค์">
+                            <div class="flex flex-col justify-between p-6 leading-normal">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">มอเตอร์ไซค์
+                                </h5>
+                            </div>
+                        </a>
+                    </div> --}}
+
                     <div class="flex flex-col md:flex-row md:justify-center gap-4 w-full h-3/4">
                         <!-- การ์ดรถยนต์ -->
                         <a href="#"
@@ -170,6 +197,30 @@
                             </div>
                         </a>
                     </div>
+
+                    {{-- <input hidden class="" name="Type_Asset" type="text" id="Type_Asset" /> --}}
+
+                    <script>
+                        function setAssetType(element) {
+                            // Get the asset type from data-type attribute
+                            const assetType = element.getAttribute('data-type');
+                            document.getElementById('Type_Asset').value = assetType; // Set the asset type value
+
+                            // Optionally, display additional details based on asset type
+                            if (assetType === 'รถยนต์') {
+                                document.getElementById('car-detail').style.display = 'block';
+                                document.getElementById('motor-detail').style.display = 'none';
+                            } else {
+                                document.getElementById('motor-detail').style.display = 'block';
+                                document.getElementById('car-detail').style.display = 'none';
+                            }
+                        }
+
+                        function closeModal_data_asset(modalId) {
+                            document.getElementById(modalId).classList.add('hidden'); // Hide the modal
+                        }
+                    </script>
+
 
                 </div>
             </div>

@@ -86,11 +86,6 @@ class DataCusAddressController extends Controller
     }
 
 
-    // public function getAddressData()
-    // {
-    //     $addresses = DataCusAddress::all();
-    //     return response()->json($addresses);
-    // }
 
     public function getAddressData($id)
     {
@@ -150,7 +145,11 @@ class DataCusAddressController extends Controller
 
 
 
-
+    // public function getAddressData()
+    // {
+    //     $addresses = DataCusAddress::all();
+    //     return response()->json($addresses);
+    // }
 
 
     // public function getAddressData(Request $request)

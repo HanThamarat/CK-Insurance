@@ -717,7 +717,8 @@
                         icon: 'success',
                         confirmButtonText: 'ตกลง'
                     }).then(() => {
-                        location.reload(); // รีเฟรชหน้าหลังจากแสดงข้อความสำเร็จ
+                        // location.reload(); // รีเฟรชหน้าหลังจากแสดงข้อความสำเร็จ
+                        fetchAddresses();
                     });
                     $('#addressForm')[0].reset(); // รีเซ็ตฟอร์ม
                 },
