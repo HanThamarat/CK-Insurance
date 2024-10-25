@@ -125,7 +125,7 @@
 
 
 
-                @include('components.content-cus.Modal_edit_address')
+                {{-- @include('components.content-cus.Modal_edit_address') --}}
 
                 <!-- ส่วนที่แสดงข้อมูล -->
                 <div class="flex flex-col items-center mt-0 address-master">

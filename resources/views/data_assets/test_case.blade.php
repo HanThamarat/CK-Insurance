@@ -622,3 +622,494 @@
                             </div>
 
                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        {{-- <div class="relative">
+                                <select id="Ratetype_id" name="Vehicle_Type"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                    onchange="handleSelectChange1(this)">
+                                    <option value="">ประเภทรถ 1</option>
+                                </select>
+
+                                <label id="label_Ratetype_id" for="Ratetype_id"
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    ประเภทรถ 1
+                                </label>
+                            </div>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    const selectElement = $('#Ratetype_id');
+                                    // ซ่อน select element ก่อนที่จะทำการโหลดข้อมูล
+                                    selectElement.hide();
+
+                                    $.ajax({
+                                        url: '/api/ratetype-options', // URL ที่เรียกใช้ฟังก์ชัน getRatetypeOptions()
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            // รวมข้อมูล carTypes และ motoTypes แล้วแสดงทั้งหมด
+                                            if (data.carTypes && data.carTypes.length > 0) {
+                                                data.carTypes.forEach(option => {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.id) // กำหนดค่าให้กับ option
+                                                        .text(option.name); // แสดงชื่อประเภทแทน Ratetype_id
+                                                    selectElement.append(opt);
+                                                });
+                                            }
+
+                                            if (data.motoTypes && data.motoTypes.length > 0) {
+                                                data.motoTypes.forEach(option => {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.id) // กำหนดค่าให้กับ option
+                                                        .text(option.name); // แสดงชื่อประเภทแทน Ratetype_id
+                                                    selectElement.append(opt);
+                                                });
+                                            }
+
+                                            // แสดง select element หลังจากที่ข้อมูลถูกโหลดเสร็จ
+                                            selectElement.show();
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Ratetype options:', error);
+                                        }
+                                    });
+                                });
+
+
+                                function handleSelectChange1(selectElement) {
+                                    const label = $('#label_Ratetype_id');
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script> --}}
+
+
+                            <div class="relative">
+                                <select id="Ratetype_id" name="Vehicle_Type"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                    onchange="handleSelectChange1(this)">
+                                    <option value="">ประเภทรถ 1</option>
+                                </select>
+
+                                <label id="label_Ratetype_id" for="Ratetype_id"
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    ประเภทรถ 1
+                                </label>
+                            </div>
+
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                let assetType; // ประกาศตัวแปร assetType ที่สามารถเข้าถึงได้ทั่วทั้งสคริปต์
+
+                                $(document).ready(function() {
+                                    const selectElement = $('#Ratetype_id');
+
+                                    // อ่านค่า assetType จาก input hidden
+                                    assetType = $('#Type_Asset').val(); // อ่านค่า input hidden
+
+                                    // เรียกใช้ AJAX เมื่อ document พร้อม
+                                    loadRatetypeOptions(); // เรียกฟังก์ชันเพื่อโหลดข้อมูล
+
+                                    function loadRatetypeOptions() {
+                                        $.ajax({
+                                            url: '/api/ratetype-options', // URL ที่เรียกใช้ฟังก์ชัน getRatetypeOptions()
+                                            method: 'GET',
+                                            dataType: 'json',
+                                            success: function(data) {
+                                                // Clear previous options
+                                                selectElement.empty().append('<option value="">ประเภทรถ 1</option>');
+
+                                                // แสดงเฉพาะ carTypes ถ้า assetType เป็นรถยนต์
+                                                if (assetType === 'รถยนต์' && data.carTypes && data.carTypes.length > 0) {
+                                                    data.carTypes.forEach(option => {
+                                                        const opt = $('<option></option>')
+                                                            .val(option.id) // กำหนดค่าให้กับ option
+                                                            .text(option.name); // แสดงชื่อประเภทแทน Ratetype_id
+                                                        selectElement.append(opt);
+                                                    });
+                                                }
+                                                // แสดงเฉพาะ motoTypes ถ้า assetType เป็นมอเตอร์ไซค์
+                                                else if (assetType === 'มอเตอร์ไซค์' && data.motoTypes && data.motoTypes.length > 0) {
+                                                    data.motoTypes.forEach(option => {
+                                                        const opt = $('<option></option>')
+                                                            .val(option.id) // กำหนดค่าให้กับ option
+                                                            .text(option.name); // แสดงชื่อประเภทแทน Ratetype_id
+                                                        selectElement.append(opt);
+                                                    });
+                                                }
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Ratetype options:', error);
+                                            }
+                                        });
+                                    }
+                                });
+
+                                function setAssetType(element) {
+                                    // Get the asset type from data-type attribute
+                                    assetType = element.getAttribute('data-type'); // กำหนดค่าให้กับ assetType
+                                    $('#Type_Asset').val(assetType); // ตั้งค่า input hidden ด้วย assetType
+                                    loadRatetypeOptions(); // เรียกฟังก์ชันเพื่อโหลดข้อมูลใหม่ตาม assetType
+                                }
+
+                                function handleSelectChange1(selectElement) {
+                                    const label = $('#label_Ratetype_id');
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script>
+
+
+
+
+
+
+
+                            <div class="relative">
+                                <select id="Name_Vehicle" name="Vehicle_Type_PLT"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                    onchange="handleSelectChange2(this)"> <!-- เพิ่ม onchange -->
+                                    <option value="">ประเภทรถ 2</option>
+                                </select>
+
+                                <label id="label_Name_Vehicle" for="Name_Vehicle"
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    ประเภทรถ 2
+                                </label>
+                            </div>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    $.ajax({
+                                        url: '/api/vehicle-names',
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            const selectElement = $('#Name_Vehicle');
+                                            data.forEach(function(option) {
+                                                const opt = $('<option></option>')
+                                                    .val(option.Name_Vehicle) // กำหนดค่าให้กับ option
+                                                    .text(option.Name_Vehicle); // สามารถปรับให้แสดงชื่อที่ต้องการ
+                                                selectElement.append(opt);
+                                            });
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Vehicle names:', error);
+                                        }
+                                    });
+                                });
+
+                                function handleSelectChange2(selectElement) {
+                                    const label = $('#label_Name_Vehicle'); // ใช้ ID ของ label ที่ถูกต้อง
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script>
+
+
+                            <div class="relative">
+                                <select id="Brand_car" name="Vehicle_Brand"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                    onchange="handleSelectChange3(this)">
+                                    <option value="">ยี่ห้อรถ</option>
+                                </select>
+
+                                <label id="label_Brand_car" for="Brand_car"
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    ยี่ห้อรถ
+                                </label>
+                            </div>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    $.ajax({
+                                        url: '/api/brand-options',
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            const selectElement = $('#Brand_car');
+                                            // ดึงข้อมูลแบรนด์รถยนต์
+                                            data.carBrands.forEach(function(option) {
+                                                const opt = $('<option></option>')
+                                                    .val(option.Brand_car) // กำหนดค่าให้กับ option
+                                                    .text(option.Brand_car); // แสดงชื่อแบรนด์
+                                                selectElement.append(opt);
+                                            });
+                                            // ดึงข้อมูลแบรนด์มอเตอร์ไซค์
+                                            data.motoBrands.forEach(function(option) {
+                                                const opt = $('<option></option>')
+                                                    .val(option.Brand_moto) // กำหนดค่าให้กับ option
+                                                    .text(option.Brand_moto); // แสดงชื่อแบรนด์
+                                                selectElement.append(opt);
+                                            });
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Brand options:', error);
+                                        }
+                                    });
+                                });
+
+                                function handleSelectChange3(selectElement) {
+                                    const label = $('#label_Brand_car'); // ใช้ ID ของ label ที่ถูกต้อง
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script>
+
+
+
+
+                            <div class="relative">
+                                <select id="Group_car" name="Vehicle_Group"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                    onchange="handleSelectChangeGroup(this)">
+                                    <option value="">กลุ่มรถ</option>
+                                </select>
+
+                                <label id="label_Group_car" for="Group_car"
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    กลุ่มรถ
+                                </label>
+                            </div>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    $.ajax({
+                                        url: '/api/group-car-options',
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            const selectElement = $('#Group_car');
+                                            // ดึงข้อมูลกลุ่มรถยนต์
+                                            data.carGroups.forEach(function(option) {
+                                                const opt = $('<option></option>')
+                                                    .val(option.Group_car)
+                                                    .text(option.Group_car);
+                                                selectElement.append(opt);
+                                            });
+                                            // ดึงข้อมูลกลุ่มมอเตอร์ไซค์
+                                            data.motoGroups.forEach(function(option) {
+                                                const opt = $('<option></option>')
+                                                    .val(option.Group_moto)
+                                                    .text(option.Group_moto);
+                                                selectElement.append(opt);
+                                            });
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Group options:', error);
+                                        }
+                                    });
+                                });
+
+                                function handleSelectChangeGroup(selectElement) {
+                                    const label = $('#label_Group_car');
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400');
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400');
+                                    }
+                                }
+                            </script>
+
+
+
+                            <div class="relative">
+                                <select id="Year_car" name="Vehicle_Years"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                    onchange="handleSelectChange5(this)">
+                                    <option value="">ปีรถ</option>
+                                </select>
+
+                                <label id="label_Year_car" for="Year_car"
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    ปีรถ
+                                </label>
+                            </div>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    $.ajax({
+                                        url: '/api/year-options', // URL สำหรับดึงข้อมูลปีรถและปีมอเตอร์ไซค์
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            const selectElement = $('#Year_car'); // เลือก <select> element
+
+                                            // เพิ่มปีรถยนต์ (Year_car)
+                                            data.carYears.forEach(function(option) {
+                                                const opt = $('<option></option>') // สร้าง <option> ใหม่
+                                                    .val(option.Year_car) // กำหนดค่าให้กับ option
+                                                    .text(option.Year_car); // แสดงแค่เลขปีใน dropdown
+                                                selectElement.append(opt); // เพิ่ม <option> ลงใน <select>
+                                            });
+
+                                            // เพิ่มปีมอเตอร์ไซค์ (Year_moto)
+                                            data.motoYears.forEach(function(option) {
+                                                const opt = $('<option></option>') // สร้าง <option> ใหม่
+                                                    .val(option.Year_moto) // กำหนดค่าให้กับ option
+                                                    .text(option.Year_moto); // แสดงแค่เลขปีใน dropdown
+                                                selectElement.append(opt); // เพิ่ม <option> ลงใน <select>
+                                            });
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Year options:', error); // แสดงข้อผิดพลาดในคอนโซล
+                                        }
+                                    });
+                                });
+
+                                function handleSelectChange5(selectElement) {
+                                    const label = $('#label_Year_car'); // ใช้ ID ของ label ที่ถูกต้อง
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script>
+
+
+
+                            <div class="relative">
+                                <select id="Model_car" name="Vehicle_Models"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                    onchange="handleSelectChange6(this)">
+                                    <option value="">รุ่นรถ</option>
+                                </select>
+
+                                <label id="label_Model_car" for="Model_car"
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    รุ่นรถ
+                                </label>
+                            </div>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    $.ajax({
+                                        url: '/api/model-car-options', // URL สำหรับดึงข้อมูลรุ่นรถ
+                                        method: 'GET', // ใช้วิธี GET
+                                        dataType: 'json', // ระบุประเภทข้อมูลที่คาดว่าจะได้รับ
+                                        success: function(data) {
+                                            const carModels = data.carModels; // ดึงข้อมูล carModels จาก JSON
+                                            const motoModels = data.motoModels; // ดึงข้อมูล motoModels จาก JSON
+                                            const selectElement = $('#Model_car'); // เลือก <select> element
+
+                                            // สร้าง <optgroup> สำหรับรถยนต์
+                                            const carOptGroup = $('<optgroup></optgroup>')
+                                                .attr('label', 'รถยนต์');
+
+                                            carModels.forEach(function(option) {
+                                                const opt = $('<option></option>') // สร้าง <option> ใหม่
+                                                    .val(option.Model_car) // กำหนดค่าให้กับ option
+                                                    .text(option.Model_car); // แสดงค่าใน dropdown
+                                                carOptGroup.append(opt); // เพิ่ม <option> ลงใน <optgroup> รถยนต์
+                                            });
+
+                                            selectElement.append(carOptGroup); // เพิ่ม <optgroup> รถยนต์ ลงใน <select>
+
+                                            // สร้าง <optgroup> สำหรับมอเตอร์ไซค์
+                                            const motoOptGroup = $('<optgroup></optgroup>')
+                                                .attr('label', 'มอเตอร์ไซค์');
+
+                                            motoModels.forEach(function(option) {
+                                                const opt = $('<option></option>') // สร้าง <option> ใหม่
+                                                    .val(option.Model_moto) // กำหนดค่าให้กับ option
+                                                    .text(option.Model_moto); // แสดงค่าใน dropdown
+                                                motoOptGroup.append(opt); // เพิ่ม <option> ลงใน <optgroup> มอเตอร์ไซค์
+                                            });
+
+                                            selectElement.append(motoOptGroup); // เพิ่ม <optgroup> มอเตอร์ไซค์ ลงใน <select>
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Model car and moto options:', error); // แสดงข้อผิดพลาดในคอนโซล
+                                        }
+                                    });
+                                });
+
+                                function handleSelectChange6(selectElement) {
+                                    const label = $('#label_Model_car'); // ใช้ ID ของ label ที่ถูกต้อง
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script>
+
+
+
+                            <div class="relative">
+                                <select id="Vehicle_Gear" name="Vehicle_Gear"
+                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                    onchange="handleSelectChange7(this)">
+                                    <option value="">เกียร์รถ</option>
+                                    <option value="manual" class="text-gray-500">Manual</option>
+                                    <option value="auto" class="text-gray-500">Auto</option>
+                                </select>
+
+                                <label id="label_Vehicle_Gear" for="Vehicle_Gear"
+                                    class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                    เกียร์รถ
+                                </label>
+                            </div>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                function handleSelectChange7(selectElement) {
+                                    const label = $('#label_Vehicle_Gear'); // ใช้ ID ของ label ที่ถูกต้อง
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script>

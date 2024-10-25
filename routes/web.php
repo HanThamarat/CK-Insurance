@@ -98,6 +98,7 @@ Route::get('/get-address/{id}', [DataCusAddressController::class, 'getAddress'])
 
 
 // DATA ASSET FETCH DATA
+Route::get('/asset-types', [DataAssetController::class, 'getDataAsset']);
 Route::get('/api/ratetype-options', [DataAssetController::class, 'getRatetypeOptions']);
 Route::get('/api/vehicle-names', [DataAssetController::class, 'getVehicleNames']);
 Route::get('/api/brand-options', [DataAssetController::class, 'getBrandOptions']);

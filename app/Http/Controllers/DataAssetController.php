@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TypeAsset; //ประเภทข้อมูลสินทรัพย์
+
 use App\Models\AssetManage;
-use App\Models\DataAsset; //Model หลักในการเก็บค่า
 use App\Models\ProvinceDLT; //จังหวัด
 use App\Models\TBTypeAsset; //ประเภทรถ
 
@@ -75,6 +76,14 @@ class DataAssetController extends Controller
             ));
         }
 
+        public function getDataAsset()
+        {
+            // ดึงข้อมูลประเภททรัพย์สินที่มี id เป็น 1 และ 2
+            $assets = TBTypeAsset::whereIn('id', [1, 2])->get(['id', 'Name_TypeAsset']);
+
+            return response()->json($assets);
+        }
+
 
         public function getRatetypeOptions()
         {
@@ -90,9 +99,6 @@ class DataAssetController extends Controller
                 ->distinct()
                 ->get();
 
-            // รวมข้อมูลทั้งสองตาราง
-            $combinedOptions = $carTypes->merge($motoTypes)->unique('Ratetype_id')->values();
-
             // สร้าง array สำหรับแมพ Ratetype_id กับชื่อประเภท
             $typeNames = [
                 'C01' => 'รถเก๋ง',
@@ -106,25 +112,88 @@ class DataAssetController extends Controller
                 'M03' => 'รถ BigBike'
             ];
 
-            // แมพค่า Ratetype_id กับชื่อประเภท
-            $optionsWithNames = $combinedOptions->map(function ($item) use ($typeNames) {
+            // แมพค่า Ratetype_id กับชื่อประเภทสำหรับ carTypes
+            $carTypesWithNames = $carTypes->map(function ($item) use ($typeNames) {
                 return [
                     'id' => $item->Ratetype_id,
                     'name' => $typeNames[$item->Ratetype_id] ?? 'ไม่ระบุ'
                 ];
             });
 
-            return response()->json($optionsWithNames);
+            // แมพค่า Ratetype_id กับชื่อประเภทสำหรับ motoTypes
+            $motoTypesWithNames = $motoTypes->map(function ($item) use ($typeNames) {
+                return [
+                    'id' => $item->Ratetype_id,
+                    'name' => $typeNames[$item->Ratetype_id] ?? 'ไม่ระบุ'
+                ];
+            });
+
+            // ส่งค่า response ที่แยกเป็น carTypes และ motoTypes
+            return response()->json([
+                'carTypes' => $carTypesWithNames,
+                'motoTypes' => $motoTypesWithNames
+            ]);
         }
 
 
-        public function getVehicleNames()
+
+
+        public function getVehicleNames(Request $request)
         {
-            // ดึงข้อมูล Name_Vehicle ที่ไม่ซ้ำกันจากตาราง TB_TypeVehicle
-            $vehicleNames = DB::table('TB_TypeVehicle')
-                ->select('Name_Vehicle')
-                ->distinct()
-                ->get();
+            // ตรวจสอบว่ามี Ratetype_id ถูกส่งเข้ามาหรือไม่
+            $ratetypeId = $request->input('ratetype_id');
+
+            // สร้างเงื่อนไขสำหรับการค้นหา Name_Vehicle ตาม Ratetype_id ที่เลือก
+            switch ($ratetypeId) {
+                case 'C01': // รถเก๋ง
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->whereIn('Name_Vehicle', ['รถเก๋งส่วนบุคคล', 'รถเก๋งรับจ้าง'])
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C02': // กระบะตอนเดียว
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->where('Name_Vehicle', 'รถกระบะ')
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C03': // กระบะแค็บ
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->where('Name_Vehicle', 'รถกระบะ')
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C04': // กระบะ 4 ประตู
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->where('Name_Vehicle', 'รถกระบะ')
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C05': // รถตู้
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->where('Name_Vehicle', 'รถอื่น ๆ')
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C06': // รถใหญ่
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->whereIn('Name_Vehicle', ['รถบรรทุก', 'รถเพื่อการเกษตร', 'รถอื่น ๆ'])
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'M01': // รถจักรยานยนต์ (รวม M01, M02, M03)
+                case 'M02':
+                case 'M03':
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->whereIn('Name_Vehicle', ['รถจักรยานยนต์', 'รถ BigBike'])
+                        ->distinct()
+                        ->get();
+                    break;
+                default:
+                    // หาก Ratetype_id ไม่ตรงกับเงื่อนไขที่กำหนดให้ส่งค่าผลลัพธ์ว่าง
+                    $vehicleNames = collect();
+                    break;
+            }
 
             return response()->json($vehicleNames);
         }
@@ -135,14 +204,12 @@ class DataAssetController extends Controller
         {
             // ดึงข้อมูล Brand_car ที่ไม่ซ้ำกันจากตาราง Stat_CarBrand
             $carBrands = DB::table('Stat_CarBrand')
-                ->select('Brand_car')
-                // ->distinct()
+                ->select('Brand_car', 'id') // เพิ่ม id
                 ->get();
 
             // ดึงข้อมูล Brand_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoBrand
             $motoBrands = DB::table('Stat_MotoBrand')
-                ->select('Brand_moto')
-                // ->distinct()
+                ->select('Brand_moto', 'id') // เพิ่ม id
                 ->get();
 
             // รวมข้อมูลแบรนด์รถยนต์และมอเตอร์ไซค์
@@ -178,7 +245,6 @@ class DataAssetController extends Controller
 
             return response()->json($groups);
         }
-
 
 
 
@@ -360,6 +426,140 @@ class DataAssetController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+        // public function getBrandOptions(Request $request)
+        // {
+        //     // ตรวจสอบว่ามี Ratetype_id ถูกส่งเข้ามาหรือไม่
+        //     $ratetypeId = $request->input('ratetype_id');
+
+        //     // ตรวจสอบค่า Name_Vehicle
+        //     $vehicleNames = collect(); // สร้าง collection สำหรับ vehicle names
+
+        //     if ($ratetypeId === 'C01') {
+        //         $vehicleNames = DB::table('TB_TypeVehicle')
+        //             ->whereIn('Name_Vehicle', ['รถเก๋งส่วนบุคคล', 'รถเก๋งรับจ้าง'])
+        //             ->distinct()
+        //             ->pluck('Name_Vehicle'); // ดึงค่า Name_Vehicle
+
+        //         // เช็คว่ามี Name_Vehicle ที่ตรงกันหรือไม่
+        //         if ($vehicleNames->isNotEmpty()) {
+        //             // ดึงข้อมูล Brand_car ที่ id ตามที่ระบุ
+        //             $carBrands = DB::table('Stat_CarBrand')
+        //                 ->whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 20, 22, 23, 26, 27])
+        //                 ->get();
+        //         } else {
+        //             // ถ้าไม่มี Name_Vehicle ที่ตรงกัน ส่งค่ากลับเป็น array ว่าง
+        //             $carBrands = collect();
+        //         }
+        //     } else {
+        //         // ดึงข้อมูล Brand_car ที่ไม่ซ้ำกันจากตาราง Stat_CarBrand
+        //         $carBrands = DB::table('Stat_CarBrand')
+        //             ->select('Brand_car', 'id') // เพิ่ม id
+        //             ->get();
+        //     }
+
+        //     // ดึงข้อมูล Brand_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoBrand
+        //     $motoBrands = DB::table('Stat_MotoBrand')
+        //         ->select('Brand_moto', 'id') // เพิ่ม id
+        //         ->get();
+
+        //     // รวมข้อมูลแบรนด์รถยนต์และมอเตอร์ไซค์
+        //     $brands = [
+        //         'carBrands' => $carBrands,
+        //         'motoBrands' => $motoBrands,
+        //     ];
+
+        //     return response()->json($brands);
+        // }
+
+
+
+        // public function getBrandOptions()
+        // {
+        //     // ดึงข้อมูล Brand_car ที่ไม่ซ้ำกันจากตาราง Stat_CarBrand
+        //     $carBrands = DB::table('Stat_CarBrand')
+        //         ->select('Brand_car')
+        //         // ->distinct()
+        //         ->get();
+
+        //     // ดึงข้อมูล Brand_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoBrand
+        //     $motoBrands = DB::table('Stat_MotoBrand')
+        //         ->select('Brand_moto')
+        //         // ->distinct()
+        //         ->get();
+
+        //     // รวมข้อมูลแบรนด์รถยนต์และมอเตอร์ไซค์
+        //     $brands = [
+        //         'carBrands' => $carBrands,
+        //         'motoBrands' => $motoBrands,
+        //     ];
+
+        //     return response()->json($brands);
+        // }
+
+
+        // public function getVehicleNames()
+        // {
+        //     // ดึงข้อมูล Name_Vehicle ที่ไม่ซ้ำกันจากตาราง TB_TypeVehicle
+        //     $vehicleNames = DB::table('TB_TypeVehicle')
+        //         ->select('Name_Vehicle')
+        //         ->distinct()
+        //         ->get();
+
+        //     return response()->json($vehicleNames);
+        // }
+
+
+        // public function getRatetypeOptions()
+        // {
+        //     // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carTypes = DB::table('Stat_CarGroup')
+        //         ->select('Ratetype_id')
+        //         ->distinct()
+        //         ->get();
+
+        //     // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoTypes = DB::table('Stat_MotoGroup')
+        //         ->select('Ratetype_id')
+        //         ->distinct()
+        //         ->get();
+
+        //     // รวมข้อมูลทั้งสองตาราง
+        //     $combinedOptions = $carTypes->merge($motoTypes)->unique('Ratetype_id')->values();
+
+        //     // สร้าง array สำหรับแมพ Ratetype_id กับชื่อประเภท
+        //     $typeNames = [
+        //         'C01' => 'รถเก๋ง',
+        //         'C02' => 'กระบะตอนเดียว',
+        //         'C03' => 'กระบะแค็บ',
+        //         'C04' => 'กระบะ 4 ประตู',
+        //         'C05' => 'รถตู้',
+        //         'C06' => 'รถใหญ่',
+        //         'M01' => 'รถเกียร์ธรรมดา',
+        //         'M02' => 'รถเกียร์ออโต้',
+        //         'M03' => 'รถ BigBike'
+        //     ];
+
+        //     // แมพค่า Ratetype_id กับชื่อประเภท
+        //     $optionsWithNames = $combinedOptions->map(function ($item) use ($typeNames) {
+        //         return [
+        //             'id' => $item->Ratetype_id,
+        //             'name' => $typeNames[$item->Ratetype_id] ?? 'ไม่ระบุ'
+        //         ];
+        //     });
+
+        //     return response()->json($optionsWithNames);
+        // }
 
 
 

@@ -339,35 +339,80 @@
 
                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                             <script>
-                                $(document).ready(function() {
+                                function loadRatetypeOptions(vehicleType) {
+                                    const selectElement = $('#Ratetype_id');
+                                    selectElement.empty(); // Clear previous options
+
+                                    // Add the default option
+                                    selectElement.append('<option value="">ประเภทรถ 1</option>');
+
+                                    // Hide select element before loading data
+                                    selectElement.hide();
+
                                     $.ajax({
                                         url: '/api/ratetype-options', // URL ที่เรียกใช้ฟังก์ชัน getRatetypeOptions()
                                         method: 'GET',
                                         dataType: 'json',
                                         success: function(data) {
-                                            const selectElement = $('#Ratetype_id');
-                                            data.forEach(option => {
-                                                const opt = $('<option></option>')
-                                                    .val(option.id) // กำหนดค่าให้กับ option
-                                                    .text(option.name); // แสดงชื่อประเภทแทน Ratetype_id
-                                                selectElement.append(opt);
-                                            });
+                                            if (vehicleType === 'car' && data.carTypes && data.carTypes.length > 0) {
+                                                data.carTypes.forEach(option => {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.id) // กำหนดค่าให้กับ option
+                                                        .text(option.name); // แสดงชื่อประเภทแทน Ratetype_id
+                                                    selectElement.append(opt);
+                                                });
+                                            } else if (vehicleType === 'motor' && data.motoTypes && data.motoTypes.length > 0) {
+                                                data.motoTypes.forEach(option => {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.id) // กำหนดค่าให้กับ option
+                                                        .text(option.name); // แสดงชื่อประเภทแทน Ratetype_id
+                                                    selectElement.append(opt);
+                                                });
+                                            }
+
+                                            // Show select element after data is loaded
+                                            selectElement.show();
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Ratetype options:', error);
+                                        }
+                                    });
+                                }
+
+                                function closeModal_data_asset(modalId) {
+                                    document.getElementById(modalId).classList.add('hidden'); // Hide the modal
+                                }
+
+                                function handleSelectChange1(selectElement) {
+                                    const label = $('#label_Ratetype_id');
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // Move label up
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // Move label down
+                                    }
+                                }
+
+                                $(document).ready(function() {
+                                    const selectElement = $('#Ratetype_id');
+                                    // Hide select element before loading data
+                                    selectElement.hide();
+
+                                    // Initial load if needed
+                                    $.ajax({
+                                        url: '/api/ratetype-options', // URL to load options
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            // Show select element after data is loaded
+                                            selectElement.show();
                                         },
                                         error: function(xhr, status, error) {
                                             console.error('Error fetching Ratetype options:', error);
                                         }
                                     });
                                 });
-
-                                function handleSelectChange1(selectElement) {
-                                    const label = $('#label_Ratetype_id');
-                                    if (selectElement.value) {
-                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
-                                    } else {
-                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
-                                    }
-                                }
                             </script>
+
 
 
                             <div class="relative">
@@ -386,22 +431,33 @@
                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                             <script>
                                 $(document).ready(function() {
-                                    $.ajax({
-                                        url: '/api/vehicle-names',
-                                        method: 'GET',
-                                        dataType: 'json',
-                                        success: function(data) {
-                                            const selectElement = $('#Name_Vehicle');
-                                            data.forEach(function(option) {
-                                                const opt = $('<option></option>')
-                                                    .val(option.Name_Vehicle) // กำหนดค่าให้กับ option
-                                                    .text(option.Name_Vehicle); // สามารถปรับให้แสดงชื่อที่ต้องการ
-                                                selectElement.append(opt);
-                                            });
-                                        },
-                                        error: function(xhr, status, error) {
-                                            console.error('Error fetching Vehicle names:', error);
-                                        }
+                                    // เมื่อมีการเปลี่ยนแปลงใน select ของประเภท
+                                    $('#Ratetype_id').change(function() {
+                                        const selectedType = $(this).val(); // ดึงค่า Ratetype_id ที่ถูกเลือก
+                                        $.ajax({
+                                            url: '/api/vehicle-names', // API endpoint ของคุณ
+                                            method: 'GET',
+                                            data: { ratetype_id: selectedType }, // ส่ง Ratetype_id
+                                            dataType: 'json',
+                                            success: function(data) {
+                                                const selectElement = $('#Name_Vehicle');
+                                                selectElement.empty(); // ล้างตัวเลือกก่อนหน้า
+
+                                                // เพิ่มตัวเลือก "ประเภทรถ 2"
+                                                selectElement.append('<option value="">ประเภทรถ 2</option>');
+
+                                                // เพิ่มตัวเลือกใหม่จากข้อมูลที่ดึงมา
+                                                data.forEach(function(option) {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.Name_Vehicle) // กำหนดค่าให้กับ option
+                                                        .text(option.Name_Vehicle); // แสดงชื่อที่ต้องการ
+                                                    selectElement.append(opt);
+                                                });
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Vehicle names:', error);
+                                            }
+                                        });
                                     });
                                 });
 
