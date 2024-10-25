@@ -16,7 +16,7 @@
 
                         $.each(data.careers, function(index, career) {
                             html += `
-                            <div class="flex space-x-4">
+                            <div class="flex space-x-4 p-2">
                                 <div class="w-full mt-0">
                                     <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
                                         <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">
@@ -26,6 +26,9 @@
                                                         <i class="fas fa-tag"></i> ${career.Career_Cus}
                                                     </h6>
                                                 </div>
+                                                <button class="edit-career-btn bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded transition-transform transform hover:scale-105 hover:shadow-lg flex items-center" data-id="${career.id}" data-career-name="${career.Career_Cus}" onclick="openModal_Edit_career_customer(this)">
+                                                    <i class="fas fa-edit mr-2"></i> แก้ไข
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="p-4">

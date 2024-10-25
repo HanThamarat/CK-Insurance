@@ -124,8 +124,7 @@
                 </div>
 
 
-
-                {{-- @include('components.content-cus.Modal_edit_address') --}}
+                @include('components.content-cus.Modal_edit_address')
 
                 <!-- ส่วนที่แสดงข้อมูล -->
                 <div class="flex flex-col items-center mt-0 address-master">
@@ -170,6 +169,8 @@
                     <!-- ปุ่มเลื่อนไปทางขวา -->
                     <button class="next-2" id="next-master-2">→</button>
                 </div>
+
+                @include('components.content-cus.Modal_edit_career')
 
 
 

@@ -6,11 +6,11 @@
     {{--  Data Assets Component --}}
     @include('data_assets.component_css')
     @include('data_assets.component_js')
-    {{-- @include('data_assets.component_type')
+    @include('data_assets.component_type')
     @include('data_assets.component_brand')
     @include('data_assets.component_year')
     @include('data_assets.component_group')
-    @include('data_assets.component_model') --}}
+    @include('data_assets.component_model')
 
 
     <div class="container-xl px-4 mt-2">
@@ -52,58 +52,7 @@
     </div>
 
 
-    <script>
-        // function setAssetType(element) {
-        //     // Get the asset type from data-type attribute
-        //     const assetType = element.getAttribute('data-type');
-        //     document.getElementById('Type_Asset').value = assetType; // Set the asset type value
 
-        //     // Optionally, display additional details based on asset type
-        //     if (assetType === 'รถยนต์') {
-        //         document.getElementById('car-detail').style.display = 'block';
-        //         document.getElementById('motor-detail').style.display = 'none';
-        //     } else {
-        //         document.getElementById('motor-detail').style.display = 'block';
-        //         document.getElementById('car-detail').style.display = 'none';
-        //     }
-        // }
-
-        // function closeModal_data_asset(modalId) {
-        //     document.getElementById(modalId).classList.add('hidden'); // Hide the modal
-        // }
-
-        // function setAssetType(element) {
-        //     const assetType = element.getAttribute('data-type');
-        //     document.getElementById('Type_Asset').value = assetType; // Set the asset type value
-
-        //     if (assetType === 'รถยนต์') {
-        //         document.getElementById('car-detail').style.display = 'block';
-        //         document.getElementById('motor-detail').style.display = 'none';
-        //         loadRatetypeOptions('car'); // Call the function to load car types
-        //     } else {
-        //         document.getElementById('motor-detail').style.display = 'block';
-        //         document.getElementById('car-detail').style.display = 'none';
-        //         loadRatetypeOptions('motor'); // Call the function to load motorcycle types
-        //     }
-        // }
-
-        function setAssetType(element) {
-            // Get the asset type from data-type attribute
-            const assetType = element.getAttribute('data-type');
-            document.getElementById('Type_Asset').value = assetType; // Set the asset type value
-
-            // Optionally, display additional details based on asset type
-            if (assetType === 'รถยนต์') {
-                document.getElementById('car-detail').style.display = 'block';
-                document.getElementById('motor-detail').style.display = 'none';
-                loadRatetypeOptions('car'); // Call the function to load car types
-            } else {
-                document.getElementById('motor-detail').style.display = 'block';
-                document.getElementById('car-detail').style.display = 'none';
-                loadRatetypeOptions('motor'); // Call the function to load motorcycle types
-            }
-        }
-    </script>
 
 
     <div id="preloader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -135,7 +84,58 @@
 
 
 
+<script>
+    // function setAssetType(element) {
+    //     // Get the asset type from data-type attribute
+    //     const assetType = element.getAttribute('data-type');
+    //     document.getElementById('Type_Asset').value = assetType; // Set the asset type value
 
+    //     // Optionally, display additional details based on asset type
+    //     if (assetType === 'รถยนต์') {
+    //         document.getElementById('car-detail').style.display = 'block';
+    //         document.getElementById('motor-detail').style.display = 'none';
+    //     } else {
+    //         document.getElementById('motor-detail').style.display = 'block';
+    //         document.getElementById('car-detail').style.display = 'none';
+    //     }
+    // }
+
+    // function closeModal_data_asset(modalId) {
+    //     document.getElementById(modalId).classList.add('hidden'); // Hide the modal
+    // }
+
+    // function setAssetType(element) {
+    //     const assetType = element.getAttribute('data-type');
+    //     document.getElementById('Type_Asset').value = assetType; // Set the asset type value
+
+    //     if (assetType === 'รถยนต์') {
+    //         document.getElementById('car-detail').style.display = 'block';
+    //         document.getElementById('motor-detail').style.display = 'none';
+    //         loadRatetypeOptions('car'); // Call the function to load car types
+    //     } else {
+    //         document.getElementById('motor-detail').style.display = 'block';
+    //         document.getElementById('car-detail').style.display = 'none';
+    //         loadRatetypeOptions('motor'); // Call the function to load motorcycle types
+    //     }
+    // }
+
+    // function setAssetType(element) {
+    //     // Get the asset type from data-type attribute
+    //     const assetType = element.getAttribute('data-type');
+    //     document.getElementById('Type_Asset').value = assetType; // Set the asset type value
+
+    //     // Optionally, display additional details based on asset type
+    //     if (assetType === 'รถยนต์') {
+    //         document.getElementById('car-detail').style.display = 'block';
+    //         document.getElementById('motor-detail').style.display = 'none';
+    //         loadRatetypeOptions('car'); // Call the function to load car types
+    //     } else {
+    //         document.getElementById('motor-detail').style.display = 'block';
+    //         document.getElementById('car-detail').style.display = 'none';
+    //         loadRatetypeOptions('motor'); // Call the function to load motorcycle types
+    //     }
+    // }
+</script>
 
 
 {{-- <script>
