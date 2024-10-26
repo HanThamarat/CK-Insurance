@@ -111,43 +111,46 @@
         // เรียกฟังก์ชันดึงข้อมูลเมื่อหน้าเว็บโหลด
         fetchAddresses();
 
-        // ฟังก์ชันสำหรับเปิด Modal เพื่อเพิ่ม/แก้ไขที่อยู่
-        // window.openModal_Edit_address_customer = function(button) {
-        //     const addressId = $(button).data('id');
-
-        //     // โค้ดสำหรับเปิด Modal และโหลดข้อมูลที่อยู่ที่ต้องการแก้ไข
-
-        //     // ดึงข้อมูลที่อยู่จากเซิร์ฟเวอร์เพื่อแสดงใน Modal
-        //     $.ajax({
-        //         url: '/get-address/' + addressId, // URL ที่เชื่อมต่อกับเส้นทางที่เราสร้างไว้
-        //         type: 'GET',
-        //         dataType: 'json',
-        //         success: function(data) {
-        //             // แสดงข้อมูลใน Modal
-        //             $('#address-modal').modal('show'); // เปิด Modal
-        //             $('#modal-houseNumber').val(data.houseNumber_Adds); // แสดงข้อมูลที่อยู่
-        //             $('#modal-province').val(data.houseProvince_Adds); // แสดงข้อมูลจังหวัด
-        //             // ... ต่อไปสำหรับข้อมูลอื่น ๆ ที่ต้องการแสดง
-        //         },
-        //         error: function(xhr) {
-        //             Swal.fire({
-        //                 title: 'ข้อผิดพลาด',
-        //                 text: 'ไม่สามารถดึงข้อมูลที่อยู่ได้ กรุณาลองใหม่',
-        //                 icon: 'error',
-        //                 confirmButtonText: 'ตกลง'
-        //             });
-        //         }
-        //     });
-        // }
-
-        // // ฟังก์ชันหลังจากทำการบันทึกหรือแก้ไขข้อมูลที่อยู่
-        // function saveAddress() {
-        //     // โค้ดสำหรับบันทึกหรืออัปเดตที่อยู่ที่นี่
-        //     // ... หลังจากบันทึกเสร็จ ให้เรียก fetchAddresses() เพื่อดึงข้อมูลใหม่
-        //     fetchAddresses(); // เรียกใช้อีกครั้งเพื่ออัปเดตข้อมูล
-        // }
     });
 </script>
 
+
+
+
+{{-- // ฟังก์ชันสำหรับเปิด Modal เพื่อเพิ่ม/แก้ไขที่อยู่
+// window.openModal_Edit_address_customer = function(button) {
+//     const addressId = $(button).data('id');
+
+//     // โค้ดสำหรับเปิด Modal และโหลดข้อมูลที่อยู่ที่ต้องการแก้ไข
+
+//     // ดึงข้อมูลที่อยู่จากเซิร์ฟเวอร์เพื่อแสดงใน Modal
+//     $.ajax({
+//         url: '/get-address/' + addressId, // URL ที่เชื่อมต่อกับเส้นทางที่เราสร้างไว้
+//         type: 'GET',
+//         dataType: 'json',
+//         success: function(data) {
+//             // แสดงข้อมูลใน Modal
+//             $('#address-modal').modal('show'); // เปิด Modal
+//             $('#modal-houseNumber').val(data.houseNumber_Adds); // แสดงข้อมูลที่อยู่
+//             $('#modal-province').val(data.houseProvince_Adds); // แสดงข้อมูลจังหวัด
+//             // ... ต่อไปสำหรับข้อมูลอื่น ๆ ที่ต้องการแสดง
+//         },
+//         error: function(xhr) {
+//             Swal.fire({
+//                 title: 'ข้อผิดพลาด',
+//                 text: 'ไม่สามารถดึงข้อมูลที่อยู่ได้ กรุณาลองใหม่',
+//                 icon: 'error',
+//                 confirmButtonText: 'ตกลง'
+//             });
+//         }
+//     });
+// }
+
+// // ฟังก์ชันหลังจากทำการบันทึกหรือแก้ไขข้อมูลที่อยู่
+// function saveAddress() {
+//     // โค้ดสำหรับบันทึกหรืออัปเดตที่อยู่ที่นี่
+//     // ... หลังจากบันทึกเสร็จ ให้เรียก fetchAddresses() เพื่อดึงข้อมูลใหม่
+//     fetchAddresses(); // เรียกใช้อีกครั้งเพื่ออัปเดตข้อมูล
+// } --}}
 
 

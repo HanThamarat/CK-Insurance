@@ -124,7 +124,7 @@
                 </div>
 
 
-                @include('components.content-cus.Modal_edit_address')
+                {{-- @include('components.content-cus.Modal_edit_address') --}}
 
                 <!-- ส่วนที่แสดงข้อมูล -->
                 <div class="flex flex-col items-center mt-0 address-master">
@@ -170,7 +170,7 @@
                     <button class="next-2" id="next-master-2">→</button>
                 </div>
 
-                @include('components.content-cus.Modal_edit_career')
+                {{-- @include('components.content-cus.Modal_edit_career') --}}
 
 
 
@@ -187,11 +187,8 @@
                 <div class="flex justify-center mt-0">
                     <button id="addCareerButton"
                         class="mt-0 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 448 512">
+                            <path d="M96 128a128 128 0 1 0 256 0A128 128 0 1 0 96 128zm94.5 200.2l18.6 31L175.8 483.1l-36-146.9c-2-8.1-9.8-13.4-17.9-11.3C51.9 342.4 0 405.8 0 481.3c0 17 13.8 30.7 30.7 30.7l131.7 0c0 0 0 0 .1 0l5.5 0 112 0 5.5 0c0 0 0 0 .1 0l131.7 0c17 0 30.7-13.8 30.7-30.7c0-75.5-51.9-138.9-121.9-156.4c-8.1-2-15.9 3.3-17.9 11.3l-36 146.9L238.9 359.2l18.6-31c6.4-10.7-1.3-24.2-13.7-24.2L224 304l-19.7 0c-12.4 0-20.1 13.6-13.7 24.2z"/>
                         </svg>
                         เพิ่มอาชีพ
                     </button>

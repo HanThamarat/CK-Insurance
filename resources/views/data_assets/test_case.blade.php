@@ -1207,3 +1207,232 @@
         }
     }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            {{-- <script>
+                                $(document).ready(function() {
+                                    $.ajax({
+                                        url: '/api/brand-options',
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            const selectElement = $('#Brand_car');
+                                            // ดึงข้อมูลแบรนด์รถยนต์
+                                            data.carBrands.forEach(function(option) {
+                                                const opt = $('<option></option>')
+                                                    .val(option.Brand_car) // กำหนดค่าให้กับ option
+                                                    .text(option.Brand_car); // แสดงชื่อแบรนด์
+                                                selectElement.append(opt);
+                                            });
+                                            // ดึงข้อมูลแบรนด์มอเตอร์ไซค์
+                                            data.motoBrands.forEach(function(option) {
+                                                const opt = $('<option></option>')
+                                                    .val(option.Brand_moto) // กำหนดค่าให้กับ option
+                                                    .text(option.Brand_moto); // แสดงชื่อแบรนด์
+                                                selectElement.append(opt);
+                                            });
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Brand options:', error);
+                                        }
+                                    });
+                                });
+
+                                function handleSelectChange3(selectElement) {
+                                    const label = $('#label_Brand_car'); // ใช้ ID ของ label ที่ถูกต้อง
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script> --}}
+
+
+
+                                                        {{-- <script>
+                                $(document).ready(function() {
+                                    // เมื่อมีการเปลี่ยนแปลงใน select ของประเภท
+                                    $('#Ratetype_id').change(function() {
+                                        const selectedType = $(this).val(); // ดึงค่า Ratetype_id ที่ถูกเลือก
+
+                                        // AJAX สำหรับดึงข้อมูล Vehicle Names
+                                        $.ajax({
+                                            url: '/api/vehicle-names', // API endpoint ของคุณ
+                                            method: 'GET',
+                                            data: { ratetype_id: selectedType }, // ส่ง Ratetype_id
+                                            dataType: 'json',
+                                            success: function(data) {
+                                                const selectElement = $('#Name_Vehicle');
+                                                selectElement.empty(); // ล้างตัวเลือกก่อนหน้า
+
+                                                // เพิ่มตัวเลือก "ประเภทรถ 2"
+                                                selectElement.append('<option value="">ประเภทรถ 2</option>');
+
+                                                // เพิ่มตัวเลือกใหม่จากข้อมูลที่ดึงมา
+                                                data.forEach(function(option) {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.Name_Vehicle) // กำหนดค่าให้กับ option
+                                                        .text(option.Name_Vehicle); // แสดงชื่อที่ต้องการ
+                                                    selectElement.append(opt);
+                                                });
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Vehicle names:', error);
+                                            }
+                                        });
+
+                                        // AJAX สำหรับดึงข้อมูล Brand Options
+                                        $.ajax({
+                                            url: '/api/brand-options',
+                                            method: 'GET',
+                                            data: { ratetype_id: selectedType, name_vehicle: $('#Name_Vehicle').val() }, // ส่งค่า ratetype_id และ name_vehicle เพื่อกรองแบรนด์
+                                            dataType: 'json',
+                                            success: function(data) {
+                                                const selectElement = $('#Brand_car');
+                                                selectElement.empty(); // ล้างตัวเลือกก่อนหน้า
+
+                                                // เพิ่มตัวเลือก "ยี่ห้อรถ"
+                                                selectElement.append('<option value="">ยี่ห้อรถ</option>');
+
+                                                // เพิ่มตัวเลือกแบรนด์รถยนต์
+                                                data.carBrands.forEach(function(option) {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.id) // เปลี่ยนค่าที่จะถูกส่งเมื่อเลือกแบรนด์
+                                                        .text(option.Brand_car); // แสดงชื่อแบรนด์
+                                                    selectElement.append(opt);
+                                                });
+
+                                                // เพิ่มตัวเลือกแบรนด์มอเตอร์ไซค์
+                                                data.motoBrands.forEach(function(option) {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.id) // เปลี่ยนค่าที่จะถูกส่งเมื่อเลือกแบรนด์
+                                                        .text(option.Brand_moto); // แสดงชื่อแบรนด์
+                                                    selectElement.append(opt);
+                                                });
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Brand options:', error);
+                                            }
+                                        });
+                                    });
+
+                                    // ฟังก์ชันสำหรับจัดการการเปลี่ยนแปลง select ของ Name_Vehicle
+                                    $('#Name_Vehicle').change(function() {
+                                        const selectedType = $('#Ratetype_id').val(); // ดึงค่า Ratetype_id ที่ถูกเลือก
+                                        const selectedVehicle = $(this).val(); // ดึงค่า Name_Vehicle ที่ถูกเลือก
+
+                                        // AJAX สำหรับดึงข้อมูล Brand Options
+                                        $.ajax({
+                                            url: '/api/brand-options',
+                                            method: 'GET',
+                                            data: { ratetype_id: selectedType, name_vehicle: selectedVehicle }, // ส่งค่า ratetype_id และ name_vehicle เพื่อกรองแบรนด์
+                                            dataType: 'json',
+                                            success: function(data) {
+                                                const selectElement = $('#Brand_car');
+                                                selectElement.empty(); // ล้างตัวเลือกก่อนหน้า
+
+                                                // เพิ่มตัวเลือก "ยี่ห้อรถ"
+                                                selectElement.append('<option value="">ยี่ห้อรถ</option>');
+
+                                                // เพิ่มตัวเลือกแบรนด์รถยนต์
+                                                data.carBrands.forEach(function(option) {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.id) // เปลี่ยนค่าที่จะถูกส่งเมื่อเลือกแบรนด์
+                                                        .text(option.Brand_car); // แสดงชื่อแบรนด์
+                                                    selectElement.append(opt);
+                                                });
+
+                                                // เพิ่มตัวเลือกแบรนด์มอเตอร์ไซค์
+                                                data.motoBrands.forEach(function(option) {
+                                                    const opt = $('<option></option>')
+                                                        .val(option.id) // เปลี่ยนค่าที่จะถูกส่งเมื่อเลือกแบรนด์
+                                                        .text(option.Brand_moto); // แสดงชื่อแบรนด์
+                                                    selectElement.append(opt);
+                                                });
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Brand options:', error);
+                                            }
+                                        });
+                                    });
+                                });
+
+                                function handleSelectChange2(selectElement) {
+                                    const label = $('#label_Name_Vehicle'); // ใช้ ID ของ label ที่ถูกต้อง
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+
+                                function handleSelectChange3(selectElement) {
+                                    const label = $('#label_Brand_car'); // ใช้ ID ของ label ที่ถูกต้อง
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script> --}}
+
+
+
+                            // AJAX สำหรับดึงข้อมูล Vehicle Names
+                            // $.ajax({
+                            //     url: '/api/vehicle-names',
+                            //     method: 'GET',
+                            //     data: { ratetype_id: selectedType },
+                            //     dataType: 'json',
+                            //     success: function(data) {
+                            //         const selectElement = $('#Name_Vehicle');
+                            //         selectElement.empty(); // ล้างตัวเลือกก่อนหน้า
+
+                            //         // เพิ่มตัวเลือก "ประเภทรถ 2"
+                            //         selectElement.append('<option value="ประเภทรถ 2">ประเภทรถ 2</option>');
+
+                            //         // เพิ่มตัวเลือกใหม่จากข้อมูลที่ดึงมา
+                            //         data.forEach(function(option) {
+                            //             const opt = $('<option></option>')
+                            //                 .val(option.Name_Vehicle)
+                            //                 .text(option.Name_Vehicle);
+                            //             selectElement.append(opt);
+                            //         });
+                            //     },
+                            //     error: function(xhr, status, error) {
+                            //         console.error('Error fetching Vehicle names:', error);
+                            //     }
+                            // });
+
+
+                            // function handleSelectChange2(selectElement) {
+                                //     const label = $('#label_Name_Vehicle');
+                                //     if (selectElement.value) {
+                                //         label.addClass('translate-y-[-2rem] text-gray-400');
+                                //     } else {
+                                //         label.removeClass('translate-y-[-2rem] text-gray-400');
+                                //     }
+                                // }

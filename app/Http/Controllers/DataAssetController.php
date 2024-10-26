@@ -200,51 +200,178 @@ class DataAssetController extends Controller
 
 
 
-        public function getBrandOptions()
+        public function getBrandOptions(Request $request)
         {
-            // ดึงข้อมูล Brand_car ที่ไม่ซ้ำกันจากตาราง Stat_CarBrand
-            $carBrands = DB::table('Stat_CarBrand')
-                ->select('Brand_car', 'id') // เพิ่ม id
-                ->get();
+            // รับ ratetype_id และ Name_Vehicle จาก request
+            $ratetypeId = $request->input('ratetype_id');
+            $nameVehicle = $request->input('name_vehicle'); // เพิ่มเพื่อดึงค่า Name_Vehicle
 
-            // ดึงข้อมูล Brand_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoBrand
-            $motoBrands = DB::table('Stat_MotoBrand')
-                ->select('Brand_moto', 'id') // เพิ่ม id
-                ->get();
-
-            // รวมข้อมูลแบรนด์รถยนต์และมอเตอร์ไซค์
             $brands = [
-                'carBrands' => $carBrands,
-                'motoBrands' => $motoBrands,
+                'carBrands' => collect(),
+                'motoBrands' => collect(),
             ];
+
+            // กำหนดเงื่อนไขสำหรับกรณีที่ ratetype_id เป็น 'C01'
+            if ($ratetypeId === 'C01') {
+                $vehicleNames = DB::table('TB_TypeVehicle')
+                    ->whereIn('Name_Vehicle', ['รถเก๋งส่วนบุคคล', 'รถเก๋งรับจ้าง'])
+                    ->distinct()
+                    ->exists();
+
+                if ($vehicleNames) {
+                    // ดึงข้อมูล Brand_car สำหรับ C01
+                    $carBrands = DB::table('Stat_CarBrand')
+                        ->select('Brand_car', 'id')
+                        ->whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 20, 22, 23, 26, 27])
+                        ->get();
+
+                    $brands['carBrands'] = $carBrands;
+                }
+            }
+            // เช็คเงื่อนไขสำหรับ C02
+            else if ($ratetypeId === 'C02' && $nameVehicle === 'รถกระบะ') {
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->whereIn('id', [1, 4, 5, 6, 7, 8, 9, 17])
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+            }
+            // เช็คเงื่อนไขสำหรับ C03
+            else if ($ratetypeId === 'C03' && $nameVehicle === 'รถกระบะ') {
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->whereIn('id', [1, 3, 5, 6, 7, 8, 9, 14])
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+            }
+            // เช็คเงื่อนไขสำหรับ C04
+            else if ($ratetypeId === 'C04' && $nameVehicle === 'รถกระบะ') {
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->whereIn('id', [1, 3, 5, 6, 7, 8, 9, 14])
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+            }
+            // เช็คเงื่อนไขสำหรับ C05
+            else if ($ratetypeId === 'C05' && $nameVehicle === 'รถอื่น ๆ') {
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->whereIn('id', [5, 8, 15])
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+            }
+            // เช็คเงื่อนไขสำหรับ C06
+            else if ($ratetypeId === 'C06') {
+                if ($nameVehicle === 'รถบรรทุก' || $nameVehicle === 'รถเพื่อการเกษตร' || $nameVehicle === 'รถอื่น ๆ') {
+                    $carBrands = DB::table('Stat_CarBrand')
+                        ->select('Brand_car', 'id')
+                        ->whereIn('id', [1, 5, 9, 10, 11, 18, 21, 24, 25])
+                        ->get();
+
+                    $brands['carBrands'] = $carBrands;
+                }
+            }
+            // เช็คเงื่อนไขสำหรับ M01, M02, M03
+            else if ($ratetypeId === 'M01' && $nameVehicle === 'รถจักรยานยนต์') {
+                $motoBrands = DB::table('Stat_MotoBrand')
+                    ->select('Brand_moto', 'id')
+                    ->whereIn('id', [1, 2, 3, 4, 5, 9, 11])
+                    ->get();
+
+                $brands['motoBrands'] = $motoBrands;
+            } else if ($ratetypeId === 'M02' && $nameVehicle === 'รถจักรยานยนต์') {
+                $motoBrands = DB::table('Stat_MotoBrand')
+                    ->select('Brand_moto', 'id')
+                    ->whereIn('id', [1, 2, 3, 4, 6, 7, 10])
+                    ->get();
+
+                $brands['motoBrands'] = $motoBrands;
+            } else if ($ratetypeId === 'M03' && $nameVehicle === 'รถจักรยานยนต์') {
+                $motoBrands = DB::table('Stat_MotoBrand')
+                    ->select('Brand_moto', 'id')
+                    ->whereIn('id', [1, 2])
+                    ->get();
+
+                $brands['motoBrands'] = $motoBrands;
+            } else {
+                // กรณี ratetype_id ไม่ใช่ C01, C02, C03, C04, C05 หรือ C06 จะดึงข้อมูลทั้งหมด
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->get();
+
+                $motoBrands = DB::table('Stat_MotoBrand')
+                    ->select('Brand_moto', 'id')
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+                $brands['motoBrands'] = $motoBrands;
+            }
 
             return response()->json($brands);
         }
 
 
-
-        public function getGroupCarOptions()
+        public function getGroupCarOptions(Request $request)
         {
-            // ดึงข้อมูล Group_car ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
-            $carGroups = DB::table('Stat_CarGroup')
-                ->select('Group_car')
-                // ->distinct()
-                ->get();
+            // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+            $carGroups = DB::table('Stat_CarGroup')->select('Group_car', 'RateType_id', 'Brand_id')->get();
 
-            // ดึงข้อมูล Group_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
-            $motoGroups = DB::table('Stat_MotoGroup')
-                ->select('Group_moto')
-                // ->distinct()
-                ->get();
+            // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+            $motoGroups = DB::table('Stat_MotoGroup')->select('Group_moto', 'RateType_id', 'Brand_id')->get();
+
+            // เรียกใช้ getBrandOptions เพื่อดึงข้อมูลแบรนด์
+            $brandsResponse = $this->getBrandOptions($request);
+
+            // แปลงข้อมูล JSON ที่ได้จาก getBrandOptions
+            $brandsData = json_decode($brandsResponse->getContent(), true);
+
+            // ตรวจสอบว่า carBrands และ motoBrands มีค่าหรือไม่
+            $carBrands = isset($brandsData['carBrands']) ? $brandsData['carBrands'] : [];
+            $motoBrands = isset($brandsData['motoBrands']) ? $brandsData['motoBrands'] : [];
 
             // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
             $groups = [
                 'carGroups' => $carGroups,
                 'motoGroups' => $motoGroups,
+                'carBrands' => $carBrands,
+                'motoBrands' => $motoBrands,
             ];
+
+            dd($carGroups);
+            dd($motoGroups);
 
             return response()->json($groups);
         }
+
+
+
+        // public function getGroupCarOptions()
+        // {
+        //     // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carGroups = DB::table('Stat_CarGroup')
+        //         ->select('Group_car', 'RateType_id', 'Brand_id')
+        //         ->get();
+
+        //     // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoGroups = DB::table('Stat_MotoGroup')
+        //         ->select('Group_moto', 'RateType_id', 'Brand_id')
+        //         ->get();
+
+        //     // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
+        //     $groups = [
+        //         'carGroups' => $carGroups,
+        //         'motoGroups' => $motoGroups,
+        //     ];
+
+        //     dd($carGroups);
+        //     dd($motoGroups);
+
+        //     return response()->json($groups);
+        // }
 
 
 
@@ -432,6 +559,304 @@ class DataAssetController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     // public function getGroupCarOptions(Request $request)
+        // {
+        //     // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carGroups = DB::table('Stat_CarGroup')
+        //         ->select('Group_car', 'RateType_id', 'Brand_id')
+        //         ->get();
+
+        //     // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoGroups = DB::table('Stat_MotoGroup')
+        //         ->select('Group_moto', 'RateType_id', 'Brand_id')
+        //         ->get();
+
+        //     // เรียกใช้ getBrandOptions เพื่อดึงข้อมูลแบรนด์
+        //     $brandsResponse = $this->getBrandOptions($request);
+
+        //     // แปลงข้อมูล JSON ที่ได้จาก getBrandOptions
+        //     $brandsData = json_decode($brandsResponse->getContent(), true);
+
+        //     // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
+        //     $groups = [
+        //         'carGroups' => $carGroups,
+        //         'motoGroups' => $motoGroups,
+        //         'carBrands' => $brandsData['carBrands'],
+        //         'motoBrands' => $brandsData['motoBrands'],
+        //     ];
+
+        //     // dd($carGroups);
+        //     // dd($motoGroups);
+
+        //     return response()->json($groups);
+        // }
+
+
+
+        // public function getGroupCarOptions(Request $request)
+        // {
+        //     // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carGroups = DB::table('Stat_CarGroup')->select('Group_car', 'RateType_id', 'Brand_id')->get();
+
+        //     // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoGroups = DB::table('Stat_MotoGroup')->select('Group_moto', 'RateType_id', 'Brand_id')->get();
+
+        //     // เรียกใช้ getBrandOptions เพื่อดึงข้อมูลแบรนด์
+        //     $brandsResponse = $this->getBrandOptions($request);
+
+        //     // แปลงข้อมูล JSON ที่ได้จาก getBrandOptions
+        //     $brandsData = json_decode($brandsResponse->getContent(), true);
+
+        //     // ตรวจสอบว่า carBrands และ motoBrands มีค่าหรือไม่
+        //     $carBrands = isset($brandsData['carBrands']) ? $brandsData['carBrands'] : [];
+        //     $motoBrands = isset($brandsData['motoBrands']) ? $brandsData['motoBrands'] : [];
+
+        //     // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
+        //     $groups = [
+        //         'carGroups' => $carGroups,
+        //         'motoGroups' => $motoGroups,
+        //         'carBrands' => $carBrands,
+        //         'motoBrands' => $motoBrands,
+        //     ];
+
+        //     dd($carGroups);
+        //     dd($motoGroups);
+
+        //     return response()->json($groups);
+        // }
+
+
+
+
+
+
+
+
+
+
+        // public function getGroupCarOptions(Request $request)
+        // {
+        //     // รับ ratetype_id และ brand_ids จาก request
+        //     $ratetypeId = $request->input('ratetype_id');
+        //     $brandIds = $request->input('brand_ids'); // อาจจะส่งเป็น array ของ brand_id
+
+        //     // แสดงค่าที่รับมา
+        //     dd([
+        //         'ratetypeId' => $ratetypeId,
+        //         'brandIds' => $brandIds,
+        //     ]);
+
+        //     // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carGroupsQuery = DB::table('Stat_CarGroup')
+        //         ->select('Group_car', 'RateType_id', 'Brand_id')
+        //         ->where('RateType_id', $ratetypeId); // กรองด้วย ratetype_id
+
+        //     // หาก brand_ids ถูกส่งมา จะใช้ whereIn เพื่อกรองด้วย Brand_id
+        //     if ($brandIds) {
+        //         $carGroupsQuery->whereIn('Brand_id', $brandIds);
+        //     }
+
+        //     // ดึงข้อมูลกลุ่มรถที่ตรงกับเงื่อนไข
+        //     $carGroups = $carGroupsQuery->get();
+
+        //     // แสดงข้อมูลกลุ่มรถ
+        //     dd($carGroups);
+
+        //     // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoGroups = DB::table('Stat_MotoGroup')
+        //         ->select('Group_moto', 'RateType_id', 'Brand_id')
+        //         ->where('RateType_id', $ratetypeId) // กรองด้วย ratetype_id
+        //         ->get();
+
+        //     // แสดงข้อมูลกลุ่มมอเตอร์ไซค์
+        //     dd($motoGroups);
+
+        //     // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
+        //     $groups = [
+        //         'carGroups' => $carGroups,
+        //         'motoGroups' => $motoGroups,
+        //     ];
+
+        //     return response()->json($groups);
+        // }
+
+
+
+
+        // public function getGroupCarOptions(Request $request)
+        // {
+        //     // รับ ratetype_id และ brand_ids จาก request
+        //     $ratetypeId = $request->input('ratetype_id');
+        //     $brandIds = $request->input('brand_ids'); // อาจจะส่งเป็น array ของ brand_id
+
+        //     // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carGroupsQuery = DB::table('Stat_CarGroup')
+        //         ->select('Group_car', 'RateType_id', 'Brand_id')
+        //         ->where('RateType_id', $ratetypeId); // กรองด้วย ratetype_id
+
+        //     // หาก brand_ids ถูกส่งมา จะใช้ whereIn เพื่อกรองด้วย Brand_id
+        //     if ($brandIds) {
+        //         $carGroupsQuery->whereIn('Brand_id', $brandIds);
+        //     }
+
+        //     // ดึงข้อมูลกลุ่มรถที่ตรงกับเงื่อนไข
+        //     $carGroups = $carGroupsQuery->get();
+
+        //     // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoGroups = DB::table('Stat_MotoGroup')
+        //         ->select('Group_moto', 'RateType_id', 'Brand_id')
+        //         ->where('RateType_id', $ratetypeId) // กรองด้วย ratetype_id
+        //         ->get();
+
+        //     // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
+        //     $groups = [
+        //         'carGroups' => $carGroups,
+        //         'motoGroups' => $motoGroups,
+        //     ];
+
+        //     return response()->json($groups);
+        // }
+
+
+        // public function getGroupCarOptions()
+        // {
+        //     // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carGroups = DB::table('Stat_CarGroup')
+        //         ->select('Group_car', 'RateType_id', 'Brand_id')
+        //         ->distinct()
+        //         ->get();
+
+        //     // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoGroups = DB::table('Stat_MotoGroup')
+        //         ->select('Group_moto', 'RateType_id', 'Brand_id')
+        //         ->distinct()
+        //         ->get();
+
+        //     // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
+        //     $groups = [
+        //         'carGroups' => $carGroups,
+        //         'motoGroups' => $motoGroups,
+        //     ];
+
+        //     return response()->json($groups);
+        // }
+
+
+
+        // public function getGroupCarOptions()
+        // {
+        //     // ดึงข้อมูล Group_car ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carGroups = DB::table('Stat_CarGroup')
+        //         ->select('Group_car')
+        //         // ->distinct()
+        //         ->get();
+
+        //     // ดึงข้อมูล Group_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoGroups = DB::table('Stat_MotoGroup')
+        //         ->select('Group_moto')
+        //         // ->distinct()
+        //         ->get();
+
+        //     // รวมข้อมูลกลุ่มรถและกลุ่มมอเตอร์ไซค์
+        //     $groups = [
+        //         'carGroups' => $carGroups,
+        //         'motoGroups' => $motoGroups,
+        //     ];
+
+        //     return response()->json($groups);
+        // }
+
+
+ // public function getBrandOptions(Request $request)
+        // {
+        //     // รับ ratetype_id จาก request
+        //     $ratetypeId = $request->input('ratetype_id');
+
+        //     // กำหนดเงื่อนไขสำหรับกรณีที่ ratetype_id เป็น 'C01' และ Name_Vehicle เป็น 'รถเก๋งส่วนบุคคล' หรือ 'รถเก๋งรับจ้าง'
+        //     if ($ratetypeId === 'C01') {
+        //         $vehicleNames = DB::table('TB_TypeVehicle')
+        //             ->whereIn('Name_Vehicle', ['รถเก๋งส่วนบุคคล', 'รถเก๋งรับจ้าง'])
+        //             ->distinct()
+        //             ->exists();
+
+        //         if ($vehicleNames) {
+        //             // ดึงข้อมูล Brand_car และ id ตาม id ที่ต้องการ
+        //             $carBrands = DB::table('Stat_CarBrand')
+        //                 ->select('Brand_car', 'id')
+        //                 ->whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 20, 22, 23, 26, 27])
+        //                 ->get();
+
+        //             // ไม่ต้องดึงข้อมูล motoBrands ในกรณีนี้
+        //             $brands = [
+        //                 'carBrands' => $carBrands,
+        //                 'motoBrands' => collect(),
+        //             ];
+        //         } else {
+        //             // กรณีไม่มีข้อมูลที่ตรงเงื่อนไข
+        //             $brands = [
+        //                 'carBrands' => collect(),
+        //                 'motoBrands' => collect(),
+        //             ];
+        //         }
+        //     } else {
+        //         // กรณี ratetype_id ไม่ใช่ 'C01' จะดึงข้อมูลทั้งหมด
+        //         $carBrands = DB::table('Stat_CarBrand')
+        //             ->select('Brand_car', 'id')
+        //             ->get();
+
+        //         $motoBrands = DB::table('Stat_MotoBrand')
+        //             ->select('Brand_moto', 'id')
+        //             ->get();
+
+        //         $brands = [
+        //             'carBrands' => $carBrands,
+        //             'motoBrands' => $motoBrands,
+        //         ];
+        //     }
+
+        //     return response()->json($brands);
+        // }
+
+
+
+
+        // public function getBrandOptions()
+        // {
+        //     // ดึงข้อมูล Brand_car ที่ไม่ซ้ำกันจากตาราง Stat_CarBrand
+        //     $carBrands = DB::table('Stat_CarBrand')
+        //         ->select('Brand_car', 'id') // เพิ่ม id
+        //         ->get();
+
+        //     // ดึงข้อมูล Brand_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoBrand
+        //     $motoBrands = DB::table('Stat_MotoBrand')
+        //         ->select('Brand_moto', 'id') // เพิ่ม id
+        //         ->get();
+
+        //     // รวมข้อมูลแบรนด์รถยนต์และมอเตอร์ไซค์
+        //     $brands = [
+        //         'carBrands' => $carBrands,
+        //         'motoBrands' => $motoBrands,
+        //     ];
+
+        //     return response()->json($brands);
+        // }
 
 
 

@@ -1,4 +1,4 @@
-@include('components.content-cus.component_js')
+{{-- @include('components.content-cus.component_js')
 
 
 <div id="modal_edit_address_customer" class="fixed inset-0 hidden bg-black bg-opacity-50 z-50">
@@ -379,4 +379,4 @@
             // $('#modal_edit_address_customer').find("input, textarea").val(""); // ถ้าต้องการรีเซ็ตฟอร์ม
         });
     }
-</script>
+</script> --}}

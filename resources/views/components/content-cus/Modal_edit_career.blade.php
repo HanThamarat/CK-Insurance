@@ -1,9 +1,9 @@
-<div id="modalEditCareer" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+{{-- <div id="modalEditCareer" class="fixed inset-0 flex items-center justify-center z-50 hidden">
     <div class="bg-overlay"></div> <!-- Background layer -->
     <div class="flex items-center justify-center w-full h-full">
         <div class="relative bg-white rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
             <div id="header" class="sticky top-0 z-10 p-0 transition-bg duration-300 bg-white p-2">
-                <button id="closeModal_career" class="absolute top-2 right-2 p-1 text-gray-400 hover:text-gray-600 focus:outline-none">
+                <button id="closeModal_career_x" class="absolute top-2 right-2 p-1 text-gray-400 hover:text-gray-600 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -157,7 +157,7 @@
                             </button>
 
                             <!-- ปุ่ม ยกเลิก -->
-                            <button type="button" id="closeModal_career_button_carrer"
+                            <button type="button"  onclick="closeModal_career_button_style()"
                                 class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 hover:shadow-lg hover:translate-y-[-2px] focus:outline-none focus:ring-2 focus:ring-orange-400 flex items-center space-x-2 transition duration-300">
                                 <i class="fas fa-times"></i> <!-- ไอคอน "ยกเลิก" ของ Font Awesome -->
                                 <span>ยกเลิก</span>
@@ -189,7 +189,7 @@
         position: fixed; /* ให้เลเยอร์พื้นหลังคงที่ */
         inset: 0; /* ครอบคลุมทั้งหน้าจอ */
         background-color: rgba(47, 41, 41, 0.5); /* สีเทาโปร่งใส */
-        transition: opacity 0.3s ease; /* การเปลี่ยนแปลง opacity */
+        transition: opacity 0.1s ease; /* การเปลี่ยนแปลง opacity */
         opacity: 0; /* เริ่มต้นที่มองไม่เห็น */
         visibility: hidden; /* ซ่อน */
     }
@@ -216,13 +216,20 @@
     }
 
     // ฟังก์ชันสำหรับปิด Modal
-    function closeModal() {
+    function closeModal_career_button_style() {
         $('#modalEditCareer').fadeOut(300, function() { // ใช้ fadeOut เพื่อซ่อน Modal
             $(this).addClass('hidden'); // เพิ่ม class hidden หลังจาก fadeOut เสร็จ
         });
     }
 
-    // เพิ่มการทำงานให้ปุ่มปิด Modal
-    document.getElementById('closeModal_career').addEventListener('click', closeModal);
-</script>
+    $('#closeModal_career_x').on('click', function() {
+        $('#modalEditCareer').fadeOut(300, function() {
+            $(this).addClass('hidden'); // ซ่อน modal ด้วยการเพิ่ม class 'hidden' หลังจาก fade out เสร็จ
+        });
+    });
 
+
+    // เพิ่มการทำงานให้ปุ่มปิด Modal
+    // document.getElementById('closeModal_career').addEventListener('click', closeModal);
+</script>
+ --}}
