@@ -437,7 +437,9 @@
                                         $.ajax({
                                             url: '/api/vehicle-names', // API endpoint ของคุณ
                                             method: 'GET',
-                                            data: { ratetype_id: selectedType }, // ส่ง Ratetype_id
+                                            data: {
+                                                ratetype_id: selectedType
+                                            }, // ส่ง Ratetype_id
                                             dataType: 'json',
                                             success: function(data) {
                                                 const selectElement = $('#Name_Vehicle');
@@ -494,7 +496,10 @@
                                         $.ajax({
                                             url: '/api/brand-options',
                                             method: 'GET',
-                                            data: { ratetype_id: selectedType, name_vehicle: $('#Name_Vehicle').val() },
+                                            data: {
+                                                ratetype_id: selectedType,
+                                                name_vehicle: $('#Name_Vehicle').val()
+                                            },
                                             dataType: 'json',
                                             success: function(data) {
                                                 const selectElement = $('#Brand_car');
@@ -541,7 +546,10 @@
                                         $.ajax({
                                             url: '/api/brand-options',
                                             method: 'GET',
-                                            data: { ratetype_id: selectedType, name_vehicle: selectedVehicle },
+                                            data: {
+                                                ratetype_id: selectedType,
+                                                name_vehicle: selectedVehicle
+                                            },
                                             dataType: 'json',
                                             success: function(data) {
                                                 const selectElement = $('#Brand_car');
@@ -581,7 +589,6 @@
                                         label.removeClass('translate-y-[-2rem] text-gray-400');
                                     }
                                 }
-
                             </script>
 
 
@@ -600,32 +607,68 @@
                             </div>
 
                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script>
+                            {{-- <script>
                                 $(document).ready(function() {
-                                    $.ajax({
-                                        url: '/api/group-car-options',
-                                        method: 'GET',
-                                        dataType: 'json',
-                                        success: function(data) {
-                                            const selectElement = $('#Group_car');
-                                            // ดึงข้อมูลกลุ่มรถยนต์
-                                            data.carGroups.forEach(function(option) {
-                                                const opt = $('<option></option>')
-                                                    .val(option.Group_car)
-                                                    .text(option.Group_car);
-                                                selectElement.append(opt);
-                                            });
-                                            // ดึงข้อมูลกลุ่มมอเตอร์ไซค์
-                                            data.motoGroups.forEach(function(option) {
-                                                const opt = $('<option></option>')
-                                                    .val(option.Group_moto)
-                                                    .text(option.Group_moto);
-                                                selectElement.append(opt);
-                                            });
-                                        },
-                                        error: function(xhr, status, error) {
-                                            console.error('Error fetching Group options:', error);
+                                    $('#Brand_car').change(function() {
+                                        const selectedBrand = $(this).val(); // ค่า Brand_car ที่เลือก
+                                        const ratetypeId = $('#Ratetype_id').val(); // ค่าที่ต้องการส่งไป
+                                        const nameVehicle = $('#Name_Vehicle').val(); // ค่าที่ต้องการส่งชื่อรถ
+
+                                        // ตรวจสอบว่าทั้ง Brand_id และ RateType_id มีค่าหรือไม่
+                                        if (!selectedBrand || !ratetypeId) {
+                                            console.warn('Brand ID or RateType ID is missing.');
+                                            return; // ออกจากฟังก์ชันหากไม่มีค่า
                                         }
+
+                                        $.ajax({
+                                            url: '/api/group-car-options',
+                                            method: 'GET',
+                                            dataType: 'json',
+                                            data: {
+                                                brand_id: selectedBrand, // ส่งค่า Brand_id ที่เลือกไปกับ AJAX
+                                                ratetype_id: ratetypeId, // ส่งค่า RateType_id ด้วย
+                                                name_vehicle: nameVehicle // ส่งชื่อรถไปด้วย
+                                            },
+                                            success: function(data) {
+                                                const carSelectElement = $('#Group_car');
+                                                const motoSelectElement = $('#Group_moto');
+
+                                                // ล้างค่าเดิมใน select ก่อน
+                                                carSelectElement.empty();
+                                                motoSelectElement.empty();
+
+                                                // เพิ่มตัวเลือก "กลุ่มรถ" และ "กลุ่มมอเตอร์ไซค์" เป็นตัวเลือกแรก
+                                                carSelectElement.append('<option value="">กลุ่มรถ</option>');
+                                                motoSelectElement.append('<option value="">กลุ่มมอเตอร์ไซค์</option>');
+
+                                                // ตรวจสอบและเพิ่มตัวเลือกใหม่ใน Group_car
+                                                if (data.carGroups && data.carGroups.length > 0) {
+                                                    data.carGroups.forEach(function(option) {
+                                                        const opt = $('<option></option>')
+                                                            .val(option.Group_car) // ใช้ชื่อ Group_car
+                                                            .text(option.Group_car);
+                                                        carSelectElement.append(opt);
+                                                    });
+                                                } else {
+                                                    carSelectElement.append('<option value="">ไม่มีข้อมูลกลุ่มรถ</option>');
+                                                }
+
+                                                // ตรวจสอบและเพิ่มตัวเลือกใหม่ใน Group_moto
+                                                if (data.motoGroups && data.motoGroups.length > 0) {
+                                                    data.motoGroups.forEach(function(option) {
+                                                        const opt = $('<option></option>')
+                                                            .val(option.Group_moto) // ใช้ชื่อ Group_moto
+                                                            .text(option.Group_moto);
+                                                        motoSelectElement.append(opt);
+                                                    });
+                                                } else {
+                                                    motoSelectElement.append('<option value="">ไม่มีข้อมูลกลุ่มมอเตอร์ไซค์</option>');
+                                                }
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Group options:', error);
+                                            }
+                                        });
                                     });
                                 });
 
@@ -637,7 +680,167 @@
                                         label.removeClass('translate-y-[-2rem] text-gray-400');
                                     }
                                 }
+
+                            </script> --}}
+
+                            {{-- <script>
+                                $(document).ready(function() {
+                                    $('#Brand_car').change(function() {
+                                        const selectedBrand = $(this).val(); // ค่า Brand_car ที่เลือก
+                                        const ratetypeId = $('#Ratetype_id').val(); // ค่าที่ต้องการส่งไป
+                                        const nameVehicle = $('#Name_Vehicle').val(); // ค่าที่ต้องการส่งชื่อรถ
+
+                                        // ตรวจสอบว่าทั้ง Brand_id และ RateType_id มีค่าหรือไม่
+                                        if (!selectedBrand || !ratetypeId) {
+                                            console.warn('Brand ID or RateType ID is missing.');
+                                            return; // ออกจากฟังก์ชันหากไม่มีค่า
+                                        }
+
+                                        $.ajax({
+                                            url: '/api/group-car-options',
+                                            method: 'GET',
+                                            dataType: 'json',
+                                            data: {
+                                                brand_id: selectedBrand, // ส่งค่า Brand_id ที่เลือกไปกับ AJAX
+                                                ratetype_id: ratetypeId, // ส่งค่า RateType_id ด้วย
+                                                name_vehicle: nameVehicle // ส่งชื่อรถไปด้วย
+                                            },
+                                            success: function(data) {
+                                                const carSelectElement = $('#Group_car');
+                                                const motoSelectElement = $('#Group_moto');
+
+                                                // ล้างค่าเดิมใน select ก่อน
+                                                carSelectElement.empty();
+                                                motoSelectElement.empty();
+
+                                                // เพิ่มตัวเลือก "กลุ่มรถ" และ "กลุ่มมอเตอร์ไซค์" เป็นตัวเลือกแรก
+                                                carSelectElement.append('<option value="">กลุ่มรถ</option>');
+                                                motoSelectElement.append('<option value="">กลุ่มมอเตอร์ไซค์</option>');
+
+                                                // ตรวจสอบและเพิ่มตัวเลือกใหม่ใน Group_car
+                                                if (data.carGroups && data.carGroups.length > 0) {
+                                                    data.carGroups.forEach(function(option) {
+                                                        const opt = $('<option></option>')
+                                                            .val(option.Group_car) // ใช้ชื่อ Group_car
+                                                            .text(option.Group_car);
+                                                        carSelectElement.append(opt);
+                                                    });
+                                                } else {
+                                                    carSelectElement.append(
+                                                        '<option value="">ไม่มีข้อมูลกลุ่มรถ</option>');
+                                                }
+
+                                                // ตรวจสอบและเพิ่มตัวเลือกใหม่ใน Group_moto
+                                                if (data.motoGroups && data.motoGroups.length > 0) {
+                                                    data.motoGroups.forEach(function(option) {
+                                                        const opt = $('<option></option>')
+                                                            .val(option.Group_moto) // ใช้ชื่อ Group_moto
+                                                            .text(option.Group_moto);
+                                                        motoSelectElement.append(opt);
+                                                    });
+                                                } else {
+                                                    motoSelectElement.append(
+                                                        '<option value="">ไม่มีข้อมูลกลุ่มมอเตอร์ไซค์</option>');
+                                                }
+                                            },
+
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Group options:', error);
+                                            }
+                                        });
+                                    });
+                                });
+
+                                // ฟังก์ชันจัดการการเปลี่ยนแปลงของ select
+                                function handleSelectChangeGroup(selectElement) {
+                                    const label = $('#label_Group_car');
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400');
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400');
+                                    }
+                                }
+                            </script> --}}
+
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Brand_car').change(function() {
+                                        const selectedBrand = $(this).val(); // ค่า Brand_car ที่เลือก
+                                        const ratetypeId = $('#Ratetype_id').val(); // ค่าที่ต้องการส่งไป
+                                        const nameVehicle = $('#Name_Vehicle').val(); // ค่าที่ต้องการส่งชื่อรถ
+
+                                        // ตรวจสอบว่าทั้ง Brand_id และ RateType_id มีค่าหรือไม่
+                                        if (!selectedBrand || !ratetypeId) {
+                                            console.warn('Brand ID or RateType ID is missing.');
+                                            return; // ออกจากฟังก์ชันหากไม่มีค่า
+                                        }
+
+                                        $.ajax({
+                                            url: '/api/group-car-options',
+                                            method: 'GET',
+                                            dataType: 'json',
+                                            data: {
+                                                brand_id: selectedBrand, // ส่งค่า Brand_id ที่เลือกไปกับ AJAX
+                                                ratetype_id: ratetypeId, // ส่งค่า RateType_id ด้วย
+                                                name_vehicle: nameVehicle // ส่งชื่อรถไปด้วย
+                                            },
+                                            success: function(data) {
+                                                const carSelectElement = $('#Group_car');
+                                                const motoSelectElement = $('#Group_moto');
+
+                                                // ล้างค่าเดิมใน select ก่อน
+                                                carSelectElement.empty();
+                                                motoSelectElement.empty();
+
+                                                // เพิ่มตัวเลือก "กลุ่มรถ" และ "กลุ่มมอเตอร์ไซค์" เป็นตัวเลือกแรก
+                                                carSelectElement.append('<option value="">กลุ่มรถ</option>');
+                                                motoSelectElement.append('<option value="">กลุ่มมอเตอร์ไซค์</option>');
+
+                                                // ตรวจสอบและเพิ่มตัวเลือกใหม่ใน Group_car
+                                                if (data.carGroups && data.carGroups.length > 0) {
+                                                    data.carGroups.forEach(function(option) {
+                                                        const opt = $('<option></option>')
+                                                            .val(option.Group_car) // ใช้ชื่อ Group_car
+                                                            .text(option.Group_car);
+                                                        carSelectElement.append(opt);
+                                                    });
+                                                } else {
+                                                    carSelectElement.append(
+                                                        '<option value="">ไม่มีข้อมูลกลุ่มรถ</option>');
+                                                }
+
+                                                // ตรวจสอบและเพิ่มตัวเลือกใหม่ใน Group_moto
+                                                if (data.motoGroups && data.motoGroups.length > 0) {
+                                                    data.motoGroups.forEach(function(option) {
+                                                        const opt = $('<option></option>')
+                                                            .val(option.Group_moto) // ใช้ชื่อ Group_moto
+                                                            .text(option.Group_moto);
+                                                        motoSelectElement.append(opt);
+                                                    });
+                                                } else {
+                                                    motoSelectElement.append(
+                                                        '<option value="">ไม่มีข้อมูลกลุ่มมอเตอร์ไซค์</option>');
+                                                }
+                                            },
+
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Group options:', error);
+                                            }
+                                        });
+                                    });
+                                });
+
+                                // ฟังก์ชันจัดการการเปลี่ยนแปลงของ select
+                                function handleSelectChangeGroup(selectElement) {
+                                    const label = $('#label_Group_car');
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400');
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400');
+                                    }
+                                }
                             </script>
+
 
 
 
@@ -751,7 +954,8 @@
                                             selectElement.append(motoOptGroup); // เพิ่ม <optgroup> มอเตอร์ไซค์ ลงใน <select>
                                         },
                                         error: function(xhr, status, error) {
-                                            console.error('Error fetching Model car and moto options:', error); // แสดงข้อผิดพลาดในคอนโซล
+                                            console.error('Error fetching Model car and moto options:',
+                                            error); // แสดงข้อผิดพลาดในคอนโซล
                                         }
                                     });
                                 });
@@ -1085,7 +1289,8 @@
                 valid = false;
                 missingFields.push('จังหวัดป้ายทะเบียนเก่า');
                 $('#Vehicle_OldLicense_Province').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_OldLicense_Province', '*กรุณากรอกข้อมูลนี้*', '#provinceLabel');
+                showPlaceholderSelect('#Vehicle_OldLicense_Province', '*กรุณากรอกข้อมูลนี้*',
+                    '#provinceLabel');
             } else {
                 $('#Vehicle_OldLicense_Province').removeClass('border-red-500');
             }
@@ -1142,7 +1347,8 @@
                 valid = false;
                 missingFields.push('ประเภทรถ 1');
                 $('#Vehicle_Type').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Type', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Type"]');
+                showPlaceholderSelect('#Vehicle_Type', '*กรุณากรอกข้อมูลนี้*',
+                    'label[for="Vehicle_Type"]');
             } else {
                 $('#Vehicle_Type').removeClass('border-red-500');
             }
@@ -1161,7 +1367,8 @@
                 valid = false;
                 missingFields.push('ยี่ห้อรถ');
                 $('#Vehicle_Brand').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Brand', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Brand"]');
+                showPlaceholderSelect('#Vehicle_Brand', '*กรุณากรอกข้อมูลนี้*',
+                    'label[for="Vehicle_Brand"]');
             } else {
                 $('#Vehicle_Brand').removeClass('border-red-500');
             }
@@ -1170,7 +1377,8 @@
                 valid = false;
                 missingFields.push('กลุ่มรถ');
                 $('#Vehicle_Group').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Group', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Group"]');
+                showPlaceholderSelect('#Vehicle_Group', '*กรุณากรอกข้อมูลนี้*',
+                    'label[for="Vehicle_Group"]');
             } else {
                 $('#Vehicle_Group').removeClass('border-red-500');
             }
@@ -1190,7 +1398,8 @@
                 valid = false;
                 missingFields.push('ปีรถ');
                 $('#Vehicle_Years').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Years', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Years"]');
+                showPlaceholderSelect('#Vehicle_Years', '*กรุณากรอกข้อมูลนี้*',
+                    'label[for="Vehicle_Years"]');
             } else {
                 $('#Vehicle_Years').removeClass('border-red-500');
             }
@@ -1200,7 +1409,8 @@
                 valid = false;
                 missingFields.push('เกียร์รถ');
                 $('#Vehicle_Gear').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Gear', '*กรุณากรอกข้อมูลนี้*', 'label[for="Vehicle_Gear"]');
+                showPlaceholderSelect('#Vehicle_Gear', '*กรุณากรอกข้อมูลนี้*',
+                    'label[for="Vehicle_Gear"]');
             } else {
                 $('#Vehicle_Gear').removeClass('border-red-500');
             }
