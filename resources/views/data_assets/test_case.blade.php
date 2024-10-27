@@ -1303,3 +1303,223 @@ public function getYearOptions(Request $request)
         'motoYears' => $motoYears,
     ]);
 }
+
+
+
+
+
+                            {{-- <script>
+                                $(document).ready(function() {
+                                    $.ajax({
+                                        url: '/api/year-options', // URL สำหรับดึงข้อมูลปีรถและปีมอเตอร์ไซค์
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            const selectElement = $(
+                                                '#Year_car_and_moto'); // เลือก <select> element ด้วย ID ใหม่
+
+                                            // เพิ่มปีรถยนต์ (Year_car)
+                                            data.carYears.forEach(function(option) {
+                                                const opt = $('<option></option>') // สร้าง <option> ใหม่
+                                                    .val(option.Year_car) // กำหนดค่าให้กับ option
+                                                    .text(option.Year_car); // แสดงแค่เลขปีใน dropdown
+                                                selectElement.append(opt); // เพิ่ม <option> ลงใน <select>
+                                            });
+
+                                            // เพิ่มปีมอเตอร์ไซค์ (Year_moto)
+                                            data.motoYears.forEach(function(option) {
+                                                const opt = $('<option></option>') // สร้าง <option> ใหม่
+                                                    .val(option.Year_moto) // กำหนดค่าให้กับ option
+                                                    .text(option.Year_moto); // แสดงแค่เลขปีใน dropdown
+                                                selectElement.append(opt); // เพิ่ม <option> ลงใน <select>
+                                            });
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error fetching Year options:', error); // แสดงข้อผิดพลาดในคอนโซล
+                                        }
+                                    });
+                                });
+
+                                function handleSelectChange5(selectElement) {
+                                    const label = $('#label_Year_car_and_moto'); // ใช้ ID ของ label ให้ตรงกับ select
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script> --}}
+
+                            {{-- <script>
+                                $(document).ready(function() {
+                                    $('#Brand_car').change(function() {
+                                        const selectedBrand = $(this).val();
+                                        const ratetypeId = $('#Ratetype_id').val();
+                                        const nameVehicle = $('#Name_Vehicle').val();
+
+                                        if (!selectedBrand || !ratetypeId) {
+                                            console.warn('Brand ID or RateType ID is missing.');
+                                            return;
+                                        }
+
+                                        $.ajax({
+                                            url: '/api/group-car-options',
+                                            method: 'GET',
+                                            dataType: 'json',
+                                            data: {
+                                                brand_id: selectedBrand,
+                                                ratetype_id: ratetypeId,
+                                                name_vehicle: nameVehicle
+                                            },
+                                            success: function(data) {
+                                                const selectElement = $('#Group_car_and_moto');
+                                                selectElement.empty();
+
+                                                // เพิ่มตัวเลือก "กลุ่มรถ" เป็นตัวเลือกแรก
+                                                selectElement.append('<option value="">กลุ่มรถ</option>');
+
+                                                // Loop แสดงรายการสำหรับกลุ่มรถ
+                                                if (data.carGroups && data.carGroups.length > 0) {
+                                                    data.carGroups.forEach(function(option) {
+                                                        selectElement.append($('<option></option>')
+                                                            .val(option.Group_car) // ค่า value ของ option
+                                                            .text(option.Group_car) // ข้อความที่แสดง
+                                                            .attr('data-id', option.id)
+                                                        ); // เพิ่ม data-id ของกลุ่มรถ
+                                                    });
+                                                }
+
+                                                // Loop แสดงรายการสำหรับกลุ่มมอเตอร์ไซค์
+                                                if (data.motoGroups && data.motoGroups.length > 0) {
+                                                    data.motoGroups.forEach(function(option) {
+                                                        selectElement.append($('<option></option>')
+                                                            .val(option.Group_moto)
+                                                            .text(option.Group_moto)
+                                                            .attr('data-id', option.id)
+                                                        ); // เพิ่ม data-id ของกลุ่มมอเตอร์ไซค์
+                                                    });
+                                                }
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Group options:', error);
+                                            }
+                                        });
+                                    });
+
+                                    $('#Group_car_and_moto').change(function() {
+                                        const selectedGroup = $(this).find('option:selected').data('id'); // ดึง ID ของกลุ่มรถ
+                                        if (!selectedGroup) return; // ถ้าไม่มีการเลือก
+
+                                        $.ajax({
+                                            url: '/api/year-options', // URL สำหรับดึงข้อมูลปีรถและปีมอเตอร์ไซค์
+                                            method: 'GET',
+                                            dataType: 'json',
+                                            data: {
+                                                group_id: selectedGroup // ส่ง ID ของกลุ่มรถ
+                                            },
+                                            success: function(data) {
+                                                const selectElement = $('#Year_car_and_moto');
+                                                selectElement.empty(); // เคลียร์ตัวเลือกก่อนหน้า
+                                                selectElement.append(
+                                                '<option value="">ปีรถ</option>'); // ตัวเลือกเริ่มต้น
+
+                                                // Loop แสดงปีที่ตรงกับกลุ่มรถที่เลือก
+                                                if (data.carYears && data.carYears.length > 0) {
+                                                    data.carYears.forEach(function(option) {
+                                                        selectElement.append($('<option></option>')
+                                                            .val(option.Year_car)
+                                                            .text(option.Year_car));
+                                                    });
+                                                }
+
+                                                if (data.motoYears && data.motoYears.length > 0) {
+                                                    data.motoYears.forEach(function(option) {
+                                                        selectElement.append($('<option></option>')
+                                                            .val(option.Year_moto)
+                                                            .text(option.Year_moto));
+                                                    });
+                                                }
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Year options:',
+                                                error); // แสดงข้อผิดพลาดในคอนโซล
+                                            }
+                                        });
+                                    });
+
+                                });
+
+                                // ฟังก์ชันจัดการการเปลี่ยนแปลงของ select
+                                function handleSelectChangeGroup(selectElement) {
+                                    const label = $('#label_Group_car');
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400');
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400');
+                                    }
+                                }
+
+                                function handleSelectChange5(selectElement) {
+                                    const label = $('#label_Year_car_and_moto'); // ใช้ ID ของ label ให้ตรงกับ select
+                                    if (selectElement.value) {
+                                        label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                    } else {
+                                        label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                    }
+                                }
+                            </script> --}}
+
+
+
+
+
+                            // $('#Year_car_and_moto').change(function() {
+                                //     const selectedGroupId = $('#Group_car_and_moto').find('option:selected').data('id'); // ดึง Group_id
+
+                                //     if (!selectedGroupId) {
+                                //         console.warn('Group ID is missing.');
+                                //         return;
+                                //     }
+
+                                //     // เรียกข้อมูลโมเดลรถยนต์และมอเตอร์ไซค์ตาม Group_id
+                                //     $.ajax({
+                                //         url: '/api/model-car-options',
+                                //         method: 'GET',
+                                //         dataType: 'json',
+                                //         data: {
+                                //             group_id: selectedGroupId // ส่ง Group_id
+                                //         },
+                                //         success: function(data) {
+                                //             const selectElement = $('#Model_car_and_moto');
+                                //             selectElement.empty(); // เคลียร์ตัวเลือกเก่า
+                                //             selectElement.append('<option value="">รุ่นรถ</option>'); // ตัวเลือกเริ่มต้น
+
+                                //             // สร้าง <optgroup> สำหรับรถยนต์
+                                //             const carOptGroup = $('<optgroup></optgroup>').attr('label', 'รถยนต์');
+                                //             if (data.carModels && data.carModels.length > 0) {
+                                //                 data.carModels.forEach(function(option) {
+                                //                     const opt = $('<option></option>').val(option.Model_car).text(option
+                                //                         .Model_car);
+                                //                     carOptGroup.append(opt); // เพิ่ม <option> ลงใน <optgroup> รถยนต์
+                                //                 });
+                                //                 selectElement.append(carOptGroup); // เพิ่ม <optgroup> รถยนต์ ลงใน <select>
+                                //             }
+
+                                //             // สร้าง <optgroup> สำหรับมอเตอร์ไซค์
+                                //             const motoOptGroup = $('<optgroup></optgroup>').attr('label', 'มอเตอร์ไซค์');
+                                //             if (data.motoModels && data.motoModels.length > 0) {
+                                //                 data.motoModels.forEach(function(option) {
+                                //                     const opt = $('<option></option>').val(option.Model_moto).text(
+                                //                         option.Model_moto);
+                                //                     motoOptGroup.append(
+                                //                     opt); // เพิ่ม <option> ลงใน <optgroup> มอเตอร์ไซค์
+                                //                 });
+                                //                 selectElement.append(
+                                //                 motoOptGroup); // เพิ่ม <optgroup> มอเตอร์ไซค์ ลงใน <select>
+                                //             }
+                                //         },
+                                //         error: function(xhr, status, error) {
+                                //             console.error('Error fetching Model car and moto options:', error);
+                                //         }
+                                //     });
+                                // });
