@@ -25,6 +25,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class DataAssetController extends Controller
 {
@@ -316,10 +318,14 @@ class DataAssetController extends Controller
 
 
 
+
+
+
+
         public function getGroupCarOptions(Request $request)
         {
             // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
-            $carGroupsQuery = DB::table('Stat_CarGroup')->select('Group_car', 'RateType_id', 'Brand_id');
+            $carGroupsQuery = DB::table('Stat_CarGroup')->select('id', 'Group_car', 'RateType_id', 'Brand_id');
 
             // กรองตาม Brand_id
             if ($request->has('brand_id')) {
@@ -337,7 +343,7 @@ class DataAssetController extends Controller
             $carGroups = $carGroupsQuery->get();
 
             // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
-            $motoGroupsQuery = DB::table('Stat_MotoGroup')->select('Group_moto', 'RateType_id', 'Brand_id');
+            $motoGroupsQuery = DB::table('Stat_MotoGroup')->select('id', 'Group_moto', 'RateType_id', 'Brand_id');
 
             // กรองตาม Brand_id
             if ($request->has('brand_id')) {
@@ -356,12 +362,10 @@ class DataAssetController extends Controller
 
             // ตรวจสอบว่า $motoGroups มีค่าเป็นคอลเลกชันว่างหรือไม่
             if ($motoGroups->isEmpty()) {
-                // สามารถตั้งค่าให้เป็น array ว่างหรือคืนค่าที่คุณต้องการ
                 $motoGroups = [];
             }
 
             if ($carGroups->isEmpty()) {
-                // สามารถตั้งค่าให้เป็น array ว่างหรือคืนค่าที่คุณต้องการ
                 $carGroups = [];
             }
 
@@ -375,8 +379,6 @@ class DataAssetController extends Controller
             $carBrands = $brandsData['carBrands'] ?? [];
             $motoBrands = $brandsData['motoBrands'] ?? [];
 
-            // dd($motoGroups);
-
             // ส่งข้อมูลกลับในรูปแบบ JSON โดยส่งค่าทีละตัว
             return response()->json([
                 'carGroups' => $carGroups,
@@ -388,18 +390,21 @@ class DataAssetController extends Controller
 
 
 
-
-        public function getYearOptions()
+        public function getYearOptions(Request $request)
         {
-            // ดึงข้อมูล Year_car ที่ไม่ซ้ำกันจากตาราง Stat_CarYear
+            $groupId = $request->input('group_id'); // ดึง Group_id จากคำขอ
+
+            // ดึงข้อมูล Year_car ที่ตรงกับ Group_id จากตาราง Stat_CarYear
             $carYears = DB::table('Stat_CarYear')
-                ->select('Year_car')
+                ->select('Year_car', 'Group_id')
+                ->where('Group_id', $groupId) // กรองตาม Group_id
                 ->distinct()
                 ->get();
 
-            // ดึงข้อมูล Year_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoYear
+            // ดึงข้อมูล Year_moto ที่ตรงกับ Group_id จากตาราง Stat_MotoYear
             $motoYears = DB::table('Stat_MotoYear')
-                ->select('Year_moto')
+                ->select('Year_moto', 'Group_id')
+                ->where('Group_id', $groupId) // กรองตาม Group_id
                 ->distinct()
                 ->get();
 
@@ -414,18 +419,22 @@ class DataAssetController extends Controller
 
 
 
-        public function getModelOptions()
+        public function getModelOptions(Request $request)
         {
+            $groupId = $request->input('group_id'); // ดึง Group_id จากคำขอ
+
             // ดึงข้อมูล Model_car ที่ไม่ซ้ำกันจากตาราง Stat_CarModel
             $carModels = DB::table('Stat_CarModel')
-                ->select('Model_car')
-                // ->distinct()
+                ->select('Model_car', 'Group_id')
+                ->where('Group_id', $groupId) // กรองตาม Group_id
+                ->distinct()
                 ->get();
 
             // ดึงข้อมูล Model_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoModel
             $motoModels = DB::table('Stat_MotoModel')
-                ->select('Model_moto')
-                // ->distinct()
+                ->select('Model_moto', 'Group_id')
+                ->where('Group_id', $groupId) // กรองตาม Group_id
+                ->distinct()
                 ->get();
 
             // รวมข้อมูลโมเดลของรถยนต์และมอเตอร์ไซค์
@@ -593,15 +602,418 @@ class DataAssetController extends Controller
 
 
 
+        // public function getModelOptions(Request $request)
+        // {
+        //     $groupId = $request->input('group_id'); // ดึง Group_id จากคำขอ
+
+        //     // ดึงข้อมูล Model_car ที่ตรงกับ Group_id จากตาราง Stat_CarModel
+        //     $carModels = DB::table('Stat_CarModel')
+        //         ->select('Model_car', 'Group_id')
+        //         ->where('Group_id', $groupId) // กรองตาม Group_id
+        //         ->distinct() // กรองข้อมูลที่ไม่ซ้ำกัน
+        //         ->get();
+
+        //     // ดึงข้อมูล Model_moto ที่ตรงกับ Group_id จากตาราง Stat_MotoModel
+        //     $motoModels = DB::table('Stat_MotoModel')
+        //         ->select('Model_moto', 'Group_id')
+        //         ->where('Group_id', $groupId) // กรองตาม Group_id
+        //         ->distinct() // กรองข้อมูลที่ไม่ซ้ำกัน
+        //         ->get();
+
+        //     // รวมข้อมูลโมเดลของรถยนต์และมอเตอร์ไซค์
+        //     $models = [
+        //         'carModels' => $carModels,
+        //         'motoModels' => $motoModels,
+        //     ];
+
+        //     return response()->json($models);
+        // }
+
+
+
+
+        // public function getYearOptions()
+        // {
+        //     // ดึงข้อมูล Year_car, Brand_id, Group_id, Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarYear
+        //     $carYears = DB::table('Stat_CarYear')
+        //         ->select('Year_car', 'Group_id',)
+        //         ->distinct()
+        //         ->get();
+
+        //     // ดึงข้อมูล Year_moto, Brand_id, Group_id, Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoYear
+        //     $motoYears = DB::table('Stat_MotoYear')
+        //         ->select('Year_moto', 'Group_id',)
+        //         ->distinct()
+        //         ->get();
+
+        //     // รวมข้อมูลปีของรถยนต์และมอเตอร์ไซค์
+        //     $years = [
+        //         'carYears' => $carYears,
+        //         'motoYears' => $motoYears,
+        //     ];
+
+        //     // dd($years);
+        //     return response()->json($years);
+        // }
+
+
+// public function getYearOptions()
+// {
+//     // ดึงข้อมูล Year_car, Brand_id, Group_id, Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarYear
+//     $carYears = DB::table('Stat_CarYear')
+//         ->select('Year_car', 'Brand_id', 'Group_id', 'Ratetype_id')
+//         ->distinct()
+//         ->get();
+
+//     // ดึงข้อมูล Year_moto, Brand_id, Group_id, Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoYear
+//     $motoYears = DB::table('Stat_MotoYear')
+//         ->select('Year_moto', 'Brand_id', 'Group_id', 'Ratetype_id')
+//         ->distinct()
+//         ->get();
+
+//     // รวมข้อมูลปีของรถยนต์และมอเตอร์ไซค์
+//     $years = [
+//         'carYears' => $carYears,
+//         'motoYears' => $motoYears,
+//     ];
+
+//     // dd($years);
+//     return response()->json($years);
+// }
+
+
+
+ // public function getGroupCarOptions(Request $request)
+        // {
+        //     // ดึงข้อมูล Group_car, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+        //     $carGroupsQuery = DB::table('Stat_CarGroup')->select('Group_car', 'RateType_id', 'Brand_id');
+
+        //     // กรองตาม Brand_id
+        //     if ($request->has('brand_id')) {
+        //         $brandId = $request->input('brand_id');
+        //         $carGroupsQuery->where('Brand_id', $brandId);
+        //     }
+
+        //     // กรองตาม RateType_id
+        //     if ($request->has('ratetype_id')) {
+        //         $rateTypeId = $request->input('ratetype_id');
+        //         $carGroupsQuery->where('RateType_id', $rateTypeId);
+        //     }
+
+        //     // ดึงข้อมูล Group_car
+        //     $carGroups = $carGroupsQuery->get();
+
+        //     // ดึงข้อมูล Group_moto, RateType_id, และ Brand_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+        //     $motoGroupsQuery = DB::table('Stat_MotoGroup')->select('Group_moto', 'RateType_id', 'Brand_id');
+
+        //     // กรองตาม Brand_id
+        //     if ($request->has('brand_id')) {
+        //         $brandId = $request->input('brand_id');
+        //         $motoGroupsQuery->where('Brand_id', $brandId);
+        //     }
+
+        //     // กรองตาม RateType_id
+        //     if ($request->has('ratetype_id')) {
+        //         $rateTypeId = $request->input('ratetype_id');
+        //         $motoGroupsQuery->where('RateType_id', $rateTypeId);
+        //     }
+
+        //     // ดึงข้อมูลมอเตอร์ไซค์เสมอ ไม่ต้องตรวจสอบ name_vehicle
+        //     $motoGroups = $motoGroupsQuery->get();
+
+        //     // ตรวจสอบว่า $motoGroups มีค่าเป็นคอลเลกชันว่างหรือไม่
+        //     if ($motoGroups->isEmpty()) {
+        //         // สามารถตั้งค่าให้เป็น array ว่างหรือคืนค่าที่คุณต้องการ
+        //         $motoGroups = [];
+        //     }
+
+        //     if ($carGroups->isEmpty()) {
+        //         // สามารถตั้งค่าให้เป็น array ว่างหรือคืนค่าที่คุณต้องการ
+        //         $carGroups = [];
+        //     }
+
+        //     // เรียกใช้ getBrandOptions เพื่อดึงข้อมูลแบรนด์
+        //     $brandsResponse = $this->getBrandOptions($request);
+
+        //     // แปลงข้อมูล JSON ที่ได้จาก getBrandOptions
+        //     $brandsData = json_decode($brandsResponse->getContent(), true);
+
+        //     // ตรวจสอบว่า carBrands และ motoBrands มีค่าหรือไม่
+        //     $carBrands = $brandsData['carBrands'] ?? [];
+        //     $motoBrands = $brandsData['motoBrands'] ?? [];
+
+        //     // dd($motoGroups);
+
+        //     // ส่งข้อมูลกลับในรูปแบบ JSON โดยส่งค่าทีละตัว
+        //     return response()->json([
+        //         'carGroups' => $carGroups,
+        //         'motoGroups' => $motoGroups,
+        //         'carBrands' => $carBrands,
+        //         'motoBrands' => $motoBrands,
+        //     ]);
+        // }
+
+
+
+
+
+        // public function getModelOptions(Request $request)
+        // {
+        //     // ตรวจสอบว่า group_id ถูกส่งเข้ามาหรือไม่
+        //     $groupId = $request->input('group_id');
+
+        //     // ดึงข้อมูล Model_car ที่ไม่ซ้ำกันจากตาราง Stat_CarModel โดยเชื่อมโยงกับ Stat_CarGroup
+        //     $carModelsQuery = DB::table('Stat_CarModel')
+        //         ->select('Model_car')
+        //         ->where('Group_id', $groupId);
+
+        //     // ดึงข้อมูล Model_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoModel
+        //     $motoModels = DB::table('Stat_MotoModel')
+        //         ->select('Model_moto')
+        //         ->get();
+
+        //     // รวมข้อมูลโมเดลของรถยนต์และมอเตอร์ไซค์
+        //     $models = [
+        //         'carModels' => $carModelsQuery->get(),
+        //         'motoModels' => $motoModels,
+        //     ];
+
+        //     return response()->json($models);
+        // }
+
+
+
+
+
+// public function getYearOptions()
+// {
+//     // ดึงข้อมูล Year_car, Brand_id, Group_id, Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarYear
+//     $carYears = DB::table('Stat_CarYear')
+//         ->select('Year_car', 'Brand_id', 'Group_id', 'Ratetype_id')
+//         ->distinct()
+//         ->get();
+
+//     // ดึงข้อมูล Year_moto, Brand_id, Group_id, Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoYear
+//     $motoYears = DB::table('Stat_MotoYear')
+//         ->select('Year_moto', 'Brand_id', 'Group_id', 'Ratetype_id')
+//         ->distinct()
+//         ->get();
+
+//     // รวมข้อมูลปีของรถยนต์และมอเตอร์ไซค์
+//     $years = [
+//         'carYears' => $carYears,
+//         'motoYears' => $motoYears,
+//     ];
+
+//     dd($years);
+//     return response()->json($years);
+// }
+
+
+
+// public function getModelOptions(Request $request)
+// {
+//     // รับค่าจาก AJAX
+//     $groupId = $request->input('group_id');
+
+//     // ตรวจสอบว่าค่าที่ส่งเข้ามาถูกต้อง
+//     if (empty($groupId)) {
+//         return response()->json(['error' => 'Invalid Group ID'], 400);
+//     }
+
+//     // ดึงข้อมูลรุ่นรถยนต์ที่ตรงกับ Group_id
+//     $carModels = StatCarModel::where('Group_id', $groupId)->get();
+
+//     // ตรวจสอบข้อมูลที่ดึงมา
+//     if ($carModels->isEmpty()) {
+//         return response()->json(['error' => 'No models found for this Group ID'], 404);
+//     }
+
+//     return response()->json([
+//         'carModels' => $carModels,
+//         'motoModels' => [], // ถ้ามีข้อมูลสำหรับมอเตอร์ไซค์ ให้ใส่ที่นี่
+//     ]);
+// }
+
+// public function getModelOptions(Request $request)
+// {
+//     $groupId = $request->input('group_id');
+
+//     // ตรวจสอบว่าค่าที่ส่งเข้ามาถูกต้อง
+//     if (empty($groupId)) {
+//         return response()->json(['error' => 'Invalid Group ID'], 400);
+//     }
+
+//     // ดึงข้อมูลรุ่นรถยนต์ที่ตรงกับ Group_id
+//     $carModels = StatCarModel::where('Group_id', $groupId)->get();
+
+//     // ตรวจสอบข้อมูลที่ดึงมา
+//     if ($carModels->isEmpty()) {
+//         return response()->json(['error' => 'No models found for this Group ID'], 404);
+//     }
+
+//     return response()->json([
+//         'carModels' => $carModels,
+//         'motoModels' => [], // ถ้ามีข้อมูลสำหรับมอเตอร์ไซค์ ให้ใส่ที่นี่
+//     ]);
+// }
+
+
+
+
+
+// public function getModelOptions(Request $request)
+// {
+//     $groupId = $request->input('group_id'); // รับค่า Group_id จาก AJAX
+
+//     // ตรวจสอบ Group_id และดึงข้อมูล Model_car ที่มี Group_id ตรงกัน
+//     $carModels = DB::table('Stat_CarModel')
+//         ->where('Group_id', $groupId)
+//         ->select('Model_car', 'Group_id')
+//         ->get();
+
+//     // ดึงข้อมูล Model_moto ที่มี Group_id ตรงกัน
+//     $motoModels = DB::table('Stat_MotoModel')
+//         ->where('Group_id', $groupId)
+//         ->select('Model_moto', 'Group_id')
+//         ->get();
+
+//     return response()->json([
+//         'carModels' => $carModels,
+//         'motoModels' => $motoModels,
+//     ]);
+// }
+
+
+
+// public function getModelOptions(Request $request)
+// {
+//     // ดึงข้อมูล Model_car และ Group_car ที่ Group_id ตรงกับ id ใน Stat_CarGroup
+//     $carModels = DB::table('Stat_CarModel')
+//         ->join('Stat_CarGroup', 'Stat_CarModel.Group_id', '=', 'Stat_CarGroup.id')
+//         ->select('Stat_CarModel.Model_car', 'Stat_CarGroup.Group_car', 'Stat_CarModel.Group_id')
+//         ->get();
+
+//     // ดึงข้อมูล Model_moto ตามเงื่อนไขที่ต้องการ
+//     $motoModels = DB::table('Stat_MotoModel')
+//         ->select('Model_moto')
+//         ->get();
+
+//     // ตรวจสอบค่าที่ดึงมา
+//     // dd($carModels, $motoModels);
+
+//     return response()->json([
+//         'carModels' => $carModels,
+//         'motoModels' => $motoModels,
+//     ]);
+// }
 
 
 
 
 
 
+        // public function getYearOptions(Request $request)
+        // {
+        //     // dd($request->all());
+        //     // สร้าง query สำหรับปีรถยนต์และมอเตอร์ไซค์
+        //     $carYearQuery = DB::table('Stat_CarYear')->select('id', 'Year_car')->distinct();
+        //     $motoYearQuery = DB::table('Stat_MotoYear')->select('id', 'Year_moto')->distinct();
+
+        //     // ข้อมูลเงื่อนไขการกรอง
+        //     $filters = [
+        //         'brand_id' => 'Brand_id',
+        //         'group_id' => 'Group_id',
+        //         'model_id' => 'Model_id',
+        //         'ratetype_id' => 'RateType_id'
+        //     ];
+
+        //     // ใช้เงื่อนไขการกรองกับทั้ง carYearQuery และ motoYearQuery
+        //     foreach ($filters as $requestKey => $column) {
+        //         if ($request->has($requestKey)) {
+        //             $value = $request->input($requestKey);
+        //             $carYearQuery->where($column, $value);
+        //             $motoYearQuery->where($column, $value);
+        //         }
+        //     }
+
+        //     // ดึงข้อมูลปี
+        //     $carYears = $carYearQuery->get();
+        //     $motoYears = $motoYearQuery->get();
+
+        //     // รวมข้อมูลปีของรถยนต์และมอเตอร์ไซค์
+        //     return response()->json([
+        //         'carYears' => $carYears,
+        //         'motoYears' => $motoYears,
+        //     ]);
+        // }
 
 
+        // public function getYearOptions(Request $request)
+        // {
+        //     // dd($request->all());
 
+        //     // ดึงข้อมูล Year_car จากตาราง Stat_CarYear และกรองตาม Brand_id, Group_id, Model_id, และ RateType_id
+        //     $carYearQuery = DB::table('Stat_CarYear')->select('id', 'Year_car')->distinct();
+        //     $motoYearQuery = DB::table('Stat_MotoYear')->select('id', 'Year_moto')->distinct();
+
+        //     // ข้อมูลเงื่อนไขการกรอง
+        //     $filters = [
+        //         'brand_id' => 'Brand_id',
+        //         'group_id' => 'Group_id',
+        //         'model_id' => 'Model_id',
+        //         'ratetype_id' => 'RateType_id'
+        //     ];
+
+        //     // ใช้เงื่อนไขการกรองกับทั้ง carYearQuery และ motoYearQuery
+        //     foreach ($filters as $requestKey => $column) {
+        //         if ($request->has($requestKey)) {
+        //             $carYearQuery->where($column, $request->input($requestKey));
+        //             $motoYearQuery->where($column, $request->input($requestKey));
+        //         }
+        //     }
+
+        //     $carYears = $carYearQuery->get();
+        //     $motoYears = $motoYearQuery->get();
+
+        //     // รวมข้อมูลปีของรถยนต์และมอเตอร์ไซค์
+        //     $years = [
+        //         'carYears' => $carYears,
+        //         'motoYears' => $motoYears,
+        //     ];
+
+        //     return response()->json($years);
+        // }
+
+        // public function getYearOptions(Request $request)
+        // {
+        //     // สร้าง query สำหรับปีรถยนต์
+        //     $carYearQuery = DB::table('Stat_CarYear')->select('id', 'Year_car')->distinct();
+
+        //     // ข้อมูลเงื่อนไขการกรอง
+        //     $filters = [
+        //         'brand_id' => 'Brand_id',
+        //         'group_id' => 'Group_id',
+        //         'model_id' => 'Model_id',
+        //         'ratetype_id' => 'RateType_id'
+        //     ];
+
+        //     // ใช้เงื่อนไขการกรองกับ carYearQuery
+        //     foreach ($filters as $requestKey => $column) {
+        //         if ($request->has($requestKey)) {
+        //             $value = $request->input($requestKey);
+        //             $carYearQuery->where($column, $value);
+        //         }
+        //     }
+
+        //     // ดึงข้อมูลปี
+        //     $carYears = $carYearQuery->get();
+
+        //     // ส่งข้อมูลปีรถยนต์กลับในรูปแบบ JSON
+        //     return response()->json([
+        //         'carYears' => $carYears,
+        //     ]);
+        // }
 
 
 

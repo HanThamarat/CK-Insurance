@@ -1230,3 +1230,76 @@
                                 }
                             </script> --}}
 
+
+
+
+
+
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Group_car_and_moto').change(function() {
+                                        const selectedGroupCar = $(this).val();
+                                        const rateTypeId = $('#Ratetype_id').val();
+                                        const selectedGroupId = $('#Group_id').val();
+
+                                        // ตรวจสอบค่า
+                                        console.log({
+                                            selectedGroupCar: selectedGroupCar,
+                                            rateTypeId: rateTypeId,
+                                            selectedGroupId: selectedGroupId // ตรวจสอบว่าไม่ undefined
+                                        });
+
+                                        if (!selectedGroupCar || !rateTypeId || !selectedGroupId) {
+                                            console.warn('Group Car ID, RateType ID, or Group ID is missing.');
+                                            return; // หยุดการทำงานถ้ามีค่าใดค่าหนึ่งไม่ถูกต้อง
+                                        }
+
+                                        $.ajax({
+                                            url: '/api/year-options',
+                                            method: 'GET',
+                                            dataType: 'json',
+                                            data: {
+                                                group_car: selectedGroupCar,
+                                                group_id: selectedGroupId,
+                                                ratetype_id: rateTypeId
+                                            },
+                                            success: function(data) {
+                                                // โค้ดจัดการข้อมูลที่ประสบความสำเร็จ
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error('Error fetching Year options:', error);
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+
+
+
+public function getYearOptions(Request $request)
+{
+    // รับค่าที่ส่งมาจาก AJAX
+    $groupCar = $request->input('group_car');
+    $groupId = $request->input('group_id');
+    $rateTypeId = $request->input('ratetype_id');
+
+    // ตรวจสอบค่าที่ได้
+    if (!$groupCar || !$groupId || !$rateTypeId) {
+        return response()->json(['error' => 'Invalid parameters'], 400);
+    }
+
+    // ดึงปีรถยนต์ตาม group_car
+    $carYears = StatCarYear::where('group_car', $groupCar)
+        ->distinct()
+        ->pluck('year'); // สมมุติว่าในฐานข้อมูลมีฟิลด์ 'year'
+
+    // ดึงปีมอเตอร์ไซค์ตาม group_id
+    $motoYears = StatMotoYear::where('group_id', $groupId)
+        ->distinct()
+        ->pluck('year'); // สมมุติว่าในฐานข้อมูลมีฟิลด์ 'year'
+
+    return response()->json([
+        'carYears' => $carYears,
+        'motoYears' => $motoYears,
+    ]);
+}
