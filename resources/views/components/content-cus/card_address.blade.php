@@ -45,7 +45,7 @@
                             const tambon = address.houseTambon_Adds || 'ไม่ระบุ';
 
                             $('#address-list').append(`
-                                <div class="flex flex-col w-full p-2 mt-1">
+                                <div class="flex flex-col w-full p-2 mt-0">
                                     <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500">
                                         <div class="bg-orange-200 bg-opacity-25 rounded-t-lg p-4">
                                             <div class="flex justify-between items-center">
@@ -80,8 +80,9 @@
                                         </div>
                                         <div class="p-4 border-t">
                                             <small class="text-muted">
-                                                <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ {{ \Carbon\Carbon::parse($customer->created_at)->locale('th')->translatedFormat('j F Y เวลา H:i น.') }}
+                                                <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ ${new Date(address.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })} น.
                                             </small>
+
                                         </div>
                                     </div>
                                 </div>

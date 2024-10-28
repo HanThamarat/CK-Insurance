@@ -1522,4 +1522,29 @@ public function getYearOptions(Request $request)
                                 //             console.error('Error fetching Model car and moto options:', error);
                                 //         }
                                 //     });
-                                // });
+                                // });                            {{-- <div class="relative">
+                                    <select id="Vehicle_Gear" name="Vehicle_Gear"
+                                        class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
+                                        onchange="handleSelectChange7(this)">
+                                        <option value="">เกียร์รถ</option>
+                                        <option hidden value="manual" class="text-gray-500">Manual</option>
+                                        <option hidden value="auto" class="text-gray-500">Auto</option>
+                                    </select>
+
+                                    <label id="label_Vehicle_Gear" for="Vehicle_Gear"
+                                        class="absolute left-2 bg-white top-1/2 transform -translate-y-1/2 text-red-400 font-semibold text-sm duration-150 pointer-events-none rounded-full px-2 shadow-lg">
+                                        เกียร์รถ
+                                    </label>
+                                </div>
+
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script>
+                                    function handleSelectChange7(selectElement) {
+                                        const label = $('#label_Vehicle_Gear'); // ใช้ ID ของ label ที่ถูกต้อง
+                                        if (selectElement.value) {
+                                            label.addClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label ขึ้น
+                                        } else {
+                                            label.removeClass('translate-y-[-2rem] text-gray-400'); // ปรับให้ label กลับลง
+                                        }
+                                    }
+                                </script> --}}

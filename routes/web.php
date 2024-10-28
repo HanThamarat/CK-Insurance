@@ -97,6 +97,8 @@ Route::get('/get-address/{id}', [DataCusAddressController::class, 'getAddress'])
 
 
 
+
+
 // DATA ASSET FETCH DATA
 
 Route::get('/asset-types', [DataAssetController::class, 'getDataAsset']);

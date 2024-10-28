@@ -5,10 +5,11 @@
             <i class="fa-regular fa-user mr-2"></i>ข้อมูลลูกค้า (Customer Details)
         </span>
         <a href="#"
-            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300"
+            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-gray-600 transition-transform duration-300"
             type="button" onclick="showModal()">
             <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
         </a>
+
     </div>
 
 
@@ -124,10 +125,10 @@
                 </div>
 
 
-                {{-- @include('components.content-cus.Modal_edit_address') --}}
+                @include('components.content-cus.Modal_edit_address')
 
                 <!-- ส่วนที่แสดงข้อมูล -->
-                <div class="flex flex-col items-center mt-0 address-master">
+                <div class="flex flex-col items-center mt-[-10] address-master">
                     <div class="shadow-effect">
                         <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce"
                             alt="Out of Stock">
@@ -170,7 +171,7 @@
                     <button class="next-2" id="next-master-2">→</button>
                 </div>
 
-                {{-- @include('components.content-cus.Modal_edit_career') --}}
+                @include('components.content-cus.Modal_edit_career')
 
 
 

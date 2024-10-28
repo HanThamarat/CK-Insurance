@@ -1,5 +1,3 @@
-{{-- @include('components.content-cus.component_js')
-
 
 <div id="modal_edit_address_customer" class="fixed inset-0 hidden bg-black bg-opacity-50 z-50">
     <!-- Modal Content -->
@@ -35,7 +33,7 @@
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
                                     <input class="form-check-input text-lg" type="radio" value="ที่อยู่ปัจจุบัน"
-                                        name="Type_Adds" id="adds-0">
+                                        name="Type_Adds_edit" id="adds-0">
                                     <label class="form-check-label text-base text-gray-700" for="adds-0">
                                         ที่อยู่ปัจจุบัน
                                     </label>
@@ -45,7 +43,7 @@
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
                                     <input class="form-check-input text-lg" type="radio" value="ที่อยู่ส่งเอกสาร"
-                                        name="Type_Adds" id="adds-1">
+                                        name="Type_Adds_edit" id="adds-1">
                                     <label class="form-check-label text-base text-gray-700" for="adds-1">
                                         ที่อยู่ส่งเอกสาร
                                     </label>
@@ -55,7 +53,7 @@
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
                                     <input class="form-check-input text-lg" type="radio" value="ที่อยู่ตามสำเนา"
-                                        name="Type_Adds" id="adds-2">
+                                        name="Type_Adds_edit" id="adds-2">
                                     <label class="form-check-label text-base text-gray-700" for="adds-2">
                                         ที่อยู่ตามสำเนา
                                     </label>
@@ -76,15 +74,15 @@
                         <div class="relative">
                             <input type="text" id="Registration_number" name="Registration_number"
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                placeholder="----- -----" required onfocus="moveLabel('Registration_number')"
-                                onblur="checkInput('Registration_number')"
+                                placeholder="----- -----" required
                                 oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
                                 oninput="this.setCustomValidity('')">
                             <label for="Registration_number"
-                                class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                 เลขทะเบียนบ้าน
                             </label>
                         </div>
+
 
                         <script>
                             $(document).ready(function() {
@@ -98,45 +96,41 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
 
                             <div class="relative">
-                                <input type="text" id="houseNumber_Adds" name="houseNumber_Adds"
+                                <input type="text" id="houseNumber_Adds_edit" name="houseNumber_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('houseNumber_Adds')"
-                                    onblur="checkInput('houseNumber_Adds')">
-                                <label for="houseNumber_Adds"
-                                    class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    placeholder=" ">
+                                <label for="houseNumber_Adds_edit"
+                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     บ้านเลขที่
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="houseGroup_Adds" name="houseGroup_Adds"
+                                <input type="text" id="houseGroup_Adds_edit" name="houseGroup_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('houseGroup_Adds')"
-                                    onblur="checkInput('houseGroup_Adds')">
-                                <label for="houseGroup_Adds"
-                                    class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    placeholder=" ">
+                                <label for="houseGroup_Adds_edit"
+                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     หมู่
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="building_Adds" name="building_Adds"
+                                <input type="text" id="building_Adds_edit" name="building_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('building_Adds')"
-                                    onblur="checkInput('building_Adds')">
-                                <label for="building_Adds"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    placeholder=" ">
+                                <label for="building_Adds_edit"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     อาคาร
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="village_Adds" name="village_Adds"
+                                <input type="text" id="village_Adds_edit" name="village_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('village_Adds')"
-                                    onblur="checkInput('village_Adds')">
-                                <label for="village_Adds"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    placeholder=" ">
+                                <label for="village_Adds_edit"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     หมู่บ้าน
                                 </label>
                             </div>
@@ -146,45 +140,41 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
 
                             <div class="relative">
-                                <input type="text" id="roomNumber_Adds" name="roomNumber_Adds"
+                                <input type="text" id="roomNumber_Adds_edit" name="roomNumber_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('roomNumber_Adds')"
-                                    onblur="checkInput('roomNumber_Adds')">
-                                <label for="roomNumber_Adds"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    placeholder=" ">
+                                <label for="roomNumber_Adds_edit"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     เลขที่ห้อง
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="Floor_Adds" name="Floor_Adds"
+                                <input type="text" id="Floor_Adds_edit" name="Floor_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('Floor_Adds')"
-                                    onblur="checkInput('Floor_Adds')">
-                                <label for="Floor_Adds"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    placeholder=" ">
+                                <label for="Floor_Adds_edit"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     ชั้นที่
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="alley_Adds" name="alley_Adds"
+                                <input type="text" id="alley_Adds_edit" name="alley_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('alley_Adds')"
-                                    onblur="checkInput('alley_Adds')">
-                                <label for="alley_Adds"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    placeholder=" ">
+                                <label for="alley_Adds_edit"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     ซอย
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="road_Adds" name="road_Adds"
+                                <input type="text" id="road_Adds_edit" name="road_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('road_Adds')"
-                                    onblur="checkInput('road_Adds')">
-                                <label for="road_Adds"
-                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    placeholder=" ">
+                                <label for="road_Adds_edit"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     ถนน
                                 </label>
                             </div>
@@ -192,33 +182,30 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                             <div class="relative">
-                                <select id="houseZone_Adds" name="houseZone_Adds"
-                                    onfocus="moveLabel('houseZone_Adds')" onblur="checkInput('houseZone_Adds')"
+                                <select id="houseZone_Adds_edit" name="houseZone_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
                                     required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')"
                                     oninput="this.setCustomValidity('')">
                                     <option value="">ภูมิภาค</option>
                                 </select>
 
-                                <label for="houseZone_Adds"
-                                    class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                <label for="houseZone_Adds_edit"
+                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     ภูมิภาค
                                 </label>
                             </div>
 
 
                             <div class="relative">
-                                <select id="houseProvince_Adds" name="houseProvince_Adds"
-                                    onfocus="moveLabel('houseProvince_Adds')"
-                                    onblur="checkInput('houseProvince_Adds')"
+                                <select id="houseProvince_Adds_edit" name="houseProvince_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
                                     required oninvalid="this.setCustomValidity('กรุณาเลือกจังหวัด')"
                                     oninput="this.setCustomValidity('')">
                                     <option value="">จังหวัด</option>
                                 </select>
 
-                                <label for="houseProvince_Adds"
-                                    class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                <label for="houseProvince_Adds_edit"
+                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     จังหวัด
                                 </label>
                             </div>
@@ -227,32 +214,29 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                             <div class="relative">
-                                <select id="houseDistrict_Adds" name="houseDistrict_Adds"
-                                    onfocus="moveLabel('houseDistrict_Adds')"
-                                    onblur="checkInput('houseDistrict_Adds')"
+                                <select id="houseDistrict_Adds_edit" name="houseDistrict_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
                                     required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')"
                                     oninput="this.setCustomValidity('')">
                                     <option value="">อำเภอ</option>
                                 </select>
 
-                                <label for="houseDistrict_Adds"
-                                    class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                <label for="houseDistrict_Adds_edit"
+                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     อำเภอ
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <select id="houseTambon_Adds" name="houseTambon_Adds"
-                                    onfocus="moveLabel('houseTambon_Adds')" onblur="checkInput('houseTambon_Adds')"
+                                <select id="houseTambon_Adds_edit" name="houseTambon_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
                                     required oninvalid="this.setCustomValidity('กรุณาเลือกคำนำหน้า')"
                                     oninput="this.setCustomValidity('')">
                                     <option value="">ตำบล</option>
                                 </select>
 
-                                <label for="houseTambon_Adds"
-                                    class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                <label for="houseTambon_Adds_edit"
+                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     ตำบล
                                 </label>
                             </div>
@@ -262,40 +246,38 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                             <div class="relative">
                                 <div class="relative">
-                                    <select id="Postal_Adds" name="Postal_Adds" onfocus="moveLabel('Postal_Adds')"
-                                        onblur="checkInput('Postal_Adds')"
+                                    <select id="Postal_Adds_edit" name="Postal_Adds"
                                         class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500"
                                         required oninvalid="this.setCustomValidity('กรุณาเลือกรหัสไปรษณีย์')"
                                         oninput="this.setCustomValidity('')">
                                         <option value="">รหัสไปรษณีย์</option>
                                     </select>
 
-                                    <label for="Postal_Adds"
-                                        class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    <label for="Postal_Adds_edit"
+                                        class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                         รหัสไปรษณีย์
                                     </label>
                                 </div>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="Coordinates_Adds" name="Coordinates_Adds"
+                                <input type="text" id="Coordinates_Adds_edit" name="Coordinates_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" " onfocus="moveLabel('Coordinates_Adds')"
-                                    onblur="checkInput('Coordinates_Adds')">
+                                    placeholder=" ">
 
-                                <label for="Coordinates_Adds"
-                                    class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                <label for="Coordinates_Adds_edit"
+                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     พิกัด
                                 </label>
                             </div>
                         </div>
 
                         <div class="relative pt-0"> <!-- ปรับ pt ตามต้องการ -->
-                            <textarea id="Detail_Adds" name="Detail_Adds" rows="1"
+                            <textarea id="Detail_Adds_edit" name="Detail_Adds" rows="1"
                                 class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                placeholder=" " onfocus="moveLabel('Detail_Adds')" onblur="checkInput('Detail_Adds')"></textarea>
-                            <label for="Detail_Adds"
-                                class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                placeholder=" "></textarea>
+                            <label for="Detail_Adds_edit"
+                                class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                 รายละเอียด
                             </label>
                         </div>
@@ -304,7 +286,7 @@
 
                 <div class="flex justify-end space-x-2 mt-4">
                     <!-- ปุ่ม บันทึก -->
-                    <button type="submit" id="submitBtnAddress"
+                    <button type="submit" id="submitEditBtnAddress"
                         class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-700 hover:shadow-lg hover:translate-y-[-2px] focus:outline-none focus:ring-2 focus:ring-orange-500 flex items-center space-x-2 transition duration-300">
                         <i class="fas fa-save"></i> <!-- ไอคอน "บันทึก" ของ Font Awesome -->
                         <span>สร้างทรัพย์ใหม่</span>
@@ -319,7 +301,6 @@
                 </div>
 
             </form>
-
         </div>
     </div>
 </div>
@@ -337,25 +318,26 @@
             success: function(response) {
                 // เติมค่าจาก response ลงในฟอร์มให้ครบทุกฟิลด์
                 $('#addressId').val(response.DataCus_id);
-                $('#houseNumber').val(response.houseNumber_Adds);
-                $('#road').val(response.road_Adds);
-                $('#village').val(response.village_Adds);
-                $('#province').val(response.houseProvince_Adds);
-                $('#postalCode').val(response.Postal_Adds);
-                $('#houseGroup').val(response.houseGroup_Adds);
-                $('#building').val(response.building_Adds);
-                $('#roomNumber').val(response.roomNumber_Adds);
-                $('#Floor').val(response.Floor_Adds);
-                $('#alley').val(response.alley_Adds);
-                $('#houseZone').val(response.houseZone_Adds);
-                $('#houseDistrict').val(response.houseDistrict_Adds);
-                $('#houseTambon').val(response.houseTambon_Adds);
-                $('#Detail').val(response.Detail_Adds);
-                $('#Coordinates').val(response.Coordinates_Adds);
+                $('#Registration_number').val(response.Registration_number);
+                $('#houseNumber_Adds_edit').val(response.houseNumber_Adds);
+                $('#road_Adds_edit').val(response.road_Adds);
+                $('#village_Adds_edit').val(response.village_Adds);
+                $('#Province_Adds_edit').val(response.houseProvince_Adds);
+                $('#postalCode_Adds_edit').val(response.Postal_Adds);
+                $('#houseGroup_Adds_edit').val(response.houseGroup_Adds);
+                $('#building_Adds_edit').val(response.building_Adds);
+                $('#roomNumber_Adds_edit').val(response.roomNumber_Adds);
+                $('#Floor_Adds_edit').val(response.Floor_Adds);
+                $('#alley_Adds_edit').val(response.alley_Adds);
+                $('#houseZone_Adds_edit').val(response.houseZone_Adds);
+                $('#houseDistrict_Adds_edit').val(response.houseDistrict_Adds);
+                $('#houseTambo_Adds_editn').val(response.houseTambon_Adds);
+                $('#Detail_Adds_edit').val(response.Detail_Adds);
+                $('#Coordinates_Adds_edit').val(response.Coordinates_Adds);
 
                 // แสดง modal ด้วยเอฟเฟกต์ fade in
                 $('#modal_edit_address_customer').fadeIn(
-                300); // 300 = 0.4 วินาที (คุณสามารถปรับความเร็วได้)
+                    300); // 300 = 0.4 วินาที (คุณสามารถปรับความเร็วได้)
             },
             error: function(xhr, status, error) {
                 // จัดการข้อผิดพลาด
@@ -379,4 +361,4 @@
             // $('#modal_edit_address_customer').find("input, textarea").val(""); // ถ้าต้องการรีเซ็ตฟอร์ม
         });
     }
-</script> --}}
+</script>
