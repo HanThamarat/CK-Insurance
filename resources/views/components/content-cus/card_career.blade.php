@@ -26,7 +26,7 @@
                                                         <i class="fas fa-tag"></i> ${career.Career_Cus}
                                                     </h6>
                                                 </div>
-                                                <!--<button class="edit-career-btn bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded transition-transform transform hover:scale-105 hover:shadow-lg flex items-center"
+                                                <button class="edit-career-btn bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded transition-transform transform hover:scale-105 hover:shadow-lg flex items-center"
                                                     data-id="${career.id}"
                                                     data-career-name="${career.Career_Cus}"
                                                     data-data-cus-id="${career.DataCus_id}"
@@ -38,9 +38,9 @@
                                                     data-note="${career.IncomeNote_Cus}"
                                                     onclick="openModal_Edit_career_customer(this)">
                                                     <i class="fas fa-edit mr-2"></i> แก้ไข
-                                                </button>-->
+                                                </button>
 
-                                                <div class="group grid grid-cols-3 gap-0 hover:gap-2 duration-500 relative shadow-sm">
+                                                <!--<div class="group grid grid-cols-3 gap-0 hover:gap-2 duration-500 relative shadow-sm">
                                                     <h1 class="absolute z-10 group-hover:hidden duration-200 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
                                                         <svg viewBox="0 0 24 24" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-7 h-7 text-gray-800">
                                                             <path d="M5 7h14M5 12h14M5 17h14" stroke-width="2" stroke-linecap="round" stroke="currentColor"></path>
@@ -62,7 +62,7 @@
                                                             <path clip-rule="evenodd" d="M21.7 8.037a4.26 4.26 0 0 0-.789-1.964 2.84 2.84 0 0 0-1.984-.839c-2.767-.2-6.926-.2-6.926-.2s-4.157 0-6.928.2a2.836 2.836 0 0 0-1.983.839 4.225 4.225 0 0 0-.79 1.965 30.146 30.146 0 0 0-.2 3.206v1.5a30.12 30.12 0 0 0 .2 3.206c.094.712.364 1.39.784 1.972.604.536 1.38.837 2.187.848 1.583.151 6.731.2 6.731.2s4.161 0 6.928-.2a2.844 2.844 0 0 0 1.985-.84 4.27 4.27 0 0 0 .787-1.965 30.12 30.12 0 0 0 .2-3.206v-1.516a30.672 30.672 0 0 0-.202-3.206Zm-11.692 6.554v-5.62l5.4 2.819-5.4 2.801Z" fill-rule="evenodd" class="opacity-0 group-hover:opacity-100 duration-200"></path>
                                                         </svg>
                                                     </a>
-                                                </div>
+                                                </div>-->
 
 
                                             </div>
