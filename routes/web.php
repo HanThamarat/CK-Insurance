@@ -92,6 +92,10 @@ Route::get('/customer/{id}', [CustomerController::class, 'showProfile']);
 
 // ดึงค่าจาก การ์ดมาแสดง
 Route::get('/get-address/{id}', [DataCusAddressController::class, 'getAddress']);
+Route::get('/addresses/{id}/edit', [DataCusAddressController::class, 'editAddress'])->name('edit-address');
+Route::post('/update-address', [DataCusAddressController::class, 'updateAddress'])->name('update-address');
+
+
 
 
 
@@ -100,7 +104,6 @@ Route::get('/get-address/{id}', [DataCusAddressController::class, 'getAddress'])
 
 
 // DATA ASSET FETCH DATA
-
 Route::get('/asset-types', [DataAssetController::class, 'getDataAsset']);
 Route::get('/api/ratetype-options', [DataAssetController::class, 'getRatetypeOptions']);
 Route::get('/api/vehicle-names', [DataAssetController::class, 'getVehicleNames']);
@@ -113,6 +116,7 @@ Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptio
 
 
 
+Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomerId']);
 
 
 
@@ -132,6 +136,17 @@ Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptio
 
 
 
+
+
+
+
+
+
+
+
+
+
+// Route::post('/update-address', [DataCusAddressController::class, 'updateAddress']);
 // Route::get('/get-address-data', [DataCusAddressController::class, 'getAddressData']);
 
 

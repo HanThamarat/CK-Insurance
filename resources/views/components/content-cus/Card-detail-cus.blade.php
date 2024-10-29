@@ -92,7 +92,7 @@
     <!-- Tabs -->
     <div class="border-b border-gray-200 mb-4">
         <ul
-            class="grid grid-cols-2 gap-2 text-sm font-semibold text-center text-orange-500 dark:text-gray-700 bg-white rounded-sm">
+            class="grid grid-cols-3 gap-2 text-sm font-semibold text-center text-orange-500 dark:text-gray-700 bg-white rounded-sm">
             <li>
                 <a href="#address-info" class="tab-link text-gray-500 py-2 px-4 block hover:text-orange-600"
                     data-tab="address-info">ข้อมูลที่อยู่</a>
@@ -100,6 +100,10 @@
             <li>
                 <a href="#job-info" class="tab-link text-gray-500 py-2 px-4 block hover:text-orange-600"
                     data-tab="job-info">ข้อมูลอาชีพ</a>
+            </li>
+            <li>
+                <a href="#asset-info" class="tab-link text-gray-500 py-2 px-4 block hover:text-orange-600"
+                    data-tab="asset-info">ข้อมูลสินทรัพย์</a>
             </li>
         </ul>
     </div>
@@ -196,6 +200,45 @@
                 </div>
             </div>
         </div>
+
+        <!-- ข้อมูลสินทรัพย์ -->
+        <div id="asset-info" class="tab-pane hidden">
+            <div class="grid grid-cols-1 gap-4 text-sm text-gray-600">
+
+                <div id="assetContainer" class="overflow-hidden">
+                    <div class="flex transition-transform duration-300" id="assetSlider">
+                        <!-- การ์ดข้อมูลจะถูกสร้างและเพิ่มที่นี่ -->
+                        @include('components.content-cus.card_asset')
+                    </div>
+                </div>
+
+                {{-- <!-- ปุ่มเลื่อนไปทางซ้าย -->
+                <button class="prev-3" id="prev-button-3">←</button>
+                <!-- ปุ่มเลื่อนไปทางขวา -->
+                <button class="next-3" id="next-button-3">→</button> --}}
+
+
+
+                <div class="flex flex-col items-center mt-0 asset-master">
+                    <div class="shadow-effect">
+                        <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce"
+                            alt="Out of Stock">
+                    </div>
+                    <p class="mt-4 text-gray-600 text-center">ยังไม่มีข้อมูลที่อยู่ลูกค้านี้</p>
+                </div>
+                <div class="flex justify-center mt-0">
+                    <button id="addAssetButton"
+                        class="mt-0 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-4 mr-2" fill="currentColor" viewBox="0 0 448 512">
+                            <path d="M135.2 117.4L109.1 192l293.8 0-26.1-74.6C372.3 104.6 360.2 96 346.6 96L165.4 96c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32l181.2 0c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2l0 144 0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L96 400l0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L0 256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/>
+                        </svg>
+                        เพิ่มสินทรัพย์
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
     </div>
     @include('components.content-cus.Modal-Edit-Cus')
     @include('components.content-cus.Modal_address')
@@ -516,8 +559,121 @@
 
 
 
+    {{-- <style>
+        .slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            /* ซ่อนส่วนที่เกินจาก container */
+        }
+
+        .slider {
+            display: flex;
+            gap: 10px;
+            /* เว้นระยะระหว่างการ์ด */
+            overflow-x: auto;
+            /* เลื่อนในแนวนอน */
+            scroll-behavior: smooth;
+            /* เลื่อนแบบนุ่มนวล */
+            padding: 20px;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+            /* ซ่อน scrollbar */
+        }
+
+        /* ปรับขนาดของการ์ดให้แสดง 2 การ์ดในเวลาเดียวกัน */
+        .slider>* {
+            flex: 0 0 calc(50% - 10px);
+            /* แสดงการ์ด 2 ใบ โดยคิดจากความกว้างที่หัก gap ออกไป */
+        }
+
+        .prev-3,
+        .next-3 {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(213, 213, 213, 0.5);
+            /* Transparent background */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            /* Make the button circular */
+            width: 50px;
+            /* Set the width of the button */
+            height: 50px;
+            /* Set the height of the button */
+            padding: 0;
+            /* Remove padding */
+            cursor: pointer;
+            z-index: 1;
+            /* ให้ปุ่มอยู่เหนือ slider */
+            transition: background-color 0.3s;
+            /* Smooth transition */
+        }
+
+        .prev-3:hover,
+        .next-3:hover {
+            background-color: rgba(51, 51, 51, 1);
+            /* Solid background on hover */
+        }
+
+        .prev-3 {
+            left: 10px;
+            /* ปุ่มทางซ้าย */
+        }
+
+        .next-3 {
+            right: 10px;
+            /* ปุ่มทางขวา */
+        }
+    </style> --}}
 
 
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
+            $('#prev-master-3').on('click', function() {
+                const $slider = $('#asset-container');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '-=' + cardWidth
+                }, 500); // เลื่อนไปทางซ้าย
+            });
+
+            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
+            $('#next-master-3').on('click', function() {
+                const $slider = $('#asset-container');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '+=' + cardWidth
+                }, 500); // เลื่อนไปทางขวา
+            });
+        });
+    </script> --}}
+
+
+
+
+
+    {{-- <div class="slider-container">
+        <div class="slider" id="asset-container">
+
+            @include('components.content-cus.card_asset')
+
+            <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+        </div>
+
+        <!-- ปุ่มเลื่อนไปทางซ้าย -->
+        <button class="prev-3" id="prev-master-3">←</button>
+        <!-- ปุ่มเลื่อนไปทางขวา -->
+        <button class="next-3" id="next-master-3">→</button>
+    </div> --}}
 
 
 

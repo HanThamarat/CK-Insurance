@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TypeAsset; //ประเภทข้อมูลสินทรัพย์
+use App\Models\Customer; // ใช้ Customer Model
 
 use App\Models\AssetManage;
 use App\Models\ProvinceDLT; //จังหวัด
@@ -532,6 +533,30 @@ class DataAssetController extends Controller
         }
 
 
+        // public function getAssetsByCustomerId($id)
+        // {
+        //     // ดึงข้อมูลลูกค้าพร้อมกับสินทรัพย์ที่เกี่ยวข้อง
+        //     $customer = Customer::with('assets')->where('id', $id)->first();
+
+        //     if ($customer && $customer->assets->isNotEmpty()) {
+        //         // ถ้ามีข้อมูลลูกค้าและสินทรัพย์ตรงกัน
+        //         return response()->json([
+        //             'customer' => $customer,
+        //             'assets' => $customer->assets // เปลี่ยนเป็น assets เพราะอาจมีหลายสินทรัพย์
+        //         ]);
+        //     } else {
+        //         return response()->json(['message' => 'No matching assets found'], 404);
+        //     }
+        // }
+
+        public function getAssetsByCustomerId(Request $request)
+        {
+            $customer_id = $request->input('customer_id');
+            $assets = AssetManage::where('customer_id', $customer_id)->get();
+
+            return response()->json($assets);
+        }
+
 
 
         //---------------------------------------------Data Assets Destroy---------------------------------------------------------//
@@ -600,6 +625,37 @@ class DataAssetController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // public function getAssetsByCustomerId(Request $request)
+        // {
+        //     $customer_id = $request->input('customer_id');
+        //     $assets = AssetManage::where('customer_id', $customer_id)->get();
+
+        //     return response()->json($assets);
+        // }
 
 
         // public function getModelOptions(Request $request)

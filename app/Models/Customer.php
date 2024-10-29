@@ -46,6 +46,11 @@ class Customer extends Model
     {
         return $this->hasMany(DataCusCareer::class, 'DataCus_id', 'id');
     }
+
+    public function assets()
+    {
+        return $this->hasMany(DataAsset::class, 'Customer_id', 'id');
+    }
 }
 
 

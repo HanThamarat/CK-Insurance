@@ -1381,77 +1381,77 @@
                 $('#Vehicle_CC').removeClass('border-red-500');
             }
 
-            if ($('#Vehicle_Type').val().trim() === '') {
-                valid = false;
-                missingFields.push('ประเภทรถ 1');
-                $('#Vehicle_Type').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Type', '*กรุณากรอกข้อมูลนี้*',
-                    'label[for="Vehicle_Type"]');
-            } else {
-                $('#Vehicle_Type').removeClass('border-red-500');
-            }
+            // if ($('#Vehicle_Type').val().trim() === '') {
+            //     valid = false;
+            //     missingFields.push('ประเภทรถ 1');
+            //     $('#Vehicle_Type').addClass('border-red-500');
+            //     showPlaceholderSelect('#Vehicle_Type', '*กรุณากรอกข้อมูลนี้*',
+            //         'label[for="Vehicle_Type"]');
+            // } else {
+            //     $('#Vehicle_Type').removeClass('border-red-500');
+            // }
 
-            if ($('#Vehicle_Type_PLT').val().trim() === '') {
-                valid = false;
-                missingFields.push('ประเภทรถ 2');
-                $('#Vehicle_Type_PLT').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Type_PLT', '*กรุณากรอกข้อมูลนี้*',
-                    'label[for="Vehicle_Type_PLT"]');
-            } else {
-                $('#Vehicle_Type_PLT').removeClass('border-red-500');
-            }
+            // if ($('#Vehicle_Type_PLT').val().trim() === '') {
+            //     valid = false;
+            //     missingFields.push('ประเภทรถ 2');
+            //     $('#Vehicle_Type_PLT').addClass('border-red-500');
+            //     showPlaceholderSelect('#Vehicle_Type_PLT', '*กรุณากรอกข้อมูลนี้*',
+            //         'label[for="Vehicle_Type_PLT"]');
+            // } else {
+            //     $('#Vehicle_Type_PLT').removeClass('border-red-500');
+            // }
 
-            if ($('#Vehicle_Brand').val().trim() === '') {
-                valid = false;
-                missingFields.push('ยี่ห้อรถ');
-                $('#Vehicle_Brand').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Brand', '*กรุณากรอกข้อมูลนี้*',
-                    'label[for="Vehicle_Brand"]');
-            } else {
-                $('#Vehicle_Brand').removeClass('border-red-500');
-            }
+            // if ($('#Vehicle_Brand').val().trim() === '') {
+            //     valid = false;
+            //     missingFields.push('ยี่ห้อรถ');
+            //     $('#Vehicle_Brand').addClass('border-red-500');
+            //     showPlaceholderSelect('#Vehicle_Brand', '*กรุณากรอกข้อมูลนี้*',
+            //         'label[for="Vehicle_Brand"]');
+            // } else {
+            //     $('#Vehicle_Brand').removeClass('border-red-500');
+            // }
 
-            if ($('#Vehicle_Group').val().trim() === '') {
-                valid = false;
-                missingFields.push('กลุ่มรถ');
-                $('#Vehicle_Group').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Group', '*กรุณากรอกข้อมูลนี้*',
-                    'label[for="Vehicle_Group"]');
-            } else {
-                $('#Vehicle_Group').removeClass('border-red-500');
-            }
-
-
-            if ($('#Vehicle_Models').val().trim() === '') {
-                valid = false;
-                missingFields.push('รุ่นรถ');
-                $('#Vehicle_Models').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Models', '*กรุณากรอกข้อมูลนี้*',
-                    'label[for="Vehicle_Models"]');
-            } else {
-                $('#Vehicle_Models').removeClass('border-red-500');
-            }
-
-            if ($('#Vehicle_Years').val().trim() === '') {
-                valid = false;
-                missingFields.push('ปีรถ');
-                $('#Vehicle_Years').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Years', '*กรุณากรอกข้อมูลนี้*',
-                    'label[for="Vehicle_Years"]');
-            } else {
-                $('#Vehicle_Years').removeClass('border-red-500');
-            }
+            // if ($('#Vehicle_Group').val().trim() === '') {
+            //     valid = false;
+            //     missingFields.push('กลุ่มรถ');
+            //     $('#Vehicle_Group').addClass('border-red-500');
+            //     showPlaceholderSelect('#Vehicle_Group', '*กรุณากรอกข้อมูลนี้*',
+            //         'label[for="Vehicle_Group"]');
+            // } else {
+            //     $('#Vehicle_Group').removeClass('border-red-500');
+            // }
 
 
-            if ($('#Vehicle_Gear').val().trim() === '') {
-                valid = false;
-                missingFields.push('เกียร์รถ');
-                $('#Vehicle_Gear').addClass('border-red-500');
-                showPlaceholderSelect('#Vehicle_Gear', '*กรุณากรอกข้อมูลนี้*',
-                    'label[for="Vehicle_Gear"]');
-            } else {
-                $('#Vehicle_Gear').removeClass('border-red-500');
-            }
+            // if ($('#Vehicle_Models').val().trim() === '') {
+            //     valid = false;
+            //     missingFields.push('รุ่นรถ');
+            //     $('#Vehicle_Models').addClass('border-red-500');
+            //     showPlaceholderSelect('#Vehicle_Models', '*กรุณากรอกข้อมูลนี้*',
+            //         'label[for="Vehicle_Models"]');
+            // } else {
+            //     $('#Vehicle_Models').removeClass('border-red-500');
+            // }
+
+            // if ($('#Vehicle_Years').val().trim() === '') {
+            //     valid = false;
+            //     missingFields.push('ปีรถ');
+            //     $('#Vehicle_Years').addClass('border-red-500');
+            //     showPlaceholderSelect('#Vehicle_Years', '*กรุณากรอกข้อมูลนี้*',
+            //         'label[for="Vehicle_Years"]');
+            // } else {
+            //     $('#Vehicle_Years').removeClass('border-red-500');
+            // }
+
+
+            // if ($('#Vehicle_Gear').val().trim() === '') {
+            //     valid = false;
+            //     missingFields.push('เกียร์รถ');
+            //     $('#Vehicle_Gear').addClass('border-red-500');
+            //     showPlaceholderSelect('#Vehicle_Gear', '*กรุณากรอกข้อมูลนี้*',
+            //         'label[for="Vehicle_Gear"]');
+            // } else {
+            //     $('#Vehicle_Gear').removeClass('border-red-500');
+            // }
 
             // ถ้าข้อมูลไม่ครบให้แสดง SweetAlert แจ้งเตือนและไม่ส่งฟอร์ม
             if (!valid) {
