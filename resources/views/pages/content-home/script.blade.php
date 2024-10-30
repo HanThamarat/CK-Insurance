@@ -1,4 +1,4 @@
-<script>
+{{-- <script>
     class CountdownTimer {
         // setup timer values
         constructor({
@@ -101,10 +101,107 @@
 
     timer1.startTimer();
     timer2.startTimer();
+</script> --}}
+
+
+
+<script>
+    class TimeDisplay {
+        constructor({
+            selector,
+            backgroundColor = null,
+            foregroundColor = null,
+            showCurrentTime = false
+        }) {
+            this.selector = selector;
+            this.backgroundColor = backgroundColor;
+            this.foregroundColor = foregroundColor;
+            this.showCurrentTime = showCurrentTime;
+
+            // Set up Thai locale
+            this.thaiMonths = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+
+            // Reference elements
+            this.refs = {
+                years: document.querySelector(`${this.selector} [data-value="years"]`),
+                days: document.querySelector(`${this.selector} [data-value="days"]`),
+                hours: document.querySelector(`${this.selector} [data-value="hours"]`),
+                mins: document.querySelector(`${this.selector} [data-value="minutes"]`),
+                secs: document.querySelector(`${this.selector} [data-value="seconds"]`),
+                date: document.querySelector(`${this.selector} [data-value="date"]`)
+            };
+        }
+
+        getCurrentTime() {
+            const now = new Date();
+            const buddhistYear = now.getFullYear() + 543;
+
+            return {
+                years: buddhistYear,
+                days: now.getDate(),
+                hours: now.getHours().toString().padStart(2, '0'),
+                mins: now.getMinutes().toString().padStart(2, '0'),
+                secs: now.getSeconds().toString().padStart(2, '0'),
+                thaiDate: `${now.getDate()} ${this.thaiMonths[now.getMonth()]} ${buddhistYear}`
+            };
+        }
+
+        updateDisplay(timeData) {
+            if (this.refs.years) this.refs.years.textContent = timeData.years;
+            if (this.refs.days) this.refs.days.textContent = timeData.days;
+            if (this.refs.hours) this.refs.hours.textContent = timeData.hours;
+            if (this.refs.mins) this.refs.mins.textContent = timeData.mins;
+            if (this.refs.secs) this.refs.secs.textContent = timeData.secs;
+            if (this.refs.date) this.refs.date.textContent = timeData.thaiDate;
+        }
+
+        updateColors() {
+            const elements = [
+                this.refs.years,
+                this.refs.days,
+                this.refs.hours,
+                this.refs.mins,
+                this.refs.secs,
+                this.refs.date
+            ];
+
+            elements.forEach(element => {
+                if (element) {
+                    if (this.backgroundColor) {
+                        element.style.background = this.backgroundColor;
+                    }
+                    if (this.foregroundColor) {
+                        element.style.color = this.foregroundColor;
+                    }
+                }
+            });
+        }
+
+        startClock() {
+            // Initial update
+            this.updateDisplay(this.getCurrentTime());
+            this.updateColors();
+
+            // Update every second
+            setInterval(() => {
+                this.updateDisplay(this.getCurrentTime());
+            }, 1000);
+        }
+    }
+
+    // Initialize current time display
+    // เรียกใช้ TimeDisplay และเพิ่มคลาส Tailwind
+    const currentTime = new TimeDisplay({
+        selector: "#clock2",
+        backgroundColor: "bg-orange-300", // ใช้ Tailwind class
+        foregroundColor: "#ffffff"
+    });
+
+
+
+
+    currentTime.startClock();
 </script>
-
-
-
-
-
-

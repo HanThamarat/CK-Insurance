@@ -51,7 +51,7 @@
 
 
 
-            <div class="modal-body mt-[-10] p-4">
+            <div class="modal-body mt-[-14] p-4">
                 <div class="row mb-1 search-box-top">
                     <div class="col-12">
 
@@ -59,7 +59,7 @@
                             <div class="flex items-center">
                                 <label for="rowPerPage" class="mr-2">แสดงผล :</label>
                                 <select id="rowPerPage"
-                                    class="border border-orange-300 rounded-md shadow-sm p-1 w-16 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent">
+                                    class="border border-orange-300 rounded-md shadow-sm p-1 w-16 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent pl-2">
                                     <!-- เพิ่มความกว้างให้มากขึ้น -->
                                     <option value="5">5</option>
                                     <option value="10">10</option>
@@ -225,7 +225,239 @@
     </style>
 
 
+
+
     <script>
+        $(document).ready(function() {
+            const noResultsMessage = $('#noResultsMessage');
+            const pagination = $('#pagination');
+
+            // ฟังก์ชันค้นหา
+            $('.search-box input[type="text"]').on('keyup', function() {
+                let value = $(this).val().toLowerCase();
+                let found = false;
+
+                $('#customersTable tbody tr').filter(function() {
+                    const isVisible = $(this).text().toLowerCase().indexOf(value) > -1;
+                    $(this).toggle(isVisible);
+                    if (isVisible) {
+                        found = true;
+                    }
+                });
+
+                // แสดงหรือซ่อนข้อความเมื่อไม่พบข้อมูล
+                if (!found) {
+                    noResultsMessage.show();
+                    pagination.hide();
+                } else {
+                    noResultsMessage.hide();
+                    pagination.show();
+                }
+            });
+
+            let currentPage = 1;
+            let rowsPerPage = 5;
+
+            // ดึงข้อมูลลูกค้าครั้งแรก
+            fetchCustomers(currentPage, rowsPerPage);
+
+            // ฟังก์ชันเพื่อดึงข้อมูลลูกค้า
+            function fetchCustomers(page, perPage) {
+                $.ajax({
+                    url: "{{ route('customers.index') }}",
+                    method: 'GET',
+                    data: {
+                        page: page,
+                        per_page: perPage
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        updateTable(data);
+                        updatePagination(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching customers:', error);
+                        alert('Could not load customer data.');
+                    }
+                });
+            }
+
+            $(document).on('click', '.edit-button', function(event) {
+                event.preventDefault();
+                let customerId = $(this).data('id');
+                window.location.href = "{{ url('customer/profile') }}/" + customerId;
+            });
+
+            // เมื่อคลิกปุ่ม pagination
+            $(document).on('click', '.pagination-button', function(event) {
+                event.preventDefault(); // ป้องกันไม่ให้หน้ารีเฟรช
+                currentPage = $(this).data('page');
+                fetchCustomers(currentPage, rowsPerPage);
+            });
+
+            // เมื่อเปลี่ยนค่าใน select
+            $('#rowPerPage').on('change', function() {
+                rowsPerPage = parseInt($(this).val());
+                currentPage = 1;
+                fetchCustomers(currentPage, rowsPerPage);
+            });
+
+            // อัปเดต Pagination
+            function updatePagination(data) {
+                const paginationContainer = $('#pagination');
+                paginationContainer.empty();
+
+                // ปุ่ม "Previous"
+                if (data.current_page > 1) {
+                    paginationContainer.append(`
+            <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page - 1}">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        `);
+                }
+
+                // สร้างหมายเลขหน้า
+                if (data.last_page > 1) {
+                    for (let i = 1; i <= data.last_page; i++) {
+                        const activeClass = (i === data.current_page) ? 'bg-blue-500 text-white' :
+                            'bg-white text-gray-700 hover:bg-blue-100';
+                        paginationContainer.append(`
+                <button class="pagination-button ${activeClass} border border-gray-300 rounded-md px-4 py-2 mx-1 transition duration-150 ease-in-out" data-page="${i}">
+                    ${i}
+                </button>
+            `);
+                    }
+                }
+
+                // ปุ่ม "Next"
+                if (data.current_page < data.last_page) {
+                    paginationContainer.append(`
+            <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page + 1}">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        `);
+                }
+            }
+
+            // ฟังก์ชันสำหรับอัปเดตตาราง
+            function updateTable(data) {
+                const tbody = $('#customersTable tbody');
+                tbody.empty();
+
+                // แสดงข้อมูลลูกค้าในตาราง
+                $.each(data.data, function(index, customer) {
+                    tbody.append(`
+                <tr class="border-b">
+                    <td class="px-4 py-2 text-center">
+                        <img src="{{ asset('img/user.png') }}" alt="user icon" class="inline-block w-5 h-5 mr-2">
+                        ${customer.prefix}
+                    </td>
+                    <td class="px-4 py-2 text-center">${customer.first_name} ${customer.last_name}</td>
+                    <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
+                    <td class="px-4 py-2 text-center">${customer.phone}</td>
+                    <td class="px-4 py-2 text-center">${customer.nationality}</td>
+                    <td class="px-4 py-2 text-center">${customer.religion}</td>
+                    <td class="px-4 py-2 text-center">
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-orange-500 hover:bg-orange-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg">
+                                <i class="fas fa-edit mr-1"></i> Edit
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            `);
+                });
+            }
+        });
+    </script>
+
+
+
+
+
+    <script>
+        function openModal() {
+            const modal = document.getElementById('customerModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.style.transform = 'translateY(100%)'; // เริ่มที่ด้านล่าง
+                modal.style.opacity = '0'; // เริ่มโปร่งใส
+
+                // ใช้ setTimeout เพื่อให้โมดอลแสดงขึ้นในระยะเวลาที่กำหนด
+                setTimeout(() => {
+                    modal.style.transition = 'transform 0.5s ease, opacity 0.5s ease'; // ตั้งค่าการเปลี่ยนแปลง
+                    modal.style.transform = 'translateY(150px)'; // เลื่อนขึ้นให้มี mt-[-150]
+                    modal.style.opacity = '1'; // ทำให้ชัดเจน
+                    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // เพิ่มพื้นหลังสีเทาอ่อน
+                }, 10); // ใช้ delay เล็กน้อยเพื่อให้การเปลี่ยนแปลงทำงาน
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButton = document.getElementById('closeModal');
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    const modal = document.getElementById('customerModal');
+                    if (modal) {
+                        modal.style.transition =
+                            'transform 0.5s ease, opacity 0.5s ease'; // ตั้งค่าการเปลี่ยนแปลง
+                        modal.style.transform = 'translateY(100%)'; // เลื่อนลงไปที่ด้านล่าง
+                        modal.style.opacity = '0'; // ทำให้โปร่งใส
+
+                        // ซ่อนโมดอลเมื่อการเปลี่ยนแปลงเสร็จสิ้น
+                        modal.addEventListener('transitionend', function() {
+                            modal.classList.add('hidden'); // ซ่อนโมดอล
+                        }, {
+                            once: true
+                        }); // ใช้ once เพื่อฟังเหตุการณ์ครั้งเดียว
+                    }
+                });
+            } else {
+                console.error("closeModal button not found");
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButton = document.getElementById('closeModal_x'); // เปลี่ยนเป็น closeModal_x
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    const modal = document.getElementById('customerModal');
+                    if (modal) {
+                        modal.style.transition =
+                            'transform 0.5s ease, opacity 0.5s ease'; // ตั้งค่าการเปลี่ยนแปลง
+                        modal.style.transform = 'translateY(100%)'; // เลื่อนลงไปที่ด้านล่าง
+                        modal.style.opacity = '0'; // ทำให้โปร่งใส
+
+                        // ซ่อนโมดอลเมื่อการเปลี่ยนแปลงเสร็จสิ้น
+                        modal.addEventListener('transitionend', function() {
+                            modal.classList.add('hidden'); // ซ่อนโมดอล
+                        }, {
+                            once: true
+                        }); // ใช้ once เพื่อฟังเหตุการณ์ครั้งเดียว
+                    }
+                });
+            } else {
+                console.error("closeModal_x button not found");
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- <script>
         $(document).ready(function() {
             // วางข้อความเตือนที่แสดงเมื่อไม่พบข้อมูล
             const noResultsMessage = $('#noResultsMessage'); // นำเข้า div ที่สร้างไว้
@@ -361,117 +593,84 @@
                 fetchCustomers(currentPage, rowsPerPage); // เรียกฟังก์ชันใหม่
             });
 
+            // อัปเดต Pagination
             function updatePagination(data) {
                 const paginationContainer = $('#pagination');
-                paginationContainer.empty(); // ล้างข้อมูลเก่า
+                paginationContainer.empty();
 
                 // ปุ่ม "Previous"
                 if (data.current_page > 1) {
                     paginationContainer.append(`
-                    <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page - 1}">
-                        <i class="fas fa-arrow-left"></i> <!-- ใช้ Font Awesome สำหรับลูกศร -->
-                    </button>
-                `);
+                <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page - 1}">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            `);
                 }
 
-                // ตรวจสอบว่ามีมากกว่าหนึ่งหน้า
+                // สร้างหมายเลขหน้า
                 if (data.last_page > 1) {
                     for (let i = 1; i <= data.last_page; i++) {
-                        const activeClass = (i === currentPage) ?
-                            'bg-blue-500 text-white' // สไตล์สำหรับปุ่มที่ active
-                            :
-                            'bg-white text-gray-700 hover:bg-blue-100'; // สไตล์สำหรับปุ่มที่ไม่ active
-
+                        const activeClass = (i === data.current_page) ? 'bg-blue-500 text-white' :
+                            'bg-white text-gray-700 hover:bg-blue-100';
                         paginationContainer.append(`
-                            <button class="pagination-button ${activeClass} border border-gray-300 rounded-md px-4 py-2 mx-1 transition duration-150 ease-in-out" data-page="${i}">
-                                ${i}
-                            </button>
-                        `);
+                    <button class="pagination-button ${activeClass} border border-gray-300 rounded-md px-4 py-2 mx-1 transition duration-150 ease-in-out" data-page="${i}">
+                        ${i}
+                    </button>
+                `);
                     }
                 }
 
                 // ปุ่ม "Next"
                 if (data.current_page < data.last_page) {
                     paginationContainer.append(`
-                    <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page + 1}">
-                        <i class="fas fa-arrow-right"></i> <!-- ใช้ Font Awesome สำหรับลูกศร -->
-                    </button>
-                `);
+                <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page + 1}">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            `);
                 }
-            }
-        });
-    </script>
 
-
-
-
-    <script>
-        function openModal() {
-            const modal = document.getElementById('customerModal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.style.transform = 'translateY(100%)'; // เริ่มที่ด้านล่าง
-                modal.style.opacity = '0'; // เริ่มโปร่งใส
-
-                // ใช้ setTimeout เพื่อให้โมดอลแสดงขึ้นในระยะเวลาที่กำหนด
-                setTimeout(() => {
-                    modal.style.transition = 'transform 0.5s ease, opacity 0.5s ease'; // ตั้งค่าการเปลี่ยนแปลง
-                    modal.style.transform = 'translateY(150px)'; // เลื่อนขึ้นให้มี mt-[-150]
-                    modal.style.opacity = '1'; // ทำให้ชัดเจน
-                    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // เพิ่มพื้นหลังสีเทาอ่อน
-                }, 10); // ใช้ delay เล็กน้อยเพื่อให้การเปลี่ยนแปลงทำงาน
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const closeButton = document.getElementById('closeModal');
-            if (closeButton) {
-                closeButton.addEventListener('click', function() {
-                    const modal = document.getElementById('customerModal');
-                    if (modal) {
-                        modal.style.transition =
-                            'transform 0.5s ease, opacity 0.5s ease'; // ตั้งค่าการเปลี่ยนแปลง
-                        modal.style.transform = 'translateY(100%)'; // เลื่อนลงไปที่ด้านล่าง
-                        modal.style.opacity = '0'; // ทำให้โปร่งใส
-
-                        // ซ่อนโมดอลเมื่อการเปลี่ยนแปลงเสร็จสิ้น
-                        modal.addEventListener('transitionend', function() {
-                            modal.classList.add('hidden'); // ซ่อนโมดอล
-                        }, {
-                            once: true
-                        }); // ใช้ once เพื่อฟังเหตุการณ์ครั้งเดียว
-                    }
+                // แนบเหตุการณ์ click ให้กับปุ่ม pagination
+                $('.pagination-button').on('click', function(event) {
+                    event.preventDefault(); // ป้องกันการรีเฟรชหน้า
+                    const page = $(this).data('page');
+                    loadPageData(page); // ฟังก์ชันโหลดข้อมูลหน้าใหม่
                 });
-            } else {
-                console.error("closeModal button not found");
             }
-        });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const closeButton = document.getElementById('closeModal_x'); // เปลี่ยนเป็น closeModal_x
-            if (closeButton) {
-                closeButton.addEventListener('click', function() {
-                    const modal = document.getElementById('customerModal');
-                    if (modal) {
-                        modal.style.transition =
-                            'transform 0.5s ease, opacity 0.5s ease'; // ตั้งค่าการเปลี่ยนแปลง
-                        modal.style.transform = 'translateY(100%)'; // เลื่อนลงไปที่ด้านล่าง
-                        modal.style.opacity = '0'; // ทำให้โปร่งใส
+            // ฟังก์ชันสำหรับโหลดข้อมูลหน้าใหม่
+            // function loadPageData(page) {
+            //     // ทำการ AJAX request หรือโหลดข้อมูลตาม page ที่เลือก
+            //     $.ajax({
+            //         url: 'customers.index?page=' + page, // URL ของ API
+            //         type: 'GET',
+            //         success: function(data) {
+            //             // อัปเดตตารางด้วยข้อมูลใหม่ที่ได้รับ
+            //             updateTable(data);
+            //             // อัปเดต pagination
+            //             updatePagination(data);
+            //         },
+            //         error: function(error) {
+            //             console.error('Error fetching data:', error);
+            //         }
+            //     });
+            // }
 
-                        // ซ่อนโมดอลเมื่อการเปลี่ยนแปลงเสร็จสิ้น
-                        modal.addEventListener('transitionend', function() {
-                            modal.classList.add('hidden'); // ซ่อนโมดอล
-                        }, {
-                            once: true
-                        }); // ใช้ once เพื่อฟังเหตุการณ์ครั้งเดียว
-                    }
+            // ฟังก์ชันสำหรับอัปเดตตาราง
+            function updateTable(data) {
+                const tbody = $('#customersTable tbody');
+                tbody.empty(); // ล้างข้อมูลเก่า
+
+                // สมมุติว่าข้อมูลอยู่ใน data.items
+                data.items.forEach(item => {
+                    tbody.append(`
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.email}</td>
+                    <!-- เพิ่มข้อมูลที่ต้องการแสดง -->
+                </tr>
+            `);
                 });
-            } else {
-                console.error("closeModal_x button not found");
             }
         });
-    </script>
-
-
-
-
+    </script> --}}

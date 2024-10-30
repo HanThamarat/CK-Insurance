@@ -201,11 +201,13 @@
         </div>
 
 
-        {{-- <div id="asset-info" class="tab-pane hidden">
+
+
+        <div id="asset-info" class="tab-pane hidden">
             <div class="grid grid-cols-1 gap-4 text-sm text-gray-600">
-                <div id="assetContainer" class="overflow-hidden relative">
-                    <div class="flex transition-transform duration-300 no-scrollbar " id="assetSlider">
-                        <!-- การ์ดข้อมูลจะถูกสร้างและเพิ่มที่นี่ -->
+                <div class="slider-container">
+                    <div class="slider" id="asset-container">
+                        <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
                         @include('components.content-cus.card_asset')
                     </div>
 
@@ -216,7 +218,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col items-center mt-14 asset-master hidden">
+            <div class="flex flex-col items-center mt-7 asset-master ">
                 <div class="shadow-effect">
                     <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce" alt="Out of Stock">
                 </div>
@@ -231,39 +233,7 @@
                     เพิ่มสินทรัพย์
                 </button>
             </div>
-        </div> --}}
-
-        <div id="asset-info" class="tab-pane hidden">
-            <div class="grid grid-cols-1 gap-4 text-sm text-gray-600">
-                <div id="assetContainer" class="overflow-hidden relative">
-                    <div class="flex transition-transform duration-300 no-scrollbar " id="assetSlider" >
-                        <!-- การ์ดข้อมูลจะถูกสร้างและเพิ่มที่นี่ -->
-                        @include('components.content-cus.card_asset')
-                    </div>
-
-                    <button id="prev_asset">←</button>
-                    <button id="next_asset">→</button>
-                </div>
-            </div>
-
-            <div class="flex flex-col items-center mt-14 asset-master hidden">
-                <div class="shadow-effect">
-                    <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce" alt="Out of Stock">
-                </div>
-                <p class="mt-5 text-gray-600 text-center text-sm">ยังไม่มีข้อมูลสินทรัพย์ลูกค้านี้</p>
-            </div>
-
-            <div class="flex justify-center mt-2">
-                <button id="addAssetButton" class="mt-0 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold text-sm py-2 px-3 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-3 mr-1" fill="currentColor" viewBox="0 0 448 512">
-                        <path d="M135.2 117.4L109.1 192l293.8 0-26.1-74.6C372.3 104.6 360.2 96 346.6 96L165.4 96c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32l181.2 0c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2l0 144 0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L96 400l0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L0 256c0-26.7 16.4-49.6 39.6-59.2z" />
-                    </svg>
-                    เพิ่มสินทรัพย์
-                </button>
-            </div>
         </div>
-
-
 
     </div>
     @include('components.content-cus.Modal-Edit-Cus')
@@ -376,109 +346,7 @@
         }
     </style>
 
-    <style>
-        .slider-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            /* ซ่อนส่วนที่เกินจาก container */
-        }
 
-        .slider {
-            display: flex;
-            gap: 10px;
-            /* เว้นระยะระหว่างการ์ด */
-            overflow-x: auto;
-            /* เลื่อนในแนวนอน */
-            scroll-behavior: smooth;
-            /* เลื่อนแบบนุ่มนวล */
-            padding: 20px;
-        }
-
-        .slider::-webkit-scrollbar {
-            display: none;
-            /* ซ่อน scrollbar */
-        }
-
-        /* ปรับขนาดของการ์ดให้แสดง 2 การ์ดในเวลาเดียวกัน */
-        .slider>* {
-            flex: 0 0 calc(50% - 10px);
-            /* แสดงการ์ด 2 ใบ โดยคิดจากความกว้างที่หัก gap ออกไป */
-        }
-
-        /* ปุ่มเลื่อน */
-        #prev_asset,
-        #next_asset {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(213, 213, 213, 0.5);
-            /* Transparent background */
-            color: white;
-            border: none;
-            border-radius: 50%;
-            /* Make the button circular */
-            width: 50px;
-            /* Set the width of the button */
-            height: 50px;
-            /* Set the height of the button */
-            padding: 0;
-            /* Remove padding */
-            cursor: pointer;
-            z-index: 1;
-            /* ให้ปุ่มอยู่เหนือ slider */
-            transition: background-color 0.3s;
-            /* Smooth transition */
-        }
-
-        #prev_asset:hover,
-        #next_asset:hover {
-            background-color: rgba(51, 51, 51, 1);
-            /* Solid background on hover */
-        }
-
-        #prev_asset {
-            left: 10px;
-            /* ปุ่มทางซ้าย */
-        }
-
-        #next_asset {
-            right: 10px;
-            /* ปุ่มทางขวา */
-        }
-
-        /* ปรับ hover สำหรับปุ่ม */
-        #prev_asset:hover,
-        #next_asset:hover {
-            background-color: #555;
-        }
-    </style>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
-            $('.prev_asset').on('click', function() {
-                const $slider = $('#address-list');
-                const cardWidth = $slider.children().first().outerWidth(
-                true); // คำนวณความกว้างของการ์ด + gap
-                $slider.animate({
-                    scrollLeft: '-=' + cardWidth
-                }, 500); // เลื่อนไปทางซ้าย
-            });
-
-            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
-            $('.next_asset').on('click', function() {
-                const $slider = $('#address-list');
-                const cardWidth = $slider.children().first().outerWidth(
-                true); // คำนวณความกว้างของการ์ด + gap
-                $slider.animate({
-                    scrollLeft: '+=' + cardWidth
-                }, 500); // เลื่อนไปทางขวา
-            });
-        });
-    </script>
 
 
     <style>
@@ -569,7 +437,7 @@
                 true); // คำนวณความกว้างของการ์ด + gap
                 $slider.animate({
                     scrollLeft: '-=' + cardWidth
-                }, 500); // เลื่อนไปทางซ้าย
+                }, 0); // เลื่อนไปทางซ้าย
             });
 
             // ฟังก์ชันสำหรับเลื่อนไปทางขวา
@@ -579,7 +447,7 @@
                 true); // คำนวณความกว้างของการ์ด + gap
                 $slider.animate({
                     scrollLeft: '+=' + cardWidth
-                }, 500); // เลื่อนไปทางขวา
+                }, 0); // เลื่อนไปทางขวา
             });
         });
     </script>
@@ -669,7 +537,7 @@
                 true); // คำนวณความกว้างของการ์ด + gap
                 $slider.animate({
                     scrollLeft: '-=' + cardWidth
-                }, 500); // เลื่อนไปทางซ้าย
+                }, 0); // เลื่อนไปทางซ้าย
             });
 
             // ฟังก์ชันสำหรับเลื่อนไปทางขวา
@@ -679,12 +547,127 @@
                 true); // คำนวณความกว้างของการ์ด + gap
                 $slider.animate({
                     scrollLeft: '+=' + cardWidth
-                }, 500); // เลื่อนไปทางขวา
+                }, 0); // เลื่อนไปทางขวา
             });
         });
     </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
+            $('.prev_asset').on('click', function() {
+                const $slider = $('#address-list');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '-=' + cardWidth
+                }, 500); // เลื่อนไปทางซ้าย
+            });
+
+            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
+            $('.next_asset').on('click', function() {
+                const $slider = $('#address-list');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '+=' + cardWidth
+                }, 500); // เลื่อนไปทางขวา
+            });
+        });
+    </script> --}}
+
+
+        {{-- <div id="asset-info" class="tab-pane hidden">
+            <div class="grid grid-cols-1 gap-4 text-sm text-gray-600">
+            <div class="slider-container">
+                <div class="slider" id="asset-container">
+                    <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
+                    @include('components.content-cus.card_asset')
+
+                </div>
+
+                    <!-- ปุ่มเลื่อนไปทางซ้าย -->
+                    <button class="prev_asset" id="prev_asset">←</button>
+                    <!-- ปุ่มเลื่อนไปทางขวา -->
+                    <button class="next_asset" id="next_asset">→</button>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mt-14 asset-master hidden">
+                <div class="shadow-effect">
+                    <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce" alt="Out of Stock">
+                </div>
+                <p class="mt-5 text-gray-600 text-center text-sm">ยังไม่มีข้อมูลสินทรัพย์ลูกค้านี้</p>
+            </div>
+
+            <div class="flex justify-center mt-2">
+                <button id="addAssetButton" class="mt-0 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold text-sm py-2 px-3 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-3 mr-1" fill="currentColor" viewBox="0 0 448 512">
+                        <path d="M135.2 117.4L109.1 192l293.8 0-26.1-74.6C372.3 104.6 360.2 96 346.6 96L165.4 96c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32l181.2 0c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2l0 144 0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L96 400l0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L0 256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/>
+                    </svg>
+                    เพิ่มสินทรัพย์
+                </button>
+            </div>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                const slider = $('#assetSlider');
+                const cardWidth = slider.children().first().outerWidth(true); // ดึงความกว้างของการ์ด
+                let currentScroll = 0;
+
+                $('#next_asset').click(function() {
+                    currentScroll += cardWidth;
+                    slider.animate({ scrollLeft: currentScroll }, 300);
+                });
+
+                $('#prev_asset').click(function() {
+                    currentScroll -= cardWidth;
+                    if (currentScroll < 0) currentScroll = 0; // จำกัดไม่ให้เลื่อนเกินขอบซ้าย
+                    slider.animate({ scrollLeft: currentScroll }, 300);
+                });
+            });
+        </script> --}}
 
 
     {{-- <style>
@@ -802,55 +785,6 @@
         <!-- ปุ่มเลื่อนไปทางขวา -->
         <button class="next-3" id="next-master-3">→</button>
     </div> --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 {{-- <div class="flex justify-between items-center">
