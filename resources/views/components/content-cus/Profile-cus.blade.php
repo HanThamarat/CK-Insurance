@@ -52,7 +52,7 @@
 
 
                     <a class="nav-link active flex flex-col items-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
-                        href="{{ route('data_assets.index', ['customer_id' => $customer->id]) }}">
+                        href="{{ url('data_assets?customer_id=' . $customer->id) }}">
                         <!-- เพิ่ม customer_id ใน query parameter -->
                         <span class="block sm:hidden"><i class="far fa-user"></i></span>
                         <div class="hidden sm:block flex-grow">

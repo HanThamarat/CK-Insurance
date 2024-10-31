@@ -57,6 +57,8 @@
                 <div class="relative border border-gray-300 rounded-md p-4 text-gray-700 text-lg mt-12">
                     <span class="absolute -top-4 left-2 bg-white px-3 border-md ">ป้ายทะเบียนเก่า</span>
 
+                    <input hidden class="" name="Customer_id" type="text" id="Customer_id" value="{{ request('customer_id') }}" />
+
                     <input hidden class="" name="Type_Asset" type="text" id="Type_Asset" />
 
                     <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 mt-4">

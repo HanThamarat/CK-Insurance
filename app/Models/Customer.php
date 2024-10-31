@@ -49,8 +49,13 @@ class Customer extends Model
 
     public function assets()
     {
-        return $this->hasMany(DataAsset::class, 'Customer_id', 'id');
+        return $this->hasMany(AssetManage::class, 'Customer_id', 'id');
     }
+
+    // public function assets()
+    // {
+    //     return $this->hasMany(DataAsset::class, 'Customer_id', 'id');
+    // }
 }
 
 

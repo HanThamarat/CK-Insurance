@@ -42,6 +42,7 @@ Route::resource('customers', CustomerController::class);
 
 // ASSET ROUTE
 Route::resource('data_assets', DataAssetController::class);
+Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomerId']);
 Route::post('/check-vehicle-chassis', [DataAssetController::class, 'checkVehicleChassis']); // ASSET ROUTE VEHICLE CHASSIE
 
 // CAREER ROUTE

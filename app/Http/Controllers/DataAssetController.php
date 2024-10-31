@@ -462,6 +462,7 @@ class DataAssetController extends Controller
         public function store(Request $request)
         {
             $request->validate([
+                'customer_id' => 'nullable|integer', // เพิ่มการ validate customer_id
                 'Type_Asset' => 'nullable|string|max:50',
                 'Vehicle_OldLicense_Text' => 'nullable|string|max:255',
                 'Vehicle_OldLicense_Number' => 'nullable|string|max:50',
@@ -533,26 +534,18 @@ class DataAssetController extends Controller
         }
 
 
-        // public function getAssetsByCustomerId($id)
-        // {
-        //     // ดึงข้อมูลลูกค้าพร้อมกับสินทรัพย์ที่เกี่ยวข้อง
-        //     $customer = Customer::with('assets')->where('id', $id)->first();
-
-        //     if ($customer && $customer->assets->isNotEmpty()) {
-        //         // ถ้ามีข้อมูลลูกค้าและสินทรัพย์ตรงกัน
-        //         return response()->json([
-        //             'customer' => $customer,
-        //             'assets' => $customer->assets // เปลี่ยนเป็น assets เพราะอาจมีหลายสินทรัพย์
-        //         ]);
-        //     } else {
-        //         return response()->json(['message' => 'No matching assets found'], 404);
-        //     }
-        // }
-
         public function getAssetsByCustomerId(Request $request)
         {
-            $customer_id = $request->input('customer_id');
-            $assets = AssetManage::where('customer_id', $customer_id)->get();
+            $customerId = $request->input('customer_id');
+
+            if (!$customerId) {
+                return response()->json(['error' => 'Customer ID is required'], 400);
+            }
+
+            $assets = AssetManage::where('customer_id', $customerId)->get();
+
+            // บันทึกทรัพย์สินเพื่อตรวจสอบสิ่งที่ถูกส่งคืน
+            // \Log::info('Assets:', $assets->toArray());
 
             return response()->json($assets);
         }
@@ -644,6 +637,81 @@ class DataAssetController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+ // public function getAssetsByCustomerId(Request $request)
+        // {
+        //     $customerId = $request->input('customer_id');
+
+        //     if (!$customerId) {
+        //         return response()->json(['error' => 'Customer ID is required'], 400);
+        //     }
+
+        //     // Assuming you have a model called Asset to fetch the assets
+        //     $assets = AssetManage::where('customer_id', $customerId)->get();
+
+        //     return response()->json($assets);
+        // }
+
+        // public function getAssetsByCustomerId($id)
+        // {
+        //     // ดึงข้อมูลลูกค้าพร้อมกับสินทรัพย์ที่เกี่ยวข้อง
+        //     $customer = Customer::with('assets')->where('id', $id)->first();
+
+        //     // ตรวจสอบว่าลูกค้าและสินทรัพย์ที่ตรงกันหรือไม่
+        //     if ($customer) {
+        //         // กรองสินทรัพย์ที่ตรงกับ Customer_id
+        //         $assets = $customer->assets->filter(function ($asset) use ($id) {
+        //             return $asset->Customer_id === $id;
+        //         });
+
+        //         if ($assets->isNotEmpty()) {
+        //             return response()->json([
+        //                 'customer' => $customer,
+        //                 'assets' => $assets // ส่งกลับเฉพาะสินทรัพย์ที่ตรงกัน
+        //             ]);
+        //         } else {
+        //             return response()->json(['message' => 'No matching assets found'], 404);
+        //         }
+        //     } else {
+        //         return response()->json(['message' => 'Customer not found'], 404);
+        //     }
+        // }
+
+
+
+        // public function getAssetsByCustomerId($id)
+        // {
+        //     // ดึงข้อมูลลูกค้าพร้อมกับสินทรัพย์ที่เกี่ยวข้อง
+        //     $customer = Customer::with('assets')->where('id', $id)->first();
+
+        //     if ($customer && $customer->assets->isNotEmpty()) {
+        //         // ถ้ามีข้อมูลลูกค้าและสินทรัพย์ตรงกัน
+        //         return response()->json([
+        //             'customer' => $customer,
+        //             'assets' => $customer->assets // เปลี่ยนเป็น assets เพราะอาจมีหลายสินทรัพย์
+        //         ]);
+        //     } else {
+        //         return response()->json(['message' => 'No matching assets found'], 404);
+        //     }
+        // }
+
+        // public function getAssetsByCustomerId(Request $request)
+        // {
+        //     $customer_id = $request->input('customer_id');
+        //     $assets = AssetManage::where('customer_id', $customer_id)->get();
+
+        //     return response()->json($assets);
+        // }
 
 
 

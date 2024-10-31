@@ -302,44 +302,79 @@
                 fetchCustomers(currentPage, rowsPerPage);
             });
 
-            // อัปเดต Pagination
             function updatePagination(data) {
                 const paginationContainer = $('#pagination');
                 paginationContainer.empty();
 
+                // กำหนดสีและ style classes
+                const baseClasses = 'transition duration-300 ease-in-out border rounded-md px-4 py-2 mx-1 focus:outline-none';
+                const normalClasses = 'bg-orange-100 text-orange-700 border-orange-200 hover:bg-orange-500 hover:text-white';
+                const activeClasses = 'bg-orange-500 text-white border-orange-500';
+
                 // ปุ่ม "Previous"
                 if (data.current_page > 1) {
                     paginationContainer.append(`
-            <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page - 1}">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-        `);
+                        <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page - 1}">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                    `);
                 }
 
                 // สร้างหมายเลขหน้า
                 if (data.last_page > 1) {
-                    for (let i = 1; i <= data.last_page; i++) {
-                        const activeClass = (i === data.current_page) ? 'bg-blue-500 text-white' :
-                            'bg-white text-gray-700 hover:bg-blue-100';
+                    // แสดงจำนวนหน้าแบบมี ellipsis
+                    let startPage = Math.max(1, data.current_page - 2);
+                    let endPage = Math.min(data.last_page, data.current_page + 2);
+
+                    // แสดงหน้าแรกเสมอ
+                    if (startPage > 1) {
                         paginationContainer.append(`
-                <button class="pagination-button ${activeClass} border border-gray-300 rounded-md px-4 py-2 mx-1 transition duration-150 ease-in-out" data-page="${i}">
-                    ${i}
-                </button>
-            `);
+                            <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="1">1</button>
+                        `);
+                        if (startPage > 2) {
+                            paginationContainer.append(`
+                                <span class="px-3 py-2 text-gray-500">...</span>
+                            `);
+                        }
+                    }
+
+                    // แสดงหน้าปัจจุบันและหน้าใกล้เคียง
+                    for (let i = startPage; i <= endPage; i++) {
+                        const buttonClasses = (i === data.current_page) ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${normalClasses}`;
+                        paginationContainer.append(`
+                            <button class="pagination-button ${buttonClasses}" data-page="${i}">
+                                ${i}
+                            </button>
+                        `);
+                    }
+
+                    // แสดงหน้าสุดท้ายเสมอ
+                    if (endPage < data.last_page) {
+                        if (endPage < data.last_page - 1) {
+                            paginationContainer.append(`
+                                <span class="px-3 py-2 text-gray-500">...</span>
+                            `);
+                        }
+                        paginationContainer.append(`
+                            <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="${data.last_page}">
+                                ${data.last_page}
+                            </button>
+                        `);
                     }
                 }
 
                 // ปุ่ม "Next"
                 if (data.current_page < data.last_page) {
                     paginationContainer.append(`
-            <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page + 1}">
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        `);
+                        <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page + 1}">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    `);
                 }
             }
 
-            // ฟังก์ชันสำหรับอัปเดตตาราง
+
+
             function updateTable(data) {
                 const tbody = $('#customersTable tbody');
                 tbody.empty();
@@ -347,32 +382,29 @@
                 // แสดงข้อมูลลูกค้าในตาราง
                 $.each(data.data, function(index, customer) {
                     tbody.append(`
-                <tr class="border-b">
-                    <td class="px-4 py-2 text-center">
-                        <img src="{{ asset('img/user.png') }}" alt="user icon" class="inline-block w-5 h-5 mr-2">
-                        ${customer.prefix}
-                    </td>
-                    <td class="px-4 py-2 text-center">${customer.first_name} ${customer.last_name}</td>
-                    <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
-                    <td class="px-4 py-2 text-center">${customer.phone}</td>
-                    <td class="px-4 py-2 text-center">${customer.nationality}</td>
-                    <td class="px-4 py-2 text-center">${customer.religion}</td>
-                    <td class="px-4 py-2 text-center">
-                        <div class="flex justify-center space-x-2">
-                            <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-orange-500 hover:bg-orange-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg">
-                                <i class="fas fa-edit mr-1"></i> Edit
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            `);
+                        <tr class="border-b">
+                            <td class="px-4 py-2 text-center">
+                                <img src="{{ asset('img/user.png') }}" alt="user icon" class="inline-block w-5 h-5 mr-2">
+                                ${customer.prefix}
+                            </td>
+                            <td class="px-4 py-2 text-center">${customer.first_name} ${customer.last_name}</td>
+                            <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
+                            <td class="px-4 py-2 text-center">${customer.phone}</td>
+                            <td class="px-4 py-2 text-center">${customer.nationality}</td>
+                            <td class="px-4 py-2 text-center">${customer.religion}</td>
+                            <td class="px-4 py-2 text-center">
+                                <div class="flex justify-center space-x-2">
+                                    <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-orange-500 hover:bg-orange-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg">
+                                        <i class="fas fa-edit mr-1"></i> Edit
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    `);
                 });
             }
         });
     </script>
-
-
-
 
 
     <script>
@@ -452,8 +484,81 @@
 
 
 
+{{-- // ฟังก์ชันสำหรับอัปเดตตาราง
+// function updateTable(data) {
+//     const tbody = $('#customersTable tbody');
+//     tbody.empty();
+
+//     // แสดงข้อมูลลูกค้าในตาราง
+//     $.each(data.data, function(index, customer) {
+//         tbody.append(`
+//     <tr class="border-b">
+//         <td class="px-4 py-2 text-center">
+//             <img src="{{ asset('img/user.png') }}" alt="user icon" class="inline-block w-5 h-5 mr-2">
+//             ${customer.prefix}
+//         </td>
+//         <td class="px-4 py-2 text-center">${customer.first_name} ${customer.last_name}</td>
+//         <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
+//         <td class="px-4 py-2 text-center">${customer.phone}</td>
+//         <td class="px-4 py-2 text-center">${customer.nationality}</td>
+//         <td class="px-4 py-2 text-center">${customer.religion}</td>
+//         <td class="px-4 py-2 text-center">
+//             <div class="flex justify-center space-x-2">
+//                 <!--<a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-orange-500 hover:bg-orange-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg">
+//                     <i class="fas fa-edit mr-1"></i> Edit
+//                 </a>-->
+
+//                 <a class="edit-button" href="#">
+//                     <svg class="edit-svgIcon" viewBox="0 0 512 512">
+//                         <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+//                     </svg>
+//                 </a>
+//             </div>
+//         </td>
+//     </tr>
+// `);
+//     });
+// } --}}
 
 
+
+
+{{-- // อัปเดต Pagination
+//     function updatePagination(data) {
+//         const paginationContainer = $('#pagination');
+//         paginationContainer.empty();
+
+//         // ปุ่ม "Previous"
+//         if (data.current_page > 1) {
+//             paginationContainer.append(`
+//     <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page - 1}">
+//         <i class="fas fa-arrow-left"></i>
+//     </button>
+// `);
+//         }
+
+//         // สร้างหมายเลขหน้า
+//         if (data.last_page > 1) {
+//             for (let i = 1; i <= data.last_page; i++) {
+//                 const activeClass = (i === data.current_page) ? 'bg-blue-500 text-white' :
+//                     'bg-white text-gray-700 hover:bg-blue-100';
+//                 paginationContainer.append(`
+//         <button class="pagination-button ${activeClass} border border-gray-300 rounded-md px-4 py-2 mx-1 transition duration-150 ease-in-out" data-page="${i}">
+//             ${i}
+//         </button>
+//     `);
+//             }
+//         }
+
+//         // ปุ่ม "Next"
+//         if (data.current_page < data.last_page) {
+//             paginationContainer.append(`
+//     <button class="pagination-button bg-white text-gray-700 border border-gray-300 rounded-md px-3 py-2 mx-1 hover:bg-blue-100 transition duration-150 ease-in-out" data-page="${data.current_page + 1}">
+//         <i class="fas fa-arrow-right"></i>
+//     </button>
+// `);
+//         }
+//     } --}}
 
 
 
