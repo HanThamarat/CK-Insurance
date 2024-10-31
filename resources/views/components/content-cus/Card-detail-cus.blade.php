@@ -1,29 +1,45 @@
 <div class="bg-white shadow-md max-w-full md:max-w-7xl mx-auto">
     <!-- Header Section -->
-    <div class="flex justify-between items-center mb-4 p-4">
+
+    <div class="flex justify-between items-center mb-4 p-7">
         <span class="text-sm font-semibold text-orange-500">
             <i class="fa-regular fa-user mr-2"></i>ข้อมูลลูกค้า (Customer Details)
         </span>
-        <a href="#"
-            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-gray-600 transition-transform duration-300"
-            type="button" onclick="showModal()">
-            <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
-        </a>
-
+        <div class="flex space-x-2">
+            <a href="#"
+                class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-gray-600 transition-transform duration-300"
+                type="button" onclick="showDataCustomerModal()">
+                <i class="fa-solid fa-person"></i> แสดงข้อมูลลูกค้า
+            </a>
+            <a href="#"
+                class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-gray-600 transition-transform duration-300"
+                type="button" onclick="showModal()">
+                <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
+            </a>
+        </div>
     </div>
 
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 p-4 mt-[-14]">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 p-7 mt-[-30]">
         <!-- Left Section: Customer Information -->
         <div id="customer-info-right" class="flex flex-col space-y-4"></div>
 
         <!-- Right Section: Notes -->
-        <div class="flex flex-col mt-[-3]">
+        {{-- <div class="flex flex-col mt-[-3]">
             <strong class="text-gray-800">หมายเหตุ :</strong>
-            <textarea
+            <textarea disabled
                 class="mt-0 w-full border border-orange-500 text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
                 rows="6" id="customer-note"></textarea>
+        </div> --}}
+
+        <div class="flex flex-col mt-[-3]">
+            <strong class="text-gray-800 italic">หมายเหตุ :</strong>
+            <textarea disabled
+                class="mt-0 w-full border border-orange-500 text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600 bg-gray-200 italic"
+                rows="6" id="customer-note"></textarea>
         </div>
+
     </div>
 
     <script>
@@ -46,19 +62,23 @@
                             }) : '-'}
                         </span>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <hr>
+                    <div class="flex justify-between items-center mt-[-10]">
                         <strong class="text-gray-800"><i class="fas fa-venus-mars pr-1"></i>เพศ :</strong>
                         <span class="text-right pl-0">${data.gender ?? '-'}</span>
                     </div>
-                    <div class="flex justify-between items-center">
+                     <hr>
+                    <div class="flex justify-between items-center mt-[-10]">
                         <strong class="text-gray-800"><i class="fas fa-flag pr-1"></i>สัญชาติ :</strong>
                         <span class="text-right pl-0">${data.nationality ?? '-'}</span>
                     </div>
-                    <div class="flex justify-between items-center">
+                     <hr>
+                    <div class="flex justify-between items-center mt-[-10]">
                         <strong class="text-gray-800"><i class="fas fa-cross pr-1"></i>ศาสนา :</strong>
                         <span class="text-right pl-0">${data.religion ?? '-'}</span>
                     </div>
-                    <div class="flex justify-between items-center">
+                     <hr>
+                    <div class="flex justify-between items-center mt-[-10]">
                         <strong class="text-gray-800"><i class="fas fa-heart pr-1"></i>สถานะสมรส :</strong>
                         <span class="text-right pl-0">${data.marital_status ?? '-'}</span>
                     </div>
@@ -249,6 +269,7 @@
 
     </div>
     @include('components.content-cus.Modal-Edit-Cus')
+    @include('components.content-cus.Modal_show_cus')
     @include('components.content-cus.Modal_address')
     @include('components.content-cus.Modal_Career')
 
@@ -595,7 +616,21 @@
 
 
 
-
+    {{-- <div class="flex justify-between items-center mb-4 p-4">
+        <span class="text-sm font-semibold text-orange-500">
+            <i class="fa-regular fa-user mr-2"></i>ข้อมูลลูกค้า (Customer Details)
+        </span>
+        <a href="#"
+            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-gray-600 transition-transform duration-300"
+            type="button" onclick="showDataCustomerModal()">
+            <i class="fa-solid fa-user"></i> แสดงข้อมูลลูกค้า
+        </a>
+        <a href="#"
+            class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-gray-600 transition-transform duration-300"
+            type="button" onclick="showModal()">
+            <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
+        </a>
+    </div> --}}
 
 
 

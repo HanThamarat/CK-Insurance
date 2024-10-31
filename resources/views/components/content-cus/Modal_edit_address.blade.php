@@ -368,7 +368,11 @@
                 }).animate({
                     top: '0px',
                     opacity: 1
-                }, 300);
+                }, {
+                    duration: 200, // เพิ่มระยะเวลาเป็น 200 มิลลิวินาที
+                    easing: 'easeOutQuad' // ใช้ easing function สำหรับความสมูท
+                });
+
             },
             error: function(xhr, status, error) {
                 alert('เกิดข้อผิดพลาด: ' + error);

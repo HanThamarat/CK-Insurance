@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TBZone;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,21 @@ class ProfileController extends Controller
         return view('profile.show', compact('user', 'zone'));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
