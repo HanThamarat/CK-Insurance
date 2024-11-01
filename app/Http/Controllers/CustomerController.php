@@ -356,7 +356,20 @@ class CustomerController extends Controller
 
 
 
+    // public function showCustomerData($id)
+    // {
+    //     if (is_null($id) || $id === 'null') {
+    //         return response()->json(['error' => 'Invalid customer ID'], 400);
+    //     }
 
+    //     $customer = Customer::find($id);
+
+    //     if (!$customer) {
+    //         return response()->json(['error' => 'Customer not found'], 404);
+    //     }
+
+    //     return response()->json($customer, 200);
+    // }
 
 
     // public function getCareerData()

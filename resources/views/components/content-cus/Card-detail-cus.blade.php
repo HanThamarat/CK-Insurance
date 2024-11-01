@@ -33,11 +33,11 @@
                 rows="6" id="customer-note"></textarea>
         </div> --}}
 
-        <div class="flex flex-col mt-[-3]">
+        <div class="flex flex-col mt-1">
             <strong class="text-gray-800 italic">หมายเหตุ :</strong>
             <textarea disabled
                 class="mt-0 w-full border border-orange-500 text-gray-800 rounded-lg p-2 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-600 bg-gray-200 italic"
-                rows="6" id="customer-note"></textarea>
+                rows="7" id="customer-note"></textarea>
         </div>
 
     </div>
@@ -50,7 +50,7 @@
         function displayCustomerInfo(data) {
             if (data) {
                 const infoHTML = `
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-center border-b border-gray-300 pb-2">
                         <strong class="text-gray-800">
                             <i class="fas fa-calendar-alt pr-1"></i>วันเดือนปีเกิด :
                         </strong>
@@ -62,23 +62,23 @@
                             }) : '-'}
                         </span>
                     </div>
-                    <hr>
-                    <div class="flex justify-between items-center mt-[-10]">
+
+                    <div class="flex justify-between items-center mt-[-10] border-b border-gray-300 pb-2">
                         <strong class="text-gray-800"><i class="fas fa-venus-mars pr-1"></i>เพศ :</strong>
                         <span class="text-right pl-0">${data.gender ?? '-'}</span>
                     </div>
-                     <hr>
-                    <div class="flex justify-between items-center mt-[-10]">
+
+                    <div class="flex justify-between items-center mt-[-10] border-b border-gray-300 pb-2">
                         <strong class="text-gray-800"><i class="fas fa-flag pr-1"></i>สัญชาติ :</strong>
                         <span class="text-right pl-0">${data.nationality ?? '-'}</span>
                     </div>
-                     <hr>
-                    <div class="flex justify-between items-center mt-[-10]">
+
+                    <div class="flex justify-between items-center mt-[-10] border-b border-gray-300 pb-2">
                         <strong class="text-gray-800"><i class="fas fa-cross pr-1"></i>ศาสนา :</strong>
                         <span class="text-right pl-0">${data.religion ?? '-'}</span>
                     </div>
-                     <hr>
-                    <div class="flex justify-between items-center mt-[-10]">
+
+                    <div class="flex justify-between items-center mt-[-10] ">
                         <strong class="text-gray-800"><i class="fas fa-heart pr-1"></i>สถานะสมรส :</strong>
                         <span class="text-right pl-0">${data.marital_status ?? '-'}</span>
                     </div>

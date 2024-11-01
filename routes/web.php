@@ -34,6 +34,9 @@ Route::middleware(['auth'])->group(function () {
 // CUSTOMER ROUTE
 Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])->name('customers.profile');
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
+Route::get('/api/customers/{id}', [CustomerController::class, 'showCustomerData']);
+
+
 Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
 
 

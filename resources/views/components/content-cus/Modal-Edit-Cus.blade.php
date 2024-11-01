@@ -670,6 +670,82 @@
 </script>
 
 
+
+
+
+<style>
+    /* ซ่อน modal โดยเริ่มต้นที่ translateY */
+    #Cus-modal-wrapper {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    #Cus-modal-wrapper .modal-content {
+        transform: translateY(-30px); /* เริ่มต้นจากสูงขึ้นไปเล็กน้อย */
+        transition: transform 0.4s ease, opacity 0.4s ease;
+        opacity: 0;
+    }
+
+    /* เมื่อ modal เปิดแสดงผล */
+    #Cus-modal-wrapper.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #Cus-modal-wrapper.show .modal-content {
+        transform: translateY(0); /* เลื่อนกลับไปที่ตำแหน่งปกติ */
+        opacity: 1; /* ทำการ fade-in */
+    }
+
+    /* ถ้าต้องการให้ modal ซ่อนด้วยการเลื่อนขึ้น */
+    #Cus-modal-wrapper.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    #Cus-modal-wrapper.hidden .modal-content {
+        transform: translateY(-30px); /* เลื่อนขึ้นไปเล็กน้อยก่อนซ่อน */
+        opacity: 0;
+    }
+</style>
+
+
+
+<script>
+    // ฟังก์ชันเปิด modal
+    function showModal() {
+        let modalWrapper = document.getElementById('Cus-modal-wrapper');
+        modalWrapper.classList.remove('hidden'); // เอาคลาส hidden ออกก่อน
+        setTimeout(() => {
+            modalWrapper.classList.add('show'); // เพิ่มคลาส show หลังจากแสดงโมดัลเพื่อแสดงเอฟเฟกต์ slide in
+        }, 10); // เว้นช่วงนิดหน่อยเพื่อให้ transition ทำงาน
+    }
+
+    // ฟังก์ชันปิด modal
+    function hideModal() {
+        let modalWrapper = document.getElementById('Cus-modal-wrapper');
+        modalWrapper.classList.remove('show'); // ลบคลาส show ก่อนเพื่อปิดเอฟเฟกต์
+        setTimeout(() => {
+            modalWrapper.classList.add('hidden'); // ซ่อนโมดัลหลังจาก transition เสร็จ
+        }, 400); // ระยะเวลาการรอให้เอฟเฟกต์ transition เสร็จก่อนซ่อนโมดัล
+    }
+
+    // ปิด modal เมื่อคลิกนอก modal content
+    window.onclick = function(event) {
+        let modalWrapper = document.getElementById('Cus-modal-wrapper');
+        if (event.target === modalWrapper) {
+            hideModal();
+        }
+    };
+</script>
+
+
+
+
+
+
+{{--
 <script>
     // ฟังก์ชันเปิด modal
     function showModal() {
@@ -725,7 +801,7 @@
         opacity: 1;
         /* ทำการ fade-in */
     }
-</style>
+</style> --}}
 
 
 
