@@ -671,8 +671,6 @@
 
 
 
-
-
 <style>
     /* ซ่อน modal โดยเริ่มต้นที่ translateY */
     #Cus-modal-wrapper {
@@ -709,7 +707,6 @@
         opacity: 0;
     }
 </style>
-
 
 
 <script>

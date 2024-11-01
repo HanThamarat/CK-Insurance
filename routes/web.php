@@ -71,6 +71,7 @@ Route::get('/getPostcodesByTambon', [ProvinceController::class, 'getPostcodesByT
 
 // ใน routes/web.php/ดึงอาชีพ
 Route::get('/get-careers', [DataCusCareerController::class, 'getCareerOptions']);
+Route::post('/career/update', [DataCusCareerController::class, 'update']);
 
 
 
@@ -98,6 +99,7 @@ Route::get('/customer/{id}', [CustomerController::class, 'showProfile']);
 Route::get('/get-address/{id}', [DataCusAddressController::class, 'getAddress']);
 Route::get('/addresses/{id}/edit', [DataCusAddressController::class, 'editAddress'])->name('edit-address');
 Route::post('/update-address', [DataCusAddressController::class, 'updateAddress'])->name('update-address');
+
 
 
 
@@ -147,7 +149,10 @@ Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomer
 
 
 
+// Route::get('/get-career-options', [CustomerController::class, 'getCareerOptions']);
 
+// Route::post('/update-career', [DataCusCareerController::class, 'update'])->name('career.update');
+// Route::post('/update-career', [DataCusCareerController::class, 'update']);
 
 
 // Route::post('/update-address', [DataCusAddressController::class, 'updateAddress']);

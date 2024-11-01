@@ -175,34 +175,7 @@ class DataCusAddressController extends Controller
         }
 
         // อัปเดตข้อมูลที่ส่งมา
-        $updated = $address->update($request->only([
-            'DataCus_id',
-            'Registration_number',
-            'date_Adds',
-            'Code_Adds',
-            'Ordinal_Adds',
-            'Status_Adds',
-            'Type_Adds',
-            'houseNumber_Adds',
-            'houseGroup_Adds',
-            'building_Adds',
-            'village_Adds',
-            'roomNumber_Adds',
-            'Floor_Adds',
-            'alley_Adds',
-            'road_Adds',
-            'houseZone_Adds',
-            'houseProvince_Adds',
-            'houseDistrict_Adds',
-            'houseTambon_Adds',
-            'Postal_Adds',
-            'Detail_Adds',
-            'Coordinates_Adds',
-            'UserZone',
-            'UserBranch',
-            'UserInsert',
-            'UserUpdate'
-        ]));
+        $updated = $address->update($request->all()); // อัปเดตข้อมูลทั้งหมดที่ได้รับจาก request
 
         // ตรวจสอบว่ามีการอัปเดตหรือไม่
         if ($updated) {
@@ -216,6 +189,7 @@ class DataCusAddressController extends Controller
 
 
 
+// dd($request->all());
 
 
 
@@ -250,9 +224,88 @@ class DataCusAddressController extends Controller
 
 
 
+    // public function updateAddress(Request $request)
+    // {
+    //     // ตรวจสอบว่ามีการส่ง id มาหรือไม่
+    //     if (!$request->has('id')) {
+    //         return response()->json(['message' => 'กรุณาระบุ id'], 400);
+    //     }
 
+    //     // ตรวจสอบข้อมูลที่ส่งเข้ามา
+    //     $request->validate([
+    //         'id' => 'required|integer', // ตรวจสอบ id ให้แน่ใจว่าถูกส่งมา
+    //         'DataCus_id' => 'nullable|integer',
+    //         'Registration_number' => 'nullable|string|max:255',
+    //         'date_Adds' => 'nullable|date',
+    //         'Code_Adds' => 'nullable|string|max:255',
+    //         'Ordinal_Adds' => 'nullable|integer',
+    //         'Status_Adds' => 'nullable|string|max:255',
+    //         'Type_Adds' => 'nullable|string|max:255',
+    //         'houseNumber_Adds' => 'nullable|string|max:255',
+    //         'houseGroup_Adds' => 'nullable|string|max:255',
+    //         'building_Adds' => 'nullable|string|max:255',
+    //         'village_Adds' => 'nullable|string|max:255',
+    //         'roomNumber_Adds' => 'nullable|string|max:255',
+    //         'Floor_Adds' => 'nullable|string|max:255',
+    //         'alley_Adds' => 'nullable|string|max:255',
+    //         'road_Adds' => 'nullable|string|max:255',
+    //         'houseZone_Adds' => 'nullable|string|max:255',
+    //         'houseProvince_Adds' => 'nullable|string|max:255',
+    //         'houseDistrict_Adds' => 'nullable|string|max:255',
+    //         'houseTambon_Adds' => 'nullable|string|max:255',
+    //         'Postal_Adds' => 'nullable|string|max:255',
+    //         'Detail_Adds' => 'nullable|string',
+    //         'Coordinates_Adds' => 'nullable|string',
+    //         'UserZone' => 'nullable|string|max:255',
+    //         'UserBranch' => 'nullable|string|max:255',
+    //         'UserInsert' => 'nullable|string|max:255',
+    //         'UserUpdate' => 'nullable|string|max:255',
+    //     ]);
 
+    //     // ค้นหาโมเดลที่ต้องการอัปเดต โดยใช้ id ที่ส่งมา
+    //     $address = DataCusAddress::find($request->id);
 
+    //     if (!$address) {
+    //         return response()->json(['message' => 'ไม่พบข้อมูล'], 404);
+    //     }
+
+    //     // อัปเดตข้อมูลที่ส่งมา
+    //     $updated = $address->update($request->only([
+    //         'DataCus_id',
+    //         'Registration_number',
+    //         'date_Adds',
+    //         'Code_Adds',
+    //         'Ordinal_Adds',
+    //         'Status_Adds',
+    //         'Type_Adds',
+    //         'houseNumber_Adds',
+    //         'houseGroup_Adds',
+    //         'building_Adds',
+    //         'village_Adds',
+    //         'roomNumber_Adds',
+    //         'Floor_Adds',
+    //         'alley_Adds',
+    //         'road_Adds',
+    //         'houseZone_Adds',
+    //         'houseProvince_Adds',
+    //         'houseDistrict_Adds',
+    //         'houseTambon_Adds',
+    //         'Postal_Adds',
+    //         'Detail_Adds',
+    //         'Coordinates_Adds',
+    //         'UserZone',
+    //         'UserBranch',
+    //         'UserInsert',
+    //         'UserUpdate'
+    //     ]));
+
+    //     // ตรวจสอบว่ามีการอัปเดตหรือไม่
+    //     if ($updated) {
+    //         return response()->json(['message' => 'อัปเดตข้อมูลสำเร็จ'], 200);
+    //     } else {
+    //         return response()->json(['message' => 'ไม่มีการเปลี่ยนแปลงข้อมูล'], 200);
+    //     }
+    // }
 
 
     // อัปเดตข้อมูลที่อยู่

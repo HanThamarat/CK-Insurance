@@ -62,7 +62,7 @@ class DataCusCareerController extends Controller
     }
 
 
-    // อัปเดตข้อมูล
+    // // อัปเดตข้อมูล
     public function update(Request $request, $id)
     {
         $career = DataCusCareer::find($id);
@@ -112,3 +112,100 @@ class DataCusCareerController extends Controller
     //     // ส่งข้อมูลกลับในรูปแบบ JSON
     //     return response()->json($careers);
     // }
+
+
+
+    // public function update(Request $request)
+    // {
+    //     // ตรวจสอบและ validate ข้อมูล
+    //     $request->validate([
+    //         'id' => 'required|integer',
+    //         'DataCus_id' => 'nullable|integer',
+    //         'date_Cus' => 'nullable|date',
+    //         'Code_Cus' => 'string|max:50|nullable',
+    //         'Main_Career' => 'string|max:100|nullable',
+    //         'Ordinal_Cus' => 'integer|nullable',
+    //         'Status_Cus' => 'string|max:50|nullable',
+    //         'Career_Cus' => 'string|max:100|nullable',
+    //         'DetailCareer_Cus' => 'string|max:255|nullable',
+    //         'Workplace_Cus' => 'string|max:100|nullable',
+    //         'Income_Cus' => 'numeric|nullable',
+    //         'BeforeIncome_Cus' => 'numeric|nullable',
+    //         'AfterIncome_Cus' => 'numeric|nullable',
+    //         'IncomeNote_Cus' => 'string|max:255|nullable',
+    //         'Coordinates' => 'string|max:100|nullable',
+    //         'UserZone' => 'string|max:50|nullable',
+    //         'UserBranch' => 'string|max:50|nullable',
+    //         'UserInsert' => 'integer|nullable',
+    //         'UserUpdate' => 'integer|nullable',
+    //     ]);
+
+    //     // ค้นหาและอัปเดตข้อมูล
+    //     $career = DataCusCareer::find($request->id);
+    //     if ($career) {
+    //         $career->update($request->all());
+    //         return response()->json(['success' => true]);
+    //     }
+
+    //     return response()->json(['success' => false]);
+    // }
+
+
+    // public function update(Request $request)
+    // {
+    //     // ตรวจสอบและ validate ข้อมูล
+    //     $request->validate([
+    //         'id' => 'required|integer',
+    //         'DataCus_id' => 'nullable|integer',
+    //         'date_Cus' => 'nullable|date',
+    //         'Code_Cus' => 'string|max:50|nullable',
+    //         'Main_Career' => 'string|max:100|nullable',
+    //         'Ordinal_Cus' => 'integer|nullable',
+    //         'Status_Cus' => 'string|max:50|nullable',
+    //         'Career_Cus' => 'string|max:100|nullable',
+    //         'DetailCareer_Cus' => 'string|max:255|nullable',
+    //         'Workplace_Cus' => 'string|max:100|nullable',
+    //         'Income_Cus' => 'numeric|nullable',
+    //         'BeforeIncome_Cus' => 'numeric|nullable',
+    //         'AfterIncome_Cus' => 'numeric|nullable',
+    //         'IncomeNote_Cus' => 'string|max:255|nullable',
+    //         'Coordinates' => 'string|max:100|nullable',
+    //         'UserZone' => 'string|max:50|nullable',
+    //         'UserBranch' => 'string|max:50|nullable',
+    //         'UserInsert' => 'integer|nullable',
+    //         'UserUpdate' => 'integer|nullable',
+    //     ]);
+
+    //     // ค้นหาและอัปเดตข้อมูล
+    //     $career = DataCusCareer::find($request->id);
+    //     if ($career) {
+    //         $career->update($request->only([
+    //             'DataCus_id',
+    //             'date_Cus',
+    //             'Code_Cus',
+    //             'Main_Career',
+    //             'Ordinal_Cus',
+    //             'Status_Cus',
+    //             'Career_Cus',
+    //             'DetailCareer_Cus',
+    //             'Workplace_Cus',
+    //             'Income_Cus',
+    //             'BeforeIncome_Cus',
+    //             'AfterIncome_Cus',
+    //             'IncomeNote_Cus',
+    //             'Coordinates',
+    //             'UserZone',
+    //             'UserBranch',
+    //             'UserInsert',
+    //             'UserUpdate'
+    //         ]));
+    //         return response()->json(['success' => true]);
+    //     }
+
+    //     return response()->json(['success' => false, 'message' => 'Data not found.']);
+    // }
+
+
+
+
+

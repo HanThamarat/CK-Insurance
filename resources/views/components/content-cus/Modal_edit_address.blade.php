@@ -27,7 +27,9 @@
 
                 <input type="hidden" id="addressId" name="id" value="{{ old('id', $address->id ?? '') }}">
                 <!-- รหัสที่อยู่ที่ต้องการอัปเดต -->
-                <input type="text" id="dataCusIdField" name="DataCus_id" hidden value="{{ $customer->id }}">
+                <input type="hidden" id="dataCusIdField" name="DataCus_id" value="{{ $customer->id }}">
+
+
 
                 <!-- เพิ่มเนื้อหาของ Modal ที่นี่ -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -324,7 +326,8 @@
             type: 'GET',
             success: function(response) {
                 // เติมค่าจาก response ลงในฟอร์มให้ครบทุกฟิลด์ตามที่คุณต้องการ
-                $('#addressId').val(response.DataCus_id);
+                $('#addressId').val(response.id);
+                $('#addressIdCus').val(response.DataCus_id);
                 $('#Registration_number').val(response.Registration_number);
                 $('#houseNumber_Adds_edit').val(response.houseNumber_Adds);
                 $('#road_Adds_edit').val(response.road_Adds);
@@ -465,6 +468,7 @@
                     }).then(() => {
                         // $('#modal_edit_address_customer').modal('hide'); // ปิด modal ที่แสดงอยู่
                         $('#modal_edit_address_customer').addClass('hidden');
+                        hideModalEditAddress_customer();
                     });
                 } else {
                     Swal.fire({
@@ -665,7 +669,7 @@
 
 
 
-        {{-- // $('#updateAddressButton').on('click', function() {
+{{-- // $('#updateAddressButton').on('click', function() {
             //     // ป้องกันการคลิกซ้ำ
             //     $(this).prop('disabled', true);
 
