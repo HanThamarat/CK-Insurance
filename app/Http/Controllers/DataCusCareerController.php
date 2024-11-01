@@ -62,18 +62,49 @@ class DataCusCareerController extends Controller
     }
 
 
-    // // อัปเดตข้อมูล
+    // อัปเดตข้อมูล
+    // public function update(Request $request, $id)
+    // {
+    //     $career = DataCusCareer::find($id);
+
+    //     if (!$career) {
+    //         return response()->json(['message' => 'Career not found'], 404);
+    //     }
+
+    //     $career->update($request->all());
+    //     return response()->json($career);
+    // }
+
+
     public function update(Request $request, $id)
     {
+        // Validate incoming data
+        $validatedData = $request->validate([
+            'Career_Cus' => 'required|string',
+            'Income_Cus' => 'required|numeric',
+            'BeforeIncome_Cus' => 'required|numeric',
+            'AfterIncome_Cus' => 'required|numeric',
+            'Workplace_Cus' => 'nullable|string',
+            'Coordinates' => 'nullable|string',
+            'IncomeNote_Cus' => 'nullable|string',
+            'Status_Cus' => 'required|string',
+        ]);
+
         $career = DataCusCareer::find($id);
 
         if (!$career) {
             return response()->json(['message' => 'Career not found'], 404);
         }
 
-        $career->update($request->all());
+        // Update the career record with validated data
+        $career->update($validatedData);
         return response()->json($career);
     }
+
+
+
+
+
 
     // ลบข้อมูล
     public function destroy($id)
@@ -100,6 +131,53 @@ class DataCusCareerController extends Controller
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// public function update(Request $request, $id)
+// {
+//     $career = DataCusCareer::find($id);
+
+//     if (!$career) {
+//         return response()->json(['message' => 'Career not found'], 404);
+//     }
+
+//     // Validate incoming request data
+//     $request->validate([
+//         'DataCus_id' => 'required|integer',
+//         'Status_Cus' => 'required|string',
+//         'Career_Cus' => 'required|string',
+//         'Income_Cus' => 'required|numeric',
+//         'BeforeIncome_Cus' => 'required|numeric',
+//         'AfterIncome_Cus' => 'required|numeric',
+//         'Workplace_Cus' => 'required|string',
+//         'Coordinates' => 'required|string',
+//         'IncomeNote_Cus' => 'nullable|string',
+//     ]);
+
+//     $career->update($request->all());
+//     return response()->json(['success' => true, 'data' => $career]);
+// }
+
 
 
 
