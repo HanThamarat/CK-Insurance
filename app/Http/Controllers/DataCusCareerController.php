@@ -63,42 +63,116 @@ class DataCusCareerController extends Controller
 
 
 
+    // public function update(Request $request, $id)
+    // {
+    //     // Validate incoming data
+    //     $validatedData = $request->validate([
+    //         'DataCus_id' => 'nullable|integer',
+    //         'date_Cus' => 'nullable|date',
+    //         'Code_Cus' => 'nullable|string|max:50',
+    //         'Main_Career' => 'nullable|string|max:100',
+    //         'Ordinal_Cus' => 'nullable|integer',
+    //         'Status_Cus' => 'nullable|string|max:50',
+    //         'Career_Cus' => 'nullable|string|max:100',
+    //         'DetailCareer_Cus' => 'nullable|string|max:255',
+    //         'Workplace_Cus' => 'nullable|string|max:100',
+    //         'Income_Cus' => 'nullable|numeric',
+    //         'BeforeIncome_Cus' => 'nullable|numeric',
+    //         'AfterIncome_Cus' => 'nullable|numeric',
+    //         'IncomeNote_Cus' => 'nullable|string|max:255',
+    //         'Coordinates' => 'nullable|string|max:100',
+    //         'UserZone' => 'nullable|string|max:50',
+    //         'UserBranch' => 'nullable|string|max:50',
+    //         'UserInsert' => 'nullable|integer',
+    //         'UserUpdate' => 'nullable|integer',
+    //     ]);
+
+    //     $career = DataCusCareer::find($id);
+
+    //     if (!$career) {
+    //         return response()->json(['message' => 'Career not found'], 404);
+    //     }
+
+    //     // Update the career model with validated data
+    //     $career->fill($validatedData);
+    //     $career->save();
+
+    //     return response()->json($career, 200);
+    // }
+
+
+
+
+    // public function update(Request $request, $id)
+    // {
+    //     // Validate incoming data
+    //     $validatedData = $request->validate([
+    //         'Career_Cus' => 'required|string',
+    //         'Income_Cus' => 'required|numeric',
+    //         'BeforeIncome_Cus' => 'required|numeric',
+    //         'AfterIncome_Cus' => 'required|numeric',
+    //         'Workplace_Cus' => 'nullable|string',
+    //         'Coordinates' => 'nullable|string',
+    //         'IncomeNote_Cus' => 'nullable|string',
+    //         'Status_Cus' => 'required|string',
+    //     ]);
+
+    //     $career = DataCusCareer::find($id);
+
+    //     if (!$career) {
+    //         return response()->json(['message' => 'Career not found'], 404);
+    //     }
+
+    //     // Update the career record with validated data
+    //     $career->update($validatedData);
+    //     return response()->json($career);
+    // }
+
+
     public function update(Request $request, $id)
     {
-        // Validate incoming data
+        // Validate incoming data, set fields as nullable
         $validatedData = $request->validate([
-            'DataCus_id' => 'nullable|integer',
-            'date_Cus' => 'nullable|date',
-            'Code_Cus' => 'nullable|string|max:50',
-            'Main_Career' => 'nullable|string|max:100',
-            'Ordinal_Cus' => 'nullable|integer',
-            'Status_Cus' => 'nullable|string|max:50',
-            'Career_Cus' => 'nullable|string|max:100',
-            'DetailCareer_Cus' => 'nullable|string|max:255',
-            'Workplace_Cus' => 'nullable|string|max:100',
+            'Career_Cus' => 'nullable|string',
             'Income_Cus' => 'nullable|numeric',
             'BeforeIncome_Cus' => 'nullable|numeric',
             'AfterIncome_Cus' => 'nullable|numeric',
-            'IncomeNote_Cus' => 'nullable|string|max:255',
-            'Coordinates' => 'nullable|string|max:100',
-            'UserZone' => 'nullable|string|max:50',
-            'UserBranch' => 'nullable|string|max:50',
-            'UserInsert' => 'nullable|integer',
-            'UserUpdate' => 'nullable|integer',
+            'Workplace_Cus' => 'nullable|string',
+            'Coordinates' => 'nullable|string',
+            'IncomeNote_Cus' => 'nullable|string',
+            'Status_Cus' => 'nullable|string',
+            'Code_Cus' => 'nullable|string',
+            'DataCus_id' => 'nullable|numeric',
+            'DetailCareer_Cus' => 'nullable|string',
+            'Main_Career' => 'nullable|string',
+            'Ordinal_Cus' => 'nullable|numeric',
+            'UserBranch' => 'nullable|string',
+            'UserInsert' => 'nullable|string',
+            'UserUpdate' => 'nullable|string',
+            'UserZone' => 'nullable|string',
+            'date_Cus' => 'nullable|date',
         ]);
 
         $career = DataCusCareer::find($id);
 
         if (!$career) {
-            return response()->json(['message' => 'Career not found'], 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'ไม่พบข้อมูลที่ตรงกับ ID ที่ระบุ'
+            ], 404);
         }
 
-        // Update the career model with validated data
-        $career->fill($validatedData);
-        $career->save();
+        // Update the career record with validated data
+        $career->update($validatedData);
 
-        return response()->json($career, 200);
+        return response()->json([
+            'success' => true,
+            'message' => 'อัปเดตข้อมูลสำเร็จ',
+            'data' => $career
+        ]);
     }
+
+
 
 
     // ลบข้อมูล

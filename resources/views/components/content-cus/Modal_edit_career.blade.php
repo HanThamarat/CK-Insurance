@@ -181,7 +181,8 @@
                         // เพิ่มตัวเลือกใหม่ใน select
                         $.each(data, function(index, career) {
                             careerName.append(
-                                $('<option>').val(career.Code_Career).text(career.Code_Career + ' - ' + career.Name_Career)
+                                $('<option>').val(career.Code_Career).text(career
+                                    .Code_Career + ' - ' + career.Name_Career)
                             );
                         });
                     } else {
@@ -202,7 +203,7 @@
         window.openModal_Edit_career_customer = function(button) {
             const careerData = {
                 id: button.dataset.id,
-                name: button.dataset.careerCode + ' ' + button.dataset.careerName || 'ชื่อไม่ระบุ',
+                name: button.dataset.careerName || 'ชื่อไม่ระบุ',
                 income: button.dataset.income,
                 beforeIncome: button.dataset.beforeIncome,
                 afterIncome: button.dataset.afterIncome,
@@ -233,14 +234,81 @@
                 });
         };
 
+        // $(document).on('submit', '#editCareerForm', function(event) {
+        //     event.preventDefault();
+        //     const careerId = $('#careerIdInput').val();
+        //     const careerCode = $('#Career_Cus_edit').val(); // ค่าจาก career code
+        //     const careerName = $('#nameDisplay').text(); // ค่า Name_Career ที่แสดงใน Modal
+        //     const formData = $(this).serialize() +
+        //         '&career_code=' + encodeURIComponent(careerCode) +
+        //         '&career_name=' + encodeURIComponent(careerName); // เพิ่ม Code_Career และ Name_Career
+
+        //     console.log('Submitting to:', '/career/update/' + careerId);
+
+        //     // Send AJAX request
+        //     $.ajax({
+        //         url: '/career/update/' + careerId,
+        //         method: 'POST',
+        //         data: formData,
+        //         success: function(response) {
+        //             console.log(response); // ตรวจสอบ response ที่ได้รับ
+
+        //             if (response.success) {
+        //                 // อัปเดตข้อมูลใน HTML หรือทำการ render ใหม่
+        //                 const careerData = response.data; // สมมุติว่า response.data คือข้อมูลที่อัปเดต
+        //                 $('#careerName').val(careerData.Code_Career); // แสดง Career Code
+        //                 $('#nameDisplay').text(careerData.Name_Career); // แสดง Career Name
+        //                 $('#Income_Cus_edit').val(careerData.Income); // แสดง Income
+        //                 $('#BeforeIncome_Cus_edit').val(careerData.BeforeIncome); // แสดง Before Income
+        //                 $('#AfterIncome_Cus_edit').val(careerData.AfterIncome); // แสดง After Income
+        //                 $('#Workplace_Cus_edit').val(careerData.Workplace); // แสดง Workplace
+        //                 $('#Coordinates_edit').val(careerData.Coordinates); // แสดง Coordinates
+        //                 $('#IncomeNote_Cus_edit').val(careerData.Note); // แสดง Income Note
+
+        //                 Swal.fire({
+        //                     title: 'สำเร็จ!',
+        //                     text: response.message,
+        //                     icon: 'success',
+        //                     timer: 1500,
+        //                     showConfirmButton: false
+        //                 }).then(() => {
+        //                     fetchCareerData(); // ดึงข้อมูลใหม่
+        //                 });
+        //             } else {
+        //                 Swal.fire({
+        //                     title: 'ข้อผิดพลาด!',
+        //                     text: response.message || 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
+        //                     icon: 'error',
+        //                     timer: 1500,
+        //                     showConfirmButton: false
+        //                 });
+        //             }
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error('Error:', error);
+        //             alert('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์: ' + xhr.responseText);
+        //         }
+        //     });
+        // });
+
         $(document).on('submit', '#editCareerForm', function(event) {
             event.preventDefault();
+
             const careerId = $('#careerIdInput').val();
-            const careerCode = $('#Career_Cus_edit').val(); // ค่าจาก career code
-            const careerName = $('#nameDisplay').text(); // ค่า Name_Career ที่แสดงใน Modal
-            const formData = $(this).serialize() +
-                '&career_code=' + encodeURIComponent(careerCode) +
-                '&career_name=' + encodeURIComponent(careerName); // เพิ่ม Code_Career และ Name_Career
+            const careerCode = $('#Career_Cus_edit').val();
+            const careerName = $('#nameDisplay').text();
+
+            // Collect form data and add additional data
+            const formData = {
+                Career_Cus: careerCode,
+                Income_Cus: $('#Income_Cus_edit').val(),
+                BeforeIncome_Cus: $('#BeforeIncome_Cus_edit').val(),
+                AfterIncome_Cus: $('#AfterIncome_Cus_edit').val(),
+                Workplace_Cus: $('#Workplace_Cus_edit').val(),
+                Coordinates: $('#Coordinates_edit').val(),
+                IncomeNote_Cus: $('#IncomeNote_Cus_edit').val(),
+                Status_Cus: $('#Status_Cus_edit').val()
+            };
 
             console.log('Submitting to:', '/career/update/' + careerId);
 
@@ -248,21 +316,22 @@
             $.ajax({
                 url: '/career/update/' + careerId,
                 method: 'POST',
-                data: formData,
+                data: JSON.stringify(formData), // Convert data to JSON
+                contentType: 'application/json', // Set content type to JSON
                 success: function(response) {
-                    console.log(response); // ตรวจสอบ response ที่ได้รับ
+                    console.log(response);
 
                     if (response.success) {
-                        // อัปเดตข้อมูลใน HTML หรือทำการ render ใหม่
-                        const careerData = response.data; // สมมุติว่า response.data คือข้อมูลที่อัปเดต
-                        $('#careerName').val(careerData.Code_Career); // แสดง Career Code
-                        $('#nameDisplay').text(careerData.Name_Career); // แสดง Career Name
-                        $('#Income_Cus_edit').val(careerData.Income); // แสดง Income
-                        $('#BeforeIncome_Cus_edit').val(careerData.BeforeIncome); // แสดง Before Income
-                        $('#AfterIncome_Cus_edit').val(careerData.AfterIncome); // แสดง After Income
-                        $('#Workplace_Cus_edit').val(careerData.Workplace); // แสดง Workplace
-                        $('#Coordinates_edit').val(careerData.Coordinates); // แสดง Coordinates
-                        $('#IncomeNote_Cus_edit').val(careerData.Note); // แสดง Income Note
+                        // Update form fields with updated data
+                        const careerData = response.data;
+                        $('#careerName').val(careerData.Career_Cus);
+                        $('#nameDisplay').text(careerData.Career_Cus);
+                        $('#Income_Cus_edit').val(careerData.Income_Cus);
+                        $('#BeforeIncome_Cus_edit').val(careerData.BeforeIncome_Cus);
+                        $('#AfterIncome_Cus_edit').val(careerData.AfterIncome_Cus);
+                        $('#Workplace_Cus_edit').val(careerData.Workplace_Cus);
+                        $('#Coordinates_edit').val(careerData.Coordinates);
+                        $('#IncomeNote_Cus_edit').val(careerData.IncomeNote_Cus);
 
                         Swal.fire({
                             title: 'สำเร็จ!',
@@ -271,12 +340,12 @@
                             timer: 1500,
                             showConfirmButton: false
                         }).then(() => {
-                            fetchCareerData(); // ดึงข้อมูลใหม่
+                            fetchCareerData(); // Fetch updated data
                         });
                     } else {
                         Swal.fire({
                             title: 'ข้อผิดพลาด!',
-                            text: response.message || 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
+                            text: response.message || 'ข้อมูลไม่ถูกต้องหรือไม่พบ.',
                             icon: 'error',
                             timer: 1500,
                             showConfirmButton: false
@@ -285,10 +354,16 @@
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
-                    alert('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์: ' + xhr.responseText);
+                    Swal.fire({
+                        title: 'ข้อผิดพลาด!',
+                        text: 'เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์: ' + xhr
+                            .responseText,
+                        icon: 'error'
+                    });
                 }
             });
         });
+
 
         // ฟังก์ชันปิด Modal
         $('#closeModal_career_x').on('click', function() {

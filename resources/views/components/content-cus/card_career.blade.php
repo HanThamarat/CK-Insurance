@@ -253,8 +253,7 @@
                                                         </li>
                                                         <li>
                                                             <button data-id="${career.id}"
-                                                                    data-career-name="${career.Name_Career}"
-                                                                    data-career-code="${career.Code_Career}"
+                                                                    data-career-name="${career.Career_Cus}"
                                                                     data-data-cus-id="${career.DataCus_id}"
                                                                     data-workplace="${career.Workplace_Cus}"
                                                                     data-income="${career.Income_Cus}"
