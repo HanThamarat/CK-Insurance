@@ -23,7 +23,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 });
 
 
-
+// Profile ผู้ใช้งานระบบ
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -31,36 +31,32 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-// CUSTOMER ROUTE
-Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])->name('customers.profile');
-Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile');
-Route::get('/api/customers/{id}', [CustomerController::class, 'showCustomerData']);
+// CUSTOMER ROUTE (ข้อมูลของลูกค้า)
+Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])->name('customers.profile'); // ดึง ID ของลูกค้า
+Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile'); //แสดงข้อมูลลูกค้า
+Route::get('/api/customers/{id}', [CustomerController::class, 'showCustomerData']); //แสดงข้อมูลลูกค้าตาม ID
+Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update'); //อัปเดทข้อมูลลูกตาม ID
+Route::resource('customers', CustomerController::class); //Function ทั่วไปมาใช้ ของลูกค้า
 
 
-Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
-
-
-
-Route::resource('customers', CustomerController::class);
-
-// ASSET ROUTE
+// ASSET ROUTE (ข้อมูลสินทรัพย์)
 Route::resource('data_assets', DataAssetController::class);
-Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomerId']);
-Route::post('/check-vehicle-chassis', [DataAssetController::class, 'checkVehicleChassis']); // ASSET ROUTE VEHICLE CHASSIE
+Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomerId']); //ดึงข้อมูล ลูกค้า ที่เชื่อมกับสินทรัพย์
+Route::post('/check-vehicle-chassis', [DataAssetController::class, 'checkVehicleChassis']); // เช็คเลขถังไม่ให้ซ้ำกัน
 
-// CAREER ROUTE
+
+// CAREER ROUTE (ข้อมูลอาชีพ)
 Route::resource('customers/career', DataCusCareerController::class);
 
-// ADDRESS ROUTE
+// ADDRESS ROUTE (ข้อมูลที่อยู่)
 Route::resource('customers/address', DataCusAddressController::class);
 
-// RESET PASSWORD
+
+// RESET PASSWORD สำหรับผู้ใช้งานระบบที่ต้องการ รีเซ็ทรหัสผ่าน
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset.password');
 
 
-
-
-// ใน routes/web.php/ดึงอาณาจักร
+// ดึงอาณาข้อมูลภูมิประเทศไทย
 Route::get('/zones', [ProvinceController::class, 'getZones']);
 Route::get('/getDataByZone', [ProvinceController::class, 'getDataByZone']);
 Route::get('/getDistrictsByProvince', [ProvinceController::class, 'getDistrictsByProvince']);
@@ -102,15 +98,7 @@ Route::get('/addresses/{id}/edit', [DataCusAddressController::class, 'editAddres
 Route::post('/update-address', [DataCusAddressController::class, 'updateAddress'])->name('update-address');
 
 
-
-
-
-
-
-
-
-
-// DATA ASSET FETCH DATA
+// DATA ASSET FETCH (ดึงข้อมูลรถตามลำดับ)
 Route::get('/asset-types', [DataAssetController::class, 'getDataAsset']);
 Route::get('/api/ratetype-options', [DataAssetController::class, 'getRatetypeOptions']);
 Route::get('/api/vehicle-names', [DataAssetController::class, 'getVehicleNames']);
@@ -122,8 +110,34 @@ Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptio
 
 
 
-
+// ดึงข้อมูลการ์ดลูกค้าที่เชื่อมกับสินทรัพย์
 Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomerId']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

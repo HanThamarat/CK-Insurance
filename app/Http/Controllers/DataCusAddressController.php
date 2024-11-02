@@ -7,6 +7,9 @@ use App\Models\Customer; // ใช้ Customer Model
 use App\Models\Province; // ใช้ Province Model
 use App\Models\TBTypeCusAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class DataCusAddressController extends Controller
 {
@@ -129,6 +132,8 @@ class DataCusAddressController extends Controller
     }
 
 
+
+
     public function updateAddress(Request $request)
     {
         // ตรวจสอบว่ามีการส่ง id มาหรือไม่
@@ -136,9 +141,9 @@ class DataCusAddressController extends Controller
             return response()->json(['message' => 'กรุณาระบุ id'], 400);
         }
 
-        // ตรวจสอบข้อมูลที่ส่งเข้ามา
-        $request->validate([
-            'id' => 'required|integer', // ตรวจสอบ id ให้แน่ใจว่าถูกส่งมา
+        // กำหนดกฎการตรวจสอบข้อมูล
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
             'DataCus_id' => 'nullable|integer',
             'Registration_number' => 'nullable|string|max:255',
             'date_Adds' => 'nullable|date',
@@ -167,6 +172,11 @@ class DataCusAddressController extends Controller
             'UserUpdate' => 'nullable|string|max:255',
         ]);
 
+        // ตรวจสอบว่ามีข้อผิดพลาดในการตรวจสอบข้อมูล
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
         // ค้นหาโมเดลที่ต้องการอัปเดต โดยใช้ id ที่ส่งมา
         $address = DataCusAddress::find($request->id);
 
@@ -175,15 +185,76 @@ class DataCusAddressController extends Controller
         }
 
         // อัปเดตข้อมูลที่ส่งมา
-        $updated = $address->update($request->all()); // อัปเดตข้อมูลทั้งหมดที่ได้รับจาก request
+        $updated = $address->update($request->all());
 
         // ตรวจสอบว่ามีการอัปเดตหรือไม่
         if ($updated) {
-            return response()->json(['message' => 'อัปเดตข้อมูลสำเร็จ'], 200);
+            // ดึงข้อมูลที่ถูกอัปเดตกลับ
+            $updatedAddress = DataCusAddress::find($request->id);
+            return response()->json(['message' => 'อัปเดตข้อมูลสำเร็จ', 'data' => $updatedAddress], 200);
         } else {
             return response()->json(['message' => 'ไม่มีการเปลี่ยนแปลงข้อมูล'], 200);
         }
     }
+
+
+
+    // public function updateAddress(Request $request)
+    // {
+    //     // ตรวจสอบว่ามีการส่ง id มาหรือไม่
+    //     if (!$request->has('id')) {
+    //         return response()->json(['message' => 'กรุณาระบุ id'], 400);
+    //     }
+
+    //     // ตรวจสอบข้อมูลที่ส่งเข้ามา
+    //     $request->validate([
+    //         'id' => 'required|integer', // ตรวจสอบ id ให้แน่ใจว่าถูกส่งมา
+    //         'DataCus_id' => 'nullable|integer',
+    //         'Registration_number' => 'nullable|string|max:255',
+    //         'date_Adds' => 'nullable|date',
+    //         'Code_Adds' => 'nullable|string|max:255',
+    //         'Ordinal_Adds' => 'nullable|integer',
+    //         'Status_Adds' => 'nullable|string|max:255',
+    //         'Type_Adds' => 'nullable|string|max:255',
+    //         'houseNumber_Adds' => 'nullable|string|max:255',
+    //         'houseGroup_Adds' => 'nullable|string|max:255',
+    //         'building_Adds' => 'nullable|string|max:255',
+    //         'village_Adds' => 'nullable|string|max:255',
+    //         'roomNumber_Adds' => 'nullable|string|max:255',
+    //         'Floor_Adds' => 'nullable|string|max:255',
+    //         'alley_Adds' => 'nullable|string|max:255',
+    //         'road_Adds' => 'nullable|string|max:255',
+    //         'houseZone_Adds' => 'nullable|string|max:255',
+    //         'houseProvince_Adds' => 'nullable|string|max:255',
+    //         'houseDistrict_Adds' => 'nullable|string|max:255',
+    //         'houseTambon_Adds' => 'nullable|string|max:255',
+    //         'Postal_Adds' => 'nullable|string|max:255',
+    //         'Detail_Adds' => 'nullable|string',
+    //         'Coordinates_Adds' => 'nullable|string',
+    //         'UserZone' => 'nullable|string|max:255',
+    //         'UserBranch' => 'nullable|string|max:255',
+    //         'UserInsert' => 'nullable|string|max:255',
+    //         'UserUpdate' => 'nullable|string|max:255',
+    //     ]);
+
+    //     // ค้นหาโมเดลที่ต้องการอัปเดต โดยใช้ id ที่ส่งมา
+    //     $address = DataCusAddress::find($request->id);
+
+    //     if (!$address) {
+    //         return response()->json(['message' => 'ไม่พบข้อมูล'], 404);
+    //     }
+
+    //     // อัปเดตข้อมูลที่ส่งมา
+    //     $updated = $address->update($request->all()); // อัปเดตข้อมูลทั้งหมดที่ได้รับจาก request
+
+    //     // ตรวจสอบว่ามีการอัปเดตหรือไม่
+    //     if ($updated) {
+    //         return response()->json(['message' => 'อัปเดตข้อมูลสำเร็จ'], 200);
+    //     } else {
+    //         return response()->json(['message' => 'ไม่มีการเปลี่ยนแปลงข้อมูล'], 200);
+    //     }
+    // }
+
 
 }
 

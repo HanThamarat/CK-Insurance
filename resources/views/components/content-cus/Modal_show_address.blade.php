@@ -318,8 +318,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-
-
     function openModal_Edit_address_customer(button) {
         const addressId = $(button).data('id');
 
@@ -327,7 +325,7 @@
             url: '/get-address/' + addressId,
             type: 'GET',
             success: function(response) {
-                // เติมข้อมูลในฟิลด์ต่างๆ
+                // เติมค่าจาก response ลงในฟอร์มให้ครบทุกฟิลด์ตามที่คุณต้องการ
                 $('#addressId').val(response.id);
                 $('#addressIdCus').val(response.DataCus_id);
                 $('#Registration_number').val(response.Registration_number);
@@ -342,121 +340,29 @@
                 $('#Detail_Adds_edit').val(response.Detail_Adds);
                 $('#Coordinates_Adds_edit').val(response.Coordinates_Adds);
 
-                // ดึงข้อมูลภูมิภาค
-                $.ajax({
-                    url: '/zones',
-                    type: 'GET',
-                    success: function(zones) {
-                        $('#houseZone_Adds_edit').empty().append(
-                            '<option value="">ภูมิภาค</option>');
-                        zones.forEach(zone => {
-                            $('#houseZone_Adds_edit').append(
-                                `<option value="${zone.Zone_pro}" ${zone.Zone_pro === response.houseZone_Adds ? 'selected' : ''}>${zone.Zone_pro}</option>`
+                $('#houseZone_Adds_edit').empty().append('<option value="">ภูมิภาค</option>');
+                $('#houseZone_Adds_edit').append(
+                    `<option value="${response.houseZone_Adds}" selected>${response.houseZone_Adds}</option>`
+                );
 
-                            );
-                        });
-                    }
-                });
+                $('#houseProvince_Adds_edit').empty().append('<option value="">จังหวัด</option>');
+                $('#houseProvince_Adds_edit').append(
+                    `<option value="${response.houseProvince_Adds}" selected>${response.houseProvince_Adds}</option>`
+                );
 
-                // ดึงข้อมูลจังหวัดโดยอิงจากภูมิภาคที่เลือก
-                $('#houseZone_Adds_edit').on('change', function() {
-                    $.ajax({
-                        url: '/getDataByZone',
-                        type: 'GET',
-                        data: {
-                            zone: $(this).val()
-                        },
-                        success: function(data) {
-                            $('#houseProvince_Adds_edit').empty().append(
-                                '<option value="">จังหวัด</option>');
+                $('#houseDistrict_Adds_edit').empty().append('<option value="">อำเภอ</option>');
+                $('#houseDistrict_Adds_edit').append(
+                    `<option value="${response.houseDistrict_Adds}" selected>${response.houseDistrict_Adds}</option>`
+                );
 
-                            data.provinces.forEach(province => {
-                                $('#houseProvince_Adds_edit').append(
-                                    `<option value="${province.Province_pro}">${province.Province_pro}</option>`
-                                );
-                            });
+                $('#houseTambon_Adds_edit').empty().append('<option value="">ตำบล</option>');
+                $('#houseTambon_Adds_edit').append(
+                    `<option value="${response.houseTambon_Adds}" selected>${response.houseTambon_Adds}</option>`
+                );
 
-                            // ล้างค่าอำเภอ, ตำบล และรหัสไปรษณีย์เมื่อเลือกภูมิภาคใหม่
-                            $('#houseDistrict_Adds_edit').empty().append(
-                                '<option value="">อำเภอ</option>');
-                            $('#houseTambon_Adds_edit').empty().append(
-                                '<option value="">ตำบล</option>');
-                            $('#Postal_Adds_edit').empty().append(
-                                '<option value="">รหัสไปรษณีย์</option>');
-                        }
-                    });
-                });
-
-                // ดึงข้อมูลอำเภอโดยอิงจากจังหวัดที่เลือก
-                $('#houseProvince_Adds_edit').on('change', function() {
-                    $.ajax({
-                        url: '/getDistrictsByProvince',
-                        type: 'GET',
-                        data: {
-                            province: $(this).val()
-                        },
-                        success: function(districts) {
-                            $('#houseDistrict_Adds_edit').empty().append(
-                                '<option value="">อำเภอ</option>');
-                            districts.forEach(district => {
-                                $('#houseDistrict_Adds_edit').append(
-                                    `<option value="${district.District_pro}">${district.District_pro}</option>`
-                                );
-                            });
-
-                            // ล้างค่าตำบล และรหัสไปรษณีย์เมื่อเลือกจังหวัดใหม่
-                            $('#houseTambon_Adds_edit').empty().append(
-                                '<option value="">ตำบล</option>');
-                            $('#Postal_Adds_edit').empty().append(
-                                '<option value="">รหัสไปรษณีย์</option>');
-                        }
-                    });
-                });
-
-                // ดึงข้อมูลตำบลโดยอิงจากอำเภอที่เลือก
-                $('#houseDistrict_Adds_edit').on('change', function() {
-                    $.ajax({
-                        url: '/getTambonsByDistrict',
-                        type: 'GET',
-                        data: {
-                            district: $(this).val()
-                        },
-                        success: function(tambons) {
-                            $('#houseTambon_Adds_edit').empty().append(
-                                '<option value="">ตำบล</option>');
-                            tambons.forEach(tambon => {
-                                $('#houseTambon_Adds_edit').append(
-                                    `<option value="${tambon.Tambon_pro}">${tambon.Tambon_pro}</option>`
-                                );
-                            });
-
-                            // ล้างค่ารหัสไปรษณีย์เมื่อเลือกอำเภอใหม่
-                            $('#Postal_Adds_edit').empty().append(
-                                '<option value="">รหัสไปรษณีย์</option>');
-                        }
-                    });
-                });
-
-                // ดึงข้อมูลรหัสไปรษณีย์โดยอิงจากตำบลที่เลือก
-                $('#houseTambon_Adds_edit').on('change', function() {
-                    $.ajax({
-                        url: '/getPostcodesByTambon',
-                        type: 'GET',
-                        data: {
-                            tambon: $(this).val()
-                        },
-                        success: function(postcodes) {
-                            $('#Postal_Adds_edit').empty().append(
-                                '<option value="">รหัสไปรษณีย์</option>');
-                            postcodes.forEach(postcode => {
-                                $('#Postal_Adds_edit').append(
-                                    `<option value="${postcode.Postcode_pro}">${postcode.Postcode_pro}</option>`
-                                );
-                            });
-                        }
-                    });
-                });
-
+                $('#Postal_Adds_edit').empty().append('<option value="">รหัสไปรษณีย์</option>');
+                $('#Postal_Adds_edit').append(
+                    `<option value="${response.Postal_Adds}" selected>${response.Postal_Adds}</option>`);
                 // แสดง modal ด้วยเอฟเฟกต์ fade in
                 $('#modal_edit_address_customer').css({
                     display: 'block',
@@ -466,17 +372,16 @@
                     top: '0px',
                     opacity: 1
                 }, {
-                    duration: 100,
-                    easing: 'easeOutQuad'
+                    duration: 100, // เพิ่มระยะเวลาเป็น 200 มิลลิวินาที
+                    easing: 'easeOutQuad' // ใช้ easing function สำหรับความสมูท
                 });
+
             },
             error: function(xhr, status, error) {
                 alert('เกิดข้อผิดพลาด: ' + error);
             }
         });
     }
-
-
 
     $.ajaxSetup({
         headers: {
@@ -535,7 +440,25 @@
             success: function(response) {
                 console.log(response); // ตรวจสอบโครงสร้างของ response ที่ส่งกลับ
 
+                // ตรวจสอบว่า response มี data หรือไม่ (data อาจจะเป็น null แต่ message ต้องมี)
                 if (response.message) {
+                    if (response.data) {
+                        // แสดงข้อมูลที่อยู่
+                        $('#addressDisplay').html(`
+                        <p>ที่อยู่: ${response.data.houseNumber_Adds || 'ไม่ระบุ'} ${response.data.houseGroup_Adds || 'ไม่ระบุ'} ${response.data.building_Adds || 'ไม่ระบุ'} ${response.data.village_Adds || 'ไม่ระบุ'}, ${response.data.roomNumber_Adds || 'ไม่ระบุ'}, ชั้น ${response.data.Floor_Adds || 'ไม่ระบุ'}, ซอย ${response.data.alley_Adds || 'ไม่ระบุ'}, ถนน ${response.data.road_Adds || 'ไม่ระบุ'}</p>
+                        <p>จังหวัด: ${response.data.houseProvince_Adds || 'ไม่ระบุ'}</p>
+                        <p>อำเภอ: ${response.data.houseDistrict_Adds || 'ไม่ระบุ'}</p>
+                        <p>ตำบล: ${response.data.houseTambon_Adds || 'ไม่ระบุ'}</p>
+                        <p>รหัสไปรษณีย์: ${response.data.Postal_Adds || 'ไม่ระบุ'}</p>
+                        <p>รายละเอียดเพิ่มเติม: ${response.data.Detail_Adds || 'ไม่ระบุ'}</p>
+                        <p>พิกัด: ${response.data.Coordinates_Adds || 'ไม่ระบุ'}</p>
+                        <p>สถานะ: ${response.data.Status_Adds || 'ไม่ระบุ'}</p>
+                        <p>ประเภท: ${response.data.Type_Adds || 'ไม่ระบุ'}</p>
+                        <p>หมายเลขทะเบียน: ${response.data.Registration_number || 'ไม่ระบุ'}</p>
+                    `);
+                    }
+
+                    // แสดง SweetAlert สำเร็จและปิด Modal
                     Swal.fire({
                         title: 'สำเร็จ!',
                         text: response.message,
@@ -543,7 +466,7 @@
                         timer: 1500,
                         showConfirmButton: false
                     }).then(() => {
-                        fetchAddresses();
+                        // $('#modal_edit_address_customer').modal('hide'); // ปิด modal ที่แสดงอยู่
                         $('#modal_edit_address_customer').addClass('hidden');
                         hideModalEditAddress_customer();
                     });
@@ -561,7 +484,10 @@
                 let errorMessage = 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล';
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     const errors = xhr.responseJSON.errors;
-                    errorMessage = Object.values(errors).flat().join(', ');
+                    errorMessage = '';
+                    for (const key in errors) {
+                        errorMessage += `${errors[key].join(', ')}\n`;
+                    }
                 }
                 Swal.fire({
                     title: 'ข้อผิดพลาด!',
@@ -577,6 +503,8 @@
             }
         });
     });
+
+
 
 
     function hideModalEditAddress_customer() {
