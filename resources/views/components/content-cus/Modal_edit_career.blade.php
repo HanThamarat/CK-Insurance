@@ -65,12 +65,12 @@
                     <div class="space-y-4 mt-2">
 
                         <div class="relative">
-                            <select id="Career_Cus_edit" name="Career_Cus"
+                            <select id="careerName" name="Career_Cus"
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
                                 <option value="">อาชีพ</option>
                                 <!-- ตัวเลือกจะถูกเติมที่นี่โดย AJAX -->
                             </select>
-                            <label for="Career_Cus_edit"
+                            <label for="careerName"
                                 class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                 อาชีพ
                             </label>
@@ -155,6 +155,168 @@
     </div>
 </div>
 
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function() {
+        // ฟังก์ชันดึงข้อมูลอาชีพเมื่อโหลดหน้า
+        function fetchCareerData() {
+            $.ajax({
+                url: '/get-careers', // URL สำหรับดึงข้อมูลอาชีพ
+                method: 'GET', // ใช้การเรียก GET
+                success: function(data) {
+                    const careerName = $('#careerName');
+                    careerName.empty(); // ล้างค่าเดิมใน select
+
+                    if (data.length > 0) {
+                        // เพิ่มตัวเลือกใหม่ใน select
+                        $.each(data, function(index, career) {
+                            careerName.append(
+                                $('<option>').val(career.Code_Career).text(career.Code_Career + ' - ' + career.Name_Career)
+                            );
+                        });
+                    } else {
+                        careerName.append($('<option>').text('ไม่มีข้อมูลอาชีพ'));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('เกิดข้อผิดพลาดในการดึงข้อมูลอาชีพ');
+                }
+            });
+        }
+
+        // เรียกใช้งานฟังก์ชันดึงข้อมูลอาชีพเมื่อโหลดหน้า
+        fetchCareerData();
+
+        // ฟังก์ชันจัดการการแสดง Modal
+        window.openModal_Edit_career_customer = function(button) {
+            const careerData = {
+                id: button.dataset.id,
+                name: button.dataset.careerCode + ' ' + button.dataset.careerName || 'ชื่อไม่ระบุ',
+                income: button.dataset.income,
+                beforeIncome: button.dataset.beforeIncome,
+                afterIncome: button.dataset.afterIncome,
+                workplace: button.dataset.workplace,
+                coordinates: button.dataset.coordinates,
+                note: button.dataset.note
+            };
+
+            console.log(careerData);
+            $('#careerIdInput').val(careerData.id);
+            $('#Career_Cus_edit').val(button.dataset.careerCode); // set the career code in the select
+            $('#Income_Cus_edit').val(careerData.income);
+            $('#BeforeIncome_Cus_edit').val(careerData.beforeIncome);
+            $('#AfterIncome_Cus_edit').val(careerData.afterIncome);
+            $('#Workplace_Cus_edit').val(careerData.workplace);
+            $('#Coordinates_edit').val(careerData.coordinates);
+            $('#IncomeNote_Cus_edit').val(careerData.note);
+
+            // แสดงชื่อใน Modal
+            $('#nameDisplay').text(careerData.name); // สมมุติว่าคุณมี element ที่แสดงชื่อ
+
+            // เปิด Modal ด้วย slide fade
+            $('#modalEditCareer')
+                .removeClass('modal-leave')
+                .addClass('modal-enter')
+                .fadeIn(0, function() {
+                    $(this).addClass('modal-enter-active');
+                });
+        };
+
+        $(document).on('submit', '#editCareerForm', function(event) {
+            event.preventDefault();
+            const careerId = $('#careerIdInput').val();
+            const careerCode = $('#Career_Cus_edit').val(); // ค่าจาก career code
+            const careerName = $('#nameDisplay').text(); // ค่า Name_Career ที่แสดงใน Modal
+            const formData = $(this).serialize() +
+                '&career_code=' + encodeURIComponent(careerCode) +
+                '&career_name=' + encodeURIComponent(careerName); // เพิ่ม Code_Career และ Name_Career
+
+            console.log('Submitting to:', '/career/update/' + careerId);
+
+            // Send AJAX request
+            $.ajax({
+                url: '/career/update/' + careerId,
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    console.log(response); // ตรวจสอบ response ที่ได้รับ
+
+                    if (response.success) {
+                        // อัปเดตข้อมูลใน HTML หรือทำการ render ใหม่
+                        const careerData = response.data; // สมมุติว่า response.data คือข้อมูลที่อัปเดต
+                        $('#careerName').val(careerData.Code_Career); // แสดง Career Code
+                        $('#nameDisplay').text(careerData.Name_Career); // แสดง Career Name
+                        $('#Income_Cus_edit').val(careerData.Income); // แสดง Income
+                        $('#BeforeIncome_Cus_edit').val(careerData.BeforeIncome); // แสดง Before Income
+                        $('#AfterIncome_Cus_edit').val(careerData.AfterIncome); // แสดง After Income
+                        $('#Workplace_Cus_edit').val(careerData.Workplace); // แสดง Workplace
+                        $('#Coordinates_edit').val(careerData.Coordinates); // แสดง Coordinates
+                        $('#IncomeNote_Cus_edit').val(careerData.Note); // แสดง Income Note
+
+                        Swal.fire({
+                            title: 'สำเร็จ!',
+                            text: response.message,
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            fetchCareerData(); // ดึงข้อมูลใหม่
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'ข้อผิดพลาด!',
+                            text: response.message || 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
+                            icon: 'error',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์: ' + xhr.responseText);
+                }
+            });
+        });
+
+        // ฟังก์ชันปิด Modal
+        $('#closeModal_career_x').on('click', function() {
+            $('#modalEditCareer')
+                .removeClass('modal-enter-active')
+                .addClass('modal-leave')
+                .fadeOut(300, function() {
+                    $(this).removeClass('modal-leave');
+                });
+        });
+
+        // ปิด Modal เมื่อคลิกนอก Modal
+        $(window).on('click', function(event) {
+            if ($(event.target).is('#modalEditCareer')) {
+                $('#modalEditCareer')
+                    .removeClass('modal-enter-active')
+                    .addClass('modal-leave')
+                    .fadeOut(300, function() {
+                        $(this).removeClass('modal-leave');
+                    });
+            }
+        });
+    });
+</script>
+
+
+
+
 <style>
     /* CSS สำหรับเอฟเฟกต์ slide-fade */
     .modal-enter {
@@ -210,147 +372,151 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // ฟังก์ชันจัดการการแสดง Modal
-    function openModal_Edit_career_customer(button) {
-        const careerData = {
-            id: button.dataset.id,
-            name: button.dataset.careerName,
-            income: button.dataset.income,
-            beforeIncome: button.dataset.beforeIncome,
-            afterIncome: button.dataset.afterIncome,
-            workplace: button.dataset.workplace,
-            coordinates: button.dataset.coordinates,
-            note: button.dataset.note
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function() {
+        // ฟังก์ชันดึงข้อมูลอาชีพเมื่อโหลดหน้า
+        function fetchCareerData() {
+            $.ajax({
+                url: '/get-careers', // URL สำหรับดึงข้อมูลอาชีพ
+                method: 'GET', // ใช้การเรียก GET
+                success: function(data) {
+                    const careerName = $('#careerName');
+                    careerName.empty(); // ล้างค่าเดิมใน select
+
+                    if (data.length > 0) {
+                        // เพิ่มตัวเลือกใหม่ใน select
+                        $.each(data, function(index, career) {
+                            careerName.append(
+                                $('<option>').val(career.Code_Career).text(career
+                                    .Code_Career + ' - ' + career.Name_Career)
+                            );
+                        });
+                    } else {
+                        careerName.append($('<option>').text('ไม่มีข้อมูลอาชีพ'));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('เกิดข้อผิดพลาดในการดึงข้อมูลอาชีพ');
+                }
+            });
+        }
+
+        // เรียกใช้งานฟังก์ชันดึงข้อมูลอาชีพเมื่อโหลดหน้า
+        fetchCareerData();
+
+        // ฟังก์ชันจัดการการแสดง Modal
+        window.openModal_Edit_career_customer = function(button) {
+            const careerData = {
+                id: button.dataset.id,
+                name: button.dataset.careerCode + ' ' + button.dataset.careerName || 'ชื่อไม่ระบุ',
+                income: button.dataset.income,
+                beforeIncome: button.dataset.beforeIncome,
+                afterIncome: button.dataset.afterIncome,
+                workplace: button.dataset.workplace,
+                coordinates: button.dataset.coordinates,
+                note: button.dataset.note
+            };
+
+            console.log(careerData);
+            $('#careerIdInput').val(careerData.id);
+            $('#Career_Cus_edit').val(button.dataset.careerCode); // set the career code in the select
+            $('#Income_Cus_edit').val(careerData.income);
+            $('#BeforeIncome_Cus_edit').val(careerData.beforeIncome);
+            $('#AfterIncome_Cus_edit').val(careerData.afterIncome);
+            $('#Workplace_Cus_edit').val(careerData.workplace);
+            $('#Coordinates_edit').val(careerData.coordinates);
+            $('#IncomeNote_Cus_edit').val(careerData.note);
+
+            // แสดงชื่อใน Modal
+            $('#nameDisplay').text(careerData.name); // สมมุติว่าคุณมี element ที่แสดงชื่อ
+
+            // เปิด Modal ด้วย slide fade
+            $('#modalEditCareer')
+                .removeClass('modal-leave')
+                .addClass('modal-enter')
+                .fadeIn(0, function() {
+                    $(this).addClass('modal-enter-active');
+                });
         };
 
-        console.log(careerData); // ตรวจสอบข้อมูล
-        document.getElementById('careerIdInput').value = careerData.id;
-        document.getElementById('careerNameInput').value = careerData.name;
-        document.getElementById('Income_Cus_edit').value = careerData.income;
-        document.getElementById('BeforeIncome_Cus_edit').value = careerData.beforeIncome;
-        document.getElementById('AfterIncome_Cus_edit').value = careerData.afterIncome;
-        document.getElementById('Workplace_Cus_edit').value = careerData.workplace;
-        document.getElementById('Coordinates_edit').value = careerData.coordinates;
-        document.getElementById('IncomeNote_Cus_edit').value = careerData.note;
+        $(document).on('submit', '#editCareerForm', function(event) {
+            event.preventDefault();
+            const careerId = $('#careerIdInput').val();
+            const careerCode = $('#Career_Cus_edit').val(); // ค่าจาก career code
+            const careerName = $('#nameDisplay').text(); // ค่า Name_Career ที่แสดงใน Modal
+            const formData = $(this).serialize() +
+                '&career_code=' + encodeURIComponent(careerCode) +
+                '&career_name=' + encodeURIComponent(careerName); // เพิ่ม Code_Career และ Name_Career
 
-        // เปิด Modal ด้วย slide fade
-        $('#modalEditCareer')
-            .removeClass('modal-leave')
-            .addClass('modal-enter')
-            .fadeIn(0, function() {
-                $(this).addClass('modal-enter-active');
-            });
-    }
+            console.log('Submitting to:', '/career/update/' + careerId);
 
-    // ฟังก์ชันจัดการการส่งข้อมูลในฟอร์ม
-    $(document).on('submit', '#editCareerForm', function(event) {
-        event.preventDefault(); // หยุดการส่งฟอร์ม
-        const formData = $(this).serialize(); // แปลงข้อมูลฟอร์มเป็นสตริง
+            // Send AJAX request
+            $.ajax({
+                url: '/career/update/' + careerId,
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    console.log(response); // ตรวจสอบ response ที่ได้รับ
 
-        // ส่งข้อมูลไปยังเซิร์ฟเวอร์ผ่าน AJAX
-        $.ajax({
-            url: '/update-career',
-            method: 'POST',
-            data: formData,
-            success: function(data) {
-                if (data.success) {
-                    alert('ข้อมูลได้รับการบันทึกเรียบร้อยแล้ว');
-                    // ปิด Modal ด้วย slide fade
-                    $('#modalEditCareer')
-                        .removeClass('modal-enter-active')
-                        .addClass('modal-leave')
-                        .fadeOut(300, function() {
-                            $(this).removeClass('modal-leave');
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'สำเร็จ!',
+                            text: response.message,
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            fetchCareerData(); // ดึงข้อมูลใหม่
                         });
-                    // อัปเดตตารางหรือ UI ตามต้องการ
-                } else {
-                    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+                    } else {
+                        Swal.fire({
+                            title: 'ข้อผิดพลาด!',
+                            text: response.message ||
+                                'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
+                            icon: 'error',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์: ' + xhr.responseText);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
-                alert('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์');
-            }
-        });
-    });
-
-    // ฟังก์ชันปิด Modal
-    $('#closeModal_career_x').on('click', function() {
-        // ปิด Modal ด้วย slide fade
-        $('#modalEditCareer')
-            .removeClass('modal-enter-active')
-            .addClass('modal-leave')
-            .fadeOut(300, function() {
-                $(this).removeClass('modal-leave');
             });
-    });
+        });
 
-    // ปิด Modal เมื่อคลิกนอก Modal
-    $(window).on('click', function(event) {
-        if ($(event.target).is('#modalEditCareer')) {
+
+
+        // ฟังก์ชันปิด Modal
+        $('#closeModal_career_x').on('click', function() {
             $('#modalEditCareer')
                 .removeClass('modal-enter-active')
                 .addClass('modal-leave')
                 .fadeOut(300, function() {
                     $(this).removeClass('modal-leave');
                 });
-        }
-    });
-</script>
-
-
-{{-- <script>
-    $(document).ready(function() {
-        $('#editCareerForm').on('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-
-            const formData = $(this).serialize(); // Serialize form data
-
-            $.ajax({
-                type: 'PUT', // Use PUT for update
-                url: '/career/' + $('#careerIdInput')
-            .val(), // Update the URL according to your routes
-                data: formData,
-                success: function(response) {
-                    // Handle success response
-                    alert('Career information updated successfully!');
-                    // Close the modal or refresh the data as necessary
-                    $('#modalEditCareer').addClass('hidden');
-                    // Optionally, refresh the table or update the displayed data
-                },
-                error: function(xhr) {
-                    // Handle error response
-                    alert('Error updating career information: ' + xhr.responseJSON.message);
-                }
-            });
         });
 
-        // Load existing career data when modal opens
-        $('#modalEditCareer').on('show.bs.modal', function(event) {
-            const button = $(event.relatedTarget); // Button that triggered the modal
-            const careerId = button.data('id'); // Extract info from data-* attributes
-
-            // Fetch career data for the given id
-            $.ajax({
-                type: 'GET',
-                url: '/career/' + careerId,
-                success: function(response) {
-                    // Populate form fields with existing data
-                    $('#careerIdInput').val(response.id);
-                    $('#Career_Cus_edit').val(response.Career_Cus);
-                    $('#Income_Cus_edit').val(response.Income_Cus);
-                    $('#BeforeIncome_Cus_edit').val(response.BeforeIncome_Cus);
-                    $('#AfterIncome_Cus_edit').val(response.AfterIncome_Cus);
-                    $('#Workplace_Cus_edit').val(response.Workplace_Cus);
-                    $('#Coordinates_edit').val(response.Coordinates);
-                    $('#IncomeNote_Cus_edit').val(response.IncomeNote_Cus);
-                    // Set radio buttons based on the status
-                    $('input[name="Status_Cus"][value="' + response.Status_Cus + '"]').prop(
-                        'checked', true);
-                }
-            });
+        // ปิด Modal เมื่อคลิกนอก Modal
+        $(window).on('click', function(event) {
+            if ($(event.target).is('#modalEditCareer')) {
+                $('#modalEditCareer')
+                    .removeClass('modal-enter-active')
+                    .addClass('modal-leave')
+                    .fadeOut(300, function() {
+                        $(this).removeClass('modal-leave');
+                    });
+            }
         });
     });
 </script> --}}

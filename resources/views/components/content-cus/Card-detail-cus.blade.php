@@ -150,6 +150,7 @@
 
 
                 @include('components.content-cus.Modal_edit_address')
+                @include('components.content-cus.Modal_show_address')
 
                 <!-- ส่วนที่แสดงข้อมูล -->
                 <div class="flex flex-col items-center mt-[-10] address-master">
@@ -460,30 +461,63 @@
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
     <script>
         $(document).ready(function() {
-            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
-            $('.prev').on('click', function() {
-                const $slider = $('#address-list');
-                const cardWidth = $slider.children().first().outerWidth(
-                true); // คำนวณความกว้างของการ์ด + gap
+            const $slider = $('#address-list');
+            const $prevButton = $('.prev');
+            const $nextButton = $('.next');
+
+            // ฟังก์ชันสำหรับตรวจสอบการเลื่อน
+            function checkButtonsVisibility() {
+                const scrollWidth = $slider.get(0).scrollWidth; // ความกว้างทั้งหมดของ slider
+                const clientWidth = $slider.get(0).clientWidth; // ความกว้างที่มองเห็นได้
+                const scrollLeft = $slider.scrollLeft(); // ตำแหน่งเลื่อนปัจจุบัน
+
+                // ถ้าสไลด์ถูกเลื่อนไปจนสุดซ้าย
+                if (scrollLeft === 0) {
+                    $prevButton.hide(); // ซ่อนปุ่มก่อนหน้า
+                } else {
+                    $prevButton.show(); // แสดงปุ่มก่อนหน้า
+                }
+
+                // ถ้าสไลด์ถูกเลื่อนไปจนสุดขวา
+                if (scrollLeft + clientWidth >= scrollWidth) {
+                    $nextButton.hide(); // ซ่อนปุ่มถัดไป
+                } else {
+                    $nextButton.show(); // แสดงปุ่มถัดไป
+                }
+            }
+
+            // ซ่อนปุ่มก่อนเมื่อโหลดหน้า
+            $prevButton.hide(); // ซ่อนปุ่มก่อนหน้าเมื่อเริ่มต้น
+
+            // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
+            checkButtonsVisibility();
+
+            // เลื่อนไปทางซ้าย
+            $prevButton.on('click', function() {
+                const cardWidth = $slider.children().first().outerWidth(true);
                 $slider.animate({
                     scrollLeft: '-=' + cardWidth
-                }, 0); // เลื่อนไปทางซ้าย
+                }, 0, checkButtonsVisibility); // เรียกตรวจสอบปุ่มหลังจากเลื่อนไป
             });
 
-            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
-            $('.next').on('click', function() {
-                const $slider = $('#address-list');
-                const cardWidth = $slider.children().first().outerWidth(
-                true); // คำนวณความกว้างของการ์ด + gap
+            // เลื่อนไปทางขวา
+            $nextButton.on('click', function() {
+                const cardWidth = $slider.children().first().outerWidth(true);
                 $slider.animate({
                     scrollLeft: '+=' + cardWidth
-                }, 0); // เลื่อนไปทางขวา
+                }, 0, checkButtonsVisibility); // เรียกตรวจสอบปุ่มหลังจากเลื่อนไป
             });
+
+            // ตรวจสอบการเลื่อนเมื่อมีการเลื่อน
+            $slider.on('scroll', checkButtonsVisibility);
         });
     </script>
+
+
+
+
 
 
 
@@ -560,28 +594,57 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
     <script>
         $(document).ready(function() {
-            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
-            $('#prev-master-2').on('click', function() {
-                const $slider = $('#career-container');
-                const cardWidth = $slider.children().first().outerWidth(
-                true); // คำนวณความกว้างของการ์ด + gap
+            const $slider = $('#career-container');
+            const $prevButton = $('#prev-master-2');
+            const $nextButton = $('#next-master-2');
+
+            // ฟังก์ชันสำหรับตรวจสอบการเลื่อน
+            function checkButtonsVisibility() {
+                const scrollWidth = $slider.get(0).scrollWidth; // ความกว้างทั้งหมดของ slider
+                const clientWidth = $slider.get(0).clientWidth; // ความกว้างที่มองเห็นได้
+                const scrollLeft = $slider.scrollLeft(); // ตำแหน่งเลื่อนปัจจุบัน
+
+                // ถ้าสไลด์ถูกเลื่อนไปจนสุดซ้าย
+                if (scrollLeft === 0) {
+                    $prevButton.hide(); // ซ่อนปุ่มก่อนหน้า
+                } else {
+                    $prevButton.show(); // แสดงปุ่มก่อนหน้า
+                }
+
+                // ถ้าสไลด์ถูกเลื่อนไปจนสุดขวา
+                if (scrollLeft + clientWidth >= scrollWidth) {
+                    $nextButton.hide(); // ซ่อนปุ่มถัดไป
+                } else {
+                    $nextButton.show(); // แสดงปุ่มถัดไป
+                }
+            }
+
+            // ซ่อนปุ่มก่อนเมื่อโหลดหน้า
+            $prevButton.hide(); // ซ่อนปุ่มก่อนหน้าเมื่อเริ่มต้น
+
+            // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
+            checkButtonsVisibility();
+
+            // เลื่อนไปทางซ้าย
+            $prevButton.on('click', function() {
+                const cardWidth = $slider.children().first().outerWidth(true);
                 $slider.animate({
                     scrollLeft: '-=' + cardWidth
-                }, 0); // เลื่อนไปทางซ้าย
+                }, 0, checkButtonsVisibility); // เรียกตรวจสอบปุ่มหลังจากเลื่อนไป
             });
 
-            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
-            $('#next-master-2').on('click', function() {
-                const $slider = $('#career-container');
-                const cardWidth = $slider.children().first().outerWidth(
-                true); // คำนวณความกว้างของการ์ด + gap
+            // เลื่อนไปทางขวา
+            $nextButton.on('click', function() {
+                const cardWidth = $slider.children().first().outerWidth(true);
                 $slider.animate({
                     scrollLeft: '+=' + cardWidth
-                }, 0); // เลื่อนไปทางขวา
+                }, 0, checkButtonsVisibility); // เรียกตรวจสอบปุ่มหลังจากเลื่อนไป
             });
+
+            // ตรวจสอบการเลื่อนเมื่อมีการเลื่อน
+            $slider.on('scroll', checkButtonsVisibility);
         });
     </script>
 
@@ -614,6 +677,129 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- <script>
+        $(document).ready(function() {
+            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
+            $('#prev-master-2').on('click', function() {
+                const $slider = $('#career-container');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '-=' + cardWidth
+                }, 0); // เลื่อนไปทางซ้าย
+            });
+
+            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
+            $('#next-master-2').on('click', function() {
+                const $slider = $('#career-container');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '+=' + cardWidth
+                }, 0); // เลื่อนไปทางขวา
+            });
+        });
+    </script> --}}
+
+    {{-- <script>
+        $(document).ready(function() {
+            // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
+            $('.prev').on('click', function() {
+                const $slider = $('#address-list');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '-=' + cardWidth
+                }, 0); // เลื่อนไปทางซ้าย
+            });
+
+            // ฟังก์ชันสำหรับเลื่อนไปทางขวา
+            $('.next').on('click', function() {
+                const $slider = $('#address-list');
+                const cardWidth = $slider.children().first().outerWidth(
+                true); // คำนวณความกว้างของการ์ด + gap
+                $slider.animate({
+                    scrollLeft: '+=' + cardWidth
+                }, 0); // เลื่อนไปทางขวา
+            });
+        });
+    </script> --}}
+
+    {{-- <script>
+        $(document).ready(function() {
+            const $slider = $('#address-list');
+            const $prevButton = $('.prev');
+            const $nextButton = $('.next');
+
+            // ฟังก์ชันสำหรับตรวจสอบการเลื่อน
+            function checkButtonsVisibility() {
+                const scrollWidth = $slider.get(0).scrollWidth; // ความกว้างทั้งหมดของ slider
+                const clientWidth = $slider.get(0).clientWidth; // ความกว้างที่มองเห็นได้
+                const scrollLeft = $slider.scrollLeft(); // ตำแหน่งเลื่อนปัจจุบัน
+
+                // ถ้าสไลด์ถูกเลื่อนไปจนสุดซ้าย
+                if (scrollLeft === 0) {
+                    $prevButton.hide(); // ซ่อนปุ่มก่อนหน้า
+                } else {
+                    $prevButton.show(); // แสดงปุ่มก่อนหน้า
+                }
+
+                // ถ้าสไลด์ถูกเลื่อนไปจนสุดขวา
+                if (scrollLeft + clientWidth >= scrollWidth) {
+                    $nextButton.hide(); // ซ่อนปุ่มถัดไป
+                } else {
+                    $nextButton.show(); // แสดงปุ่มถัดไป
+                }
+            }
+
+            // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
+            checkButtonsVisibility();
+
+            // เลื่อนไปทางซ้าย
+            $prevButton.on('click', function() {
+                const cardWidth = $slider.children().first().outerWidth(true);
+                $slider.animate({
+                    scrollLeft: '-=' + cardWidth
+                }, 0, checkButtonsVisibility); // เรียกตรวจสอบปุ่มหลังจากเลื่อนไป
+            });
+
+            // เลื่อนไปทางขวา
+            $nextButton.on('click', function() {
+                const cardWidth = $slider.children().first().outerWidth(true);
+                $slider.animate({
+                    scrollLeft: '+=' + cardWidth
+                }, 0, checkButtonsVisibility); // เรียกตรวจสอบปุ่มหลังจากเลื่อนไป
+            });
+
+            // ตรวจสอบการเลื่อนเมื่อมีการเลื่อน
+            $slider.on('scroll', checkButtonsVisibility);
+        });
+    </script> --}}
 
 
     {{-- <div class="flex justify-between items-center mb-4 p-4">

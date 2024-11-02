@@ -199,6 +199,42 @@ class DataCusAddressController extends Controller
 
 
 
+}
+
+
+
+// dd($request->all());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // public function updateAddress(Request $request)
     // {
     //     // ตรวจสอบว่ามีการส่ง id มาหรือไม่
@@ -254,42 +290,6 @@ class DataCusAddressController extends Controller
     //         return response()->json(['message' => 'ไม่มีการเปลี่ยนแปลงข้อมูล'], 200);
     //     }
     // }
-
-
-}
-
-
-
-// dd($request->all());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

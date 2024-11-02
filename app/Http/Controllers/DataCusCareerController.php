@@ -62,32 +62,29 @@ class DataCusCareerController extends Controller
     }
 
 
-    // อัปเดตข้อมูล
-    // public function update(Request $request, $id)
-    // {
-    //     $career = DataCusCareer::find($id);
-
-    //     if (!$career) {
-    //         return response()->json(['message' => 'Career not found'], 404);
-    //     }
-
-    //     $career->update($request->all());
-    //     return response()->json($career);
-    // }
-
 
     public function update(Request $request, $id)
     {
         // Validate incoming data
         $validatedData = $request->validate([
-            'Career_Cus' => 'required|string',
-            'Income_Cus' => 'required|numeric',
-            'BeforeIncome_Cus' => 'required|numeric',
-            'AfterIncome_Cus' => 'required|numeric',
-            'Workplace_Cus' => 'nullable|string',
-            'Coordinates' => 'nullable|string',
-            'IncomeNote_Cus' => 'nullable|string',
-            'Status_Cus' => 'required|string',
+            'DataCus_id' => 'nullable|integer',
+            'date_Cus' => 'nullable|date',
+            'Code_Cus' => 'nullable|string|max:50',
+            'Main_Career' => 'nullable|string|max:100',
+            'Ordinal_Cus' => 'nullable|integer',
+            'Status_Cus' => 'nullable|string|max:50',
+            'Career_Cus' => 'nullable|string|max:100',
+            'DetailCareer_Cus' => 'nullable|string|max:255',
+            'Workplace_Cus' => 'nullable|string|max:100',
+            'Income_Cus' => 'nullable|numeric',
+            'BeforeIncome_Cus' => 'nullable|numeric',
+            'AfterIncome_Cus' => 'nullable|numeric',
+            'IncomeNote_Cus' => 'nullable|string|max:255',
+            'Coordinates' => 'nullable|string|max:100',
+            'UserZone' => 'nullable|string|max:50',
+            'UserBranch' => 'nullable|string|max:50',
+            'UserInsert' => 'nullable|integer',
+            'UserUpdate' => 'nullable|integer',
         ]);
 
         $career = DataCusCareer::find($id);
@@ -96,14 +93,12 @@ class DataCusCareerController extends Controller
             return response()->json(['message' => 'Career not found'], 404);
         }
 
-        // Update the career record with validated data
-        $career->update($validatedData);
-        return response()->json($career);
+        // Update the career model with validated data
+        $career->fill($validatedData);
+        $career->save();
+
+        return response()->json($career, 200);
     }
-
-
-
-
 
 
     // ลบข้อมูล
@@ -149,6 +144,45 @@ class DataCusCareerController extends Controller
 
 
 
+
+    // อัปเดตข้อมูล
+    // public function update(Request $request, $id)
+    // {
+    //     $career = DataCusCareer::find($id);
+
+    //     if (!$career) {
+    //         return response()->json(['message' => 'Career not found'], 404);
+    //     }
+
+    //     $career->update($request->all());
+    //     return response()->json($career);
+    // }
+
+
+    // public function update(Request $request, $id)
+    // {
+    //     // Validate incoming data
+    //     $validatedData = $request->validate([
+    //         'Career_Cus' => 'required|string',
+    //         'Income_Cus' => 'required|numeric',
+    //         'BeforeIncome_Cus' => 'required|numeric',
+    //         'AfterIncome_Cus' => 'required|numeric',
+    //         'Workplace_Cus' => 'nullable|string',
+    //         'Coordinates' => 'nullable|string',
+    //         'IncomeNote_Cus' => 'nullable|string',
+    //         'Status_Cus' => 'required|string',
+    //     ]);
+
+    //     $career = DataCusCareer::find($id);
+
+    //     if (!$career) {
+    //         return response()->json(['message' => 'Career not found'], 404);
+    //     }
+
+    //     // Update the career record with validated data
+    //     $career->update($validatedData);
+    //     return response()->json($career);
+    // }
 
 
 

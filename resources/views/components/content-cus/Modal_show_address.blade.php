@@ -1,4 +1,4 @@
-<div id="modal_edit_address_customer" class="fixed inset-0 hidden bg-black bg-opacity-50 z-50">
+<div id="modal_show_address_customer" class="fixed inset-0 hidden bg-black bg-opacity-50 z-50">
     <!-- Modal Content -->
     <div class="flex items-center justify-center w-full h-full">
         <div
@@ -318,7 +318,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    function openModal_Edit_address_customer(button) {
+    function openModal_Show_address_customer(button) {
         const addressId = $(button).data('id');
 
         $.ajax({
@@ -383,11 +383,7 @@
         });
     }
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+
 
     // แสดง modal
     $('#openModalButton').on('click', function() {
@@ -397,111 +393,6 @@
     // ปิด modal
     $('#closeModal').on('click', function() {
         $('#modal_edit_address_customer').addClass('hidden');
-    });
-
-
-    $('#updateAddressButton').on('click', function() {
-        // ป้องกันการคลิกซ้ำ
-        $(this).prop('disabled', true);
-
-        $.ajax({
-            url: '/update-address', // URL สำหรับอัปเดตข้อมูล
-            type: 'POST',
-            data: {
-                // ข้อมูลที่คุณจะส่งไป
-                id: $('#addressId').val(),
-                DataCus_id: $('#DataCus_id').val(),
-                Registration_number: $('#Registration_number').val(),
-                date_Adds: $('#date_Adds').val(),
-                Code_Adds: $('#Code_Adds').val(),
-                Ordinal_Adds: $('#Ordinal_Adds').val(),
-                Status_Adds: $('#Status_Adds').val(),
-                Type_Adds: $('#Type_Adds').val(),
-                houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
-                houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
-                building_Adds: $('#building_Adds_edit').val(),
-                village_Adds: $('#village_Adds_edit').val(),
-                roomNumber_Adds: $('#roomNumber_Adds_edit').val(),
-                Floor_Adds: $('#Floor_Adds_edit').val(),
-                alley_Adds: $('#alley_Adds_edit').val(),
-                road_Adds: $('#road_Adds_edit').val(),
-                houseZone_Adds: $('#houseZone_Adds_edit').val(),
-                houseProvince_Adds: $('#houseProvince_Adds_edit').val(),
-                houseDistrict_Adds: $('#houseDistrict_Adds_edit').val(),
-                houseTambon_Adds: $('#houseTambon_Adds_edit').val(),
-                Postal_Adds: $('#Postal_Adds_edit').val(),
-                Detail_Adds: $('#Detail_Adds_edit').val(),
-                Coordinates_Adds: $('#Coordinates_Adds_edit').val(),
-                UserZone: $('#UserZone').val(),
-                UserBranch: $('#UserBranch').val(),
-                UserInsert: $('#UserInsert').val(),
-                UserUpdate: $('#UserUpdate').val(),
-            },
-            success: function(response) {
-                console.log(response); // ตรวจสอบโครงสร้างของ response ที่ส่งกลับ
-
-                // ตรวจสอบว่า response มี data หรือไม่ (data อาจจะเป็น null แต่ message ต้องมี)
-                if (response.message) {
-                    if (response.data) {
-                        // แสดงข้อมูลที่อยู่
-                        $('#addressDisplay').html(`
-                        <p>ที่อยู่: ${response.data.houseNumber_Adds || 'ไม่ระบุ'} ${response.data.houseGroup_Adds || 'ไม่ระบุ'} ${response.data.building_Adds || 'ไม่ระบุ'} ${response.data.village_Adds || 'ไม่ระบุ'}, ${response.data.roomNumber_Adds || 'ไม่ระบุ'}, ชั้น ${response.data.Floor_Adds || 'ไม่ระบุ'}, ซอย ${response.data.alley_Adds || 'ไม่ระบุ'}, ถนน ${response.data.road_Adds || 'ไม่ระบุ'}</p>
-                        <p>จังหวัด: ${response.data.houseProvince_Adds || 'ไม่ระบุ'}</p>
-                        <p>อำเภอ: ${response.data.houseDistrict_Adds || 'ไม่ระบุ'}</p>
-                        <p>ตำบล: ${response.data.houseTambon_Adds || 'ไม่ระบุ'}</p>
-                        <p>รหัสไปรษณีย์: ${response.data.Postal_Adds || 'ไม่ระบุ'}</p>
-                        <p>รายละเอียดเพิ่มเติม: ${response.data.Detail_Adds || 'ไม่ระบุ'}</p>
-                        <p>พิกัด: ${response.data.Coordinates_Adds || 'ไม่ระบุ'}</p>
-                        <p>สถานะ: ${response.data.Status_Adds || 'ไม่ระบุ'}</p>
-                        <p>ประเภท: ${response.data.Type_Adds || 'ไม่ระบุ'}</p>
-                        <p>หมายเลขทะเบียน: ${response.data.Registration_number || 'ไม่ระบุ'}</p>
-                    `);
-                    }
-
-                    // แสดง SweetAlert สำเร็จและปิด Modal
-                    Swal.fire({
-                        title: 'สำเร็จ!',
-                        text: response.message,
-                        icon: 'success',
-                        timer: 1500,
-                        showConfirmButton: false
-                    }).then(() => {
-                        // $('#modal_edit_address_customer').modal('hide'); // ปิด modal ที่แสดงอยู่
-                        $('#modal_edit_address_customer').addClass('hidden');
-                        hideModalEditAddress_customer();
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'ข้อผิดพลาด!',
-                        text: 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
-                        icon: 'error',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                }
-            },
-            error: function(xhr) {
-                let errorMessage = 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล';
-                if (xhr.responseJSON && xhr.responseJSON.errors) {
-                    const errors = xhr.responseJSON.errors;
-                    errorMessage = '';
-                    for (const key in errors) {
-                        errorMessage += `${errors[key].join(', ')}\n`;
-                    }
-                }
-                Swal.fire({
-                    title: 'ข้อผิดพลาด!',
-                    text: errorMessage,
-                    icon: 'error',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-            },
-            complete: function() {
-                // เปิดใช้งานปุ่มอีกครั้ง
-                $('#updateAddressButton').prop('disabled', false);
-            }
-        });
     });
 
 
