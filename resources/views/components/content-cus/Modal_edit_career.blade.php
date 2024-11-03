@@ -161,7 +161,7 @@
 
     $(document).ready(function() {
 
-        function fetchCareerData() {
+        function fetchCareerDataCus() {
             $.ajax({
                 url: '/get-careers',
                 method: 'GET',
@@ -198,7 +198,7 @@
         }
 
         // เรียกใช้งานฟังก์ชันดึงข้อมูลอาชีพเมื่อโหลดหน้า
-        fetchCareerData();
+        fetchCareerDataCus();
 
         // ฟังก์ชันเปิด Modal แก้ไขข้อมูล
         window.openModal_Edit_career_customer = function(button) {
@@ -283,8 +283,8 @@
                             showConfirmButton: false
                         }).then(() => {
                             $('#modalEditCareer').fadeOut(300);
-                            // fetchCareerData();
-                            location.reload();
+                            fetchCareerData();
+                            // location.reload();
                         });
                     } else {
                         Swal.fire({
