@@ -253,14 +253,15 @@
                                                         </li>
                                                         <li>
                                                             <button data-id="${career.id}"
-                                                                    data-career-name="${career.Career_Cus}"
-                                                                    data-data-cus-id="${career.DataCus_id}"
-                                                                    data-workplace="${career.Workplace_Cus}"
-                                                                    data-income="${career.Income_Cus}"
-                                                                    data-before-income="${career.BeforeIncome_Cus}"
-                                                                    data-after-income="${career.AfterIncome_Cus}"
-                                                                    data-coordinates="${career.Coordinates}"
-                                                                    data-note="${career.IncomeNote_Cus}"
+                                                                    data-Status_Cus="${career.Status_Cus}"
+                                                                    data-DataCus_id="${career.DataCus_id}"
+                                                                    data-Career_Cus="${career.Career_Cus}"
+                                                                    data-Workplace_Cus="${career.Workplace_Cus}"
+                                                                    data-Income_Cus="${career.Income_Cus}"
+                                                                    data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+                                                                    data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+                                                                    data-Coordinates="${career.Coordinates}"
+                                                                    data-IncomeNote_Cus="${career.IncomeNote_Cus}"
                                                                     onclick="openModal_Edit_career_customer(this)">
                                                                     <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
                                                                 <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>

@@ -536,7 +536,7 @@
                         title: 'Success!',
                         text: response.success,
                         confirmButtonText: 'OK',
-                        timer: 5000, // ตั้งเวลา 5 วินาที
+                        timer: 1500, // ตั้งเวลา 1.5 วินาที
                         timerProgressBar: true
                     }).then((result) => {
                         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {

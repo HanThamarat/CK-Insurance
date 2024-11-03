@@ -160,7 +160,7 @@
     });
 
     $(document).ready(function() {
-        // ฟังก์ชันดึงข้อมูลอาชีพ
+
         function fetchCareerData() {
             $.ajax({
                 url: '/get-careers',
@@ -170,9 +170,8 @@
                     careerName.empty();
 
                     if (data.length > 0) {
-                        careerName.append($('<option>').val('').text('เลือกอาชีพ'));
+                        careerName.append($('<option>').val('').text('กรุณาเลื่อกอาชีพ'));
                         $.each(data, function(index, career) {
-                            // เก็บทั้ง Code และ Name ใน value โดยใช้ JSON
                             const careerValue = JSON.stringify({
                                 code: career.Code_Career,
                                 name: career.Name_Career
@@ -203,40 +202,45 @@
 
         // ฟังก์ชันเปิด Modal แก้ไขข้อมูล
         window.openModal_Edit_career_customer = function(button) {
+            // อ่านค่าจาก data attributes
             const careerData = {
                 id: button.dataset.id,
-                careerCode: button.dataset.careerCode,
-                careerName: button.dataset.careerName,
-                income: button.dataset.income,
-                beforeIncome: button.dataset.beforeIncome,
-                afterIncome: button.dataset.afterIncome,
-                workplace: button.dataset.workplace,
+                dataCusId: button.dataset.datacus_id,
+                careerCus: button.dataset.career_cus,
+                workplaceCus: button.dataset.workplace_cus,
+                incomeCus: button.dataset.income_cus,
+                beforeIncomeCus: button.dataset.beforeincome_cus,
+                afterIncomeCus: button.dataset.afterincome_cus,
                 coordinates: button.dataset.coordinates,
-                note: button.dataset.note,
-                status: button.dataset.status
+                incomeNoteCus: button.dataset.incomenote_cus,
+                statusCus: button.dataset.status_cus
             };
 
             // Set form values
             $('#careerIdInput').val(careerData.id);
 
-            // สร้าง value object สำหรับ select
-            const careerValue = JSON.stringify({
-                code: careerData.careerCode,
-                name: careerData.careerName
+            // ตั้งค่า select option สำหรับอาชีพ
+            const careerSelect = $('#careerName option').filter(function() {
+                const optionValue = JSON.parse($(this).val() || '{"code":"","name":""}');
+                return optionValue.code === careerData.careerCus;
             });
 
-            $('#careerName').val(careerValue);
-            $('#Income_Cus_edit').val(careerData.income);
-            $('#BeforeIncome_Cus_edit').val(careerData.beforeIncome);
-            $('#AfterIncome_Cus_edit').val(careerData.afterIncome);
-            $('#Workplace_Cus_edit').val(careerData.workplace);
+            if (careerSelect.length) {
+                $('#careerName').val(careerSelect.val());
+            }
+
+            // กำหนดค่าให้กับ input fields
+            $('#Income_Cus_edit').val(careerData.incomeCus);
+            $('#BeforeIncome_Cus_edit').val(careerData.beforeIncomeCus);
+            $('#AfterIncome_Cus_edit').val(careerData.afterIncomeCus);
+            $('#Workplace_Cus_edit').val(careerData.workplaceCus);
             $('#Coordinates_edit').val(careerData.coordinates);
-            $('#IncomeNote_Cus_edit').val(careerData.note);
+            $('#IncomeNote_Cus_edit').val(careerData.incomeNoteCus);
 
-            // Set radio button
-            $(`input[name="Status_Cus"][value="${careerData.status}"]`).prop('checked', true);
+            // Set radio button status
+            $(`input[name="Status_Cus"][value="${careerData.statusCus}"]`).prop('checked', true);
 
-            // Show modal
+            // แสดง modal
             $('#modalEditCareer')
                 .removeClass('modal-leave')
                 .addClass('modal-enter')
@@ -245,7 +249,7 @@
                 });
         };
 
-        // Handle form submission
+        // จัดการการส่งฟอร์ม
         $('#editCareerForm').on('submit', function(event) {
             event.preventDefault();
 
@@ -253,8 +257,8 @@
             const selectedCareer = JSON.parse($('#careerName').val() || '{"code":"","name":""}');
 
             const formData = {
-                Career_Cus: selectedCareer.code,
-                Career_Name: selectedCareer.name, // เพิ่ม field สำหรับชื่ออาชีพ
+                Career_Cus: selectedCareer.code + '  ' + selectedCareer.name,
+                Career_Name: selectedCareer.code + '  ' + selectedCareer.name,
                 Income_Cus: $('#Income_Cus_edit').val(),
                 BeforeIncome_Cus: $('#BeforeIncome_Cus_edit').val(),
                 AfterIncome_Cus: $('#AfterIncome_Cus_edit').val(),
@@ -279,6 +283,7 @@
                             showConfirmButton: false
                         }).then(() => {
                             $('#modalEditCareer').fadeOut(300);
+                            // fetchCareerData();
                             location.reload();
                         });
                     } else {
@@ -300,6 +305,15 @@
             });
         });
 
+        // ปุ่มปิด Modal
+        $('#closeModal_career_x').on('click', function() {
+            $('#modalEditCareer')
+                .removeClass('modal-enter-active')
+                .addClass('modal-leave')
+                .fadeOut(300, function() {
+                    $(this).removeClass('modal-leave');
+                });
+        });
 
         // ปิด Modal เมื่อคลิกนอก Modal
         $(window).on('click', function(event) {
@@ -314,6 +328,8 @@
         });
     });
 </script>
+
+
 
 
 
