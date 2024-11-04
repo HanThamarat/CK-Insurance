@@ -243,7 +243,17 @@
                                                         <legend>Actions</legend>
                                                         <ul>
                                                         <li>
-                                                            <button data-id="${career.id}" onclick="openModal_Show_career_customer(this)">
+                                                            <button data-id="${career.id}"
+                                                                    data-Status_Cus="${career.Status_Cus}"
+                                                                    data-DataCus_id="${career.DataCus_id}"
+                                                                    data-Career_Cus="${career.Career_Cus}"
+                                                                    data-Workplace_Cus="${career.Workplace_Cus}"
+                                                                    data-Income_Cus="${career.Income_Cus}"
+                                                                    data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+                                                                    data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+                                                                    data-Coordinates="${career.Coordinates}"
+                                                                    data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+                                                                    onclick="openModal_Show_career_customer(this)">
                                                             <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
                                                                 <circle cx="12" cy="12" r="3"></circle>
@@ -332,7 +342,7 @@
                                                         <i class="fas fa-bookmark text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>
                                                         <i class="fas fa-table text-success mb-1 h-5"></i>  <strong>รายได้</strong> : ${career.Income_Cus}<br>
                                                         <i class="fas fa-briefcase text-success mb-1 h-5"></i>  <strong>อาชีพ</strong> : ${career.Career_Cus}<br>
-                                                        <i class="fas fa-building text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>
+                                                        <!--<i class="fas fa-building text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>-->
                                                         <i class="fas fa-money-bill text-success mb-0 h-5"></i>  <strong>เงินเดือน</strong> : ${career.Income_Cus}
                                                     </p>
 
@@ -394,133 +404,133 @@
         // เรียกใช้ฟังก์ชันเพื่อดึงข้อมูลอาชีพเมื่อเริ่มต้น
         fetchCareerData();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
 
-        // ตรวจสอบการคลิกปุ่มบันทึก
-        $('#submitBtnCareer').on('click', function(event) {
-            event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
-            validateForm(); // เรียกใช้ฟังก์ชัน validateForm
-        });
+        // // ตรวจสอบการคลิกปุ่มบันทึก
+        // $('#submitBtnCareer').on('click', function(event) {
+        //     event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
+        //     validateForm(); // เรียกใช้ฟังก์ชัน validateForm
+        // });
 
-        function validateForm() {
-            var isValid = true; // เริ่มต้นสถานะเป็นจริง
-            $('.error').remove(); // ลบข้อความแสดงข้อผิดพลาดก่อนหน้า
+        // function validateForm() {
+        //     var isValid = true; // เริ่มต้นสถานะเป็นจริง
+        //     $('.error').remove(); // ลบข้อความแสดงข้อผิดพลาดก่อนหน้า
 
-            // ตรวจสอบฟิลด์ที่จำเป็น
-            const fields = [{
-                    id: '#Career_Cus',
-                    message: 'กรุณาเลือกอาชีพ'
-                },
-                {
-                    id: '#Income_Cus',
-                    message: 'กรุณากรอกรายได้'
-                },
-                {
-                    id: '#BeforeIncome_Cus',
-                    message: 'กรุณากรอกหักค่าใช้จ่าย'
-                },
-                {
-                    id: '#AfterIncome_Cus',
-                    message: 'กรุณากรอกคงเหลือ'
-                },
-                {
-                    id: '#Workplace_Cus',
-                    message: 'กรุณากรอกสถานที่ทำงาน'
-                },
-                {
-                    id: '#Coordinates',
-                    message: 'กรุณากรอกพิกัด'
-                },
-                {
-                    id: '#IncomeNote_Cus',
-                    message: 'กรุณากรอกรายละเอียด'
-                }
-            ];
+        //     // ตรวจสอบฟิลด์ที่จำเป็น
+        //     const fields = [{
+        //             id: '#Career_Cus',
+        //             message: 'กรุณาเลือกอาชีพ'
+        //         },
+        //         {
+        //             id: '#Income_Cus',
+        //             message: 'กรุณากรอกรายได้'
+        //         },
+        //         {
+        //             id: '#BeforeIncome_Cus',
+        //             message: 'กรุณากรอกหักค่าใช้จ่าย'
+        //         },
+        //         {
+        //             id: '#AfterIncome_Cus',
+        //             message: 'กรุณากรอกคงเหลือ'
+        //         },
+        //         {
+        //             id: '#Workplace_Cus',
+        //             message: 'กรุณากรอกสถานที่ทำงาน'
+        //         },
+        //         {
+        //             id: '#Coordinates',
+        //             message: 'กรุณากรอกพิกัด'
+        //         },
+        //         {
+        //             id: '#IncomeNote_Cus',
+        //             message: 'กรุณากรอกรายละเอียด'
+        //         }
+        //     ];
 
-            fields.forEach(function(field) {
-                if ($(field.id).val().trim() === '') {
-                    $(field.id).addClass('border-red-500');
-                    $(field.id).after(
-                        `<span class="error text-red-500 text-xs flex items-center mt-1">
-                            <i class="fas fa-exclamation-circle mr-2"></i>${field.message}
-                        </span>`
-                    );
-                    isValid = false;
-                } else {
-                    $(field.id).removeClass('border-red-500');
-                }
-            });
+        //     fields.forEach(function(field) {
+        //         if ($(field.id).val().trim() === '') {
+        //             $(field.id).addClass('border-red-500');
+        //             $(field.id).after(
+        //                 `<span class="error text-red-500 text-xs flex items-center mt-1">
+        //                     <i class="fas fa-exclamation-circle mr-2"></i>${field.message}
+        //                 </span>`
+        //             );
+        //             isValid = false;
+        //         } else {
+        //             $(field.id).removeClass('border-red-500');
+        //         }
+        //     });
 
-            if (!isValid) {
-                setTimeout(function() {
-                    $('.error').fadeOut(1000, function() {
-                        $(this).remove();
-                    });
-                }, 2000);
-                return; // หยุดการทำงานถ้าฟอร์มไม่ valid
-            }
+        //     if (!isValid) {
+        //         setTimeout(function() {
+        //             $('.error').fadeOut(1000, function() {
+        //                 $(this).remove();
+        //             });
+        //         }, 2000);
+        //         return; // หยุดการทำงานถ้าฟอร์มไม่ valid
+        //     }
 
-            // หากฟอร์ม valid ส่งข้อมูล
-            submitForm();
-        }
+        //     // หากฟอร์ม valid ส่งข้อมูล
+        //     submitForm();
+        // }
 
-        function submitForm() {
-            var formData = $('#careerForm').serialize(); // แปลงฟอร์มเป็นข้อมูลที่สามารถส่งได้
+        // function submitForm() {
+        //     var formData = $('#careerForm').serialize(); // แปลงฟอร์มเป็นข้อมูลที่สามารถส่งได้
 
-            $.ajax({
-                url: '{{ route('career.store') }}', // URL ที่ถูกต้อง
-                method: 'POST',
-                data: formData,
-                success: function(response) {
-                    Swal.fire({
-                        title: 'สำเร็จ!',
-                        text: 'สร้างอาชีพลูกค้าสำเร็จแล้ว!',
-                        icon: 'success',
-                        confirmButtonText: 'ตกลง'
-                    }).then(() => {
-                        fetchCareerData(); // รีเฟรชข้อมูลหลังจากสำเร็จ
-                    });
-                    $('#careerForm')[0].reset(); // รีเซ็ตฟอร์ม
-                },
-                error: function(xhr) {
-                    var errors = xhr.responseJSON.errors;
-                    if (errors) {
-                        $.each(errors, function(key, value) {
-                            Swal.fire({
-                                title: 'ข้อผิดพลาด!',
-                                text: value[0],
-                                icon: 'error',
-                                confirmButtonText: 'ตกลง'
-                            });
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'ข้อผิดพลาด!',
-                            text: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง.',
-                            icon: 'error',
-                            confirmButtonText: 'ตกลง'
-                        });
-                    }
-                }
-            });
-        }
+        //     $.ajax({
+        //         url: '{{ route('career.store') }}', // URL ที่ถูกต้อง
+        //         method: 'POST',
+        //         data: formData,
+        //         success: function(response) {
+        //             Swal.fire({
+        //                 title: 'สำเร็จ!',
+        //                 text: 'สร้างอาชีพลูกค้าสำเร็จแล้ว!',
+        //                 icon: 'success',
+        //                 confirmButtonText: 'ตกลง'
+        //             }).then(() => {
+        //                 fetchCareerData(); // รีเฟรชข้อมูลหลังจากสำเร็จ
+        //             });
+        //             $('#careerForm')[0].reset(); // รีเซ็ตฟอร์ม
+        //         },
+        //         error: function(xhr) {
+        //             var errors = xhr.responseJSON.errors;
+        //             if (errors) {
+        //                 $.each(errors, function(key, value) {
+        //                     Swal.fire({
+        //                         title: 'ข้อผิดพลาด!',
+        //                         text: value[0],
+        //                         icon: 'error',
+        //                         confirmButtonText: 'ตกลง'
+        //                     });
+        //                 });
+        //             } else {
+        //                 Swal.fire({
+        //                     title: 'ข้อผิดพลาด!',
+        //                     text: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง.',
+        //                     icon: 'error',
+        //                     confirmButtonText: 'ตกลง'
+        //                 });
+        //             }
+        //         }
+        //     });
+        // }
 
-        // หากต้องการจัดการกับปุ่มยกเลิก
-        $('#closeModal_career_button').on('click', function() {
-            // ปิดโมดัลหรือทำการใด ๆ ที่ต้องการ
-        });
+        // // หากต้องการจัดการกับปุ่มยกเลิก
+        // $('#closeModal_career_button').on('click', function() {
+        //     // ปิดโมดัลหรือทำการใด ๆ ที่ต้องการ
+        // });
 
-        // เพิ่มเหตุการณ์สำหรับการค้นหา
-        $('#searchInput').on('keyup', function() {
-            let value = $(this).val().toLowerCase();
-            $('.career-card').filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-            });
-        });
+        // // เพิ่มเหตุการณ์สำหรับการค้นหา
+        // $('#searchInput').on('keyup', function() {
+        //     let value = $(this).val().toLowerCase();
+        //     $('.career-card').filter(function() {
+        //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        //     });
+        // });
     });
 </script>
 

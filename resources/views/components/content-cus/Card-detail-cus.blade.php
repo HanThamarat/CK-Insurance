@@ -197,6 +197,7 @@
                 </div>
 
                 @include('components.content-cus.Modal_edit_career')
+                @include('components.content-cus.Modal_show_career')
 
 
                 <div class="flex flex-col items-center mt-0 career-master">

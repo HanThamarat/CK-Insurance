@@ -35,13 +35,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                     <!-- Left Column -->
                     <div class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-2">
+                        {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-2">
                             <div
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
                                     <input class="form-check-input text-lg" type="radio" value="ที่อยู่ปัจจุบัน"
-                                        name="Type_Adds_edit" id="adds-0">
-                                    <label class="form-check-label text-base text-gray-700" for="adds-0">
+                                        name="Type_Adds" id="Type_Adds_edit">
+                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
                                         ที่อยู่ปัจจุบัน
                                     </label>
                                 </div>
@@ -50,8 +50,8 @@
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
                                     <input class="form-check-input text-lg" type="radio" value="ที่อยู่ส่งเอกสาร"
-                                        name="Type_Adds_edit" id="adds-1">
-                                    <label class="form-check-label text-base text-gray-700" for="adds-1">
+                                        name="Type_Adds" id="Type_Adds_edit">
+                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
                                         ที่อยู่ส่งเอกสาร
                                     </label>
                                 </div>
@@ -60,13 +60,47 @@
                                 class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
                                 <div class="form-check">
                                     <input class="form-check-input text-lg" type="radio" value="ที่อยู่ตามสำเนา"
-                                        name="Type_Adds_edit" id="adds-2">
-                                    <label class="form-check-label text-base text-gray-700" for="adds-2">
+                                        name="Type_Adds" id="Type_Adds_edit">
+                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
+                                        ที่อยู่ตามสำเนา
+                                    </label>
+                                </div>
+                            </div>
+                        </div> --}}
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-2">
+                            <div
+                                class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
+                                <div class="form-check">
+                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ปัจจุบัน"
+                                        name="Type_Adds" id="Type_Adds_current">
+                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_current">
+                                        ที่อยู่ปัจจุบัน
+                                    </label>
+                                </div>
+                            </div>
+                            <div
+                                class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
+                                <div class="form-check">
+                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ส่งเอกสาร"
+                                        name="Type_Adds" id="Type_Adds_document">
+                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_document">
+                                        ที่อยู่ส่งเอกสาร
+                                    </label>
+                                </div>
+                            </div>
+                            <div
+                                class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
+                                <div class="form-check">
+                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ตามสำเนา"
+                                        name="Type_Adds" id="Type_Adds_copy">
+                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_copy">
                                         ที่อยู่ตามสำเนา
                                     </label>
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="relative">
                             <img src="{{ asset('img/home2.jpg') }}" alt="theme image" class="avatar-sm">
@@ -81,11 +115,11 @@
 
 
                         <div class="relative">
-                            <input type="text" id="Registration_number" name="Registration_number"
+                            <input type="text" id="Registration_number_edit" name="Registration_number"
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                 placeholder="----- -----" oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
                                 oninput="this.setCustomValidity('')">
-                            <label for="Registration_number"
+                            <label for="Registration_number_edit"
                                 class="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                 เลขทะเบียนบ้าน
                             </label>
@@ -94,7 +128,7 @@
 
                         <script>
                             $(document).ready(function() {
-                                $('#Registration_number').mask('00000000000'); // กำหนดรูปแบบเป็น 11 หลัก
+                                $('#Registration_number_edit').mask('00000000000'); // กำหนดรูปแบบเป็น 11 หลัก
                             });
                         </script>
 
@@ -318,8 +352,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-
-
     function openModal_Edit_address_customer(button) {
         const addressId = $(button).data('id');
 
@@ -330,7 +362,8 @@
                 // เติมข้อมูลในฟิลด์ต่างๆ
                 $('#addressId').val(response.id);
                 $('#addressIdCus').val(response.DataCus_id);
-                $('#Registration_number').val(response.Registration_number);
+                $('input[name="Type_Adds"][value="' + response.Type_Adds + '"]').prop('checked', true);
+                $('#Registration_number_edit').val(response.Registration_number);
                 $('#houseNumber_Adds_edit').val(response.houseNumber_Adds);
                 $('#road_Adds_edit').val(response.road_Adds);
                 $('#village_Adds_edit').val(response.village_Adds);
@@ -506,12 +539,12 @@
                 // ข้อมูลที่คุณจะส่งไป
                 id: $('#addressId').val(),
                 DataCus_id: $('#DataCus_id').val(),
-                Registration_number: $('#Registration_number').val(),
+                Type_Adds: $('input[name="Type_Adds"]:checked').val(), // ใช้ค่าที่เลือกจาก radio button
+                Registration_number: $('#Registration_number_edit').val(),
                 date_Adds: $('#date_Adds').val(),
                 Code_Adds: $('#Code_Adds').val(),
                 Ordinal_Adds: $('#Ordinal_Adds').val(),
                 Status_Adds: $('#Status_Adds').val(),
-                Type_Adds: $('#Type_Adds').val(),
                 houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
                 houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
                 building_Adds: $('#building_Adds_edit').val(),
@@ -593,3 +626,22 @@
         });
     }
 </script>
+
+
+
+{{-- // Type_Adds: $('#Type_Adds_edit').val(), --}}
+
+{{-- // error: function(xhr) {
+//     let errorMessage = 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล';
+//     if (xhr.responseJSON && xhr.responseJSON.errors) {
+//         const errors = xhr.responseJSON.errors;
+//         errorMessage = Object.values(errors).flat().join(', ');
+//     }
+//     Swal.fire({
+//         title: 'ข้อผิดพลาด!',
+//         text: errorMessage,
+//         icon: 'error',
+//         timer: 1500,
+//         showConfirmButton: false
+//     });
+// }, --}}

@@ -1,9 +1,9 @@
-<div id="modalEditCareer" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+<div id="modalShowCareer" class="fixed inset-0 flex items-center justify-center z-50 hidden">
     <div class="flex items-center justify-center w-full h-full">
         <div
             class="relative bg-white  mt-[-15] rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
             <div id="header" class="sticky top-0 z-10 p-0 transition-bg duration-300 bg-white p-2">
-                <button id="closeModal_career_x"
+                <button id="closeModal_show_career_x"
                     class="absolute top-2 right-2 p-1 text-gray-400 hover:text-gray-600 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -16,14 +16,14 @@
                     <img src="{{ asset('img/career.gif') }}" alt="career icon" class="avatar-sm"
                         style="width:50px;height:50px">
                     <div class="flex-grow">
-                        <h5 class="text-orange-400 font-semibold">แก้ไขข้อมูลอาชีพลูกค้า</h5>
-                        <p class="text-muted font-semibold text-sm mt-1">(Edit Customers Career)</p>
+                        <h5 class="text-orange-400 font-semibold">แสดงข้อมูลอาชีพลูกค้า</h5>
+                        <p class="text-muted font-semibold text-sm mt-1">(Show Customers Career)</p>
                         <div class="border-b-2 border-primary mt-2 w-full"></div>
                     </div>
                 </div>
             </div>
 
-            <form id="editCareerForm">
+            <form id="showCareerForm">
                 <div class="p-0">
                     <input type="hidden" id="careerIdInput" />
                 </div>
@@ -161,7 +161,7 @@
 
     $(document).ready(function() {
 
-        function fetchCareerDataCus() {
+        function showCareerDataCus() {
             $.ajax({
                 url: '/get-careers',
                 method: 'GET',
@@ -199,10 +199,10 @@
         }
 
         // เรียกใช้งานฟังก์ชันดึงข้อมูลอาชีพเมื่อโหลดหน้า
-        fetchCareerDataCus();
+        showCareerDataCus();
 
         // ฟังก์ชันเปิด Modal แก้ไขข้อมูล
-        window.openModal_Edit_career_customer = function(button) {
+        window.openModal_Show_career_customer = function(button) {
             // อ่านค่าจาก data attributes
             const careerData = {
                 id: button.dataset.id,
@@ -242,7 +242,7 @@
             $(`input[name="Status_Cus"][value="${careerData.statusCus}"]`).prop('checked', true);
 
             // แสดง modal
-            $('#modalEditCareer')
+            $('#modalShowCareer')
                 .removeClass('modal-leave')
                 .addClass('modal-enter')
                 .fadeIn(0, function() {
@@ -251,7 +251,7 @@
         };
 
         // จัดการการส่งฟอร์ม
-        $('#editCareerForm').on('submit', function(event) {
+        $('#showCareerForm').on('submit', function(event) {
             event.preventDefault();
 
             const careerId = $('#careerIdInput').val();
@@ -283,7 +283,7 @@
                             timer: 1500,
                             showConfirmButton: false
                         }).then(() => {
-                            $('#modalEditCareer').fadeOut(300);
+                            $('#modalShowCareer').fadeOut(300);
                             // fetchCareerData();
                             location.reload();
                         });
@@ -308,8 +308,8 @@
 
 
         // ปุ่มปิด Modal
-        $('#closeModal_career_x').on('click', function() {
-            $('#modalEditCareer')
+        $('#closeModal_show_career_x').on('click', function() {
+            $('#modalShowCareer')
                 .removeClass('modal-enter-active')
                 .addClass('modal-leave')
                 .fadeOut(300, function() {
@@ -319,8 +319,8 @@
 
         // ปิด Modal เมื่อคลิกนอก Modal
         $(window).on('click', function(event) {
-            if ($(event.target).is('#modalEditCareer')) {
-                $('#modalEditCareer')
+            if ($(event.target).is('#modalShowCareer')) {
+                $('#modalShowCareer')
                     .removeClass('modal-enter-active')
                     .addClass('modal-leave')
                     .fadeOut(300, function() {
@@ -367,7 +367,7 @@
     }
 
     /* สำหรับ modal */
-    #modalEditCareer {
+    #modalShowCareer {
         display: none;
         /* ซ่อน modal เริ่มต้น */
         position: fixed;

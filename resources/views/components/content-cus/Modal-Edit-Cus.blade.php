@@ -95,7 +95,7 @@
                                             oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
                                             oninput="this.setCustomValidity('')" value="{{ $customer->last_name }}">
                                         <label for="last_name" id="lastname_name-label"
-                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
+                                            class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                             นามสกุล
                                         </label>
 
