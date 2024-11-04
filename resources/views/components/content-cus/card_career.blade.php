@@ -340,16 +340,25 @@
                         </div>`;
                         });
                     } else {
-                        html = `<p class="text-center text-muted">ไม่พบข้อมูลอาชีพ</p>`;
+                        html = `<p hidden class="text-center text-muted">ไม่พบข้อมูลอาชีพ</p>`;
                     }
 
                     $('#career-container').html(html);
 
                     // ซ่อน career-master ถ้ามีการ์ด
                     if (hasCareerCards) {
+                        // $('.career-master').hide();
+
                         $('.career-master').hide();
+                        $('#prev-master-2').show();
+                        $('#next-master-2').show();
+
                     } else {
+                        // $('.career-master').show();
+
                         $('.career-master').show();
+                        $('#prev-master-2').hide();
+                        $('#next-master-2').hide();
                     }
                 },
                 error: function(xhr, status, error) {

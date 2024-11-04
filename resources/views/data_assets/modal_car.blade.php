@@ -1493,7 +1493,8 @@
                             timer: 1500
                         }).then(() => {
                             // ทำการ redirect หรือรีเฟรชหน้า
-                            window.location.href = "/data_assets";
+                            // window.location.href = "/data_assets";
+                            window.location.href = "{{ url('customer/profile') }}/" + customerId;
                         });
                     },
                     error: function(jqXHR) {

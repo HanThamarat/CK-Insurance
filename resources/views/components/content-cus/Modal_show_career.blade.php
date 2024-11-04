@@ -1,52 +1,56 @@
 <div id="modalShowCareer" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-    <div class="flex items-center justify-center w-full h-full">
+    <!-- Backdrop with blur effect -->
+    <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+    <div class="flex items-center justify-center w-full h-full p-4">
         <div
-            class="relative bg-white  mt-[-15] rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
-            <div id="header" class="sticky top-0 z-10 p-0 transition-bg duration-300 bg-white p-2">
+            class="relative bg-gradient-to-br from-white to-orange-50 rounded-2xl w-full max-w-6xl mx-4 p-8 max-h-[90vh] flex flex-col overflow-y-auto shadow-xl transform transition-all duration-300 ease-out scale-95 opacity-0 show:scale-100 show:opacity-100">
+            <!-- Header -->
+            <div id="header" class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm mb-6">
                 <button id="closeModal_show_career_x"
-                    class="absolute top-2 right-2 p-1 text-gray-400 hover:text-gray-600 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                    class="absolute top-4 right-4 p-2 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
                     </svg>
                 </button>
 
-                <div class="flex items-center space-x-3">
-                    <img src="{{ asset('img/career.gif') }}" alt="career icon" class="avatar-sm"
-                        style="width:50px;height:50px">
+                <div class="flex items-center space-x-4 p-4">
+                    <div class="p-3 bg-orange-100 rounded-xl">
+                        <img src="{{ asset('img/career.gif') }}" alt="career icon"
+                            class="w-12 h-12 object-cover rounded-lg">
+                    </div>
                     <div class="flex-grow">
-                        <h5 class="text-orange-400 font-semibold">แสดงข้อมูลอาชีพลูกค้า</h5>
-                        <p class="text-muted font-semibold text-sm mt-1">(Show Customers Career)</p>
-                        <div class="border-b-2 border-primary mt-2 w-full"></div>
+                        <h5
+                            class="text-xl font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                            แสดงข้อมูลอาชีพลูกค้า</h5>
+                        <p class="text-gray-500 text-sm mt-1">(Show Customers Career)</p>
+                        <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
                     </div>
                 </div>
             </div>
 
-            <form id="showCareerForm">
-                <div class="p-0">
-                    <input type="hidden" id="careerIdInput" />
-                </div>
-
+            <form id="showCareerForm" class="space-y-6">
+                <!-- Radio Buttons -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                             <div
-                                class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
+                                class="bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-all duration-300 border border-orange-100">
                                 <div class="form-check">
-                                    <input class="form-check-input text-lg" type="radio" value="กำหนดเป็นอาชีพหลัก"
-                                        name="Status_Cus" id="adds-0">
-                                    <label class="form-check-label text-base text-gray-700" for="adds-0">
+                                    <input class="w-4 h-4 text-orange-500 border-orange-300 focus:ring-orange-500"
+                                        type="radio" value="กำหนดเป็นอาชีพหลัก" name="Status_Cus" id="adds-0" disabled>
+                                    <label class="ml-2 text-gray-600 text-sm" for="adds-0">
                                         กำหนดเป็นอาชีพหลัก
                                     </label>
                                 </div>
                             </div>
                             <div
-                                class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
+                                class="bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-all duration-300 border border-orange-100">
                                 <div class="form-check">
-                                    <input class="form-check-input text-lg" type="radio" value="กำหนดเป็นอาชีพรอง"
-                                        name="Status_Cus" id="adds-1">
-                                    <label class="form-check-label text-base text-gray-700" for="adds-1">
+                                    <input class="w-4 h-4 text-orange-500 border-orange-300 focus:ring-orange-500"
+                                        type="radio" value="กำหนดเป็นอาชีพรอง" name="Status_Cus" id="adds-1" disabled>
+                                    <label class="ml-2 text-gray-600 text-sm" for="adds-1">
                                         กำหนดเป็นอาชีพรอง
                                     </label>
                                 </div>
@@ -54,104 +58,124 @@
                         </div>
 
                         <div class="relative">
-                            <img src="{{ asset('img/career.jpg') }}" alt="theme images" class="avatar-sm">
+                            <img src="{{ asset('img/career.jpg') }}" alt="theme images"
+                                class="w-full h-60 object-cover rounded-2xl shadow-md">
                         </div>
                     </div>
 
-                    <input type="text" id="dataCusIdField" name="DataCus_id" hidden value="{{ $customer->id }}">
-
-                    <div class="space-y-4 mt-2">
+                    <div class="space-y-5">
+                        <!-- Career Input -->
                         <div class="relative">
-                            {{-- <select id="careerNameShow" name="Career_Cus"
-                                class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
-                                <option value="">อาชีพ</option>
-                            </select> --}}
-
                             <input type="text" id="careerCusShow" name="Career_Cus"
-                                class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                placeholder=" ">
+                                class="peer w-full px-3 py-2 text-sm rounded-xl border border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-300"
+                                placeholder=" " disabled>
                             <label for="careerCusShow"
-                                class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                class="absolute left-2 -top-2 px-2 bg-white text-xs font-medium text-orange-500 transition-all duration-300 rounded-lg">
                                 อาชีพ
                             </label>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <!-- Income Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div class="relative">
                                 <input type="text" id="Income_Cus_show" name="Income_Cus"
-                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" ">
-                                <label for="Income_Cus_show"
-                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    class="peer w-full px-3 py-2 text-sm rounded-xl border border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-300"
+                                    placeholder=" " disabled>
+                                <label
+                                    class="absolute left-2 -top-2 px-2 bg-white text-xs font-medium text-orange-500 transition-all duration-300 rounded-lg">
                                     รายได้
                                 </label>
                             </div>
 
                             <div class="relative">
                                 <input type="text" id="BeforeIncome_Cus_show" name="BeforeIncome_Cus"
-                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" ">
-                                <label for="BeforeIncome_Cus_show"
-                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    class="peer w-full px-3 py-2 text-sm rounded-xl border border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-300"
+                                    placeholder=" " disabled>
+                                <label
+                                    class="absolute left-2 -top-2 px-2 bg-white text-xs font-medium text-orange-500 transition-all duration-300 rounded-lg">
                                     หักค่าใช้จ่าย
                                 </label>
                             </div>
 
                             <div class="relative">
                                 <input type="text" id="AfterIncome_Cus_show" name="AfterIncome_Cus"
-                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" ">
-                                <label for="AfterIncome_Cus_show"
-                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    class="peer w-full px-3 py-2 text-sm rounded-xl border border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-300"
+                                    placeholder=" " disabled>
+                                <label
+                                    class="absolute left-2 -top-2 px-2 bg-white text-xs font-medium text-orange-500 transition-all duration-300 rounded-lg">
                                     คงเหลือ
                                 </label>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <!-- Workplace Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div class="relative">
                                 <input type="text" id="Workplace_Cus_show" name="Workplace_Cus"
-                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" ">
-                                <label for="Workplace_Cus_show"
-                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                    class="peer w-full px-3 py-2 text-sm rounded-xl border border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-300"
+                                    placeholder=" " disabled>
+                                <label
+                                    class="absolute left-2 -top-2 px-2 bg-white text-xs font-medium text-orange-500 transition-all duration-300 rounded-lg">
                                     สถานที่ทำงาน
                                 </label>
                             </div>
 
                             <div class="relative">
                                 <input type="text" id="Coordinates_show" name="Coordinates"
-                                    class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                    class="peer w-full px-3 py-2 text-sm rounded-xl border border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50 transition-all duration-300"
                                     placeholder=" ">
-                                <label for="Coordinates_show"
-                                    class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                <label
+                                    class="absolute left-2 -top-2 px-2 bg-white text-xs font-medium text-orange-500 transition-all duration-300 rounded-lg">
                                     พิกัด
                                 </label>
                             </div>
                         </div>
 
+                        <!-- Notes Textarea -->
                         <div class="relative">
-                            <textarea id="IncomeNote_Cus_show" name="IncomeNote_Cus" rows="8"
-                                class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                placeholder=" "></textarea>
-                            <label for="IncomeNote_Cus_show"
-                                class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                            <textarea id="IncomeNote_Cus_show" name="IncomeNote_Cus" rows="5"
+                                class="peer w-full px-3 py-2 text-sm rounded-xl border border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-300"
+                                placeholder=" " disabled></textarea>
+                            <label
+                                class="absolute left-2 -top-2 px-2 bg-white text-xs font-medium text-orange-500 transition-all duration-300 rounded-lg">
                                 รายละเอียด
                             </label>
-                        </div>
-
-                        <div class="relative flex justify-end space-x-2">
-                            <button type="submit" id="submitEditBtnCareer"
-                                class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 focus:outline-none">
-                                บันทึกข้อมูล
-                            </button>
                         </div>
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
+
+<style>
+    .show\:scale-100.show\:opacity-100 {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    /* Custom scrollbar */
+    /* .overflow-y-auto {
+        scrollbar-width: thin;
+        scrollbar-color: #fb923c #fff;
+    } */
+
+    .overflow-y-auto::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .overflow-y-auto::-webkit-scrollbar-track {
+        background: #fff;
+        border-radius: 20px;
+    }
+
+    .overflow-y-auto::-webkit-scrollbar-thumb {
+        background-color: #fb923c;
+        border-radius: 20px;
+        border: 2px solid #fff;
+    }
+</style>
 
 
 
@@ -223,60 +247,60 @@
         };
 
         // จัดการการส่งฟอร์ม
-        $('#showCareerForm').on('submit', function(event) {
-            event.preventDefault();
+        // $('#showCareerForm').on('submit', function(event) {
+        //     event.preventDefault();
 
-            const careerId = $('#careerIdInput').val();
-            const selectedCareer = JSON.parse($('#careerNameShow').val() || '{"code":"","name":""}');
+        //     const careerId = $('#careerIdInput').val();
+        //     const selectedCareer = JSON.parse($('#careerNameShow').val() || '{"code":"","name":""}');
 
-            const formData = {
-                Career_Cus: selectedCareer.code + '  ' + selectedCareer.name,
-                Career_Name: selectedCareer.code + '  ' + selectedCareer.name,
-                Income_Cus: $('#Income_Cus_show').val(),
-                BeforeIncome_Cus: $('#BeforeIncome_Cus_show').val(),
-                AfterIncome_Cus: $('#AfterIncome_Cus_show').val(),
-                Workplace_Cus: $('#Workplace_Cus_show').val(),
-                Coordinates: $('#Coordinates_show').val(),
-                IncomeNote_Cus: $('#IncomeNote_Cus_show').val(),
-                Status_Cus: $('input[name="Status_Cus"]:checked').val()
-            };
+        //     const formData = {
+        //         Career_Cus: selectedCareer.code + '  ' + selectedCareer.name,
+        //         Career_Name: selectedCareer.code + '  ' + selectedCareer.name,
+        //         Income_Cus: $('#Income_Cus_show').val(),
+        //         BeforeIncome_Cus: $('#BeforeIncome_Cus_show').val(),
+        //         AfterIncome_Cus: $('#AfterIncome_Cus_show').val(),
+        //         Workplace_Cus: $('#Workplace_Cus_show').val(),
+        //         Coordinates: $('#Coordinates_show').val(),
+        //         IncomeNote_Cus: $('#IncomeNote_Cus_show').val(),
+        //         Status_Cus: $('input[name="Status_Cus"]:checked').val()
+        //     };
 
-            $.ajax({
-                url: '/career/update/' + careerId,
-                method: 'POST',
-                data: JSON.stringify(formData),
-                contentType: 'application/json',
-                success: function(response) {
-                    if (response.success) {
-                        Swal.fire({
-                            title: 'สำเร็จ!',
-                            text: 'อัพเดทข้อมูลเรียบร้อยแล้ว',
-                            icon: 'success',
-                            timer: 1500,
-                            showConfirmButton: false
-                        }).then(() => {
-                            $('#modalShowCareer').fadeOut(300);
-                            // fetchCareerData();
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'ข้อผิดพลาด!',
-                            text: response.message ||
-                                'เกิดข้อผิดพลาดในการบันทึกข้อมูล',
-                            icon: 'error'
-                        });
-                    }
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        title: 'ข้อผิดพลาด!',
-                        text: 'เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์',
-                        icon: 'error'
-                    });
-                }
-            });
-        });
+        //     // $.ajax({
+        //     //     url: '/career/update/' + careerId,
+        //     //     method: 'POST',
+        //     //     data: JSON.stringify(formData),
+        //     //     contentType: 'application/json',
+        //     //     success: function(response) {
+        //     //         if (response.success) {
+        //     //             Swal.fire({
+        //     //                 title: 'สำเร็จ!',
+        //     //                 text: 'อัพเดทข้อมูลเรียบร้อยแล้ว',
+        //     //                 icon: 'success',
+        //     //                 timer: 1500,
+        //     //                 showConfirmButton: false
+        //     //             }).then(() => {
+        //     //                 $('#modalShowCareer').fadeOut(300);
+        //     //                 // fetchCareerData();
+        //     //                 location.reload();
+        //     //             });
+        //     //         } else {
+        //     //             Swal.fire({
+        //     //                 title: 'ข้อผิดพลาด!',
+        //     //                 text: response.message ||
+        //     //                     'เกิดข้อผิดพลาดในการบันทึกข้อมูล',
+        //     //                 icon: 'error'
+        //     //             });
+        //     //         }
+        //     //     },
+        //     //     error: function(xhr, status, error) {
+        //     //         Swal.fire({
+        //     //             title: 'ข้อผิดพลาด!',
+        //     //             text: 'เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์',
+        //     //             icon: 'error'
+        //     //         });
+        //     //     }
+        //     // });
+        // });
 
 
         // ปุ่มปิด Modal
@@ -284,7 +308,7 @@
             $('#modalShowCareer')
                 .removeClass('modal-enter-active')
                 .addClass('modal-leave')
-                .fadeOut(300, function() {
+                .fadeOut(10, function() {
                     $(this).removeClass('modal-leave');
                 });
         });
@@ -295,7 +319,7 @@
                 $('#modalShowCareer')
                     .removeClass('modal-enter-active')
                     .addClass('modal-leave')
-                    .fadeOut(300, function() {
+                    .fadeOut(10, function() {
                         $(this).removeClass('modal-leave');
                     });
             }
@@ -360,3 +384,8 @@
         position: relative;
     }
 </style>
+
+
+
+
+

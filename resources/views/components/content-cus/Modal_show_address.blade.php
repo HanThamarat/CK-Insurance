@@ -1,24 +1,17 @@
+
+
 <!-- Address Display Modal -->
 <div id="modal_show_address_customer" class="fixed inset-0 hidden bg-black bg-opacity-50 z-50">
     <div class="flex items-center justify-center w-full h-full">
         <div class="relative bg-white rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
             <!-- Header -->
             <div class="flex items-center justify-between mb-4 space-x-3">
-                {{-- <div class="flex items-center space-x-3">
-                    <img src="{{ asset('img/map.gif') }}" alt="Location icon" class="w-12 h-12">
-                    <div class="flex-1 relative"> <!-- ใช้ relative เพื่อให้ div ที่มีเส้นขอบเป็น absolute ได้ -->
-                        <h5 class="text-orange-500 font-semibold text-base">แสดงข้อมูลที่อยู่ลูกค้า</h5>
-                        <p class="text-gray-600 text-sm">(Customer Address Details)</p>
-                        <div class="border-b-2 border-primary mt-2 absolute left-0 right-0"></div> <!-- ใช้ absolute และกำหนด left, right -->
-                    </div>
-                </div> --}}
-
-                <img src="{{ asset('img/map.gif') }}" alt="career icon" class="avatar-sm" style="width:50px;height:50px">
+                <img src="{{ asset('img/map.gif') }}" alt="career icon" class="w-12 h-12 rounded-full">
 
                 <div class="flex-grow">
-                    <h5 class="text-orange-400 font-semibold">แสดงข้อมูลที่อยู่ลูกค้า</h5>
-                    <p class="text-muted font-semibold text-sm mt-1">(Show Customers Address)</p>
-                    <div class="border-b-2 border-primary mt-2 w-full"></div>
+                    <h5 class="text-orange-400 font-semibold text-lg">แสดงข้อมูลที่อยู่ลูกค้า</h5>
+                    <p class="text-gray-600 font-medium text-sm">(Show Customer Address)</p>
+                    <div class="border-b-2 border-orange-400 mt-1 w-full"></div>
                 </div>
                 <button onclick="hideModal_show_address()" class="text-gray-500 hover:text-gray-700">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -304,7 +297,7 @@
                     .css('opacity', 0)
                     .animate({
                         opacity: 1
-                    }, 300);
+                    }, 100);
             },
             error: function(xhr) {
                 console.error('Error fetching address:', xhr.responseText);
@@ -327,7 +320,7 @@
         $('#modal_show_address_customer')
             .animate({
                 opacity: 0
-            }, 300, function() {
+            }, 100, function() {
                 $(this).addClass('hidden');
             });
     }
