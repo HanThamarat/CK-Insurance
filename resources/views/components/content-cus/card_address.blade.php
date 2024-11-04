@@ -305,13 +305,14 @@
                                         <div class="p-4">
                                             <div class="flex">
                                                 <div class="flex-1">
-                                                    <p><strong><i class="fas fa-home"></i> ที่อยู่ : </strong>${houseNumber}</p>
-                                                    <p><strong><i class="fas fa-map-marker-alt"></i> จังหวัด : </strong>${province}</p>
-                                                    <p><strong><i class="fas fa-map"></i> อำเภอ : </strong>${district}</p>
-                                                    <p><strong><i class="fas fa-map-signs"></i> ตำบล : </strong>${tambon}</p>
-                                                    <p><strong><i class="fas fa-envelope"></i> รหัสไปรษณีย์ : </strong>${postalCode}</p>
-                                                    <p><strong><i class="fa fa-map text-primary"></i> โซนบ้าน : </strong>${houseZone}</p>
+                                                    <p class="mb-0.5"><strong><i class="fas fa-home"></i> ที่อยู่ : </strong>${houseNumber}</p>
+                                                    <p class="mb-0.5"><strong><i class="fas fa-map-marker-alt"></i> จังหวัด : </strong>${province}</p>
+                                                    <p class="mb-0.5"><strong><i class="fas fa-map"></i> อำเภอ : </strong>${district}</p>
+                                                    <p class="mb-0.5"><strong><i class="fas fa-map-signs"></i> ตำบล : </strong>${tambon}</p>
+                                                    <p class="mb-0.5"><strong><i class="fas fa-envelope"></i> รหัสไปรษณีย์ : </strong>${postalCode}</p>
+                                                    <p class="mb-0.5"><strong><i class="fa fa-map text-primary"></i> โซนบ้าน : </strong>${houseZone}</p>
                                                 </div>
+
                                                 <div class="flex-shrink-0">
                                                     <img src="{{ asset('img/home2.jpg') }}" alt="ที่อยู่ปัจจุบัน" class="w-36 h-20">
                                                 </div>

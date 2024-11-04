@@ -307,6 +307,386 @@
 
 
 
+{{-- <script>
+    $(document).ready(function() {
+        $('#careerForm').on('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const formData = {
+                DataCus_id: $('#dataCusIdField').val(),
+                Status_Cus: $('input[name="Status_Cus"]:checked').val(),
+                Career_Cus: $('#Career_Cus').val(),
+                Income_Cus: $('#Income_Cus').val(),
+                BeforeIncome_Cus: $('#BeforeIncome_Cus').val(),
+                AfterIncome_Cus: $('#AfterIncome_Cus').val(),
+                Workplace_Cus: $('#Workplace_Cus').val(),
+                Coordinates: $('#Coordinates').val(),
+                IncomeNote_Cus: $('#IncomeNote_Cus').val()
+            };
+
+            // Validate required fields
+            if (!formData.Status_Cus) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาเลือกประเภทอาชีพ',
+                    text: 'โปรดระบุว่าเป็นอาชีพหลักหรืออาชีพรอง',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+                return;
+            }
+
+            if (!formData.Career_Cus) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาเลือกอาชีพ',
+                    text: 'โปรดเลือกอาชีพที่ต้องการบันทึก',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+                return;
+            }
+
+            // Show loading indicator
+            Swal.fire({
+                title: 'กำลังบันทึกข้อมูล...',
+                text: 'โปรดรอสักครู่',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Send AJAX request
+            $.ajax({
+                url: '/customers/career', // Update the URL here
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'บันทึกข้อมูลสำเร็จ',
+                        text: 'ข้อมูลอาชีพถูกบันทึกเรียบร้อยแล้ว',
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#F97316'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#careerForm')[0].reset();
+                            $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', true);
+                            $('input[name="Status_Cus"]').prop('checked', false);
+                            $('#modalCareer').addClass('hidden');
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    let errorMessage = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+
+                    // Handle specific error messages from the server
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด',
+                        text: errorMessage,
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#F97316'
+                    });
+                }
+            });
+        });
+
+        // Add numeric input validation for income fields
+        $('#Income_Cus, #BeforeIncome_Cus, #AfterIncome_Cus').on('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Calculate AfterIncome_Cus automatically
+        $('#Income_Cus, #BeforeIncome_Cus').on('input', function() {
+            const income = parseInt($('#Income_Cus').val()) || 0;
+            const beforeIncome = parseInt($('#BeforeIncome_Cus').val()) || 0;
+            const afterIncome = income - beforeIncome;
+
+            if (afterIncome >= 0) {
+                $('#AfterIncome_Cus').val(afterIncome);
+            } else {
+                $('#AfterIncome_Cus').val('0');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ค่าใช้จ่ายมากกว่ารายได้',
+                    text: 'กรุณาตรวจสอบข้อมูลอีกครั้ง',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+            }
+        });
+    });
+</script> --}}
+
+{{-- <script>
+    $(document).ready(function() {
+        $('#careerForm').on('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const formData = {
+                DataCus_id: $('#dataCusIdField').val(),
+                Status_Cus: $('input[name="Status_Cus"]:checked').val(),
+                Career_Cus: $('#Career_Cus').val(),
+                Income_Cus: $('#Income_Cus').val(),
+                BeforeIncome_Cus: $('#BeforeIncome_Cus').val(),
+                AfterIncome_Cus: $('#AfterIncome_Cus').val(),
+                Workplace_Cus: $('#Workplace_Cus').val(),
+                Coordinates: $('#Coordinates').val(),
+                IncomeNote_Cus: $('#IncomeNote_Cus').val()
+            };
+
+            // Validate required fields
+            if (!formData.Status_Cus) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาเลือกประเภทอาชีพ',
+                    text: 'โปรดระบุว่าเป็นอาชีพหลักหรืออาชีพรอง',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+                return;
+            }
+
+            if (!formData.Career_Cus) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาเลือกอาชีพ',
+                    text: 'โปรดเลือกอาชีพที่ต้องการบันทึก',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+                return;
+            }
+
+            // Show loading indicator
+            Swal.fire({
+                title: 'กำลังบันทึกข้อมูล...',
+                text: 'โปรดรอสักครู่',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Send AJAX request
+            $.ajax({
+                url: '/customers/career', // Update the URL here
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'บันทึกข้อมูลสำเร็จ',
+                        text: 'ข้อมูลอาชีพถูกบันทึกเรียบร้อยแล้ว',
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#F97316'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#careerForm')[0].reset();
+                            $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', true);
+                            $('input[name="Status_Cus"]').prop('checked', false);
+                            $('#modalCareer').addClass('hidden');
+                            location.reload();
+                        }
+                    });
+
+                    // Call the fetchCareerData function here
+                    fetchCareerData(); // Ensure this function is defined elsewhere in your code
+                },
+                error: function(xhr, status, error) {
+                    let errorMessage = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+
+                    // Handle specific error messages from the server
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด',
+                        text: errorMessage,
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#F97316'
+                    });
+                }
+            });
+        });
+
+        // Add numeric input validation for income fields
+        $('#Income_Cus, #BeforeIncome_Cus, #AfterIncome_Cus').on('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Calculate AfterIncome_Cus automatically
+        $('#Income_Cus, #BeforeIncome_Cus').on('input', function() {
+            const income = parseInt($('#Income_Cus').val()) || 0;
+            const beforeIncome = parseInt($('#BeforeIncome_Cus').val()) || 0;
+            const afterIncome = income - beforeIncome;
+
+            if (afterIncome >= 0) {
+                $('#AfterIncome_Cus').val(afterIncome);
+            } else {
+                $('#AfterIncome_Cus').val('0');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ค่าใช้จ่ายมากกว่ารายได้',
+                    text: 'กรุณาตรวจสอบข้อมูลอีกครั้ง',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+            }
+        });
+    });
+</script> --}}
+
+
+<script>
+    $(document).ready(function() {
+        $('#careerForm').on('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const formData = {
+                DataCus_id: $('#dataCusIdField').val(),
+                Status_Cus: $('input[name="Status_Cus"]:checked').val(),
+                Career_Cus: $('#Career_Cus').val(),
+                Income_Cus: $('#Income_Cus').val(),
+                BeforeIncome_Cus: $('#BeforeIncome_Cus').val(),
+                AfterIncome_Cus: $('#AfterIncome_Cus').val(),
+                Workplace_Cus: $('#Workplace_Cus').val(),
+                Coordinates: $('#Coordinates').val(),
+                IncomeNote_Cus: $('#IncomeNote_Cus').val()
+            };
+
+            // Validate required fields
+            if (!formData.Status_Cus) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาเลือกประเภทอาชีพ',
+                    text: 'โปรดระบุว่าเป็นอาชีพหลักหรืออาชีพรอง',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+                return;
+            }
+
+            if (!formData.Career_Cus) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาเลือกอาชีพ',
+                    text: 'โปรดเลือกอาชีพที่ต้องการบันทึก',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+                return;
+            }
+
+            // Show loading indicator
+            Swal.fire({
+                title: 'กำลังบันทึกข้อมูล...',
+                text: 'โปรดรอสักครู่',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // // Send AJAX request
+            $.ajax({
+                url: '/customers/career', // Update the URL here
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'บันทึกข้อมูลสำเร็จ',
+                        text: 'ข้อมูลอาชีพถูกบันทึกเรียบร้อยแล้ว',
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#F97316'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#careerForm')[0].reset();
+                            $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', true);
+                            $('input[name="Status_Cus"]').prop('checked', false);
+                            $('#modalCareer').addClass('hidden');
+                            fetchCareerData();
+                        }
+                    });
+
+                },
+                error: function(xhr, status, error) {
+                    let errorMessage = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+
+                    // Handle specific error messages from the server
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด',
+                        text: errorMessage,
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#F97316'
+                    });
+                }
+            });
+        });
+
+        // Add numeric input validation for income fields
+        $('#Income_Cus, #BeforeIncome_Cus, #AfterIncome_Cus').on('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Calculate AfterIncome_Cus automatically
+        $('#Income_Cus, #BeforeIncome_Cus').on('input', function() {
+            const income = parseInt($('#Income_Cus').val()) || 0;
+            const beforeIncome = parseInt($('#BeforeIncome_Cus').val()) || 0;
+            const afterIncome = income - beforeIncome;
+
+            if (afterIncome >= 0) {
+                $('#AfterIncome_Cus').val(afterIncome);
+            } else {
+                $('#AfterIncome_Cus').val('0');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ค่าใช้จ่ายมากกว่ารายได้',
+                    text: 'กรุณาตรวจสอบข้อมูลอีกครั้ง',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+            }
+        });
+    });
+</script>
+
+
+
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -387,7 +767,130 @@
 </style>
 
 
+{{--
+// Call the fetchCareerData function here
+// fetchCareerData(); // Ensure this function is defined elsewhere in your code --}}
 
+{{-- <script>
+    $(document).ready(function() {
+        $('#careerForm').on('submit', function(e) {
+            e.preventDefault();
 
+            // Get form values
+            const formData = {
+                DataCus_id: $('#dataCusIdField').val(),
+                Status_Cus: $('input[name="Status_Cus"]:checked').val(),
+                Career_Cus: $('#Career_Cus').val(),
+                Income_Cus: $('#Income_Cus').val(),
+                BeforeIncome_Cus: $('#BeforeIncome_Cus').val(),
+                AfterIncome_Cus: $('#AfterIncome_Cus').val(),
+                Workplace_Cus: $('#Workplace_Cus').val(),
+                Coordinates: $('#Coordinates').val(),
+                IncomeNote_Cus: $('#IncomeNote_Cus').val()
+            };
 
+            // Validate required fields
+            if (!formData.Status_Cus) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาเลือกประเภทอาชีพ',
+                    text: 'โปรดระบุว่าเป็นอาชีพหลักหรืออาชีพรอง',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+                return;
+            }
 
+            if (!formData.Career_Cus) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาเลือกอาชีพ',
+                    text: 'โปรดเลือกอาชีพที่ต้องการบันทึก',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+                return;
+            }
+
+            // Show loading indicator
+            Swal.fire({
+                title: 'กำลังบันทึกข้อมูล...',
+                text: 'โปรดรอสักครู่',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Send AJAX request
+            $.ajax({
+                url: '/api/career/store',
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'บันทึกข้อมูลสำเร็จ',
+                        text: 'ข้อมูลอาชีพถูกบันทึกเรียบร้อยแล้ว',
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#F97316'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#careerForm')[0].reset();
+                            $('#careerForm input, #careerForm select, #careerForm textarea').prop('disabled', true);
+                            $('input[name="Status_Cus"]').prop('checked', false);
+                            $('#modalCareer').addClass('hidden');
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    let errorMessage = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+
+                    // Handle specific error messages from the server
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด',
+                        text: errorMessage,
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#F97316'
+                    });
+                }
+            });
+        });
+
+        // Add numeric input validation for income fields
+        $('#Income_Cus, #BeforeIncome_Cus, #AfterIncome_Cus').on('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Calculate AfterIncome_Cus automatically
+        $('#Income_Cus, #BeforeIncome_Cus').on('input', function() {
+            const income = parseInt($('#Income_Cus').val()) || 0;
+            const beforeIncome = parseInt($('#BeforeIncome_Cus').val()) || 0;
+            const afterIncome = income - beforeIncome;
+
+            if (afterIncome >= 0) {
+                $('#AfterIncome_Cus').val(afterIncome);
+            } else {
+                $('#AfterIncome_Cus').val('0');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ค่าใช้จ่ายมากกว่ารายได้',
+                    text: 'กรุณาตรวจสอบข้อมูลอีกครั้ง',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#F97316'
+                });
+            }
+        });
+    });
+</script> --}}

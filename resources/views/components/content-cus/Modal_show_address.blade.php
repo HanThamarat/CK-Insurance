@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="relative">
-                        <img src="{{ asset('img/home2.jpg') }}" alt="theme image" class="avatar-sm">
+                        <img src="{{ asset('img/home2.jpg') }}" alt="theme image" class="avatar-sm" style="height: 80%;">
                     </div>
                 </div>
 

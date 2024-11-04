@@ -35,38 +35,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                     <!-- Left Column -->
                     <div class="space-y-4">
-                        {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-2">
-                            <div
-                                class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
-                                <div class="form-check">
-                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ปัจจุบัน"
-                                        name="Type_Adds" id="Type_Adds_edit">
-                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
-                                        ที่อยู่ปัจจุบัน
-                                    </label>
-                                </div>
-                            </div>
-                            <div
-                                class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
-                                <div class="form-check">
-                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ส่งเอกสาร"
-                                        name="Type_Adds" id="Type_Adds_edit">
-                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
-                                        ที่อยู่ส่งเอกสาร
-                                    </label>
-                                </div>
-                            </div>
-                            <div
-                                class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
-                                <div class="form-check">
-                                    <input class="form-check-input text-lg" type="radio" value="ที่อยู่ตามสำเนา"
-                                        name="Type_Adds" id="Type_Adds_edit">
-                                    <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
-                                        ที่อยู่ตามสำเนา
-                                    </label>
-                                </div>
-                            </div>
-                        </div> --}}
+
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-2">
                             <div
@@ -140,7 +109,7 @@
                             <div class="relative">
                                 <input type="text" id="houseNumber_Adds_edit" name="houseNumber_Adds"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
-                                    placeholder=" ">
+                                    placeholder=" " required>
                                 <label for="houseNumber_Adds_edit"
                                     class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     บ้านเลขที่
@@ -352,6 +321,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     function openModal_Edit_address_customer(button) {
         const addressId = $(button).data('id');
 
@@ -511,12 +486,6 @@
 
 
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
     // แสดง modal
     $('#openModalButton').on('click', function() {
         $('#modal_edit_address_customer').removeClass('hidden');
@@ -528,25 +497,69 @@
     });
 
 
-    $('#updateAddressButton').on('click', function() {
-        // ป้องกันการคลิกซ้ำ
-        $(this).prop('disabled', true);
 
+
+    $('#updateAddressButton').on('click', function(e) {
+        e.preventDefault();
+
+        // ดึงค่า ID และตรวจสอบ
+        const addressId = $('#addressId').val();
+        if (!addressId) {
+            Swal.fire({
+                title: 'ข้อผิดพลาด!',
+                text: 'ไม่พบรหัสที่อยู่ที่ต้องการแก้ไข',
+                icon: 'error',
+                confirmButtonText: 'ตกลง'
+            });
+            return;
+        }
+
+        // ตรวจสอบข้อมูลที่จำเป็น
+        const requiredFields = {
+            'บ้านเลขที่': $('#houseNumber_Adds_edit').val(),
+            'หมู่': $('#houseGroup_Adds_edit').val(),
+            'จังหวัด': $('#houseProvince_Adds_edit').val(),
+            'อำเภอ': $('#houseDistrict_Adds_edit').val(),
+            'ตำบล': $('#houseTambon_Adds_edit').val(),
+            'รหัสไปรษณีย์': $('#Postal_Adds_edit').val(),
+            'พิกัด': $('#Coordinates_Adds_edit').val(),
+            'รายละเอียด': $('#Detail_Adds_edit').val()
+        };
+
+        // ตรวจสอบฟิลด์ที่จำเป็นทั้งหมด
+        const emptyFields = Object.entries(requiredFields)
+            .filter(([_, value]) => !value)
+            .map(([field]) => field);
+
+        if (emptyFields.length > 0) {
+            Swal.fire({
+                title: 'ข้อผิดพลาด!',
+                text: `กรุณากรอกข้อมูลให้ครบถ้วน: ${emptyFields.join(', ')}`,
+                icon: 'error',
+                confirmButtonText: 'ตกลง'
+            });
+            openModal_Edit_address_customer();
+            return;
+        }
+
+        // ปิดปุ่มระหว่างการส่งข้อมูล
+        $('#updateAddressButton').prop('disabled', true);
+
+        // ส่ง AJAX request
         $.ajax({
-            url: '/update-address', // URL สำหรับอัปเดตข้อมูล
+            url: '/update-address', // addressId ต้องมีค่า
             type: 'POST',
             data: {
-                // ข้อมูลที่คุณจะส่งไป
-                id: $('#addressId').val(),
+                id: addressId,
                 DataCus_id: $('#DataCus_id').val(),
-                Type_Adds: $('input[name="Type_Adds"]:checked').val(), // ใช้ค่าที่เลือกจาก radio button
+                Type_Adds: $('input[name="Type_Adds"]:checked').val(),
                 Registration_number: $('#Registration_number_edit').val(),
                 date_Adds: $('#date_Adds').val(),
                 Code_Adds: $('#Code_Adds').val(),
                 Ordinal_Adds: $('#Ordinal_Adds').val(),
                 Status_Adds: $('#Status_Adds').val(),
-                houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
-                houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
+                houseNumber_Adds: requiredFields['บ้านเลขที่'],
+                houseGroup_Adds: requiredFields['หมู่'],
                 building_Adds: $('#building_Adds_edit').val(),
                 village_Adds: $('#village_Adds_edit').val(),
                 roomNumber_Adds: $('#roomNumber_Adds_edit').val(),
@@ -554,41 +567,41 @@
                 alley_Adds: $('#alley_Adds_edit').val(),
                 road_Adds: $('#road_Adds_edit').val(),
                 houseZone_Adds: $('#houseZone_Adds_edit').val(),
-                houseProvince_Adds: $('#houseProvince_Adds_edit').val(),
-                houseDistrict_Adds: $('#houseDistrict_Adds_edit').val(),
-                houseTambon_Adds: $('#houseTambon_Adds_edit').val(),
-                Postal_Adds: $('#Postal_Adds_edit').val(),
-                Detail_Adds: $('#Detail_Adds_edit').val(),
-                Coordinates_Adds: $('#Coordinates_Adds_edit').val(),
+                houseProvince_Adds: requiredFields['จังหวัด'],
+                houseDistrict_Adds: requiredFields['อำเภอ'],
+                houseTambon_Adds: requiredFields['ตำบล'],
+                Postal_Adds: requiredFields['รหัสไปรษณีย์'],
+                Detail_Adds: requiredFields['รายละเอียด'],
+                Coordinates_Adds: requiredFields['พิกัด'],
                 UserZone: $('#UserZone').val(),
                 UserBranch: $('#UserBranch').val(),
                 UserInsert: $('#UserInsert').val(),
-                UserUpdate: $('#UserUpdate').val(),
+                UserUpdate: $('#UserUpdate').val()
             },
             success: function(response) {
-                console.log(response); // ตรวจสอบโครงสร้างของ response ที่ส่งกลับ
+                let alertTitle = 'ข้อมูลที่อัปเดต';
+                let alertText = '';
 
                 if (response.message) {
-                    Swal.fire({
-                        title: 'สำเร็จ!',
-                        text: response.message,
-                        icon: 'success',
-                        timer: 1500,
-                        showConfirmButton: false
-                    }).then(() => {
-                        fetchAddresses();
-                        $('#modal_edit_address_customer').addClass('hidden');
-                        hideModalEditAddress_customer();
-                    });
+                    alertTitle = 'สำเร็จ!';
+                    alertText = response.message;
+                    fetchAddresses();
+                    $('#modal_edit_address_customer').addClass('hidden');
+                    hideModalEditAddress_customer();
                 } else {
-                    Swal.fire({
-                        title: 'ข้อผิดพลาด!',
-                        text: 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
-                        icon: 'error',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
+                    alertText = response.data ?
+                        `บ้านเลขที่: ${response.data.houseNumber_Adds}\n` +
+                        `หมู่: ${response.data.houseGroup_Adds}\n` +
+                        `ที่อยู่: ${response.data.Detail_Adds}` : 'ไม่มีข้อมูล';
                 }
+
+                Swal.fire({
+                    title: alertTitle,
+                    text: alertText,
+                    icon: response.message ? 'success' : 'info',
+                    timer: response.message ? 1500 : undefined,
+                    showConfirmButton: !response.message
+                });
             },
             error: function(xhr) {
                 let errorMessage = 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล';
@@ -605,11 +618,11 @@
                 });
             },
             complete: function() {
-                // เปิดใช้งานปุ่มอีกครั้ง
                 $('#updateAddressButton').prop('disabled', false);
             }
         });
     });
+
 
 
     function hideModalEditAddress_customer() {
@@ -628,6 +641,857 @@
 </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-2">
+    <div
+        class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
+        <div class="form-check">
+            <input class="form-check-input text-lg" type="radio" value="ที่อยู่ปัจจุบัน"
+                name="Type_Adds" id="Type_Adds_edit">
+            <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
+                ที่อยู่ปัจจุบัน
+            </label>
+        </div>
+    </div>
+    <div
+        class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
+        <div class="form-check">
+            <input class="form-check-input text-lg" type="radio" value="ที่อยู่ส่งเอกสาร"
+                name="Type_Adds" id="Type_Adds_edit">
+            <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
+                ที่อยู่ส่งเอกสาร
+            </label>
+        </div>
+    </div>
+    <div
+        class="card-adds p-2 bg-gray-100 rounded-lg hover:shadow-md transition-shadow duration-300">
+        <div class="form-check">
+            <input class="form-check-input text-lg" type="radio" value="ที่อยู่ตามสำเนา"
+                name="Type_Adds" id="Type_Adds_edit">
+            <label class="form-check-label text-base text-gray-700" for="Type_Adds_edit">
+                ที่อยู่ตามสำเนา
+            </label>
+        </div>
+    </div>
+</div> --}}
+
+{{-- // $('#updateAddressButton').on('click', function(e) {
+    //     e.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
+
+    //     // ตรวจสอบว่ามีการกรอกข้อมูลที่จำเป็นหรือไม่
+    //     const houseNumber = $('#houseNumber_Adds_edit').val();
+    //     const houseGroup = $('#houseGroup_Adds_edit').val();
+    //     const province = $('#houseProvince_Adds_edit').val();
+    //     const district = $('#houseDistrict_Adds_edit').val();
+    //     const tambon = $('#houseTambon_Adds_edit').val();
+    //     const postalCode = $('#Postal_Adds_edit').val();
+    //     const coordinates = $('#Coordinates_Adds_edit').val();
+    //     const details = $('#Detail_Adds_edit').val();
+
+    //     // เช็คว่าข้อมูลที่จำเป็นถูกกรอกหรือไม่
+    //     if (!houseNumber || !houseGroup || !province || !district || !tambon || !postalCode || !coordinates || !
+    //         details) {
+    //         Swal.fire({
+    //             title: 'ข้อผิดพลาด!',
+    //             text: 'กรุณากรอกข้อมูลให้ครบถ้วน: บ้านเลขที่, หมู่, จังหวัด, อำเภอ, ตำบล, รหัสไปรษณีย์, พิกัด, รายละเอียด',
+    //             icon: 'error',
+    //             confirmButtonText: 'ตกลง'
+    //         });
+    //         openModal_Edit_address_customer(); // เปิด modal กลับไป
+    //         return; // หยุดการทำงานของฟังก์ชัน
+    //     }
+
+    //     // ถ้าข้อมูลครบถ้วนให้ทำการส่ง AJAX
+    //     $.ajax({
+    //         url: '/update-address',
+    //         type: 'POST',
+    //         data: {
+    //             id: $('#addressId').val(),
+    //             DataCus_id: $('#DataCus_id').val(),
+    //             Type_Adds: $('input[name="Type_Adds"]:checked').val(),
+    //             Registration_number: $('#Registration_number_edit').val(),
+    //             date_Adds: $('#date_Adds').val(),
+    //             Code_Adds: $('#Code_Adds').val(),
+    //             Ordinal_Adds: $('#Ordinal_Adds').val(),
+    //             Status_Adds: $('#Status_Adds').val(),
+    //             houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
+    //             houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
+    //             building_Adds: $('#building_Adds_edit').val(),
+    //             village_Adds: $('#village_Adds_edit').val(),
+    //             roomNumber_Adds: $('#roomNumber_Adds_edit').val(),
+    //             Floor_Adds: $('#Floor_Adds_edit').val(),
+    //             alley_Adds: $('#alley_Adds_edit').val(),
+    //             road_Adds: $('#road_Adds_edit').val(),
+    //             houseZone_Adds: $('#houseZone_Adds_edit').val(),
+    //             houseProvince_Adds: $('#houseProvince_Adds_edit').val(),
+    //             houseDistrict_Adds: $('#houseDistrict_Adds_edit').val(),
+    //             houseTambon_Adds: $('#houseTambon_Adds_edit').val(),
+    //             Postal_Adds: $('#Postal_Adds_edit').val(),
+    //             Detail_Adds: $('#Detail_Adds_edit').val(),
+    //             Coordinates_Adds: $('#Coordinates_Adds_edit').val(),
+    //             UserZone: $('#UserZone').val(),
+    //             UserBranch: $('#UserBranch').val(),
+    //             UserInsert: $('#UserInsert').val(),
+    //             UserUpdate: $('#UserUpdate').val(),
+    //         },
+    //         success: function(response) {
+    //             let alertTitle = 'ข้อมูลที่อัปเดต';
+    //             let alertText = '';
+
+    //             // แสดง SweetAlert หากมีข้อความสำเร็จ
+    //             if (response.message) {
+    //                 alertTitle = 'สำเร็จ!';
+    //                 alertText = response.message;
+    //                 fetchAddresses(); // เรียกใช้ฟังก์ชันเพื่อดึงข้อมูลใหม่
+    //                 $('#modal_edit_address_customer').addClass('hidden'); // ปิด modal
+    //                 hideModalEditAddress_customer();
+    //             } else {
+    //                 // ถ้าไม่มี message ให้แสดงข้อมูลอื่น ๆ ที่คุณต้องการ
+    //                 alertText = response.data ?
+    //                     `บ้านเลขที่: ${response.data.houseNumber_Adds}\n` +
+    //                     `หมู่: ${response.data.houseGroup_Adds}\n` +
+    //                     `ที่อยู่: ${response.data.Detail_Adds}` : 'ไม่มีข้อมูล';
+    //             }
+
+    //             // แสดง SweetAlert
+    //             Swal.fire({
+    //                 title: alertTitle,
+    //                 text: alertText,
+    //                 icon: response.message ? 'success' : 'info',
+    //                 timer: response.message ? 1500 : undefined,
+    //                 showConfirmButton: !response.message
+    //             });
+    //         },
+    //         error: function(xhr) {
+    //             let errorMessage =
+    //             'เกิดข้อผิดพลาดในการอัปเดตข้อมูล'; // ข้อความที่จะแสดงใน Sweet Alert
+    //             if (xhr.responseJSON && xhr.responseJSON.errors) {
+    //                 const errors = xhr.responseJSON.errors;
+    //                 errorMessage = Object.values(errors).flat().join(', '); // รวบรวมข้อความผิดพลาด
+    //             }
+    //             Swal.fire({
+    //                 title: 'ข้อผิดพลาด!',
+    //                 text: errorMessage,
+    //                 icon: 'error',
+    //                 timer: 1500,
+    //                 showConfirmButton: false
+    //             });
+    //         },
+    //         complete: function() {
+    //             $('#updateAddressButton').prop('disabled', false);
+    //         }
+    //     });
+    // }); --}}
+
+{{-- // $('#updateAddressButton').on('click', function() {
+    //     // ป้องกันการคลิกซ้ำ
+    //     $(this).prop('disabled', true);
+
+    //     // ลบข้อความแจ้งเตือนเก่า
+    //     $('.error').remove();
+    //     $('.border-red-500').removeClass('border-red-500');
+
+    //     let isValid = true;
+    //     const requiredFields = [{
+    //             id: '#houseNumber_Adds_edit',
+    //             message: 'กรุณากรอกบ้านเลขที่'
+    //         },
+    //         {
+    //             id: '#houseGroup_Adds_edit',
+    //             message: 'กรุณากรอกหมู่บ้าน'
+    //         },
+    //         {
+    //             id: '#houseZone_Adds_edit',
+    //             message: 'กรุณากรอกโซนบ้าน'
+    //         },
+    //         {
+    //             id: '#houseProvince_Adds_edit',
+    //             message: 'กรุณากรอกจังหวัด'
+    //         },
+    //         {
+    //             id: '#houseDistrict_Adds_edit',
+    //             message: 'กรุณากรอกอำเภอ'
+    //         },
+    //         {
+    //             id: '#houseTambon_Adds_edit',
+    //             message: 'กรุณากรอกตำบล'
+    //         },
+    //         {
+    //             id: '#Postal_Adds_edit',
+    //             message: 'กรุณากรอกรหัสไปรษณีย์'
+    //         },
+    //         {
+    //             id: '#Coordinates_Adds_edit',
+    //             message: 'กรุณากรอกพิกัด'
+    //         }
+    //     ];
+
+    //     // ตรวจสอบแต่ละฟิลด์ที่จำเป็น
+    //     requiredFields.forEach(field => {
+    //         const $input = $(field.id);
+    //         if ($input.val().trim() === '') {
+    //             $input.addClass('border-red-500');
+    //             $input.after(
+    //                 `<span class="error text-red-500 text-xs flex items-center mt-1">
+    //             <i class="fas fa-exclamation-circle mr-2"></i>${field.message}
+    //         </span>`
+    //             );
+    //             isValid = false;
+    //         }
+    //     });
+
+    //     // หากข้อมูลไม่ครบ ไม่เรียก Ajax และแสดงแจ้งเตือน
+    //     if (!isValid) {
+    //         $('#updateAddressButton').prop('disabled', false);
+    //         return;
+    //     }
+
+    //     // ส่งข้อมูลผ่าน Ajax
+    //     $.ajax({
+    //         url: '/update-address',
+    //         type: 'POST',
+    //         data: {
+    //             id: $('#addressId').val(),
+    //             DataCus_id: $('#DataCus_id').val(),
+    //             Type_Adds: $('input[name="Type_Adds"]:checked').val(),
+    //             Registration_number: $('#Registration_number_edit').val(),
+    //             date_Adds: $('#date_Adds').val(),
+    //             Code_Adds: $('#Code_Adds').val(),
+    //             Ordinal_Adds: $('#Ordinal_Adds').val(),
+    //             Status_Adds: $('#Status_Adds').val(),
+    //             houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
+    //             houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
+    //             building_Adds: $('#building_Adds_edit').val(),
+    //             village_Adds: $('#village_Adds_edit').val(),
+    //             roomNumber_Adds: $('#roomNumber_Adds_edit').val(),
+    //             Floor_Adds: $('#Floor_Adds_edit').val(),
+    //             alley_Adds: $('#alley_Adds_edit').val(),
+    //             road_Adds: $('#road_Adds_edit').val(),
+    //             houseZone_Adds: $('#houseZone_Adds_edit').val(),
+    //             houseProvince_Adds: $('#houseProvince_Adds_edit').val(),
+    //             houseDistrict_Adds: $('#houseDistrict_Adds_edit').val(),
+    //             houseTambon_Adds: $('#houseTambon_Adds_edit').val(),
+    //             Postal_Adds: $('#Postal_Adds_edit').val(),
+    //             Detail_Adds: $('#Detail_Adds_edit').val(),
+    //             Coordinates_Adds: $('#Coordinates_Adds_edit').val(),
+    //             UserZone: $('#UserZone').val(),
+    //             UserBranch: $('#UserBranch').val(),
+    //             UserInsert: $('#UserInsert').val(),
+    //             UserUpdate: $('#UserUpdate').val(),
+    //         },
+    //         success: function(response) {
+    //             // ตรวจสอบว่า message มีค่าและแสดงเฉพาะข้อความสำเร็จเท่านั้น
+    //             if (response.message) {
+    //                 Swal.fire({
+    //                     title: 'สำเร็จ!',
+    //                     text: response.message,
+    //                     icon: 'success',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 }).then(() => {
+    //                     // เรียกฟังก์ชันหรือกระบวนการอื่น ๆ ที่ต้องการ หลังจากอัปเดตสำเร็จ
+    //                     fetchAddresses();
+    //                     $('#modal_edit_address_customer').addClass('hidden');
+    //                     hideModalEditAddress_customer();
+    //                 });
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
+    //                     icon: 'error',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             }
+    //         },
+    //         error: function(xhr) {
+    //             // จัดการข้อผิดพลาดจากการตรวจสอบข้อมูล
+    //             if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
+    //                 const errors = xhr.responseJSON.errors;
+    //                 for (const [field, messages] of Object.entries(errors)) {
+    //                     const $input = $(`#${field}`);
+    //                     if ($input.length) {
+    //                         $input.addClass('border-red-500');
+    //                         $input.after(
+    //                             `<span class="error text-red-500 text-xs flex items-center mt-1">
+    //                         <i class="fas fa-exclamation-circle mr-2"></i>${messages.join(', ')}
+    //                     </span>`
+    //                         );
+    //                     }
+    //                 }
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล',
+    //                     icon: 'error',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             }
+    //         },
+    //         complete: function() {
+    //             $('#updateAddressButton').prop('disabled', false);
+    //         }
+    //     });
+    // });
+
+    // $('#updateAddressButton').on('click', function() {
+    //     // ป้องกันการคลิกซ้ำ
+    //     $(this).prop('disabled', true);
+
+    //     // ลบข้อความแจ้งเตือนเก่า
+    //     $('.error').remove();
+    //     $('.border-red-500').removeClass('border-red-500');
+
+    //     let isValid = true;
+    //     const requiredFields = [{
+    //             id: '#houseNumber_Adds_edit',
+    //             message: 'กรุณากรอกบ้านเลขที่'
+    //         },
+    //         {
+    //             id: '#houseGroup_Adds_edit',
+    //             message: 'กรุณากรอกหมู่บ้าน'
+    //         },
+    //         {
+    //             id: '#houseZone_Adds_edit',
+    //             message: 'กรุณากรอกโซนบ้าน'
+    //         },
+    //         {
+    //             id: '#houseProvince_Adds_edit',
+    //             message: 'กรุณากรอกจังหวัด'
+    //         },
+    //         {
+    //             id: '#houseDistrict_Adds_edit',
+    //             message: 'กรุณากรอกอำเภอ'
+    //         },
+    //         {
+    //             id: '#houseTambon_Adds_edit',
+    //             message: 'กรุณากรอกตำบล'
+    //         },
+    //         {
+    //             id: '#Postal_Adds_edit',
+    //             message: 'กรุณากรอกรหัสไปรษณีย์'
+    //         },
+    //         {
+    //             id: '#Coordinates_Adds_edit',
+    //             message: 'กรุณากรอกพิกัด'
+    //         }
+    //     ];
+
+    //     // ตรวจสอบแต่ละฟิลด์ที่จำเป็น
+    //     requiredFields.forEach(field => {
+    //         const $input = $(field.id);
+    //         if ($input.val().trim() === '') {
+    //             $input.addClass('border-red-500');
+    //             $input.after(
+    //                 `<span class="error text-red-500 text-xs flex items-center mt-1">
+    //                 <i class="fas fa-exclamation-circle mr-2"></i>${field.message}
+    //             </span>`
+    //             );
+    //             isValid = false;
+    //         }
+    //     });
+
+    //     // หากข้อมูลไม่ครบ ไม่เรียก Ajax และแสดงแจ้งเตือน
+    //     if (!isValid) {
+    //         $('#updateAddressButton').prop('disabled', false);
+    //         return;
+    //     }
+
+    //     // ส่งข้อมูลผ่าน Ajax
+    //     $.ajax({
+    //         url: '/update-address',
+    //         type: 'POST',
+    //         contentType: 'application/json',
+    //         data: JSON.stringify({
+    //             id: $('#addressId').val(),
+    //             DataCus_id: $('#DataCus_id').val(),
+    //             Type_Adds: $('input[name="Type_Adds"]:checked').val(),
+    //             Registration_number: $('#Registration_number_edit').val(),
+    //             date_Adds: $('#date_Adds').val(),
+    //             Code_Adds: $('#Code_Adds').val(),
+    //             Ordinal_Adds: $('#Ordinal_Adds').val(),
+    //             Status_Adds: $('#Status_Adds').val(),
+    //             houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
+    //             houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
+    //             building_Adds: $('#building_Adds_edit').val(),
+    //             village_Adds: $('#village_Adds_edit').val(),
+    //             roomNumber_Adds: $('#roomNumber_Adds_edit').val(),
+    //             Floor_Adds: $('#Floor_Adds_edit').val(),
+    //             alley_Adds: $('#alley_Adds_edit').val(),
+    //             road_Adds: $('#road_Adds_edit').val(),
+    //             houseZone_Adds: $('#houseZone_Adds_edit').val(),
+    //             houseProvince_Adds: $('#houseProvince_Adds_edit').val(),
+    //             houseDistrict_Adds: $('#houseDistrict_Adds_edit').val(),
+    //             houseTambon_Adds: $('#houseTambon_Adds_edit').val(),
+    //             Postal_Adds: $('#Postal_Adds_edit').val(),
+    //             Detail_Adds: $('#Detail_Adds_edit').val(),
+    //             Coordinates_Adds: $('#Coordinates_Adds_edit').val(),
+    //             UserZone: $('#UserZone').val(),
+    //             UserBranch: $('#UserBranch').val(),
+    //             UserInsert: $('#UserInsert').val(),
+    //             UserUpdate: $('#UserUpdate').val(),
+    //         }),
+    //         success: function(response) {
+    //             // แสดงข้อความตอบกลับแบบไม่มี pretty print
+    //             console.log(JSON.stringify(response));
+
+    //             if (response.message) {
+    //                 Swal.fire({
+    //                     title: 'สำเร็จ!',
+    //                     text: response.message,
+    //                     icon: 'success',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 }).then(() => {
+    //                     fetchAddresses();
+    //                     $('#modal_edit_address_customer').addClass('hidden');
+    //                     hideModalEditAddress_customer();
+    //                 });
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ',
+    //                     icon: 'error',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             }
+    //         },
+    //         error: function(xhr) {
+    //             // แสดงข้อความตอบกลับแบบไม่มี pretty print ในกรณีเกิดข้อผิดพลาด
+    //             console.log(JSON.stringify(xhr.responseJSON));
+
+    //             if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
+    //                 const errors = xhr.responseJSON.errors;
+    //                 for (const [field, messages] of Object.entries(errors)) {
+    //                     const $input = $(`#${field}`);
+    //                     if ($input.length) {
+    //                         $input.addClass('border-red-500');
+    //                         $input.after(
+    //                             `<span class="error text-red-500 text-xs flex items-center mt-1">
+    //                             <i class="fas fa-exclamation-circle mr-2"></i>${messages.join(', ')}
+    //                         </span>`
+    //                         );
+    //                     }
+    //                 }
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล',
+    //                     icon: 'error',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             }
+    //         },
+    //         complete: function() {
+    //             $('#updateAddressButton').prop('disabled', false);
+    //         }
+    //     });
+    // }); --}}
+
+{{--
+
+// $('#updateAddressButton').on('click', function() {
+    //     // ป้องกันการคลิกซ้ำ
+    //     $(this).prop('disabled', true);
+
+    //     // ลบข้อความแจ้งเตือนเก่า
+    //     $('.error').remove();
+    //     $('.border-red-500').removeClass('border-red-500');
+
+    //     let isValid = true;
+    //     const requiredFields = [{
+    //             id: '#houseNumber_Adds_edit',
+    //             message: 'กรุณากรอกบ้านเลขที่'
+    //         },
+    //         {
+    //             id: '#houseGroup_Adds_edit',
+    //             message: 'กรุณากรอกหมู่บ้าน'
+    //         },
+    //         {
+    //             id: '#houseZone_Adds_edit',
+    //             message: 'กรุณากรอกโซนบ้าน'
+    //         },
+    //         {
+    //             id: '#houseProvince_Adds_edit',
+    //             message: 'กรุณากรอกจังหวัด'
+    //         },
+    //         {
+    //             id: '#houseDistrict_Adds_edit',
+    //             message: 'กรุณากรอกอำเภอ'
+    //         },
+    //         {
+    //             id: '#houseTambon_Adds_edit',
+    //             message: 'กรุณากรอกตำบล'
+    //         },
+    //         {
+    //             id: '#Postal_Adds_edit',
+    //             message: 'กรุณากรอกรหัสไปรษณีย์'
+    //         },
+    //         {
+    //             id: '#Coordinates_Adds_edit',
+    //             message: 'กรุณากรอกพิกัด'
+    //         }
+    //     ];
+
+    //     // ตรวจสอบแต่ละฟิลด์ที่จำเป็น
+    //     requiredFields.forEach(field => {
+    //         const $input = $(field.id);
+    //         if ($input.val().trim() === '') {
+    //             $input.addClass('border-red-500');
+    //             $input.after(
+    //                 `<span class="error text-red-500 text-xs flex items-center mt-1">
+    //                 <i class="fas fa-exclamation-circle mr-2"></i>${field.message}
+    //             </span>`
+    //             );
+    //             isValid = false;
+    //         }
+    //     });
+
+    //     // หากข้อมูลไม่ครบ ไม่เรียก Ajax และแสดงแจ้งเตือน
+    //     if (!isValid) {
+    //         $('#updateAddressButton').prop('disabled', false);
+    //         return;
+    //     }
+
+    //     // ส่งข้อมูลผ่าน Ajax
+    //     $.ajax({
+    //         url: '/update-address',
+    //         type: 'POST',
+    //         data: {
+    //             id: $('#addressId').val(),
+    //             DataCus_id: $('#DataCus_id').val(),
+    //             Type_Adds: $('input[name="Type_Adds"]:checked').val(),
+    //             Registration_number: $('#Registration_number_edit').val(),
+    //             date_Adds: $('#date_Adds').val(),
+    //             Code_Adds: $('#Code_Adds').val(),
+    //             Ordinal_Adds: $('#Ordinal_Adds').val(),
+    //             Status_Adds: $('#Status_Adds').val(),
+    //             houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
+    //             houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
+    //             building_Adds: $('#building_Adds_edit').val(),
+    //             village_Adds: $('#village_Adds_edit').val(),
+    //             roomNumber_Adds: $('#roomNumber_Adds_edit').val(),
+    //             Floor_Adds: $('#Floor_Adds_edit').val(),
+    //             alley_Adds: $('#alley_Adds_edit').val(),
+    //             road_Adds: $('#road_Adds_edit').val(),
+    //             houseZone_Adds: $('#houseZone_Adds_edit').val(),
+    //             houseProvince_Adds: $('#houseProvince_Adds_edit').val(),
+    //             houseDistrict_Adds: $('#houseDistrict_Adds_edit').val(),
+    //             houseTambon_Adds: $('#houseTambon_Adds_edit').val(),
+    //             Postal_Adds: $('#Postal_Adds_edit').val(),
+    //             Detail_Adds: $('#Detail_Adds_edit').val(),
+    //             Coordinates_Adds: $('#Coordinates_Adds_edit').val(),
+    //             UserZone: $('#UserZone').val(),
+    //             UserBranch: $('#UserBranch').val(),
+    //             UserInsert: $('#UserInsert').val(),
+    //             UserUpdate: $('#UserUpdate').val(),
+    //         },
+    //         success: function(response) {
+    //             // ตรวจสอบว่า message มีค่าและแสดงเฉพาะข้อความสำเร็จเท่านั้น
+    //             if (response.message) {
+    //                 Swal.fire({
+    //                     title: 'สำเร็จ!',
+    //                     text: response.message,
+    //                     icon: 'success',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 }).then(() => {
+    //                     // เรียกฟังก์ชันหรือกระบวนการอื่น ๆ ที่ต้องการ หลังจากอัปเดตสำเร็จ
+    //                     fetchAddresses();
+    //                     $('#modal_edit_address_customer').addClass('hidden');
+    //                     hideModalEditAddress_customer();
+    //                 });
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
+    //                     icon: 'error',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             }
+    //         },
+    //         error: function(xhr) {
+    //             // จัดการข้อผิดพลาดจากการตรวจสอบข้อมูล
+    //             if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
+    //                 const errors = xhr.responseJSON.errors;
+    //                 for (const [field, messages] of Object.entries(errors)) {
+    //                     const $input = $(`#${field}`);
+    //                     $input.addClass('border-red-500');
+    //                     $input.after(
+    //                         `<span class="error text-red-500 text-xs flex items-center mt-1">
+    //                         <i class="fas fa-exclamation-circle mr-2"></i>${messages.join(', ')}
+    //                     </span>`
+    //                     );
+    //                 }
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล',
+    //                     icon: 'error',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             }
+    //         },
+    //         complete: function() {
+    //             $('#updateAddressButton').prop('disabled', false);
+    //         }
+    //     });
+    // }); --}}
+
+
+
+
+
+{{-- // $('#updateAddressButton').on('click', function() {
+    //     // ป้องกันการคลิกซ้ำ
+    //     $(this).prop('disabled', true);
+
+    //     $.ajax({
+    //         url: '/update-address', // URL สำหรับอัปเดตข้อมูล
+    //         type: 'POST',
+    //         data: {
+    //             // ข้อมูลที่คุณจะส่งไป
+    //             id: $('#addressId').val(),
+    //             DataCus_id: $('#DataCus_id').val(),
+    //             Type_Adds: $('input[name="Type_Adds"]:checked').val(), // ใช้ค่าที่เลือกจาก radio button
+    //             Registration_number: $('#Registration_number_edit').val(),
+    //             date_Adds: $('#date_Adds').val(),
+    //             Code_Adds: $('#Code_Adds').val(),
+    //             Ordinal_Adds: $('#Ordinal_Adds').val(),
+    //             Status_Adds: $('#Status_Adds').val(),
+    //             houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
+    //             houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
+    //             building_Adds: $('#building_Adds_edit').val(),
+    //             village_Adds: $('#village_Adds_edit').val(),
+    //             roomNumber_Adds: $('#roomNumber_Adds_edit').val(),
+    //             Floor_Adds: $('#Floor_Adds_edit').val(),
+    //             alley_Adds: $('#alley_Adds_edit').val(),
+    //             road_Adds: $('#road_Adds_edit').val(),
+    //             houseZone_Adds: $('#houseZone_Adds_edit').val(),
+    //             houseProvince_Adds: $('#houseProvince_Adds_edit').val(),
+    //             houseDistrict_Adds: $('#houseDistrict_Adds_edit').val(),
+    //             houseTambon_Adds: $('#houseTambon_Adds_edit').val(),
+    //             Postal_Adds: $('#Postal_Adds_edit').val(),
+    //             Detail_Adds: $('#Detail_Adds_edit').val(),
+    //             Coordinates_Adds: $('#Coordinates_Adds_edit').val(),
+    //             UserZone: $('#UserZone').val(),
+    //             UserBranch: $('#UserBranch').val(),
+    //             UserInsert: $('#UserInsert').val(),
+    //             UserUpdate: $('#UserUpdate').val(),
+    //         },
+    //         success: function(response) {
+    //             console.log(response); // ตรวจสอบโครงสร้างของ response ที่ส่งกลับ
+
+    //             if (response.message) {
+    //                 Swal.fire({
+    //                     title: 'สำเร็จ!',
+    //                     text: response.message,
+    //                     icon: 'success',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 }).then(() => {
+    //                     fetchAddresses();
+    //                     $('#modal_edit_address_customer').addClass('hidden');
+    //                     hideModalEditAddress_customer();
+    //                 });
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
+    //                     icon: 'error',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             }
+    //         },
+    //         error: function(xhr) {
+    //             let errorMessage = 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล';
+    //             if (xhr.responseJSON && xhr.responseJSON.errors) {
+    //                 const errors = xhr.responseJSON.errors;
+    //                 errorMessage = Object.values(errors).flat().join(', ');
+    //             }
+    //             Swal.fire({
+    //                 title: 'ข้อผิดพลาด!',
+    //                 text: errorMessage,
+    //                 icon: 'error',
+    //                 timer: 1500,
+    //                 showConfirmButton: false
+    //             });
+    //         },
+    //         complete: function() {
+    //             // เปิดใช้งานปุ่มอีกครั้ง
+    //             $('#updateAddressButton').prop('disabled', false);
+    //         }
+    //     });
+    // });
+
+    // $('#updateAddressButton').on('click', function() {
+    //     // ลบข้อความแจ้งเตือนเก่าและเอาสีแดงออกจากฟิลด์ก่อน
+    //     $('.error').remove();
+    //     $('.border-red-500').removeClass('border-red-500');
+
+    //     let isValid = true;
+
+    //     // ตรวจสอบว่าฟิลด์ที่ต้องกรอกมีข้อมูลหรือไม่
+    //     const requiredFields = [{
+    //             id: '#houseNumber_Adds_edit',
+    //             message: 'กรุณากรอกบ้านเลขที่'
+    //         },
+    //         {
+    //             id: '#houseGroup_Adds_edit',
+    //             message: 'กรุณากรอกหมู่บ้าน'
+    //         },
+    //         {
+    //             id: '#houseZone_Adds_edit',
+    //             message: 'กรุณากรอกโซนบ้าน'
+    //         },
+    //         {
+    //             id: '#houseProvince_Adds_edit',
+    //             message: 'กรุณากรอกจังหวัด'
+    //         },
+    //         {
+    //             id: '#houseDistrict_Adds_edit',
+    //             message: 'กรุณากรอกอำเภอ'
+    //         },
+    //         {
+    //             id: '#houseTambon_Adds_edit',
+    //             message: 'กรุณากรอกตำบล'
+    //         },
+    //         {
+    //             id: '#Postal_Adds_edit',
+    //             message: 'กรุณากรอกรหัสไปรษณีย์'
+    //         },
+    //         {
+    //             id: '#Coordinates_Adds_edit',
+    //             message: 'กรุณากรอกพิกัด'
+    //         }
+    //     ];
+
+    //     // วนลูปตรวจสอบแต่ละฟิลด์
+    //     requiredFields.forEach(field => {
+    //         const $input = $(field.id);
+    //         if ($input.val().trim() === '') {
+    //             $input.addClass('border-red-500');
+    //             $input.after(
+    //                 `<span class="error text-red-500 text-xs flex items-center mt-1">
+    //                 <i class="fas fa-exclamation-circle mr-2"></i>${field.message}
+    //             </span>`
+    //             );
+    //             isValid = false;
+    //         }
+    //     });
+
+    //     // ถ้าไม่ผ่านการตรวจสอบ ไม่ให้เรียก Ajax
+    //     if (!isValid) {
+    //         $('#updateAddressButton').prop('disabled', false);
+    //         return;
+    //     }
+
+    //     // ป้องกันการคลิกซ้ำ
+    //     $(this).prop('disabled', true);
+
+    //     // ส่งข้อมูลผ่าน Ajax
+    //     $.ajax({
+    //         url: '/update-address',
+    //         type: 'POST',
+    //         data: {
+    //             id: $('#addressId').val(),
+    //             DataCus_id: $('#DataCus_id').val(),
+    //             Type_Adds: $('input[name="Type_Adds"]:checked').val(),
+    //             Registration_number: $('#Registration_number_edit').val(),
+    //             date_Adds: $('#date_Adds').val(),
+    //             Code_Adds: $('#Code_Adds').val(),
+    //             Ordinal_Adds: $('#Ordinal_Adds').val(),
+    //             Status_Adds: $('#Status_Adds').val(),
+    //             houseNumber_Adds: $('#houseNumber_Adds_edit').val(),
+    //             houseGroup_Adds: $('#houseGroup_Adds_edit').val(),
+    //             building_Adds: $('#building_Adds_edit').val(),
+    //             village_Adds: $('#village_Adds_edit').val(),
+    //             roomNumber_Adds: $('#roomNumber_Adds_edit').val(),
+    //             Floor_Adds: $('#Floor_Adds_edit').val(),
+    //             alley_Adds: $('#alley_Adds_edit').val(),
+    //             road_Adds: $('#road_Adds_edit').val(),
+    //             houseZone_Adds: $('#houseZone_Adds_edit').val(),
+    //             houseProvince_Adds: $('#houseProvince_Adds_edit').val(),
+    //             houseDistrict_Adds: $('#houseDistrict_Adds_edit').val(),
+    //             houseTambon_Adds: $('#houseTambon_Adds_edit').val(),
+    //             Postal_Adds: $('#Postal_Adds_edit').val(),
+    //             Detail_Adds: $('#Detail_Adds_edit').val(),
+    //             Coordinates_Adds: $('#Coordinates_Adds_edit').val(),
+    //             UserZone: $('#UserZone').val(),
+    //             UserBranch: $('#UserBranch').val(),
+    //             UserInsert: $('#UserInsert').val(),
+    //             UserUpdate: $('#UserUpdate').val(),
+    //         },
+    //         success: function(response) {
+    //             console.log(response); // ตรวจสอบโครงสร้างของ response ที่ส่งกลับ
+
+    //             if (response.message) {
+    //                 Swal.fire({
+    //                     title: 'สำเร็จ!',
+    //                     text: response.message,
+    //                     icon: 'success',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 }).then(() => {
+    //                     fetchAddresses();
+    //                     $('#modal_edit_address_customer').addClass('hidden');
+    //                     hideModalEditAddress_customer();
+    //                 });
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'ข้อมูลที่อยู่ไม่ถูกต้องหรือไม่พบ.',
+    //                     icon: 'error',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             }
+    //         },
+    //         error: function(xhr) {
+    //             let errorMessage = 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล';
+    //             if (xhr.responseJSON && xhr.responseJSON.errors) {
+    //                 const errors = xhr.responseJSON.errors;
+    //                 errorMessage = Object.values(errors).flat().join(', ');
+    //             }
+    //             Swal.fire({
+    //                 title: 'ข้อผิดพลาด!',
+    //                 text: errorMessage,
+    //                 icon: 'error',
+    //                 timer: 1500,
+    //                 showConfirmButton: false
+    //             });
+    //         },
+    //         complete: function() {
+    //             // เปิดใช้งานปุ่มอีกครั้ง
+    //             $('#updateAddressButton').prop('disabled', false);
+    //         }
+    //     });
+    // }); --}}
 
 {{-- // Type_Adds: $('#Type_Adds_edit').val(), --}}
 

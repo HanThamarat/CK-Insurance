@@ -83,7 +83,7 @@
                                 oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
                                 oninput="this.setCustomValidity('')">
                             <label for="Registration_number"
-                                class="absolute text-lg text-red-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                 เลขทะเบียนบ้าน
                             </label>
                         </div>
@@ -339,14 +339,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-    /* เปลี่ยน cursor เป็นเครื่องหมายห้าม สำหรับ input, select และ textarea ที่ถูก disabled */
     input[disabled],
     select[disabled],
     textarea[disabled] {
         cursor: not-allowed;
     }
 
-    /* เปลี่ยน cursor เป็นเครื่องหมายห้าม สำหรับ label ที่เกี่ยวข้องกับ input, select และ textarea ที่ถูก disabled */
     input[disabled]+label,
     select[disabled]+label,
     textarea[disabled]+label {
@@ -719,6 +717,7 @@
                     }).then(() => {
                         // location.reload(); // รีเฟรชหน้าหลังจากแสดงข้อความสำเร็จ
                         fetchAddresses();
+                        $('#closeModal_address_button').click();
                     });
                     $('#addressForm')[0].reset(); // รีเซ็ตฟอร์ม
                 },
