@@ -206,140 +206,141 @@
                 }
             </style>
         `);
-        // ฟังก์ชันสำหรับดึงข้อมูลอาชีพ
+
+
         function fetchCareerData() {
-            const customerId = '{{ $customer->id ?? '-' }}'; // รับค่า customer ID จาก Blade
+            const customerId = $('#dataCusIdField').val(); // รับ ID ลูกค้า
+
             $.ajax({
                 url: '/get-career-data/' + customerId,
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
                     let html = '';
-                    let hasCareerCards = false; // ตัวแปรสำหรับเช็คว่ามีการ์ดหรือไม่
+                    let hasCareerCards = false; // เช็คว่ามีการ์ดหรือไม่
 
                     if (data.careers && data.careers.length > 0) {
                         hasCareerCards = true; // พบการ์ดเพิ่มค่าเป็น true
 
                         $.each(data.careers, function(index, career) {
                             html += `
-                            <div class="flex space-x-4 p-2">
-                                <div class="w-full mt-0">
-                                    <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
-                                        <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">
-                                            <div class="flex justify-between items-center">
-                                                <div class="flex-1">
-                                                    <h6 class="text-primary font-semibold">
-                                                        <i class="fas fa-tag"></i> ${career.Career_Cus}
-                                                    </h6>
-                                                </div>
-                                                <label class="popup">
-                                                    <input type="checkbox">
-                                                    <div class="burger" tabindex="0">
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                    </div>
-                                                    <nav class="popup-window">
-                                                        <legend>Actions</legend>
-                                                        <ul>
-                                                        <li>
-                                                            <button data-id="${career.id}"
-                                                                    data-Status_Cus="${career.Status_Cus}"
-                                                                    data-DataCus_id="${career.DataCus_id}"
-                                                                    data-Career_Cus="${career.Career_Cus}"
-                                                                    data-Workplace_Cus="${career.Workplace_Cus}"
-                                                                    data-Income_Cus="${career.Income_Cus}"
-                                                                    data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
-                                                                    data-AfterIncome_Cus="${career.AfterIncome_Cus}"
-                                                                    data-Coordinates="${career.Coordinates}"
-                                                                    data-IncomeNote_Cus="${career.IncomeNote_Cus}"
-                                                                    onclick="openModal_Show_career_customer(this)">
-                                                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
-                                                                <circle cx="12" cy="12" r="3"></circle>
-                                                            </svg>
-                                                            <span>แสดง</span>
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button data-id="${career.id}"
-                                                                    data-Status_Cus="${career.Status_Cus}"
-                                                                    data-DataCus_id="${career.DataCus_id}"
-                                                                    data-Career_Cus="${career.Career_Cus}"
-                                                                    data-Workplace_Cus="${career.Workplace_Cus}"
-                                                                    data-Income_Cus="${career.Income_Cus}"
-                                                                    data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
-                                                                    data-AfterIncome_Cus="${career.AfterIncome_Cus}"
-                                                                    data-Coordinates="${career.Coordinates}"
-                                                                    data-IncomeNote_Cus="${career.IncomeNote_Cus}"
-                                                                    onclick="openModal_Edit_career_customer(this)">
-                                                                    <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                                <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                            </svg>
-                                                            <span>แก้ไข</span>
-                                                            </button>
-                                                        </li>
-                                                        <hr>
-                                                        <li>
-                                                            <button>
-                                                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                                <line y2="18" x2="6" y1="6" x1="18"></line>
-                                                                <line y2="18" x2="18" y1="6" x1="6"></line>
-                                                            </svg>
-                                                            <span>ลบ</span>
-                                                            </button>
-                                                        </li>
-                                                        </ul>
-                                                    </nav>
-                                                </label>
+                        <div class="flex space-x-4 p-2">
+                            <div class="w-full mt-0">
+                                <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
+                                    <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex-1">
+                                                <h6 class="text-primary font-semibold">
+                                                    <i class="fas fa-tag"></i> ${career.Career_Cus}
+                                                </h6>
                                             </div>
-                                        </div>
-                                        <div class="p-4">
-                                            <div class="flex">
-                                                <div class="flex-1">
-                                                    <p class="text-truncate">
-                                                        <input type="hidden" name="DataCus_id" value="${career.DataCus_id}">
-                                                        <i class="fas fa-bookmark text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>
-                                                        <i class="fas fa-table text-success mb-1 h-5"></i>  <strong>รายได้</strong> : ${career.Income_Cus}<br>
-                                                        <i class="fas fa-briefcase text-success mb-1 h-5"></i>  <strong>อาชีพ</strong> : ${career.Career_Cus}<br>
-                                                        <!--<i class="fas fa-building text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>-->
-                                                        <i class="fas fa-money-bill text-success mb-0 h-5"></i>  <strong>เงินเดือน</strong> : ${career.Income_Cus}
-                                                    </p>
-
+                                            <label class="popup">
+                                                <input type="checkbox">
+                                                <div class="burger" tabindex="0">
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
                                                 </div>
-                                                <div class="flex-shrink-0">
-                                                    <img src="{{ asset('img/career.jpg') }}" alt="${career.DetailCareer_Cus}" class="w-36 h-20">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="p-4 border-t">
-                                            <small class="text-muted">
-                                                <div class="flex justify-between items-center">
-                                                    <div title="${career.created_at}">
-                                                        <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ
-                                                        ${new Date(career.created_at).toLocaleDateString('th-TH', {
-                                                            day: 'numeric',
-                                                            month: 'long',
-                                                            year: 'numeric'
-                                                        })} เวลา ${new Date(career.created_at).toLocaleTimeString('th-TH', {
-                                                            hour: '2-digit',
-                                                            minute: '2-digit',
-                                                            hour12: false // ใช้ 24 ชั่วโมง
-                                                        })} น.
-                                                    </div>
-                                                    <div class="text-right">
-                                                        <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p>
-                                                    </div>
-                                                </div>
-                                            </small>
+                                                <nav class="popup-window">
+                                                    <legend>Actions</legend>
+                                                    <ul>
+                                                    <li>
+                                                        <button data-id="${career.id}"
+                                                                data-Status_Cus="${career.Status_Cus}"
+                                                                data-DataCus_id="${career.DataCus_id}"
+                                                                data-Career_Cus="${career.Career_Cus}"
+                                                                data-Workplace_Cus="${career.Workplace_Cus}"
+                                                                data-Income_Cus="${career.Income_Cus}"
+                                                                data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+                                                                data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+                                                                data-Coordinates="${career.Coordinates}"
+                                                                data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+                                                                onclick="openModal_Show_career_customer(this)">
+                                                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                                            <circle cx="12" cy="12" r="3"></circle>
+                                                        </svg>
+                                                        <span>แสดง</span>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button data-id="${career.id}"
+                                                                data-Status_Cus="${career.Status_Cus}"
+                                                                data-DataCus_id="${career.DataCus_id}"
+                                                                data-Career_Cus="${career.Career_Cus}"
+                                                                data-Workplace_Cus="${career.Workplace_Cus}"
+                                                                data-Income_Cus="${career.Income_Cus}"
+                                                                data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+                                                                data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+                                                                data-Coordinates="${career.Coordinates}"
+                                                                data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+                                                                onclick="openModal_Edit_career_customer(this)">
+                                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                            <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                                                        </svg>
+                                                        <span>แก้ไข</span>
+                                                        </button>
+                                                    </li>
+                                                    <hr>
+                                                    <li>
+                                                        <button>
+                                                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                            <line y2="18" x2="6" y1="6" x1="18"></line>
+                                                            <line y2="18" x2="18" y1="6" x1="6"></line>
+                                                        </svg>
+                                                        <span>ลบ</span>
+                                                        </button>
+                                                    </li>
+                                                    </ul>
+                                                </nav>
+                                            </label>
                                         </div>
                                     </div>
+                                    <div class="p-4">
+                                        <div class="flex">
+                                            <div class="flex-1">
+                                                <p class="text-truncate">
+                                                    <input type="hidden" name="DataCus_id" value="${career.DataCus_id}">
+                                                    <i class="fas fa-bookmark text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>
+                                                    <i class="fas fa-table text-success mb-1 h-5"></i>  <strong>รายได้</strong> : ${career.Income_Cus}<br>
+                                                    <i class="fas fa-briefcase text-success mb-1 h-5"></i>  <strong>อาชีพ</strong> : ${career.Career_Cus}<br>
+                                                    <!--<i class="fas fa-building text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>-->
+                                                    <i class="fas fa-money-bill text-success mb-0 h-5"></i>  <strong>เงินเดือน</strong> : ${career.Income_Cus}
+                                                </p>
+
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <img src="{{ asset('img/career.jpg') }}" alt="${career.DetailCareer_Cus}" class="w-36 h-20">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 border-t">
+                                        <small class="text-muted">
+                                            <div class="flex justify-between items-center">
+                                                <div title="${career.created_at}">
+                                                    <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ
+                                                    ${new Date(career.created_at).toLocaleDateString('th-TH', {
+                                                        day: 'numeric',
+                                                        month: 'long',
+                                                        year: 'numeric'
+                                                    })} เวลา ${new Date(career.created_at).toLocaleTimeString('th-TH', {
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        hour12: false // ใช้ 24 ชั่วโมง
+                                                    })} น.
+                                                </div>
+                                                <div class="text-right">
+                                                    <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p>
+                                                </div>
+                                            </div>
+                                        </small>
+                                    </div>
                                 </div>
-                            </div>`;
+                            </div>
+                        </div>`;
                         });
                     } else {
-                        html =
-                            `<p class="text-center text-muted" hidden>ไม่พบข้อมูลอาชีพ</p>`; // ข้อความเมื่อไม่มีข้อมูลอาชีพ
+                        html = `<p class="text-center text-muted">ไม่พบข้อมูลอาชีพ</p>`;
                     }
 
                     $('#career-container').html(html);
@@ -347,22 +348,190 @@
                     // ซ่อน career-master ถ้ามีการ์ด
                     if (hasCareerCards) {
                         $('.career-master').hide();
-                        $('#prev-master-2').show();
-                        $('#next-master-2').show();
                     } else {
                         $('.career-master').show();
-                        $('#prev-master-2').hide();
-                        $('#next-master-2').hide();
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+                    alert('ไม่สามารถดึงข้อมูลได้ โปรดลองอีกครั้ง');
                 }
             });
         }
+
         fetchCareerData();
     });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- // ฟังก์ชันสำหรับดึงข้อมูลอาชีพ
+// function fetchCareerData() {
+//     const customerId = $('#dataCusIdField').val(); // รับ ID ลูกค้า
+//     // const customerId = '{{ $customer->id ?? '-' }}'; // รับค่า customer ID จาก Blade
+//     $.ajax({
+//         url: '/get-career-data/' + customerId,
+//         method: 'GET',
+//         dataType: 'json',
+//         success: function(data) {
+//             let html = '';
+//             let hasCareerCards = false; // ตัวแปรสำหรับเช็คว่ามีการ์ดหรือไม่
+
+//             if (data.careers && data.careers.length > 0) {
+//                 hasCareerCards = true; // พบการ์ดเพิ่มค่าเป็น true
+
+//                 $.each(data.careers, function(index, career) {
+//                     html += `
+//                     <div class="flex space-x-4 p-2">
+//                         <div class="w-full mt-0">
+//                             <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
+//                                 <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">
+//                                     <div class="flex justify-between items-center">
+//                                         <div class="flex-1">
+//                                             <h6 class="text-primary font-semibold">
+//                                                 <i class="fas fa-tag"></i> ${career.Career_Cus}
+//                                             </h6>
+//                                         </div>
+//                                         <label class="popup">
+//                                             <input type="checkbox">
+//                                             <div class="burger" tabindex="0">
+//                                                 <span></span>
+//                                                 <span></span>
+//                                                 <span></span>
+//                                             </div>
+//                                             <nav class="popup-window">
+//                                                 <legend>Actions</legend>
+//                                                 <ul>
+//                                                 <li>
+//                                                     <button data-id="${career.id}"
+//                                                             data-Status_Cus="${career.Status_Cus}"
+//                                                             data-DataCus_id="${career.DataCus_id}"
+//                                                             data-Career_Cus="${career.Career_Cus}"
+//                                                             data-Workplace_Cus="${career.Workplace_Cus}"
+//                                                             data-Income_Cus="${career.Income_Cus}"
+//                                                             data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+//                                                             data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+//                                                             data-Coordinates="${career.Coordinates}"
+//                                                             data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+//                                                             onclick="openModal_Show_career_customer(this)">
+//                                                     <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+//                                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+//                                                         <circle cx="12" cy="12" r="3"></circle>
+//                                                     </svg>
+//                                                     <span>แสดง</span>
+//                                                     </button>
+//                                                 </li>
+//                                                 <li>
+//                                                     <button data-id="${career.id}"
+//                                                             data-Status_Cus="${career.Status_Cus}"
+//                                                             data-DataCus_id="${career.DataCus_id}"
+//                                                             data-Career_Cus="${career.Career_Cus}"
+//                                                             data-Workplace_Cus="${career.Workplace_Cus}"
+//                                                             data-Income_Cus="${career.Income_Cus}"
+//                                                             data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+//                                                             data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+//                                                             data-Coordinates="${career.Coordinates}"
+//                                                             data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+//                                                             onclick="openModal_Edit_career_customer(this)">
+//                                                             <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+//                                                         <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+//                                                     </svg>
+//                                                     <span>แก้ไข</span>
+//                                                     </button>
+//                                                 </li>
+//                                                 <hr>
+//                                                 <li>
+//                                                     <button>
+//                                                     <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+//                                                         <line y2="18" x2="6" y1="6" x1="18"></line>
+//                                                         <line y2="18" x2="18" y1="6" x1="6"></line>
+//                                                     </svg>
+//                                                     <span>ลบ</span>
+//                                                     </button>
+//                                                 </li>
+//                                                 </ul>
+//                                             </nav>
+//                                         </label>
+//                                     </div>
+//                                 </div>
+//                                 <div class="p-4">
+//                                     <div class="flex">
+//                                         <div class="flex-1">
+//                                             <p class="text-truncate">
+//                                                 <input type="hidden" name="DataCus_id" value="${career.DataCus_id}">
+//                                                 <i class="fas fa-bookmark text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>
+//                                                 <i class="fas fa-table text-success mb-1 h-5"></i>  <strong>รายได้</strong> : ${career.Income_Cus}<br>
+//                                                 <i class="fas fa-briefcase text-success mb-1 h-5"></i>  <strong>อาชีพ</strong> : ${career.Career_Cus}<br>
+//                                                 <!--<i class="fas fa-building text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>-->
+//                                                 <i class="fas fa-money-bill text-success mb-0 h-5"></i>  <strong>เงินเดือน</strong> : ${career.Income_Cus}
+//                                             </p>
+
+//                                         </div>
+//                                         <div class="flex-shrink-0">
+//                                             <img src="{{ asset('img/career.jpg') }}" alt="${career.DetailCareer_Cus}" class="w-36 h-20">
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                                 <div class="p-4 border-t">
+//                                     <small class="text-muted">
+//                                         <div class="flex justify-between items-center">
+//                                             <div title="${career.created_at}">
+//                                                 <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ
+//                                                 ${new Date(career.created_at).toLocaleDateString('th-TH', {
+//                                                     day: 'numeric',
+//                                                     month: 'long',
+//                                                     year: 'numeric'
+//                                                 })} เวลา ${new Date(career.created_at).toLocaleTimeString('th-TH', {
+//                                                     hour: '2-digit',
+//                                                     minute: '2-digit',
+//                                                     hour12: false // ใช้ 24 ชั่วโมง
+//                                                 })} น.
+//                                             </div>
+//                                             <div class="text-right">
+//                                                 <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p>
+//                                             </div>
+//                                         </div>
+//                                     </small>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>`;
+//                 });
+//             } else {
+//                 html =
+//                     `<p class="text-center text-muted" hidden>ไม่พบข้อมูลอาชีพ</p>`; // ข้อความเมื่อไม่มีข้อมูลอาชีพ
+//             }
+
+//             $('#career-container').html(html);
+
+//             // ซ่อน career-master ถ้ามีการ์ด
+//             if (hasCareerCards) {
+//                 $('.career-master').hide();
+//                 $('#prev-master-2').show();
+//                 $('#next-master-2').show();
+//             } else {
+//                 $('.career-master').show();
+//                 $('#prev-master-2').hide();
+//                 $('#next-master-2').hide();
+//             }
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+//         }
+//     });
+// } --}}
+
+
+
 
 
 

@@ -284,8 +284,8 @@
                             showConfirmButton: false
                         }).then(() => {
                             $('#modalEditCareer').fadeOut(300);
-                            // fetchCareerData();
-                            location.reload();
+                            fetchCareerData();
+                            // location.reload();
                         });
                     } else {
                         Swal.fire({

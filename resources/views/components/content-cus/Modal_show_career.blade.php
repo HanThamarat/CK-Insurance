@@ -62,11 +62,15 @@
 
                     <div class="space-y-4 mt-2">
                         <div class="relative">
-                            <select id="careerName" name="Career_Cus"
+                            {{-- <select id="careerNameShow" name="Career_Cus"
                                 class="p-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:border-orange-600 focus:ring-0 text-gray-500">
                                 <option value="">อาชีพ</option>
-                            </select>
-                            <label for="careerName"
+                            </select> --}}
+
+                            <input type="text" id="careerCusShow" name="Career_Cus"
+                                class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
+                                placeholder=" ">
+                            <label for="careerCusShow"
                                 class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                 อาชีพ
                             </label>
@@ -74,30 +78,30 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                             <div class="relative">
-                                <input type="text" id="Income_Cus_edit" name="Income_Cus"
+                                <input type="text" id="Income_Cus_show" name="Income_Cus"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" ">
-                                <label for="Income_Cus_edit"
+                                <label for="Income_Cus_show"
                                     class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     รายได้
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="BeforeIncome_Cus_edit" name="BeforeIncome_Cus"
+                                <input type="text" id="BeforeIncome_Cus_show" name="BeforeIncome_Cus"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" ">
-                                <label for="BeforeIncome_Cus_edit"
+                                <label for="BeforeIncome_Cus_show"
                                     class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     หักค่าใช้จ่าย
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="AfterIncome_Cus_edit" name="AfterIncome_Cus"
+                                <input type="text" id="AfterIncome_Cus_show" name="AfterIncome_Cus"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" ">
-                                <label for="AfterIncome_Cus_edit"
+                                <label for="AfterIncome_Cus_show"
                                     class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     คงเหลือ
                                 </label>
@@ -106,20 +110,20 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                             <div class="relative">
-                                <input type="text" id="Workplace_Cus_edit" name="Workplace_Cus"
+                                <input type="text" id="Workplace_Cus_show" name="Workplace_Cus"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" ">
-                                <label for="Workplace_Cus_edit"
+                                <label for="Workplace_Cus_show"
                                     class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     สถานที่ทำงาน
                                 </label>
                             </div>
 
                             <div class="relative">
-                                <input type="text" id="Coordinates_edit" name="Coordinates"
+                                <input type="text" id="Coordinates_show" name="Coordinates"
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                     placeholder=" ">
-                                <label for="Coordinates_edit"
+                                <label for="Coordinates_show"
                                     class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                     พิกัด
                                 </label>
@@ -127,10 +131,10 @@
                         </div>
 
                         <div class="relative">
-                            <textarea id="IncomeNote_Cus_edit" name="IncomeNote_Cus" rows="8"
+                            <textarea id="IncomeNote_Cus_show" name="IncomeNote_Cus" rows="8"
                                 class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                 placeholder=" "></textarea>
-                            <label for="IncomeNote_Cus_edit"
+                            <label for="IncomeNote_Cus_show"
                                 class="absolute text-sm text-red-500 duration-300 transform -translate-y-3 scale-75 left-2 top-0 z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                 รายละเอียด
                             </label>
@@ -162,40 +166,7 @@
     $(document).ready(function() {
 
         function showCareerDataCus() {
-            $.ajax({
-                url: '/get-careers',
-                method: 'GET',
-                success: function(data) {
-                    const careerName = $('#careerName');
-                    careerName.empty();
 
-                    if (data.length > 0) {
-                        careerName.append($('<option>').val('').text('กรุณาเลื่อกอาชีพ'));
-
-                        $.each(data, function(index, career) {
-                            const careerValue = JSON.stringify({
-                                code: career.Code_Career,
-                                name: career.Name_Career
-                            });
-                            careerName.append(
-                                $('<option>')
-                                .val(careerValue)
-                                .text(career.Code_Career + ' - ' + career.Name_Career)
-                            );
-                        });
-                    } else {
-                        careerName.append($('<option>').text('ไม่มีข้อมูลอาชีพ'));
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        title: 'ข้อผิดพลาด!',
-                        text: 'เกิดข้อผิดพลาดในการดึงข้อมูลอาชีพ',
-                        icon: 'error'
-                    });
-                }
-            });
         }
 
         // เรียกใช้งานฟังก์ชันดึงข้อมูลอาชีพเมื่อโหลดหน้า
@@ -221,22 +192,23 @@
             $('#careerIdInput').val(careerData.id);
 
             // ตั้งค่า select option สำหรับอาชีพ
-            const careerSelect = $('#careerName option').filter(function() {
+            const careerSelect = $('#careerCusShow option').filter(function() {
                 const optionValue = JSON.parse($(this).val() || '{"code":"","name":""}');
                 return optionValue.code === careerData.careerCus;
             });
 
             if (careerSelect.length) {
-                $('#careerName').val(careerSelect.val());
+                $('#careerCusShow').val(careerSelect.val());
             }
 
             // กำหนดค่าให้กับ input fields
-            $('#Income_Cus_edit').val(careerData.incomeCus);
-            $('#BeforeIncome_Cus_edit').val(careerData.beforeIncomeCus);
-            $('#AfterIncome_Cus_edit').val(careerData.afterIncomeCus);
-            $('#Workplace_Cus_edit').val(careerData.workplaceCus);
-            $('#Coordinates_edit').val(careerData.coordinates);
-            $('#IncomeNote_Cus_edit').val(careerData.incomeNoteCus);
+            $('#careerCusShow').val(careerData.careerCus);
+            $('#Income_Cus_show').val(careerData.incomeCus);
+            $('#BeforeIncome_Cus_show').val(careerData.beforeIncomeCus);
+            $('#AfterIncome_Cus_show').val(careerData.afterIncomeCus);
+            $('#Workplace_Cus_show').val(careerData.workplaceCus);
+            $('#Coordinates_show').val(careerData.coordinates);
+            $('#IncomeNote_Cus_show').val(careerData.incomeNoteCus);
 
             // Set radio button status
             $(`input[name="Status_Cus"][value="${careerData.statusCus}"]`).prop('checked', true);
@@ -255,17 +227,17 @@
             event.preventDefault();
 
             const careerId = $('#careerIdInput').val();
-            const selectedCareer = JSON.parse($('#careerName').val() || '{"code":"","name":""}');
+            const selectedCareer = JSON.parse($('#careerNameShow').val() || '{"code":"","name":""}');
 
             const formData = {
                 Career_Cus: selectedCareer.code + '  ' + selectedCareer.name,
                 Career_Name: selectedCareer.code + '  ' + selectedCareer.name,
-                Income_Cus: $('#Income_Cus_edit').val(),
-                BeforeIncome_Cus: $('#BeforeIncome_Cus_edit').val(),
-                AfterIncome_Cus: $('#AfterIncome_Cus_edit').val(),
-                Workplace_Cus: $('#Workplace_Cus_edit').val(),
-                Coordinates: $('#Coordinates_edit').val(),
-                IncomeNote_Cus: $('#IncomeNote_Cus_edit').val(),
+                Income_Cus: $('#Income_Cus_show').val(),
+                BeforeIncome_Cus: $('#BeforeIncome_Cus_show').val(),
+                AfterIncome_Cus: $('#AfterIncome_Cus_show').val(),
+                Workplace_Cus: $('#Workplace_Cus_show').val(),
+                Coordinates: $('#Coordinates_show').val(),
+                IncomeNote_Cus: $('#IncomeNote_Cus_show').val(),
                 Status_Cus: $('input[name="Status_Cus"]:checked').val()
             };
 
