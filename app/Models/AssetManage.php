@@ -147,4 +147,48 @@ class AssetManage extends Model
         'register_end_date', // เพิ่มฟิลด์ใหม่
         'Customer_id', // เพิ่มฟิลด์ใหม่
     ];
+
+    public function carBrand()
+    {
+        return $this->belongsTo(StatCarBrand::class, 'Vehicle_Brand', 'id');
+    }
+
+    public function motoBrand()
+    {
+        return $this->belongsTo(StatMotoBrand::class, 'Vehicle_Brand', 'id');
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function motoBrand()
+    // {
+    //     return $this->belongsTo(StatMotoBrand::class, 'Vehicle_Brand', 'id');
+    // }
+
+    // public function carBrand()
+    // {
+    //     return $this->belongsTo(StatCarBrand::class, 'Vehicle_Brand', 'id');
+    // }
+
+    // public function motoBrand()
+    // {
+    //     return $this->belongsTo(StatMotoBrand::class, 'id'); // เปลี่ยน 'moto_brand_id' เป็นฟิลด์ที่ใช้เชื่อม
+    // }
+
+    // public function carBrand()
+    // {
+    //     return $this->belongsTo(StatCarBrand::class, 'id'); // เปลี่ยน 'car_brand_id' เป็นฟิลด์ที่ใช้เชื่อม
+    // }

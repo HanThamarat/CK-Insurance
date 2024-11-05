@@ -567,7 +567,6 @@ class DataAssetController extends Controller
         }
 
 
-
         //---------------------------------------------Data Assets Destroy---------------------------------------------------------//
 
         public function destroy($id)
@@ -656,12 +655,102 @@ class DataAssetController extends Controller
 
 
 
+        // public function show($id)
+        // {
+        //     // ค้นหา asset โดยใช้ ID พร้อมโหลดความสัมพันธ์
+        //     $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($id);
+
+        //     // ตรวจสอบว่าพบ asset หรือไม่
+        //     if (!$asset) {
+        //         return response()->json(['message' => 'Asset not found']);
+        //     }
+
+        //     // ส่งข้อมูล asset กลับในรูปแบบ JSON
+        //     return response()->json($asset);
+        // }
+
+
+
+        // public function show($id)
+        // {
+        //     // ค้นหา asset พร้อมกับโหลดความสัมพันธ์ของ carBrand และ motoBrand
+        //     $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($id);
+
+        //     // ตรวจสอบว่าพบ asset หรือไม่
+        //     if (!$asset) {
+        //         return response()->json(['message' => 'Asset not found']);
+        //     }
+
+        //     // สร้าง response ที่มีการปรับแต่งข้อมูล
+        //     $response = $asset->toArray();
+
+        //     // เช็ค Type_asset และแทนที่ยี่ห้อตามประเภท
+        //     if ($asset->Type_asset === 'vehicle' && $asset->Vehicle_Type === 'car' && $asset->carBrand) {
+        //         $response['Vehicle_Brand'] = $asset->carBrand->Brand_car;
+        //     } elseif ($asset->Type_asset === 'vehicle' && $asset->Vehicle_Type === 'motorcycle' && $asset->motoBrand) {
+        //         $response['Vehicle_Brand'] = $asset->motoBrand->Brand_car;
+        //     }
+
+        //     return response()->json($response);
+        // }
 
 
 
 
+// public function show($id)
+// {
+//     // ค้นหา asset พร้อมกับโหลดความสัมพันธ์ของ carBrand และ motoBrand
+//     $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($id);
+
+//     // ตรวจสอบว่าพบ asset หรือไม่
+//     if (!$asset) {
+//         return response()->json(['message' => 'Asset not found']);
+//     }
+
+//     // สร้าง response ที่มีการปรับแต่งข้อมูล
+//     $response = $asset->toArray();
+
+//     // เช็ค Type_asset และแทนที่ยี่ห้อตามประเภท
+//     if ($asset->Type_asset === 'vehicle' && $asset->Vehicle_Type === 'car' && $asset->carBrand) {
+//         $response['Vehicle_Brand'] = $asset->carBrand->Brand_car;
+//     } elseif ($asset->Type_asset === 'vehicle' && $asset->Vehicle_Type === 'motorcycle' && $asset->motoBrand) {
+//         $response['Vehicle_Brand'] = $asset->motoBrand->Brand_car;
+//     }
+
+//     return response()->json($response);
+// }
 
 
+
+
+        // public function show($id)
+        // {
+        //     // ค้นหา asset พร้อมกับโหลดความสัมพันธ์ของ carBrand และ motoBrand
+        //     $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($id);
+
+        //     // ตรวจสอบว่าพบ asset หรือไม่
+        //     if (!$asset) {
+        //         return response()->json(['message' => 'Asset not found']);
+        //     }
+
+        //     // สร้าง response ที่มีการปรับแต่งข้อมูล
+        //     $response = $asset->toArray();
+
+        //     // เช็ค Type_asset และแทนที่ยี่ห้อตามประเภท
+        //     if ($asset->Type_Asset === 'รถยนต์') {
+        //         if ($asset->Vehicle_Type === 'car' && $asset->carBrand) {
+        //             $response['Vehicle_Brand'] = $asset->carBrand->Brand_car; // ใช้ชื่อแบรนด์ของรถ
+        //         } elseif ($asset->Vehicle_Type === 'motorcycle' && $asset->motoBrand) {
+        //             $response['Vehicle_Brand'] = $asset->motoBrand->Brand_moto; // ใช้ชื่อแบรนด์ของมอเตอร์ไซค์
+        //         } else {
+        //             $response['Vehicle_Brand'] = 'Unknown Brand'; // หากไม่พบแบรนด์
+        //         }
+        //     } else {
+        //         $response['Vehicle_Brand'] = 'Not a vehicle type'; // หากไม่ใช่ประเภท vehicle
+        //     }
+
+        //     return response()->json($response);
+        // }
 
 
  // public function getAssetsByCustomerId(Request $request)

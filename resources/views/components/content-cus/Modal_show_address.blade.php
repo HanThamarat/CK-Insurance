@@ -6,12 +6,25 @@
         <div class="relative bg-white rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
             <!-- Header -->
             <div class="flex items-center justify-between mb-4 space-x-3">
-                <img src="{{ asset('img/map.gif') }}" alt="career icon" class="w-12 h-12 rounded-full">
+                {{-- <img src="{{ asset('img/map.gif') }}" alt="career icon" class="w-12 h-12 rounded-full"> --}}
 
-                <div class="flex-grow">
+                {{-- <div class="flex-grow">
                     <h5 class="text-orange-400 font-semibold text-lg">แสดงข้อมูลที่อยู่ลูกค้า</h5>
                     <p class="text-gray-600 font-medium text-sm">(Show Customer Address)</p>
                     <div class="border-b-2 border-orange-400 mt-1 w-full"></div>
+                </div> --}}
+
+                <div class="flex items-center space-x-4 p-4">
+                    <div class="p-3 bg-orange-100 rounded-xl">
+                        <img src="{{ asset('img/map.gif') }}" alt="map icon"
+                            class="w-12 h-12 object-cover rounded-lg">
+                    </div>
+                    <div class="flex-grow">
+                        <h5 class="text-xl font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                            แสดงข้อมูลที่อยู่ลูกค้า</h5>
+                        <p class="text-gray-500 text-sm mt-1">(Show Customer Address)</p>
+                        <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
+                    </div>
                 </div>
                 <button onclick="hideModal_show_address()" class="text-gray-500 hover:text-gray-700">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -19,7 +32,8 @@
                     </svg>
                 </button>
             </div>
-
+            <hr class="mt-[-7]">
+            <br>
             <!-- Address Details Container -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-0">
                 <!-- Left Column - Address Type Selection -->
@@ -294,10 +308,9 @@
                 // Show modal with animation
                 $('#modal_show_address_customer')
                     .removeClass('hidden')
-                    .css('opacity', 0)
-                    .animate({
-                        opacity: 1
-                    }, 100);
+                    .css({ opacity: 0, top: '60px' })
+                    .removeClass('hidden')
+                    .animate({ opacity: 1, top: '0px' }, 200, 'swing');
             },
             error: function(xhr) {
                 console.error('Error fetching address:', xhr.responseText);

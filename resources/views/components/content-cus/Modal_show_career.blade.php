@@ -246,69 +246,13 @@
                 });
         };
 
-        // จัดการการส่งฟอร์ม
-        // $('#showCareerForm').on('submit', function(event) {
-        //     event.preventDefault();
-
-        //     const careerId = $('#careerIdInput').val();
-        //     const selectedCareer = JSON.parse($('#careerNameShow').val() || '{"code":"","name":""}');
-
-        //     const formData = {
-        //         Career_Cus: selectedCareer.code + '  ' + selectedCareer.name,
-        //         Career_Name: selectedCareer.code + '  ' + selectedCareer.name,
-        //         Income_Cus: $('#Income_Cus_show').val(),
-        //         BeforeIncome_Cus: $('#BeforeIncome_Cus_show').val(),
-        //         AfterIncome_Cus: $('#AfterIncome_Cus_show').val(),
-        //         Workplace_Cus: $('#Workplace_Cus_show').val(),
-        //         Coordinates: $('#Coordinates_show').val(),
-        //         IncomeNote_Cus: $('#IncomeNote_Cus_show').val(),
-        //         Status_Cus: $('input[name="Status_Cus"]:checked').val()
-        //     };
-
-        //     // $.ajax({
-        //     //     url: '/career/update/' + careerId,
-        //     //     method: 'POST',
-        //     //     data: JSON.stringify(formData),
-        //     //     contentType: 'application/json',
-        //     //     success: function(response) {
-        //     //         if (response.success) {
-        //     //             Swal.fire({
-        //     //                 title: 'สำเร็จ!',
-        //     //                 text: 'อัพเดทข้อมูลเรียบร้อยแล้ว',
-        //     //                 icon: 'success',
-        //     //                 timer: 1500,
-        //     //                 showConfirmButton: false
-        //     //             }).then(() => {
-        //     //                 $('#modalShowCareer').fadeOut(300);
-        //     //                 // fetchCareerData();
-        //     //                 location.reload();
-        //     //             });
-        //     //         } else {
-        //     //             Swal.fire({
-        //     //                 title: 'ข้อผิดพลาด!',
-        //     //                 text: response.message ||
-        //     //                     'เกิดข้อผิดพลาดในการบันทึกข้อมูล',
-        //     //                 icon: 'error'
-        //     //             });
-        //     //         }
-        //     //     },
-        //     //     error: function(xhr, status, error) {
-        //     //         Swal.fire({
-        //     //             title: 'ข้อผิดพลาด!',
-        //     //             text: 'เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์',
-        //     //             icon: 'error'
-        //     //         });
-        //     //     }
-        //     // });
-        // });
-
 
         // ปุ่มปิด Modal
         $('#closeModal_show_career_x').on('click', function() {
             $('#modalShowCareer')
                 .removeClass('modal-enter-active')
                 .addClass('modal-leave')
-                .fadeOut(10, function() {
+                .fadeOut(300, function() {
                     $(this).removeClass('modal-leave');
                 });
         });
@@ -389,3 +333,58 @@
 
 
 
+{{-- // จัดการการส่งฟอร์ม
+// $('#showCareerForm').on('submit', function(event) {
+//     event.preventDefault();
+
+//     const careerId = $('#careerIdInput').val();
+//     const selectedCareer = JSON.parse($('#careerNameShow').val() || '{"code":"","name":""}');
+
+//     const formData = {
+//         Career_Cus: selectedCareer.code + '  ' + selectedCareer.name,
+//         Career_Name: selectedCareer.code + '  ' + selectedCareer.name,
+//         Income_Cus: $('#Income_Cus_show').val(),
+//         BeforeIncome_Cus: $('#BeforeIncome_Cus_show').val(),
+//         AfterIncome_Cus: $('#AfterIncome_Cus_show').val(),
+//         Workplace_Cus: $('#Workplace_Cus_show').val(),
+//         Coordinates: $('#Coordinates_show').val(),
+//         IncomeNote_Cus: $('#IncomeNote_Cus_show').val(),
+//         Status_Cus: $('input[name="Status_Cus"]:checked').val()
+//     };
+
+//     // $.ajax({
+//     //     url: '/career/update/' + careerId,
+//     //     method: 'POST',
+//     //     data: JSON.stringify(formData),
+//     //     contentType: 'application/json',
+//     //     success: function(response) {
+//     //         if (response.success) {
+//     //             Swal.fire({
+//     //                 title: 'สำเร็จ!',
+//     //                 text: 'อัพเดทข้อมูลเรียบร้อยแล้ว',
+//     //                 icon: 'success',
+//     //                 timer: 1500,
+//     //                 showConfirmButton: false
+//     //             }).then(() => {
+//     //                 $('#modalShowCareer').fadeOut(300);
+//     //                 // fetchCareerData();
+//     //                 location.reload();
+//     //             });
+//     //         } else {
+//     //             Swal.fire({
+//     //                 title: 'ข้อผิดพลาด!',
+//     //                 text: response.message ||
+//     //                     'เกิดข้อผิดพลาดในการบันทึกข้อมูล',
+//     //                 icon: 'error'
+//     //             });
+//     //         }
+//     //     },
+//     //     error: function(xhr, status, error) {
+//     //         Swal.fire({
+//     //             title: 'ข้อผิดพลาด!',
+//     //             text: 'เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์',
+//     //             icon: 'error'
+//     //         });
+//     //     }
+//     // });
+// }); --}}
