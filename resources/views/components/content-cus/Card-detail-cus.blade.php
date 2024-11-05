@@ -5,7 +5,7 @@
         <span class="text-sm font-semibold text-orange-500">
             <i class="fa-regular fa-user mr-2"></i>ข้อมูลลูกค้า (Customer Details)
         </span>
-        <div class="flex space-x-2">
+        <div class="flex space-x-2 ">
             <a href="#"
                 class="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-gray-600 transition-transform duration-300"
                 type="button" onclick="showDataCustomerModal()">
@@ -16,7 +16,13 @@
                 type="button" onclick="showModal()">
                 <i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูลลูกค้า
             </a>
+
+            {{-- <div class="mr-7">
+                @include('components.content-cus.button_group')
+            </div> --}}
         </div>
+
+
     </div>
 
 
@@ -231,6 +237,7 @@
                     <div class="slider" id="asset-container">
                         <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
                         @include('components.content-cus.card_asset')
+
                     </div>
 
                     <!-- ปุ่มเลื่อนไปทางซ้าย -->
@@ -239,6 +246,8 @@
                     <button class="next_asset" id="next_asset">→</button>
                 </div>
             </div>
+
+            @include('components.content-cus.Modal_show_asset')
 
             <div class="flex flex-col items-center mt-7 asset-master ">
                 <div class="shadow-effect">

@@ -36,6 +36,9 @@ Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile'); //แสดงข้อมูลลูกค้า
 Route::get('/api/customers/{id}', [CustomerController::class, 'showCustomerData']); //แสดงข้อมูลลูกค้าตาม ID
 Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update'); //อัปเดทข้อมูลลูกตาม ID
+// routes/web.php (ดึงข้อมูลลูกค้า)
+// Route::get('/customer/{id}', [CustomerController::class, 'getCustomerData']);
+
 Route::resource('customers', CustomerController::class); //Function ทั่วไปมาใช้ ของลูกค้า
 
 
@@ -112,7 +115,7 @@ Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptio
 
 
 // ดึงข้อมูลการ์ดลูกค้าที่เชื่อมกับสินทรัพย์
-Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomerId']);
+// Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomerId']);
 
 
 

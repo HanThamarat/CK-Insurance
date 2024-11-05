@@ -542,6 +542,7 @@
                         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
                             Info_Customer(response.data); // เรียก Info_Customer เพื่อแสดงข้อมูลใหม่
                             displayCustomerInfo(response.data);
+                            $("#showModalCustomerForm").html(response.html); // ใช้ response.html เพื่ออัปเดตฟอร์ม
                             hideModal();
                         }
                     });

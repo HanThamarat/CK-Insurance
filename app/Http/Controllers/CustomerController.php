@@ -268,6 +268,18 @@ class CustomerController extends Controller
     }
 
 
+    // public function getCustomerData()
+    // {
+    //     $customer = Customer::find(1); // หรือตามที่ต้องการ
+    //     return response()->json([
+    //         'prefix' => $customer->prefix,
+    //         'first_name' => $customer->first_name,
+    //         'last_name' => $customer->last_name,
+    //     ]);
+    // }
+
+
+
 }
 
 

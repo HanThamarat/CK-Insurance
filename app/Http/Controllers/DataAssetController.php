@@ -26,6 +26,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
 
@@ -548,6 +549,21 @@ class DataAssetController extends Controller
             // \Log::info('Assets:', $assets->toArray());
 
             return response()->json($assets);
+        }
+
+
+        public function show($id)
+        {
+            // ค้นหา asset โดยใช้ ID
+            $asset = AssetManage::find($id);
+
+            // ตรวจสอบว่าพบ asset หรือไม่
+            if (!$asset) {
+                return response()->json(['message' => 'Asset not found']);
+            }
+
+            // ส่งข้อมูล asset กลับในรูปแบบ JSON
+            return response()->json($asset);
         }
 
 

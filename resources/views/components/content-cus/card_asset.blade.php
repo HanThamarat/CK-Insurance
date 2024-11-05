@@ -254,15 +254,24 @@
                                                     <nav class="popup-window">
                                                         <legend>Actions</legend>
                                                         <ul>
-                                                        <li>
-                                                            <button data-id="${asset.id}" onclick="openModal_Show_asset_customer(this)">
-                                                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
-                                                                <circle cx="12" cy="12" r="3"></circle>
-                                                            </svg>
-                                                            <span>แสดง</span>
-                                                            </button>
-                                                        </li>
+                                                            <li>
+                                                                <button data-id="${asset.id}"
+                                                                        data-type-asset="${asset.Type_Asset}"
+                                                                        data-old-license-text="${asset.Vehicle_OldLicense_Text}"
+                                                                        data-old-license-number="${asset.Vehicle_OldLicense_Number}"
+                                                                        data-old-province="${asset.OldProvince}"
+                                                                        data-chassis="${asset.Vehicle_Chassis}"
+                                                                        data-engine="${asset.Vehicle_Engine}"
+                                                                        data-color="${asset.Vehicle_Color}"
+                                                                        onclick="openModal_Show_asset_customer(this)">
+                                                                    <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                                                        <circle cx="12" cy="12" r="3"></circle>
+                                                                    </svg>
+                                                                    <span>แสดง</span>
+                                                                </button>
+                                                            </li>
+
                                                         <li>
                                                             <button data-id="${asset.id}" onclick="openModal_Edit_asset_customer(this)">
                                                             <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
@@ -299,7 +308,7 @@
                                             <div class="flex-1">
                                                 <p><strong><i class="fas fa-cube"></i> ประเภทสินทรัพย์ : </strong>${asset.Type_Asset}</p>
                                                 <p><strong><i class="fas fa-car"></i> ทะเบียนรถ : </strong>${asset.Vehicle_OldLicense_Text} ${asset.Vehicle_OldLicense_Number} ${asset.OldProvince} </p>
-                                                <p><strong><i class="fas fa-car"></i> ทะเบียนรถใหม่ : </strong>${asset.Vehicle_NewLicense_Text} ${asset.Vehicle_NewLicense_Number} ${asset.NewProvince} </p>
+                                                <!--<p><strong><i class="fas fa-car"></i> ทะเบียนรถใหม่ : </strong>${asset.Vehicle_NewLicense_Text} ${asset.Vehicle_NewLicense_Number} ${asset.NewProvince} </p>-->
                                                 <p><strong><i class="fas fa-barcode"></i> เลขถัง : </strong>${asset.Vehicle_Chassis}</p>
                                                 <p><strong><i class="fas fa-cogs"></i> เลขเครื่อง : </strong>${asset.Vehicle_Engine}</p>
                                                 <p><strong><i class="fas fa-paint-brush"></i> สีรถ : </strong>${asset.Vehicle_Color}</p>
