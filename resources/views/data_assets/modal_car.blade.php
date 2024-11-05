@@ -1514,6 +1514,8 @@ function handleSelectChange3(selectElement) {
                 // ส่งฟอร์มหากข้อมูลครบ
                 var formData = new FormData($('#DataAssetForm')[0]); // สร้าง FormData จากฟอร์ม
 
+                // let customerId = $('#customer_id').val(); // หรือวิธีอื่นๆในการตั้งค่า
+
                 $.ajax({
                     url: '/data_assets', // เส้นทางที่เรียกใช้ฟังก์ชัน store
                     type: 'POST',
@@ -1533,8 +1535,8 @@ function handleSelectChange3(selectElement) {
                             timer: 1500
                         }).then(() => {
                             // ทำการ redirect หรือรีเฟรชหน้า
-                            // window.location.href = "/data_assets";
-                            window.location.href = "{{ url('customer/profile') }}/" + customerId;
+                            window.location.href = "/data_assets";
+                            // window.location.href = "{{ url('customer/profile') }}/" + customerId;
                         });
                     },
                     error: function(jqXHR) {

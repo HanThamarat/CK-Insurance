@@ -552,19 +552,36 @@ class DataAssetController extends Controller
         }
 
 
+
+
         public function show($id)
         {
-            // ค้นหา asset โดยใช้ ID
-            $asset = AssetManage::find($id);
+            // ค้นหา asset พร้อมกับโหลดความสัมพันธ์ของ carBrand และ motoBrand
+            $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($id);
 
             // ตรวจสอบว่าพบ asset หรือไม่
             if (!$asset) {
                 return response()->json(['message' => 'Asset not found']);
             }
 
-            // ส่งข้อมูล asset กลับในรูปแบบ JSON
-            return response()->json($asset);
+            // สร้าง response ที่มีการปรับแต่งข้อมูล
+            $response = $asset->toArray();
+
+            // เช็ค Type_asset และแทนที่ยี่ห้อตามประเภท
+            if ($asset->Type_asset === 'vehicle') {
+                if ($asset->Vehicle_Type === 'car' && $asset->carBrand) {
+                    $response['Vehicle_Brand'] = $asset->carBrand->Brand_car; // ยี่ห้อรถยนต์
+                } elseif ($asset->Vehicle_Type === 'motorcycle' && $asset->motoBrand) {
+                    $response['Vehicle_Brand'] = $asset->motoBrand->Brand_motorcycle; // ยี่ห้อมอเตอร์ไซค์
+                }
+            }
+
+            // แสดงข้อมูล response
+            // dd($response);
+
+            return response()->json($response);
         }
+
 
 
         //---------------------------------------------Data Assets Destroy---------------------------------------------------------//
@@ -651,7 +668,19 @@ class DataAssetController extends Controller
 
 
 
+        // public function show($id)
+        // {
+        //     // ค้นหา asset โดยใช้ ID
+        //     $asset = AssetManage::find($id);
 
+        //     // ตรวจสอบว่าพบ asset หรือไม่
+        //     if (!$asset) {
+        //         return response()->json(['message' => 'Asset not found']);
+        //     }
+
+        //     // ส่งข้อมูล asset กลับในรูปแบบ JSON
+        //     return response()->json($asset);
+        // }
 
 
 
