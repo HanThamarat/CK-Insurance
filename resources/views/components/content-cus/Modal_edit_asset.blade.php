@@ -36,15 +36,13 @@
                             <h4 class="text-lg font-semibold mb-5 text-orange-600">ข้อมูลพื้นฐาน</h4>
                             <div class="space-y-4">
 
-                                <input type="hidden" id="assetId" name="id" value="">
-
-                                {{-- <input type="hidden" id="edit_Customer_id" name="Customer_id" value=""> --}}
-
                                 <p class="flex flex-col sm:flex-row sm:justify-between">
                                     <strong class="min-w-[100px] inline-block">ประเภทสินทรัพย์ :</strong>
                                     <input type="text" id="edit_Type_Asset" name="Type_Asset"
                                         class="sm:ml-2 border rounded px-2 py-1">
                                 </p>
+
+                                <input type="hidden" id="assetId" name="id" value="">
 
                                 <fieldset class="border border-gray-300 rounded p-4 mb-4">
                                     <legend class="text-sm font-semibold text-gray-500 px-2">ป้ายทะเบียนเก่า</legend>
@@ -127,6 +125,11 @@
                                 <p class="flex flex-col sm:flex-row sm:justify-between">
                                     <strong class="min-w-[100px] inline-block">ยี่ห้อรถ :</strong>
                                     <input type="text" id="edit_Vehicle_Brand" name="Vehicle_Brand"
+                                        class="sm:ml-2 border rounded px-2 py-1">
+                                </p>
+                                <p class="flex flex-col sm:flex-row sm:justify-between">
+                                    <strong class="min-w-[100px] inline-block">กลุ่มรถ :</strong>
+                                    <input type="text" id="edit_Vehicle_Group" name="Vehicle_Brand"
                                         class="sm:ml-2 border rounded px-2 py-1">
                                 </p>
                                 <p class="flex flex-col sm:flex-row sm:justify-between">
@@ -246,13 +249,15 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     let currentAssetId = null;
 
     function openModal_Edit_asset_customer(button) {
         // ดึงค่า asset ID จาก data-id ที่อยู่ในปุ่ม
         currentAssetId = $(button).data('id');
+
+        // กรอกค่า assetId ลงใน input
+        $('#assetId').val(currentAssetId);
 
         $.ajax({
             url: '/api/getAssetData',
@@ -273,6 +278,7 @@
                 $('#edit_Vehicle_Engine').val(data.Vehicle_Engine);
                 $('#edit_Vehicle_Color').val(data.Vehicle_Color);
                 $('#edit_Vehicle_Brand').val(data.Vehicle_Brand);
+                $('#edit_Vehicle_Group').val(data.Vehicle_Group);
                 $('#edit_Vehicle_Models').val(data.Vehicle_Models);
                 $('#edit_Vehicle_Years').val(data.Vehicle_Years);
                 $('#edit_Vehicle_CC').val(data.Vehicle_CC);
@@ -309,6 +315,7 @@
             }
         });
     }
+
 
     function closeModal_Edit_asset() {
         $('#edit_modal_asset').addClass('hidden');

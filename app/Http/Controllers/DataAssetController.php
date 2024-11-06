@@ -611,11 +611,11 @@ class DataAssetController extends Controller
         // Function to update asset data
         public function updateAssetData(Request $request)
         {
-            $assetId = $request->input('id');
+            // $assetId = $request->input('id');
+            $assetId = (int) $request->input('id');
             $asset = AssetManage::find($assetId);
 
             if ($asset) {
-                // $asset->Customer_id = $request->input('customer_id'); // ชื่อฟิลด์ในฐานข้อมูล
                 $asset->Type_Asset = $request->input('type'); // ชื่อฟิลด์ในฐานข้อมูล
                 $asset->Vehicle_OldLicense_Text = $request->input('old_license_text'); // เปลี่ยนตามชื่อฟิลด์
                 $asset->Vehicle_OldLicense_Number = $request->input('old_license_number'); // เปลี่ยนตามชื่อฟิลด์
