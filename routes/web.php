@@ -112,56 +112,65 @@ Route::get('/api/year-options', [DataAssetController::class, 'getYearOptions']);
 Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptions']);
 
 
+// DATA ASSET อัปเดท
+Route::get('/api/getAssetData', [DataAssetController::class, 'getAssetData'])->name('asset.get');
+Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetData'])->name('asset.update');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route สำหรับแสดงฟอร์มแก้ไขสินทรัพย์ (GET)
+// Route::get('/customer/profile/editAssetForm/{id}', [DataAssetController::class, 'edit'])->name('customer.profile.editAssetForm');
+
+// // Route สำหรับบันทึกการแก้ไขสินทรัพย์ (POST)
+// Route::post('/customer/profile/editAssetForm', [DataAssetController::class, 'update'])->name('customer.profile.updateAssetForm');
 
 
 // ดึงข้อมูลการ์ดลูกค้าที่เชื่อมกับสินทรัพย์
 // Route::get('/assets/customer', [DataAssetController::class, 'getAssetsByCustomerId']);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

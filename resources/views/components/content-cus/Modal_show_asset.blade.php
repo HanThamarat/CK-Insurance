@@ -4,10 +4,7 @@
         <div class="relative bg-white rounded-xl shadow-xl w-full max-w-5xl mx-auto my-0">
             <!-- Header -->
             <div class="flex items-center justify-between p-6 border-b">
-                {{-- <h3 class="text-2xl font-semibold text-gray-900">
-                    <i class="fas fa-car text-orange-500 mr-3"></i>
-                    รายละเอียดข้อมูลรถ
-                </h3> --}}
+
                 <div class="flex items-center space-x-4 p-4">
                     <div class="p-3 bg-orange-100 rounded-xl">
                         <img src="{{ asset('img/minicar.gif') }}" alt="minicar icon"
@@ -59,6 +56,10 @@
                                 <strong class="min-w-[100px] inline-block">สีรถ :</strong>
                                 <span id="show_Vehicle_Color" class="sm:ml-2"></span>
                             </p>
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">เลขตัวรถใหม่ :</strong>
+                                <span id="show_Vehicle_New_Number" class="sm:ml-2"></span>
+                            </p>
                         </div>
                     </div>
 
@@ -67,8 +68,20 @@
                         <h4 class="text-lg font-semibold mb-5 text-blue-600">รายละเอียดรถ</h4>
                         <div class="space-y-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">ประเภทรถ 1 :</strong>
+                                <span id="show_Vehicle_Type" class="sm:ml-2"></span>
+                            </p>
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">ประเภทรถ 2 :</strong>
+                                <span id="show_Vehicle_Type_PLT" class="sm:ml-2"></span>
+                            </p>
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ยี่ห้อรถ :</strong>
                                 <span id="show_Vehicle_Brand" class="sm:ml-2"></span>
+                            </p>
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">กลุ่มรถ :</strong>
+                                <span id="show_Vehicle_Group" class="sm:ml-2"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">รุ่นรถ :</strong>
@@ -86,102 +99,67 @@
                                 <strong class="min-w-[100px] inline-block">ประเภทเกียร์ :</strong>
                                 <span id="show_Vehicle_Gear" class="sm:ml-2"></span>
                             </p>
-                            <p class="flex flex-col sm:flex-row sm:justify-between">
-                                <strong class="min-w-[100px] inline-block">ประเภทรถ :</strong>
-                                <span id="show_Vehicle_Type" class="sm:ml-2"></span>
-                            </p>
+
                         </div>
-                    </div>
-
-                    <!-- Insurance Info -->
-                    <div class="bg-green-50 rounded-xl p-6 shadow-sm">
-                        <h4 class="text-lg font-semibold mb-5 text-green-600">ข้อมูลประกัน</h4>
-
-
-                        <div class="space-y-4">
-                            <p class="flex flex-col sm:flex-row sm:justify-between">
-                                <strong class="min-w-[100px] inline-block">ประกัน :</strong>
-                                <span id="show_Choose_Insurance_Cal" class="sm:ml-2"></span>
-                            </p>
-                            <div class="space-y-4 ml-4">
-                                <p class="flex flex-col sm:flex-row sm:justify-between">
-                                    <strong class="min-w-[100px] inline-block">วันที่ต่อประกัน :</strong>
-                                    <span id="show_Insurance_renewal_date" class="sm:ml-2"></span>
-                                </p>
-                                <p class="flex flex-col sm:flex-row sm:justify-between">
-                                    <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                    <span id="show_Insurance_end_date" class="sm:ml-2"></span>
-                                </p>
-                            </div>
-                            <hr>
-                            <p class="flex flex-col sm:flex-row sm:justify-between">
-                                <strong class="min-w-[100px] inline-block">พ.ร.บ. :</strong>
-                                <span id="show_Choose_Act_Cal" class="sm:ml-2"></span>
-                            </p>
-                            <div class="space-y-4 ml-4">
-                                <p class="flex flex-col sm:flex-row sm:justify-between">
-                                    <strong class="min-w-[100px] inline-block">วันที่ต่อ พ.ร.บ. :</strong>
-                                    <span id="show_act_renewal_date" class="sm:ml-2"></span>
-                                </p>
-                                <p class="flex flex-col sm:flex-row sm:justify-between">
-                                    <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                    <span id="show_act_end_date" class="sm:ml-2"></span>
-                                </p>
-                            </div>
-                            <hr>
-                            <div class="space-y-4 mt-5">
-                                <p class="flex flex-col sm:flex-row sm:justify-between">
-                                    <strong class="min-w-[100px] inline-block">ทะเบียน :</strong>
-                                    <span id="show_Choose_Register_Cal" class="sm:ml-2"></span>
-                                </p>
-                                <div class="space-y-4 ml-4">
-                                    <p class="flex flex-col sm:flex-row sm:justify-between">
-                                        <strong class="min-w-[100px] inline-block">วันที่ต่อทะเบียน :</strong>
-                                        <span id="show_register_renewal_date" class="sm:ml-2"></span>
-                                    </p>
-                                    <p class="flex flex-col sm:flex-row sm:justify-between">
-                                        <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                        <span id="show_register_end_date" class="sm:ml-2"></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Additional Info -->
-                    <div class="bg-purple-50 rounded-xl p-6 shadow-sm">
-                        <h4 class="text-lg font-semibold mb-5 text-purple-600">ข้อมูลเพิ่มเติม</h4>
-                        <div class="space-y-4">
-                            <p class="flex flex-col sm:flex-row sm:justify-between">
-                                <strong class="min-w-[100px] inline-block">สถานะประกัน :</strong>
-                                <span id="show_Vehicle_InsuranceStatus" class="sm:ml-2"></span>
-                            </p>
-                            <p class="flex flex-col sm:flex-row sm:justify-between">
-                                <strong class="min-w-[100px] inline-block">บริษัทประกัน :</strong>
-                                <span id="show_Vehicle_Companies" class="sm:ml-2"></span>
-                            </p>
-                            <p class="flex flex-col sm:flex-row sm:justify-between">
-                                <strong class="min-w-[100px] inline-block">เลขกรมธรรม์ :</strong>
-                                <span id="show_Vehicle_PolicyNumber" class="sm:ml-2"></span>
-                            </p>
-                            <p class="flex flex-col sm:flex-row sm:justify-between">
-                                <strong class="min-w-[100px] inline-block">กำหนดตอกตัวเลขใหม่ :</strong>
-                                <span id="show_Vehicle_New_Number" class="sm:ml-2"></span>
-                            </p>
-                            {{-- <div class="space-y-4 mt-5">
-                                <p class="flex flex-col sm:flex-row sm:justify-between">
-                                    <strong class="min-w-[140px] inline-block">วันที่ต่อประกัน :</strong>
-                                    <span id="show_Insurance_renewal_date" class="sm:ml-4"></span>
-                                </p>
-                                <p class="flex flex-col sm:flex-row sm:justify-between">
-                                    <strong class="min-w-[140px] inline-block">วันที่หมดอายุ :</strong>
-                                    <span id="show_Insurance_end_date" class="sm:ml-4"></span>
-                                </p>
-                            </div> --}}
-                        </div>
-
                     </div>
                 </div>
+
+
+                <!-- Insurance Info -->
+                <div class="bg-green-50 rounded-xl p-6 shadow-sm w-full mt-6">
+                    <h4 class="text-lg font-semibold mb-5 text-green-600">ข้อมูลประกัน</h4>
+
+                    <div class="space-y-4">
+                        <p class="flex flex-col sm:flex-row sm:justify-between">
+                            <strong class="min-w-[100px] inline-block">ประกัน :</strong>
+                            <span id="show_Choose_Insurance_Cal" class="sm:ml-2"></span>
+                        </p>
+                        <div class="space-y-4 ml-4">
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">วันที่ต่อประกัน :</strong>
+                                <span id="show_Insurance_renewal_date" class="sm:ml-2"></span>
+                            </p>
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
+                                <span id="show_Insurance_end_date" class="sm:ml-2"></span>
+                            </p>
+                        </div>
+                        <hr>
+                        <p class="flex flex-col sm:flex-row sm:justify-between">
+                            <strong class="min-w-[100px] inline-block">พ.ร.บ. :</strong>
+                            <span id="show_Choose_Act_Cal" class="sm:ml-2"></span>
+                        </p>
+                        <div class="space-y-4 ml-4">
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">วันที่ต่อ พ.ร.บ. :</strong>
+                                <span id="show_act_renewal_date" class="sm:ml-2"></span>
+                            </p>
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
+                                <span id="show_act_end_date" class="sm:ml-2"></span>
+                            </p>
+                        </div>
+                        <hr>
+                        <div class="space-y-4 mt-5">
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">ทะเบียน :</strong>
+                                <span id="show_Choose_Register_Cal" class="sm:ml-2"></span>
+                            </p>
+                            <div class="space-y-4 ml-4">
+                                <p class="flex flex-col sm:flex-row sm:justify-between">
+                                    <strong class="min-w-[100px] inline-block">วันที่ต่อทะเบียน :</strong>
+                                    <span id="show_register_renewal_date" class="sm:ml-2"></span>
+                                </p>
+                                <p class="flex flex-col sm:flex-row sm:justify-between">
+                                    <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
+                                    <span id="show_register_end_date" class="sm:ml-2"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <!-- Timestamps -->
                 <div class="mt-8 text-sm text-gray-500 space-y-2">
@@ -240,11 +218,13 @@
                     $('#show_Vehicle_Brand').text('-');
                 }
 
+                $('#show_Vehicle_Group').text(asset.Vehicle_Group || '-');
                 $('#show_Vehicle_Models').text(asset.Vehicle_Models || '-');
                 $('#show_Vehicle_Years').text(asset.Vehicle_Years || '-');
                 $('#show_Vehicle_CC').text(asset.Vehicle_CC || '-');
                 $('#show_Vehicle_Gear').text(asset.Vehicle_Gear || '-');
                 $('#show_Vehicle_Type').text(asset.Vehicle_Type || '-');
+                $('#show_Vehicle_Type_PLT').text(asset.Vehicle_Type_PLT || '-');
                 $('#show_Vehicle_InsuranceStatus').text(asset.Vehicle_InsuranceStatus || '-');
                 $('#show_Vehicle_Companies').text(asset.Vehicle_Companies || '-');
                 $('#show_Vehicle_PolicyNumber').text(asset.Vehicle_PolicyNumber || '-');

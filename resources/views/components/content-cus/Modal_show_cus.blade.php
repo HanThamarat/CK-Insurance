@@ -12,7 +12,7 @@
                     </div> --}}
                     <div class="flex items-center space-x-4 p-2">
                         <div class="p-3 bg-orange-100 rounded-xl">
-                            <img src="{{ asset('img/career.gif') }}" alt="career icon"
+                            <img src="{{ asset('img/icon_user.gif') }}" alt="icon_user icon"
                                 class="w-12 h-12 object-cover rounded-lg">
                         </div>
                         <div class="flex-grow">

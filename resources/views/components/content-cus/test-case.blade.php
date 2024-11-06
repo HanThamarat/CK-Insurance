@@ -1068,3 +1068,71 @@
 </script> --}}
 
 
+
+
+
+
+
+
+
+
+<div class="bg-purple-50 rounded-xl p-6 shadow-sm">
+    <h4 class="text-lg font-semibold mb-5 text-purple-600">ข้อมูลเพิ่มเติม</h4>
+    <div class="space-y-4">
+        <p class="flex flex-col sm:flex-row sm:justify-between">
+            <strong class="min-w-[100px] inline-block">สถานะประกัน :</strong>
+            <span id="show_Vehicle_InsuranceStatus" class="sm:ml-2"></span>
+        </p>
+        <p class="flex flex-col sm:flex-row sm:justify-between">
+            <strong class="min-w-[100px] inline-block">บริษัทประกัน :</strong>
+            <span id="show_Vehicle_Companies" class="sm:ml-2"></span>
+        </p>
+        <p class="flex flex-col sm:flex-row sm:justify-between">
+            <strong class="min-w-[100px] inline-block">เลขกรมธรรม์ :</strong>
+            <span id="show_Vehicle_PolicyNumber" class="sm:ml-2"></span>
+        </p>
+        <p class="flex flex-col sm:flex-row sm:justify-between">
+            <strong class="min-w-[100px] inline-block">กำหนดตอกตัวเลขใหม่ :</strong>
+            <span id="show_Vehicle_New_Number" class="sm:ml-2"></span>
+        </p>
+        {{-- <div class="space-y-4 mt-5">
+            <p class="flex flex-col sm:flex-row sm:justify-between">
+                <strong class="min-w-[140px] inline-block">วันที่ต่อประกัน :</strong>
+                <span id="show_Insurance_renewal_date" class="sm:ml-4"></span>
+            </p>
+            <p class="flex flex-col sm:flex-row sm:justify-between">
+                <strong class="min-w-[140px] inline-block">วันที่หมดอายุ :</strong>
+                <span id="show_Insurance_end_date" class="sm:ml-4"></span>
+            </p>
+        </div> --}}
+    </div>
+
+</div>
+
+
+
+
+                    <!-- Additional Info -->
+                    {{-- <div class="bg-purple-50 rounded-xl p-6 shadow-sm">
+                        <h4 class="text-lg font-semibold mb-5 text-purple-600">ข้อมูลเพิ่มเติม</h4>
+                        <div class="space-y-4">
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">สถานะประกัน :</strong>
+                                <input type="text" id="edit_Vehicle_InsuranceStatus"
+                                    class="sm:ml-2 border rounded px-2 py-1">
+                            </p>
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">บริษัทประกัน :</strong>
+                                <input type="text" id="edit_Vehicle_Companies"
+                                    class="sm:ml-2 border rounded px-2 py-1">
+                            </p>
+                            <p class="flex flex-col sm:flex-row sm:justify-between">
+                                <strong class="min-w-[100px] inline-block">เลขกรมธรรม์ :</strong>
+                                <input type="text" id="edit_Vehicle_PolicyNumber"
+                                    class="sm:ml-2 border rounded px-2 py-1">
+                            </p>
+
+                        </div>
+                    </div> --}}
+
+

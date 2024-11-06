@@ -452,11 +452,23 @@ class DataAssetController extends Controller
 
         //---------------------------------------------Data Assets Edit---------------------------------------------------------//
 
+        // public function edit($id)
+        // {
+        //     $asset = AssetManage::find($id);
+        //     return response()->json($asset);
+        // }
+
         public function edit($id)
         {
             $asset = AssetManage::find($id);
+
+            if (!$asset) {
+                return response()->json(['error' => 'Asset not found'], 404);
+            }
+
             return response()->json($asset);
         }
+
 
         //---------------------------------------------Data Assets Store---------------------------------------------------------//
 
@@ -583,6 +595,68 @@ class DataAssetController extends Controller
         }
 
 
+        public function getAssetData(Request $request)
+        {
+            $assetId = $request->input('id');
+            $asset = AssetManage::find($assetId);
+
+            if ($asset) {
+                return response()->json($asset);
+            } else {
+                return response()->json(['error' => 'Asset not found'], 404);
+            }
+        }
+
+
+        // Function to update asset data
+        public function updateAssetData(Request $request)
+        {
+            $assetId = $request->input('id');
+            $asset = AssetManage::find($assetId);
+
+            if ($asset) {
+                // $asset->Customer_id = $request->input('customer_id'); // ชื่อฟิลด์ในฐานข้อมูล
+                $asset->Type_Asset = $request->input('type'); // ชื่อฟิลด์ในฐานข้อมูล
+                $asset->Vehicle_OldLicense_Text = $request->input('old_license_text'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_OldLicense_Number = $request->input('old_license_number'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->OldProvince = $request->input('old_province'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_NewLicense_Text = $request->input('new_license_text'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_NewLicense_Number = $request->input('new_license_number'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->NewProvince = $request->input('new_province'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Chassis = $request->input('chassis_number'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_New_Number = $request->input('new_number'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Engine = $request->input('engine_number'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Color = $request->input('color'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_CC = $request->input('engine_capacity'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Type = $request->input('vehicle_type'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Type_PLT = $request->input('vehicle_type_plt'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Brand = $request->input('brand'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Group = $request->input('vehicle_group'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Years = $request->input('year'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Models = $request->input('model'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Gear = $request->input('gear_type'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_InsuranceStatus = $request->input('insurance_status'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Class = $request->input('insurance_class'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Companies = $request->input('insurance_company'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_PolicyNumber = $request->input('policy_number'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Choose_Insurance = $request->input('choose_insurance'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Choose_Act = $request->input('choose_act'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Choose_Register = $request->input('choose_register'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Insurance_renewal_date = $request->input('insurance_renewal_date'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Insurance_end_date = $request->input('insurance_end_date'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->act_renewal_date = $request->input('act_renewal_date'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->act_end_date = $request->input('act_end_date'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->register_renewal_date = $request->input('register_renewal_date'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->register_end_date = $request->input('register_end_date'); // เปลี่ยนตามชื่อฟิลด์
+
+                $asset->save();
+
+                return response()->json(['success' => 'Asset data updated successfully']);
+            } else {
+                return response()->json(['error' => 'Asset not found'], 404);
+            }
+        }
+
 
         //---------------------------------------------Data Assets Destroy---------------------------------------------------------//
 
@@ -663,6 +737,65 @@ class DataAssetController extends Controller
 
 
 
+ // public function updateAssetData(Request $request)
+        // {
+        //     // รับค่า id จาก request
+        //     $assetId = $request->input('id');
+
+        //     // ตรวจสอบว่า id เป็นตัวเลขหรือไม่
+        //     if (!is_numeric($assetId)) {
+        //         return response()->json(['error' => 'Invalid ID format'], 400);
+        //     }
+
+        //     // แปลง id เป็น int
+        //     $assetId = (int) $assetId;
+
+        //     // ดึงข้อมูล Asset โดยใช้ id
+        //     $asset = AssetManage::find($assetId);
+
+        //     if ($asset) {
+        //         // อัปเดตข้อมูล
+        //         $asset->Type_Asset = $request->input('type');
+        //         $asset->Vehicle_OldLicense_Text = $request->input('old_license_text');
+        //         $asset->Vehicle_OldLicense_Number = $request->input('old_license_number');
+        //         $asset->OldProvince = $request->input('old_province');
+        //         $asset->Vehicle_NewLicense_Text = $request->input('new_license_text');
+        //         $asset->Vehicle_NewLicense_Number = $request->input('new_license_number');
+        //         $asset->NewProvince = $request->input('new_province');
+        //         $asset->Vehicle_Chassis = $request->input('chassis_number');
+        //         $asset->Vehicle_New_Number = $request->input('new_number');
+        //         $asset->Vehicle_Engine = $request->input('engine_number');
+        //         $asset->Vehicle_Color = $request->input('color');
+        //         $asset->Vehicle_CC = $request->input('engine_capacity');
+        //         $asset->Vehicle_Type = $request->input('vehicle_type');
+        //         $asset->Vehicle_Type_PLT = $request->input('vehicle_type_plt');
+        //         $asset->Vehicle_Brand = $request->input('brand');
+        //         $asset->Vehicle_Group = $request->input('vehicle_group');
+        //         $asset->Vehicle_Years = $request->input('year');
+        //         $asset->Vehicle_Models = $request->input('model');
+        //         $asset->Vehicle_Gear = $request->input('gear_type');
+        //         $asset->Vehicle_InsuranceStatus = $request->input('insurance_status');
+        //         $asset->Vehicle_Class = $request->input('insurance_class');
+        //         $asset->Vehicle_Companies = $request->input('insurance_company');
+        //         $asset->Vehicle_PolicyNumber = $request->input('policy_number');
+        //         $asset->Choose_Insurance = $request->input('choose_insurance');
+        //         $asset->Choose_Act = $request->input('choose_act');
+        //         $asset->Choose_Register = $request->input('choose_register');
+        //         $asset->Insurance_renewal_date = $request->input('insurance_renewal_date');
+        //         $asset->Insurance_end_date = $request->input('insurance_end_date');
+        //         $asset->act_renewal_date = $request->input('act_renewal_date');
+        //         $asset->act_end_date = $request->input('act_end_date');
+        //         $asset->register_renewal_date = $request->input('register_renewal_date');
+        //         $asset->register_end_date = $request->input('register_end_date');
+
+        //         // บันทึกการเปลี่ยนแปลง
+        //         $asset->save();
+
+        //         return response()->json(['success' => 'Asset data updated successfully']);
+        //     } else {
+        //         return response()->json(['error' => 'Asset not found'], 404);
+        //     }
+        // }
 
 
 

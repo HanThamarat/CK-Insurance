@@ -248,6 +248,7 @@
             </div>
 
             @include('components.content-cus.Modal_show_asset')
+            @include('components.content-cus.Modal_edit_asset')
 
             <div class="flex flex-col items-center mt-7 asset-master ">
                 <div class="shadow-effect">

@@ -273,11 +273,12 @@
                                                             </li>
 
                                                         <li>
-                                                            <button data-id="${asset.id}" onclick="openModal_Edit_asset_customer(this)">
-                                                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                                <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                            </svg>
-                                                            <span>แก้ไข</span>
+                                                            <button data-id="${asset.id}"
+                                                                    onclick="openModal_Edit_asset_customer(this)">
+                                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                                                                </svg>
+                                                                <span>แก้ไข</span>
                                                             </button>
                                                         </li>
                                                         <hr>
