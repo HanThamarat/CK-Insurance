@@ -1535,8 +1535,11 @@ function handleSelectChange3(selectElement) {
                             timer: 1500
                         }).then(() => {
                             // ทำการ redirect หรือรีเฟรชหน้า
-                            window.location.href = "/data_assets";
-                            // window.location.href = "{{ url('customer/profile') }}/" + customerId;
+                            // window.location.href = "/data_assets";
+                            var customerId = $('#Customer_id').val();
+
+                            // ทำการ redirect ไปที่ customer/profile พร้อม customerId
+                            window.location.href = "{{ url('customer/profile') }}/" + customerId;
                         });
                     },
                     error: function(jqXHR) {

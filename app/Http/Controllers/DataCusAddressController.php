@@ -111,11 +111,14 @@ class DataCusAddressController extends Controller
         // สมมติว่าคุณมี Model ชื่อ Address
         $address = DataCusAddress::find($id);
 
+        // dd($address); // แสดงค่า $address แล้วหยุดการดำเนินการ
+
         if ($address) {
             return response()->json($address); // ส่งข้อมูลกลับในรูปแบบ JSON
         } else {
             return response()->json(['error' => 'Address not found'], 404);
         }
+
     }
 
     public function editAddress($id)

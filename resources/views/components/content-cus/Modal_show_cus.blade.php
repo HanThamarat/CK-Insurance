@@ -4,12 +4,24 @@
             class="relative bg-white mt-[-15] rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
             <div id="header" class="top-0 z-10 p-0 transition-bg duration-300 bg-white p-2">
                 <div class="flex items-center space-x-3">
-                    <img src="{{ asset('img/icon_user.gif') }}" alt="customer icon" class="avatar-sm"
-                        style="width:50px;height:50px">
+                    {{-- <img src="{{ asset('img/icon_user.gif') }}" alt="customer icon" class="avatar-sm" style="width:50px;height:50px">
                     <div class="flex-grow">
                         <h5 class="text-orange-400 font-semibold">ข้อมูลลูกค้า</h5>
                         <p class="text-muted font-semibold text-sm mt-1">(Data Customer)</p>
                         <div class="border-b-2 border-primary mt-2 w-full"></div>
+                    </div> --}}
+                    <div class="flex items-center space-x-4 p-2">
+                        <div class="p-3 bg-orange-100 rounded-xl">
+                            <img src="{{ asset('img/career.gif') }}" alt="career icon"
+                                class="w-12 h-12 object-cover rounded-lg">
+                        </div>
+                        <div class="flex-grow">
+                            <h5
+                                class="text-xl font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                                แสดงข้อมูลลูกค้า</h5>
+                            <p class="text-gray-500 text-sm mt-1">(Show Customers Detail)</p>
+                            <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,6 +76,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
 
                                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                             <div class="input-group">
@@ -314,17 +327,70 @@
 
 <script>
     // Function to open modal and load customer data
+    // function showCustomerModal(customerId) {
+    //     $.ajax({
+    //         url: '/customers/' + customerId,
+    //         method: 'GET',
+    //         success: function(response) {
+    //             // Show modal
+    //             $('#showModalCustomerForm').removeClass('hidden');
+
+    //             // Fill in customer data
+    //             const customer = response.customer;
+
+    //             // Personal Information
+    //             $('select[name="prefix"]').val(customer.prefix);
+    //             $('input[name="first_name"]').val(customer.first_name);
+    //             $('input[name="last_name"]').val(customer.last_name);
+    //             $('input[name="expiry_date"]').val(customer.expiry_date);
+    //             $('input[name="dob"]').val(customer.dob);
+    //             $('input[name="age"]').val(customer.age);
+
+    //             // Contact Information
+    //             $('input[name="phone"]').val(customer.phone);
+    //             $('input[name="phone2"]').val(customer.phone2);
+    //             $('input[name="facebook"]').val(customer.facebook);
+    //             $('input[name="line_id"]').val(customer.line_id);
+
+    //             // Additional Information
+    //             $('select[name="gender"]').val(customer.gender);
+    //             $('select[name="nationality"]').val(customer.nationality);
+    //             $('select[name="religion"]').val(customer.religion);
+    //             $('select[name="driving_license"]').val(customer.driving_license);
+    //             $('select[name="marital_status"]').val(customer.marital_status);
+
+    //             // Spouse Information
+    //             const spousePhone = customer.spouse_phone || 'ไม่มีข้อมูล';
+    //             const spouseName = customer.spouse_name || 'ไม่มีข้อมูล';
+    //             $('input[name="spouse_phone"]').val(spousePhone)
+    //                 .toggleClass('text-red-500', !customer.spouse_phone);
+    //             $('input[name="spouse_name"]').val(spouseName)
+    //                 .toggleClass('text-red-500', !customer.spouse_name);
+
+    //             // Other Information
+    //             $('input[name="user_insert"]').val(customer.user_insert);
+    //             $('textarea[name="note"]').val(customer.note);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error('Error loading customer data:', error);
+    //             // Show error message to user
+    //             alert('ไม่สามารถโหลดข้อมูลลูกค้าได้ กรุณาลองใหม่อีกครั้ง');
+    //         }
+    //     });
+    // }
+
     function showCustomerModal(customerId) {
         $.ajax({
             url: '/customers/' + customerId,
             method: 'GET',
             success: function(response) {
-                // Show modal
+                // แปลงข้อมูลเป็น JSON
+                const customer = JSON.parse(response); // แปลงข้อมูลที่ได้รับจาก server เป็น JSON
+
+                // แสดง modal
                 $('#showModalCustomerForm').removeClass('hidden');
 
-                // Fill in customer data
-                const customer = response.customer;
-
+                // เติมข้อมูลลูกค้า
                 // Personal Information
                 $('select[name="prefix"]').val(customer.prefix);
                 $('input[name="first_name"]').val(customer.first_name);
@@ -360,11 +426,12 @@
             },
             error: function(xhr, status, error) {
                 console.error('Error loading customer data:', error);
-                // Show error message to user
+                // แสดงข้อความผิดพลาด
                 alert('ไม่สามารถโหลดข้อมูลลูกค้าได้ กรุณาลองใหม่อีกครั้ง');
             }
         });
     }
+
 
 
     // Function to close modal

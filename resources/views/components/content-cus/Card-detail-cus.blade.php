@@ -18,7 +18,7 @@
             </a>
 
             {{-- <div class="mr-7">
-                @include('components.content-cus.button_group')
+                @include('components.content-cus.button_cus')
             </div> --}}
         </div>
 
