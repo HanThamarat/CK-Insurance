@@ -118,10 +118,10 @@ Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetDat
 // Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetData'])->name('asset.update');
 
 
-
-
-
-
+// ลบข้อมูลโดยสำรองข้อมูล
+Route::post('/delete-address', [DataCusAddressController::class, 'deleteAddress']);
+Route::post('/delete-career', [DataCusCareerController::class, 'deleteCareer']);
+Route::post('/delete-asset', [DataAssetController::class, 'deleteAsset']);
 
 
 

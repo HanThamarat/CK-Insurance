@@ -34,6 +34,7 @@ class Customer extends Model
         'note',
         'birthday',
         'user_insert',
+        'deleted_at',
     ];
 
     // สร้างความสัมพันธ์กับ DataCusAddress

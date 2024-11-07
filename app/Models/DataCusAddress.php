@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class DataCusAddress extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $primaryKey = 'id';
     protected $table = 'Data_CusAddress';
@@ -44,6 +46,8 @@ class DataCusAddress extends Model
     ];
 
     public $timestamps = true;
+
+    protected $dates = ['deleted_at'];
 
     // สร้างความสัมพันธ์กลับไปยัง Customer
     public function customer()

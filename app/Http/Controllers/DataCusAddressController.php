@@ -201,6 +201,22 @@ class DataCusAddressController extends Controller
         return response()->json(['message' => 'อัปเดตข้อมูลสำเร็จ']);
     }
 
+
+    public function deleteAddress(Request $request)
+    {
+        $addressId = $request->input('id');
+
+        // ตรวจสอบว่า ID ที่ได้รับมาถูกต้องและมีอยู่ในฐานข้อมูล
+        $address = DataCusAddress::find($addressId);
+
+        if ($address) {
+            $address->delete(); // ทำการ soft delete ข้อมูล
+            return response()->json(['success' => true, 'message' => 'ลบข้อมูลที่อยู่ลูกค้าสำเร็จ']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'ไม่พบที่อยู่ลุกค้า']);
+    }
+
 }
 
 

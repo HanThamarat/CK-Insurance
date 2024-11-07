@@ -283,7 +283,7 @@
                                                     </li>
                                                     <hr>
                                                     <li>
-                                                        <button>
+                                                        <button class="delete-btn-career" data-id="${career.id}">
                                                         <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
                                                             <line y2="18" x2="6" y1="6" x1="18"></line>
                                                             <line y2="18" x2="18" y1="6" x1="6"></line>
@@ -373,6 +373,96 @@
 </script>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // ใช้ event delegation เพื่อผูก event กับปุ่มลบที่เพิ่มเข้ามาหลังจาก render
+    $(document).on('click', '.delete-btn-career', function() {
+        var careerId = $(this).data('id');
+
+        // ใช้ SweetAlert2 เพื่อยืนยันการลบ
+        Swal.fire({
+            title: 'แน่ใจหรือไม่?',
+            text: "ต้องการลบข้อมูลอาชีพนี้?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยันลบข้อมูล!',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // ถ้าผู้ใช้คลิก "ใช่, ลบเลย!" ให้ส่ง AJAX Request
+                $.ajax({
+                    url: '/delete-career',
+                    type: 'POST',
+                    data: {
+                        id: careerId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'ลบข้อมูลสำเร็จ',
+                                text: response.message
+                            });
+                            // ซ่อนรายการที่ถูกลบ
+                            $('button[data-id="' + careerId + '"]').closest('li').hide();
+                            // เรียกฟังก์ชัน fetchCareerData เพื่อรีเฟรชข้อมูล
+                            fetchCareerData();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'เกิดข้อผิดพลาด',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: 'ไม่สามารถลบข้อมูลได้'
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'การลบข้อมูลถูกยกเลิก',
+                    text: 'คุณไม่ได้ลบข้อมูล'
+                });
+            }
+        });
+    });
+
+    // ฟังก์ชันเพื่อดึงข้อมูลหลังจากลบแล้ว (กรุณาเขียนให้เหมาะสมกับโปรเจกต์ของคุณ)
+    function fetchCareerData() {
+        // โค้ดสำหรับดึงข้อมูลใหม่
+        $.ajax({
+            url: '/get-career-data', // กำหนด URL สำหรับดึงข้อมูล
+            type: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    // รีเฟรชข้อมูลอาชีพ เช่น แสดงข้อมูลใหม่ในหน้า
+                    $('#career-list').html(response.data); // ตัวอย่างการแสดงข้อมูลใน <ul id="career-list">
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ไม่สามารถโหลดข้อมูลได้',
+                        text: response.message
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'ไม่สามารถดึงข้อมูลได้'
+                });
+            }
+        });
+    }
+</script>
 
 
 
@@ -382,6 +472,73 @@
 
 
 
+
+
+
+{{-- <script>
+    $(document).on('click', '.delete-btn-career', function() {
+        var careerId = $(this).data('id');
+
+        // ใช้ SweetAlert2 เพื่อยืนยันการลบ
+        Swal.fire({
+            title: 'แน่ใจหรือไม่?',
+            text: "ต้องการลบข้อมูลอาชีพนี้?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยันลบข้อมูล!',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // ถ้าผู้ใช้คลิก "ใช่, ลบเลย!" ให้ส่ง AJAX Request
+                $.ajax({
+                    url: '/delete-career',
+                    type: 'POST',
+                    data: {
+                        id: careerId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'ลบข้อมูลสำเร็จ',
+                                text: response.message
+                            });
+                            // ซ่อนรายการที่ถูกลบ
+                            $('button[data-id="' + careerId + '"]').closest('li').hide();
+                            // เรียกฟังก์ชัน fetchAddresses เพื่อรีเฟรชข้อมูล
+                            fetchCareerData();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'เกิดข้อผิดพลาด',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: 'ไม่สามารถลบข้อมูลได้'
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'การลบข้อมูลถูกยกเลิก',
+                    text: 'คุณไม่ได้ลบข้อมูล'
+                });
+            }
+        });
+    });
+
+    // ฟังก์ชันเพื่อดึงข้อมูลหลังจากลบแล้ว (กรุณาเขียนให้เหมาะสมกับโปรเจกต์ของคุณ)
+    function fetchCareerData() {
+        // โค้ดสำหรับดึงข้อมูลใหม่
+    }
+</script> --}}
 
 {{-- // ฟังก์ชันสำหรับดึงข้อมูลอาชีพ
 // function fetchCareerData() {

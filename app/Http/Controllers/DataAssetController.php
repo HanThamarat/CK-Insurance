@@ -658,8 +658,97 @@ class DataAssetController extends Controller
         }
 
 
+        //---------------------------------------------Data Assets Destroy---------------------------------------------------------//
 
-        // public function updateAssetData(Request $request)
+        public function destroy($id)
+        {
+            AssetManage::find($id)->delete();
+            return response()->json(['success'=>'ลบข้อมูลสินทรัพย์สำเร็จ']);
+        }
+
+        //---------------------------------------------Data Assets Destroy Data and Reserved---------------------------------------------------------//
+
+        public function deleteAsset(Request $request)
+        {
+            $assetId = $request->input('id');
+
+            // ตรวจสอบว่า ID ที่ได้รับมาถูกต้องและมีอยู่ในฐานข้อมูล
+            $asset = AssetManage::find($assetId);
+
+            if ($asset) {
+                $asset->delete(); // ทำการ soft delete ข้อมูล
+                return response()->json(['success' => true, 'message' => 'ลบข้อมูลที่สินทรัพย์ลูกค้าสำเร็จ']);
+            }
+
+            return response()->json(['success' => false, 'message' => 'ไม่พบสินทรัพย์ลุกค้า']);
+        }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // public function updateAssetData(Request $request)
         // {
         //     try {
         //         // Validate the request
@@ -759,81 +848,6 @@ class DataAssetController extends Controller
         //         ], 500);
         //     }
         // }
-
-
-        //---------------------------------------------Data Assets Destroy---------------------------------------------------------//
-
-        public function destroy($id)
-        {
-            AssetManage::find($id)->delete();
-            return response()->json(['success'=>'ลบข้อมูลสินทรัพย์สำเร็จ']);
-        }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

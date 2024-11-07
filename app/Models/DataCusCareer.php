@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class DataCusCareer extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     // กำหนดชื่อตารางที่ใช้ในฐานข้อมูล
     protected $table = 'Data_CusCareers';
@@ -44,6 +46,8 @@ class DataCusCareer extends Model
 
     // ถ้าคุณใช้ timestamps ให้เปิดใช้งาน โดย Laravel จะจัดการ created_at และ updated_at ให้โดยอัตโนมัติ
     public $timestamps = true;
+
+    protected $dates = ['deleted_at'];
 
     public function customer()
     {

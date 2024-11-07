@@ -102,11 +102,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class AssetManage extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'asset_manage'; // ชื่อของตารางในฐานข้อมูล
     protected $primaryKey = 'id';
@@ -148,6 +150,8 @@ class AssetManage extends Model
         'register_end_date', // เพิ่มฟิลด์ใหม่
         'Customer_id', // เพิ่มฟิลด์ใหม่
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function carBrand()
     {
