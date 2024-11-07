@@ -1,618 +1,407 @@
-<div id="showModalCustomerForm" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50">
-    <div class="rounded-lg shadow-lg flex items-center justify-center w-full h-full">
-        <div
-            class="relative bg-white mt-[-15] rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
-            <div id="header" class="top-0 z-10 p-0 transition-bg duration-300 bg-white p-2">
-                <div class="flex items-center space-x-3">
-                    {{-- <img src="{{ asset('img/icon_user.gif') }}" alt="customer icon" class="avatar-sm" style="width:50px;height:50px">
-                    <div class="flex-grow">
-                        <h5 class="text-orange-400 font-semibold">ข้อมูลลูกค้า</h5>
-                        <p class="text-muted font-semibold text-sm mt-1">(Data Customer)</p>
-                        <div class="border-b-2 border-primary mt-2 w-full"></div>
-                    </div> --}}
-                    <div class="flex items-center space-x-4 p-2">
-                        <div class="p-3 bg-orange-100 rounded-xl">
-                            <img src="{{ asset('img/icon_user.gif') }}" alt="icon_user icon"
-                                class="w-12 h-12 object-cover rounded-lg">
-                        </div>
-                        <div class="flex-grow">
-                            <h5
-                                class="text-xl font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
-                                แสดงข้อมูลลูกค้า</h5>
-                            <p class="text-gray-500 text-sm mt-1">(Show Customers Detail)</p>
-                            <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
+<div id="showModalCustomerForm" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"></div>
+    <div class="relative w-full max-w-6xl mx-4 opacity-0 transform scale-95 transition-all duration-300"
+        id="modalContent">
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div
+                class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-orange-200/20 to-transparent rounded-bl-full">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-orange-100/20 to-transparent rounded-tr-full">
+            </div>
+            <div
+                class="relative max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-orange-200 scrollbar-track-gray-50">
+                <div class="sticky top-0 z-10 bg-white/95 backdrop-blur-sm shadow-sm">
+                    <div class="p-6">
+                        <div class="flex items-center space-x-6">
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl blur-lg opacity-20">
+                                </div>
+                                <div
+                                    class="relative p-3 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl shadow-sm">
+                                    <img src="{{ asset('img/icon_user.gif') }}" alt="User Icon"
+                                        class="w-14 h-14 object-cover rounded-lg shadow-inner transform transition-transform hover:scale-105">
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                                        แสดงข้อมูลลูกค้า
+                                    </h5>
+                                    <p class="text-gray-500">Show Customers Detail</p>
+                                    <div class="h-1.5 w-40 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-3">
+                                    </div>
+                                </div>
+
+                                <button onclick="closeModal_Show_customer()" class="absolute top-7 right-7 text-gray-400 hover:text-gray-500 p-2">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="p-2 mt-[-20]">
-                <form id="showFormCustomerData" class="space-y-5">
-                    <input type="hidden" id="customerId" value="{{ $customer->id }}">
 
-                    <div class="border border-gray-300 p-4 rounded-lg">
+                <!-- Main Content -->
+                <div class="p-6">
+                    <!-- Information Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Personal Information Card -->
+                        <div
+                            class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="p-2 bg-orange-100 rounded-lg">
+                                    <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h6 class="font-semibold text-gray-800">ข้อมูลส่วนตัว</h6>
+                            </div>
 
-                        <!-- HTML Structure -->
-                        <div class="max-w-7xl mx-auto p-">
-                            <div class="bg-white rounded-2xl card-hover p-4">
-                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                    <!-- Left Column -->
-                                    <div class="space-y-6">
-                                        <h2
-                                            class="text-base font-semibold text-gray-800 mb-0 border-b border-gray-300 pb-0">
-                                            <img src="{{ asset('gif/cus.gif') }}" alt="Icon"
-                                                class="inline-block mr-0 w-12">
-                                            ข้อมูลส่วนตัว
-                                        </h2>
+                            <div class="space-y-4">
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">ชื่อ-นามสกุล</p>
+                                    <p class="font-medium text-gray-800">
+                                        <span id="prefixDiv"></span>
+                                        <span id="first_nameDiv"></span>
+                                        <span id="last_nameDiv"></span>
+                                    </p>
+                                </div>
 
-                                        {{-- <div class="customer-info">
-                                            <div id="customerIdDiv" class="info-item">
-                                                <!-- The customer ID will be displayed here -->
-                                            </div>
-                                            <div id="prefixDiv" class="info-item">
-                                                <!-- The customer prefix will be displayed here -->
-                                            </div>
-                                            <div id="firstNameDiv" class="info-item">
-                                                <!-- The customer's first name will be displayed here -->
-                                            </div>
-                                            <div id="lastNameDiv" class="info-item">
-                                                <!-- The customer's last name will be displayed here -->
-                                            </div>
-                                            <div id="phoneDiv" class="info-item">
-                                                <!-- The customer's last name will be displayed here -->
-                                            </div>
-                                        </div>
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">เบอร์โทรศัพท์</p>
+                                    <p id="phoneDiv" class="font-medium text-gray-800"></p>
+                                    <p id="phone2Div" class="text-sm text-gray-600 mt-1"></p>
+                                </div>
 
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">วันเกิด / อายุ</p>
+                                    <p class="font-medium text-gray-800">
+                                        <span id="birthdayDiv"></span>
+                                        (<span id="ageDiv"></span> ปี)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
-                                        <script>
+                        <!-- Identity Information Card -->
+                        <div
+                            class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="p-2 bg-orange-100 rounded-lg">
+                                    <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h6 class="font-semibold text-gray-800">ข้อมูลบัตรประชาชน</h6>
+                            </div>
 
-                                            var customerData = <?php echo json_encode($customer); ?>;
+                            <div class="space-y-4">
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">เลขบัตรประชาชน</p>
+                                    <p id="id_card_numberDiv" class="font-medium text-gray-800"></p>
+                                </div>
 
-                                            console.log(customerData);
+                                {{-- <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">วันออกบัตร</p>
+                                    <p id="dobDiv" class="font-medium text-gray-800"></p>
+                                </div>
 
-                                            document.getElementById('customerIdDiv').innerText = customerData.id;
-                                            document.getElementById('prefixDiv').innerText = customerData.prefix;
-                                            document.getElementById('firstNameDiv').innerText = customerData.first_name;
-                                            document.getElementById('lastNameDiv').innerText = customerData.last_name;
-                                            document.getElementById('phoneDiv').innerText = customerData.phone;
-                                            document.getElementById('phone2Div').innerText = customerData.phone2;
-                                            document.getElementById('id_card_numberDiv').innerText = customerData.id_card_number;
-                                            document.getElementById('expiry_dateDiv').innerText = customerData.expiry_date;
-                                            document.getElementById('dobDiv').innerText = customerData.dob;
-                                            document.getElementById('ageDiv').innerText = customerData.age;
-                                            document.getElementById('genderDiv').innerText = customerData.gender;
-                                            document.getElementById('nationalityDiv').innerText = customerData.nationality;
-                                            document.getElementById('religionDiv').innerText = customerData.religion;
-                                            document.getElementById('driving_licenseDiv').innerText = customerData.driving_license;
-                                            document.getElementById('facebookDiv').innerText = customerData.facebook;
-                                            document.getElementById('line_idDiv').innerText = customerData.line_id;
-                                            document.getElementById('marital_statusDiv').innerText = customerData.marital_status;
-                                            document.getElementById('spouse_nameDiv').innerText = customerData.spouse_name;
-                                            document.getElementById('spouse_phoneDiv').innerText = customerData.spouse_phone;
-                                            document.getElementById('noteDiv').innerText = customerData.note;
-                                            document.getElementById('user_insertDiv').innerText = customerData.user_insert;
-                                            document.getElementById('created_atDiv').innerText = customerData.created_at;
-                                            document.getElementById('updated_atDiv').innerText = customerData.updated_at;
-                                        </script> --}}
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">วันหมดอายุบัตร</p>
+                                    <p id="expiry_dateDiv" class="font-medium text-gray-800"></p>
+                                </div> --}}
 
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">วันออกบัตร / วันหมดอายุบัตร</p>
+                                    <p class="font-medium text-gray-800">
+                                        <span id="dobDiv"></span> /
+                                        <span id="expiry_dateDiv"></span>
+                                    </p>
+                                </div>
 
-                                        <div class="customer-info">
-                                            <div id="customerIdDiv" class="info-item">
-                                                <!-- The customer ID will be displayed here -->
-                                            </div>
-                                            <div id="prefixDiv" class="info-item">
-                                                <!-- The customer prefix will be displayed here -->
-                                            </div>
-                                            <div id="firstNameDiv" class="info-item">
-                                                <!-- The customer's first name will be displayed here -->
-                                            </div>
-                                            <div id="lastNameDiv" class="info-item">
-                                                <!-- The customer's last name will be displayed here -->
-                                            </div>
-                                            <div id="phoneDiv" class="info-item">
-                                                <!-- The customer's phone number will be displayed here -->
-                                            </div>
-                                            <div id="phone2Div" class="info-item">
-                                                <!-- The customer's second phone number will be displayed here -->
-                                            </div>
-                                            <div id="id_card_numberDiv" class="info-item">
-                                                <!-- The customer's ID card number will be displayed here -->
-                                            </div>
-                                            <div id="expiry_dateDiv" class="info-item">
-                                                <!-- The customer's ID expiry date will be displayed here -->
-                                            </div>
-                                            <div id="dobDiv" class="info-item">
-                                                <!-- The customer's date of birth will be displayed here -->
-                                            </div>
-                                            <div id="ageDiv" class="info-item">
-                                                <!-- The customer's age will be displayed here -->
-                                            </div>
-                                            <div id="genderDiv" class="info-item">
-                                                <!-- The customer's gender will be displayed here -->
-                                            </div>
-                                            <div id="nationalityDiv" class="info-item">
-                                                <!-- The customer's nationality will be displayed here -->
-                                            </div>
-                                            <div id="religionDiv" class="info-item">
-                                                <!-- The customer's religion will be displayed here -->
-                                            </div>
-                                            <div id="driving_licenseDiv" class="info-item">
-                                                <!-- The customer's driving license will be displayed here -->
-                                            </div>
-                                            <div id="facebookDiv" class="info-item">
-                                                <!-- The customer's Facebook will be displayed here -->
-                                            </div>
-                                            <div id="line_idDiv" class="info-item">
-                                                <!-- The customer's Line ID will be displayed here -->
-                                            </div>
-                                            <div id="marital_statusDiv" class="info-item">
-                                                <!-- The customer's marital status will be displayed here -->
-                                            </div>
-                                            <div id="spouse_nameDiv" class="info-item">
-                                                <!-- The customer's spouse name will be displayed here -->
-                                            </div>
-                                            <div id="spouse_phoneDiv" class="info-item">
-                                                <!-- The customer's spouse phone number will be displayed here -->
-                                            </div>
-                                            <div id="noteDiv" class="info-item">
-                                                <!-- The customer's note will be displayed here -->
-                                            </div>
-                                            <div id="user_insertDiv" class="info-item">
-                                                <!-- The user who inserted the data will be displayed here -->
-                                            </div>
-                                            <div id="created_atDiv" class="info-item">
-                                                <!-- The date of data creation will be displayed here -->
-                                            </div>
-                                            <div id="updated_atDiv" class="info-item">
-                                                <!-- The date of last data update will be displayed here -->
-                                            </div>
-                                        </div>
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">ใบขับขี่</p>
+                                    <p id="driving_licenseDiv" class="font-medium text-gray-800"></p>
+                                </div>
+                            </div>
+                        </div>
 
-                                        <script>
-                                            var customerData = <?php echo json_encode($customer); ?>;
+                        <!-- Additional Information Card -->
+                        <div
+                            class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="p-2 bg-orange-100 rounded-lg">
+                                    <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <h6 class="font-semibold text-gray-800">ข้อมูลเพิ่มเติม</h6>
+                            </div>
 
-                                            console.log(customerData);
+                            <div class="space-y-4">
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">เพศ / สัญชาติ / ศาสนา</p>
+                                    <p class="font-medium text-gray-800">
+                                        <span id="genderDiv"></span> /
+                                        <span id="nationalityDiv"></span> /
+                                        <span id="religionDiv"></span>
+                                    </p>
+                                </div>
 
-                                            document.getElementById('customerIdDiv').innerText = customerData.id || 'N/A';
-                                            document.getElementById('prefixDiv').innerText = customerData.prefix || 'N/A';
-                                            document.getElementById('firstNameDiv').innerText = customerData.first_name || 'N/A';
-                                            document.getElementById('lastNameDiv').innerText = customerData.last_name || 'N/A';
-                                            document.getElementById('phoneDiv').innerText = customerData.phone || 'N/A';
-                                            document.getElementById('phone2Div').innerText = customerData.phone2 || 'N/A';
-                                            document.getElementById('id_card_numberDiv').innerText = customerData.id_card_number || 'N/A';
-                                            document.getElementById('expiry_dateDiv').innerText = customerData.expiry_date || 'N/A';
-                                            document.getElementById('dobDiv').innerText = customerData.dob || 'N/A';
-                                            document.getElementById('ageDiv').innerText = customerData.age || 'N/A';
-                                            document.getElementById('genderDiv').innerText = customerData.gender || 'N/A';
-                                            document.getElementById('nationalityDiv').innerText = customerData.nationality || 'N/A';
-                                            document.getElementById('religionDiv').innerText = customerData.religion || 'N/A';
-                                            document.getElementById('driving_licenseDiv').innerText = customerData.driving_license || 'N/A';
-                                            document.getElementById('facebookDiv').innerText = customerData.facebook || 'N/A';
-                                            document.getElementById('line_idDiv').innerText = customerData.line_id || 'N/A';
-                                            document.getElementById('marital_statusDiv').innerText = customerData.marital_status || 'N/A';
-                                            document.getElementById('spouse_nameDiv').innerText = customerData.spouse_name || 'N/A';
-                                            document.getElementById('spouse_phoneDiv').innerText = customerData.spouse_phone || 'N/A';
-                                            document.getElementById('noteDiv').innerText = customerData.note || 'N/A';
-                                            document.getElementById('user_insertDiv').innerText = customerData.user_insert || 'N/A';
-                                            document.getElementById('created_atDiv').innerText = customerData.created_at || 'N/A';
-                                            document.getElementById('updated_atDiv').innerText = customerData.updated_at || 'N/A';
-                                        </script>
-
-
-
-
-
-
-                                        <!-- Year Section -->
-                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">คำนำหน้า</label>
-                                                <select disabled
-                                                    class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 mt-[-2]">
-                                                    <option value="{{ $customer->prefix }}">{{ $customer->prefix }}</option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">ชื่อ</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->first_name }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fas fa-user absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">นามสกุล</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->last_name }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fas fa-user absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">วันออกบัตร</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->expiry_date }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fas fa-calendar-alt absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">วันหมดอายุบัตร</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->dob }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fas fa-calendar-alt absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">อายุ</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->age }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fas fa-user-alt absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Contact Section -->
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">เบอร์โทรศัพท์</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->phone }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fas fa-phone absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">เบอร์โทรศัพท์
-                                                    2</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->phone2 }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fas fa-phone absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-                                        <!-- Social Media Section -->
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">Facebook</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->facebook }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fab fa-facebook absolute right-3 top-1/2 -translate-y-1/2 text-blue-600"></i>
-                                                </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">Line
-                                                    ID</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled value="{{ $customer->line_id }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fab fa-line absolute right-3 top-1/2 -translate-y-1/2 text-green-600"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">Social Media</p>
+                                    <div class="space-y-2">
+                                        <p class="font-medium text-gray-800 flex items-center">
+                                            <svg class="w-5 h-5 text-blue-600 mr-2" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                            </svg>
+                                            <span id="facebookDiv"></span>
+                                        </p>
+                                        <p class="font-medium text-gray-800 flex items-center">
+                                            <svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.348 0 .63.285.63.63 0 .349-.282.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.195 0-.384-.094-.484-.274l-2.457-4.372v4.023c0 .345-.282.629-.631.629-.345 0-.63-.285-.63-.629V8.108c0-.27.174-.51.432-.596.064-.021.133-.031.199-.031.195 0 .384.094.484.274l2.457 4.372V8.108c0-.345.282-.63.63-.63.346 0 .631.285.631.63v4.771zm-5.741 1.256c-.346 0-.631-.285-.631-.629V8.108c0-.345.285-.63.631-.63s.63.285.63.63v4.771c0 .344-.284.629-.63.629z" />
+                                            </svg>
+                                            <span id="line_idDiv"></span>
+                                        </p>
                                     </div>
+                                </div>
 
-                                    <!-- Right Column -->
-                                    <div class="space-y-6">
-                                        {{-- <h2 class="text-2xl font-semibold text-gray-800 mb-[-5]">ข้อมูลเพิ่มเติม</h2> --}}
-                                        <h2
-                                            class="text-base font-semibold text-gray-800 mb-0 border-b border-gray-300 pb-0">
-                                            <img src="{{ asset('gif/info.gif') }}" alt="Icon"
-                                                class="inline-block mr-0 w-12">
-                                            ข้อมูลเพิ่มเติม
-                                        </h2>
-
-                                        <!-- Personal Info -->
-                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">เพศ</label>
-                                                <select disabled
-                                                    class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <option value="{{ $customer->gender }}">{{ $customer->gender }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">สัญชาติ</label>
-                                                <select disabled
-                                                    class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <option value="{{ $customer->nationality }}">
-                                                        {{ $customer->nationality }}</option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">ศาสนา</label>
-                                                <select disabled
-                                                    class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <option value="{{ $customer->religion }}">
-                                                        {{ $customer->religion }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">ใบขับขี่</label>
-                                                <select disabled
-                                                    class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <option value="{{ $customer->driving_license }}">
-                                                        {{ $customer->driving_license }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">สถานะสมรส</label>
-                                                <select disabled
-                                                    class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <option value="{{ $customer->marital_status }}">
-                                                        {{ $customer->marital_status }}</option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">เบอร์โทรคู่สมรส</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled
-                                                        value="{{ $customer->spouse_phone ?? 'ไม่มีข้อมูล' }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500
-                                                                  {{ $customer->spouse_phone ? 'text-black' : 'text-red-500' }}">
-                                                    <i
-                                                        class="fas fa-phone absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">ชื่อคู่สมรส</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled
-                                                        value="{{ $customer->spouse_name ?? 'ไม่มีข้อมูล' }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500
-                                                                  {{ $customer->spouse_name ? 'text-black' : 'text-red-500' }}">
-                                                    <i
-                                                        class="fas fa-phone absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <label
-                                                    class="input-label block text-sm font-medium text-gray-600 mb-0">ผู้ลงบันทึก</label>
-                                                <div class="relative">
-                                                    <input type="text" disabled
-                                                        value="{{ $customer->user_insert }}"
-                                                        class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                                    <i
-                                                        class="fas fa-user absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Notes Section -->
-                                        <div class="input-group">
-                                            <label
-                                                class="input-label block text-sm font-medium text-gray-600 mb-0">หมายเหตุ</label>
-                                            <textarea disabled rows="1"
-                                                class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">{{ $customer->note }}</textarea>
-                                        </div>
+                                <div
+                                    class="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-1">สถานะการสมรส</p>
+                                    <p id="marital_statusDiv" class="font-medium text-gray-800"></p>
+                                    <div class="mt-2" id="spouseInfo">
+                                        <p class="text-sm text-gray-600">คู่สมรส: <span id="spouse_nameDiv"></span>
+                                        </p>
+                                        <p class="text-sm text-gray-600">เบอร์โทร: <span id="spouse_phoneDiv"></span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
-                    <div class="flex justify-end space-x-2">
+                    <!-- Notes Section -->
+                    <div class="mt-8">
+                        <div class="bg-gradient-to-br from-orange-50 to-white p-6 rounded-xl border border-orange-100">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="p-2 bg-orange-100 rounded-lg">
+                                    <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                    </svg>
+                                </div>
+                                <h6 class="font-semibold text-gray-800">หมายเหตุ</h6>
+                            </div>
+                            <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm">
+                                <p id="noteDiv" class="text-gray-700 min-h-[60px] whitespace-pre-line"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Information -->
+                    <div class="mt-8 bg-gray-50 rounded-xl p-6 border border-gray-100">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-2 bg-blue-100 rounded-lg">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">บันทึกโดย</p>
+                                    <p id="user_insertDiv" class="font-medium text-gray-700"></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="p-2 bg-green-100 rounded-lg">
+                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">สร้างเมื่อ</p>
+                                    <p id="created_atDiv" class="font-medium text-gray-700"></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="p-2 bg-purple-100 rounded-lg">
+                                    <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">แก้ไขล่าสุด</p>
+                                    <p id="updated_atDiv" class="font-medium text-gray-700"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="mt-8 flex justify-end">
                         <button type="button" id="cancelCustomerBtn"
-                            class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-gray-500/50"
+                            class="group relative px-8 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl
+                                   transition duration-300 transform hover:scale-105 hover:shadow-lg
+                                   focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
                             onclick="closeDataCustomerModal()">
-                            <i class="fas fa-times"></i> ย้อนกลับ
+                            <div
+                                class="absolute inset-0 bg-white rounded-xl opacity-0 group-hover:opacity-20 transition-opacity">
+                            </div>
+                            <div class="relative flex items-center justify-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                </svg>
+                                ย้อนกลับ
+                            </div>
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
 <style>
-    .card-hover {
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* Custom scrollbar for Webkit browsers */
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
     }
 
-    .card-hover:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background: #F3F4F6;
+        border-radius: 3px;
     }
 
-    .input-group {
-        transition: all 0.2s ease;
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background: #FED7AA;
+        border-radius: 3px;
     }
 
-    .input-group:hover {
-        transform: translateX(5px);
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+        background: #FB923C;
     }
 
-    .input-label {
-        transition: all 0.2s ease;
-        opacity: 0.7;
-    }
-
-    .input-group:hover .input-label {
+    /* Animation for modal opening */
+    #showModalCustomerForm:not(.hidden) #modalContent {
         opacity: 1;
-        color: #f97316;
+        transform: scale(100%);
     }
 </style>
 
 <script>
-    // Function to open modal and load customer data
-    // function showCustomerModal(customerId) {
-    //     $.ajax({
-    //         url: '/customers/' + customerId,
-    //         method: 'GET',
-    //         success: function(response) {
-    //             // Show modal
-    //             $('#showModalCustomerForm').removeClass('hidden');
-
-    //             // Fill in customer data
-    //             const customer = response.customer;
-
-    //             // Personal Information
-    //             $('select[name="prefix"]').val(customer.prefix);
-    //             $('input[name="first_name"]').val(customer.first_name);
-    //             $('input[name="last_name"]').val(customer.last_name);
-    //             $('input[name="expiry_date"]').val(customer.expiry_date);
-    //             $('input[name="dob"]').val(customer.dob);
-    //             $('input[name="age"]').val(customer.age);
-
-    //             // Contact Information
-    //             $('input[name="phone"]').val(customer.phone);
-    //             $('input[name="phone2"]').val(customer.phone2);
-    //             $('input[name="facebook"]').val(customer.facebook);
-    //             $('input[name="line_id"]').val(customer.line_id);
-
-    //             // Additional Information
-    //             $('select[name="gender"]').val(customer.gender);
-    //             $('select[name="nationality"]').val(customer.nationality);
-    //             $('select[name="religion"]').val(customer.religion);
-    //             $('select[name="driving_license"]').val(customer.driving_license);
-    //             $('select[name="marital_status"]').val(customer.marital_status);
-
-    //             // Spouse Information
-    //             const spousePhone = customer.spouse_phone || 'ไม่มีข้อมูล';
-    //             const spouseName = customer.spouse_name || 'ไม่มีข้อมูล';
-    //             $('input[name="spouse_phone"]').val(spousePhone)
-    //                 .toggleClass('text-red-500', !customer.spouse_phone);
-    //             $('input[name="spouse_name"]').val(spouseName)
-    //                 .toggleClass('text-red-500', !customer.spouse_name);
-
-    //             // Other Information
-    //             $('input[name="user_insert"]').val(customer.user_insert);
-    //             $('textarea[name="note"]').val(customer.note);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             console.error('Error loading customer data:', error);
-    //             // Show error message to user
-    //             alert('ไม่สามารถโหลดข้อมูลลูกค้าได้ กรุณาลองใหม่อีกครั้ง');
-    //         }
-    //     });
-    // }
-
-    function showCustomerModal(customerId) {
-        $.ajax({
-            url: '/customers/' + customerId,
-            method: 'GET',
-            success: function(response) {
-                // แปลงข้อมูลเป็น JSON
-                const customer = JSON.parse(response); // แปลงข้อมูลที่ได้รับจาก server เป็น JSON
-
-                // แสดง modal
-                $('#showModalCustomerForm').removeClass('hidden');
-
-                // เติมข้อมูลลูกค้า
-                // Personal Information
-                $('select[name="prefix"]').val(customer.prefix);
-                $('input[name="first_name"]').val(customer.first_name);
-                $('input[name="last_name"]').val(customer.last_name);
-                $('input[name="expiry_date"]').val(customer.expiry_date);
-                $('input[name="dob"]').val(customer.dob);
-                $('input[name="age"]').val(customer.age);
-
-                // Contact Information
-                $('input[name="phone"]').val(customer.phone);
-                $('input[name="phone2"]').val(customer.phone2);
-                $('input[name="facebook"]').val(customer.facebook);
-                $('input[name="line_id"]').val(customer.line_id);
-
-                // Additional Information
-                $('select[name="gender"]').val(customer.gender);
-                $('select[name="nationality"]').val(customer.nationality);
-                $('select[name="religion"]').val(customer.religion);
-                $('select[name="driving_license"]').val(customer.driving_license);
-                $('select[name="marital_status"]').val(customer.marital_status);
-
-                // Spouse Information
-                const spousePhone = customer.spouse_phone || 'ไม่มีข้อมูล';
-                const spouseName = customer.spouse_name || 'ไม่มีข้อมูล';
-                $('input[name="spouse_phone"]').val(spousePhone)
-                    .toggleClass('text-red-500', !customer.spouse_phone);
-                $('input[name="spouse_name"]').val(spouseName)
-                    .toggleClass('text-red-500', !customer.spouse_name);
-
-                // Other Information
-                $('input[name="user_insert"]').val(customer.user_insert);
-                $('textarea[name="note"]').val(customer.note);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error loading customer data:', error);
-                // แสดงข้อความผิดพลาด
-                alert('ไม่สามารถโหลดข้อมูลลูกค้าได้ กรุณาลองใหม่อีกครั้ง');
-            }
-        });
-    }
-
-
-
-    // Function to close modal
     function closeDataCustomerModal() {
-        $('#showModalCustomerForm').addClass('hidden');
+        const modal = document.getElementById('showModalCustomerForm');
+        const modalContent = document.getElementById('modalContent');
+
+        // Add closing animation
+        modalContent.style.opacity = '0';
+        modalContent.style.transform = 'scale(95%)';
+
+        // Hide modal after animation
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modalContent.style.opacity = '';
+            modalContent.style.transform = '';
+        }, 300);
     }
 
-    // Event listener for close button
-    $(document).ready(function() {
-        $('#cancelCustomerBtn').on('click', closeDataCustomerModal);
-
-        // Close modal when clicking outside
-        $(document).on('click', '#showModalCustomerForm', function(e) {
-            if (e.target === this) {
-                closeDataCustomerModal();
-            }
-        });
+    // Add escape key listener
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeDataCustomerModal();
+        }
     });
 </script>
 
 
-
-
 <script>
+    // Update display function
+    function updateCustomerDisplay(data) {
+        const displayFields = [
+            'id', 'prefix', 'first_name', 'last_name', 'phone', 'phone2',
+            'id_card_number', 'birthday', 'expiry_date', 'dob', 'age', 'gender',
+            'nationality', 'religion', 'driving_license', 'facebook',
+            'line_id', 'marital_status', 'spouse_name', 'spouse_phone',
+            'note', 'user_insert', 'created_at', 'updated_at'
+        ];
+
+        // displayFields.forEach(field => {
+        //     const element = document.getElementById(`${field}Div`);
+        //     if (element) {
+        //         element.textContent = data[field] || 'ไม่มีข้อมูล';
+        //     }
+        // });
+
+        displayFields.forEach(field => {
+            const element = document.getElementById(`${field}Div`);
+            if (element) {
+                // Check if the field is a date to format
+                if (['birthday', 'expiry_date', 'dob', 'created_at', 'updated_at'].includes(field) && data[field]) {
+                    element.textContent = formatDateThai(data[field]);
+                } else {
+                    element.textContent = data[field] || 'ไม่มีข้อมูล';
+                }
+            }
+        });
+
+        // Show/hide spouse information based on marital status
+        const spouseInfo = document.getElementById('spouseInfo');
+        if (spouseInfo) {
+            spouseInfo.style.display =
+                data.marital_status === 'สมรส' ? 'block' : 'none';
+        }
+    }
+
+    // Function to format date to Thai format
+    function formatDateThai(dateStr) {
+        const date = new Date(dateStr);
+        const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+        const day = date.getDate();
+        const month = thaiMonths[date.getMonth()];
+        const year = date.getFullYear() + 543;  // Convert to Buddhist Era
+
+        return `${day} ${month} ${year}`;
+    }
+
+    // Initialize display
+    updateCustomerDisplay(customerData);
+
     function showDataCustomerModal() {
         const modal = $('#showModalCustomerForm');
         const modalContent = modal.find('.relative');
@@ -643,6 +432,23 @@
         }, 300);
     }
 
+    function closeModal_Show_customer() {
+        const modal = $('#showModalCustomerForm');
+        const modalContent = modal.find('.relative');
+
+        modalContent.css('transition', 'transform 0.3s ease');
+        modalContent.addClass('translate-y-[-100%]');
+
+        setTimeout(() => {
+            modal.animate({
+                opacity: 0
+            }, 300, function() {
+                modal.addClass('hidden');
+                modalContent.addClass('translate-y-[-100%]');
+            });
+        }, 300);
+    }
+
     $(document).mouseup(function(e) {
         const modal = $('#showModalCustomerForm');
         const modalContent = modal.find('.relative');
@@ -654,3 +460,6 @@
         if (e.key === "Escape") {}
     });
 </script>
+
+
+
