@@ -115,6 +115,7 @@ Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptio
 // DATA ASSET อัปเดท
 Route::get('/api/getAssetData', [DataAssetController::class, 'getAssetData'])->name('asset.get');
 Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetData'])->name('asset.update');
+// Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetData'])->name('asset.update');
 
 
 

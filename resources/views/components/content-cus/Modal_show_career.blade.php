@@ -248,14 +248,25 @@
 
 
         // ปุ่มปิด Modal
+        // $('#closeModal_show_career_x').on('click', function() {
+        //     $('#modalShowCareer')
+        //         .removeClass('modal-enter-active')
+        //         .addClass('modal-leave')
+        //         .fadeOut(300, function() {
+        //             $(this).removeClass('modal-leave');
+        //         });
+        // });
+
         $('#closeModal_show_career_x').on('click', function() {
             $('#modalShowCareer')
-                .removeClass('modal-enter-active')
-                .addClass('modal-leave')
-                .fadeOut(300, function() {
-                    $(this).removeClass('modal-leave');
+                .animate({
+                    transform: 'translateY(100%)',  // ใช้ translateY สำหรับการเลื่อน modal ลงไป
+                    opacity: 0                      // ลดความโปร่งใส
+                }, 100, function() {
+                    $(this).hide().css({ transform: '', opacity: '' });  // ซ่อน modal และรีเซ็ตการตั้งค่า
                 });
         });
+
 
         // ปิด Modal เมื่อคลิกนอก Modal
         $(window).on('click', function(event) {
@@ -270,10 +281,6 @@
         });
     });
 </script>
-
-
-
-
 
 
 

@@ -44,6 +44,164 @@
                                             ข้อมูลส่วนตัว
                                         </h2>
 
+                                        {{-- <div class="customer-info">
+                                            <div id="customerIdDiv" class="info-item">
+                                                <!-- The customer ID will be displayed here -->
+                                            </div>
+                                            <div id="prefixDiv" class="info-item">
+                                                <!-- The customer prefix will be displayed here -->
+                                            </div>
+                                            <div id="firstNameDiv" class="info-item">
+                                                <!-- The customer's first name will be displayed here -->
+                                            </div>
+                                            <div id="lastNameDiv" class="info-item">
+                                                <!-- The customer's last name will be displayed here -->
+                                            </div>
+                                            <div id="phoneDiv" class="info-item">
+                                                <!-- The customer's last name will be displayed here -->
+                                            </div>
+                                        </div>
+
+
+                                        <script>
+
+                                            var customerData = <?php echo json_encode($customer); ?>;
+
+                                            console.log(customerData);
+
+                                            document.getElementById('customerIdDiv').innerText = customerData.id;
+                                            document.getElementById('prefixDiv').innerText = customerData.prefix;
+                                            document.getElementById('firstNameDiv').innerText = customerData.first_name;
+                                            document.getElementById('lastNameDiv').innerText = customerData.last_name;
+                                            document.getElementById('phoneDiv').innerText = customerData.phone;
+                                            document.getElementById('phone2Div').innerText = customerData.phone2;
+                                            document.getElementById('id_card_numberDiv').innerText = customerData.id_card_number;
+                                            document.getElementById('expiry_dateDiv').innerText = customerData.expiry_date;
+                                            document.getElementById('dobDiv').innerText = customerData.dob;
+                                            document.getElementById('ageDiv').innerText = customerData.age;
+                                            document.getElementById('genderDiv').innerText = customerData.gender;
+                                            document.getElementById('nationalityDiv').innerText = customerData.nationality;
+                                            document.getElementById('religionDiv').innerText = customerData.religion;
+                                            document.getElementById('driving_licenseDiv').innerText = customerData.driving_license;
+                                            document.getElementById('facebookDiv').innerText = customerData.facebook;
+                                            document.getElementById('line_idDiv').innerText = customerData.line_id;
+                                            document.getElementById('marital_statusDiv').innerText = customerData.marital_status;
+                                            document.getElementById('spouse_nameDiv').innerText = customerData.spouse_name;
+                                            document.getElementById('spouse_phoneDiv').innerText = customerData.spouse_phone;
+                                            document.getElementById('noteDiv').innerText = customerData.note;
+                                            document.getElementById('user_insertDiv').innerText = customerData.user_insert;
+                                            document.getElementById('created_atDiv').innerText = customerData.created_at;
+                                            document.getElementById('updated_atDiv').innerText = customerData.updated_at;
+                                        </script> --}}
+
+
+                                        <div class="customer-info">
+                                            <div id="customerIdDiv" class="info-item">
+                                                <!-- The customer ID will be displayed here -->
+                                            </div>
+                                            <div id="prefixDiv" class="info-item">
+                                                <!-- The customer prefix will be displayed here -->
+                                            </div>
+                                            <div id="firstNameDiv" class="info-item">
+                                                <!-- The customer's first name will be displayed here -->
+                                            </div>
+                                            <div id="lastNameDiv" class="info-item">
+                                                <!-- The customer's last name will be displayed here -->
+                                            </div>
+                                            <div id="phoneDiv" class="info-item">
+                                                <!-- The customer's phone number will be displayed here -->
+                                            </div>
+                                            <div id="phone2Div" class="info-item">
+                                                <!-- The customer's second phone number will be displayed here -->
+                                            </div>
+                                            <div id="id_card_numberDiv" class="info-item">
+                                                <!-- The customer's ID card number will be displayed here -->
+                                            </div>
+                                            <div id="expiry_dateDiv" class="info-item">
+                                                <!-- The customer's ID expiry date will be displayed here -->
+                                            </div>
+                                            <div id="dobDiv" class="info-item">
+                                                <!-- The customer's date of birth will be displayed here -->
+                                            </div>
+                                            <div id="ageDiv" class="info-item">
+                                                <!-- The customer's age will be displayed here -->
+                                            </div>
+                                            <div id="genderDiv" class="info-item">
+                                                <!-- The customer's gender will be displayed here -->
+                                            </div>
+                                            <div id="nationalityDiv" class="info-item">
+                                                <!-- The customer's nationality will be displayed here -->
+                                            </div>
+                                            <div id="religionDiv" class="info-item">
+                                                <!-- The customer's religion will be displayed here -->
+                                            </div>
+                                            <div id="driving_licenseDiv" class="info-item">
+                                                <!-- The customer's driving license will be displayed here -->
+                                            </div>
+                                            <div id="facebookDiv" class="info-item">
+                                                <!-- The customer's Facebook will be displayed here -->
+                                            </div>
+                                            <div id="line_idDiv" class="info-item">
+                                                <!-- The customer's Line ID will be displayed here -->
+                                            </div>
+                                            <div id="marital_statusDiv" class="info-item">
+                                                <!-- The customer's marital status will be displayed here -->
+                                            </div>
+                                            <div id="spouse_nameDiv" class="info-item">
+                                                <!-- The customer's spouse name will be displayed here -->
+                                            </div>
+                                            <div id="spouse_phoneDiv" class="info-item">
+                                                <!-- The customer's spouse phone number will be displayed here -->
+                                            </div>
+                                            <div id="noteDiv" class="info-item">
+                                                <!-- The customer's note will be displayed here -->
+                                            </div>
+                                            <div id="user_insertDiv" class="info-item">
+                                                <!-- The user who inserted the data will be displayed here -->
+                                            </div>
+                                            <div id="created_atDiv" class="info-item">
+                                                <!-- The date of data creation will be displayed here -->
+                                            </div>
+                                            <div id="updated_atDiv" class="info-item">
+                                                <!-- The date of last data update will be displayed here -->
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            var customerData = <?php echo json_encode($customer); ?>;
+
+                                            console.log(customerData);
+
+                                            document.getElementById('customerIdDiv').innerText = customerData.id || 'N/A';
+                                            document.getElementById('prefixDiv').innerText = customerData.prefix || 'N/A';
+                                            document.getElementById('firstNameDiv').innerText = customerData.first_name || 'N/A';
+                                            document.getElementById('lastNameDiv').innerText = customerData.last_name || 'N/A';
+                                            document.getElementById('phoneDiv').innerText = customerData.phone || 'N/A';
+                                            document.getElementById('phone2Div').innerText = customerData.phone2 || 'N/A';
+                                            document.getElementById('id_card_numberDiv').innerText = customerData.id_card_number || 'N/A';
+                                            document.getElementById('expiry_dateDiv').innerText = customerData.expiry_date || 'N/A';
+                                            document.getElementById('dobDiv').innerText = customerData.dob || 'N/A';
+                                            document.getElementById('ageDiv').innerText = customerData.age || 'N/A';
+                                            document.getElementById('genderDiv').innerText = customerData.gender || 'N/A';
+                                            document.getElementById('nationalityDiv').innerText = customerData.nationality || 'N/A';
+                                            document.getElementById('religionDiv').innerText = customerData.religion || 'N/A';
+                                            document.getElementById('driving_licenseDiv').innerText = customerData.driving_license || 'N/A';
+                                            document.getElementById('facebookDiv').innerText = customerData.facebook || 'N/A';
+                                            document.getElementById('line_idDiv').innerText = customerData.line_id || 'N/A';
+                                            document.getElementById('marital_statusDiv').innerText = customerData.marital_status || 'N/A';
+                                            document.getElementById('spouse_nameDiv').innerText = customerData.spouse_name || 'N/A';
+                                            document.getElementById('spouse_phoneDiv').innerText = customerData.spouse_phone || 'N/A';
+                                            document.getElementById('noteDiv').innerText = customerData.note || 'N/A';
+                                            document.getElementById('user_insertDiv').innerText = customerData.user_insert || 'N/A';
+                                            document.getElementById('created_atDiv').innerText = customerData.created_at || 'N/A';
+                                            document.getElementById('updated_atDiv').innerText = customerData.updated_at || 'N/A';
+                                        </script>
+
+
+
+
+
+
                                         <!-- Year Section -->
                                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                             <div class="input-group">
@@ -51,8 +209,7 @@
                                                     class="input-label block text-sm font-medium text-gray-600 mb-0">คำนำหน้า</label>
                                                 <select disabled
                                                     class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 mt-[-2]">
-                                                    <option value="{{ $customer->prefix }}">{{ $customer->prefix }}
-                                                    </option>
+                                                    <option value="{{ $customer->prefix }}">{{ $customer->prefix }}</option>
                                                 </select>
                                             </div>
                                             <div class="input-group">

@@ -109,6 +109,7 @@ class AssetManage extends Model
     use HasFactory;
 
     protected $table = 'asset_manage'; // ชื่อของตารางในฐานข้อมูล
+    protected $primaryKey = 'id';
     public $timestamps = true; // ปิดการใช้งาน timestamps
     protected $fillable = [
         'Type_Asset',

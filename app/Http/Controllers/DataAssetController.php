@@ -27,6 +27,7 @@ use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 
 
@@ -588,7 +589,6 @@ class DataAssetController extends Controller
                 }
             }
 
-            // แสดงข้อมูล response
             // dd($response);
 
             return response()->json($response);
@@ -631,7 +631,7 @@ class DataAssetController extends Controller
                 $asset->Vehicle_Type = $request->input('vehicle_type'); // เปลี่ยนตามชื่อฟิลด์
                 $asset->Vehicle_Type_PLT = $request->input('vehicle_type_plt'); // เปลี่ยนตามชื่อฟิลด์
                 $asset->Vehicle_Brand = $request->input('brand'); // เปลี่ยนตามชื่อฟิลด์
-                $asset->Vehicle_Group = $request->input('vehicle_group'); // เปลี่ยนตามชื่อฟิลด์
+                $asset->Vehicle_Group = $request->input('group'); // เปลี่ยนตามชื่อฟิลด์
                 $asset->Vehicle_Years = $request->input('year'); // เปลี่ยนตามชื่อฟิลด์
                 $asset->Vehicle_Models = $request->input('model'); // เปลี่ยนตามชื่อฟิลด์
                 $asset->Vehicle_Gear = $request->input('gear_type'); // เปลี่ยนตามชื่อฟิลด์
@@ -656,6 +656,109 @@ class DataAssetController extends Controller
                 return response()->json(['error' => 'Asset not found'], 404);
             }
         }
+
+
+
+        // public function updateAssetData(Request $request)
+        // {
+        //     try {
+        //         // Validate the request
+        //         $validator = Validator::make($request->all(), [
+        //             'id' => 'required|integer|exists:asset_manage,id', // แก้ชื่อตารางให้ตรงกับฐานข้อมูล
+        //             'type' => 'required|string',
+        //             'old_license_text' => 'nullable|string',
+        //             'old_license_number' => 'nullable|string',
+        //             'old_province' => 'nullable|string',
+        //             'new_license_text' => 'nullable|string',
+        //             'new_license_number' => 'nullable|string',
+        //             'new_province' => 'nullable|string',
+        //             'chassis_number' => 'nullable|string',
+        //             'engine_number' => 'nullable|string',
+        //             'color' => 'nullable|string',
+        //             'brand' => 'nullable|string',
+        //             'group' => 'nullable|string',
+        //             'model' => 'nullable|string',
+        //             'year' => 'nullable|string',
+        //             'engine_capacity' => 'nullable|string',
+        //             'gear_type' => 'nullable|string',
+        //             'vehicle_type' => 'nullable|string',
+        //             'vehicle_type_plt' => 'nullable|string',
+        //             'insurance_renewal_date' => 'nullable|date',
+        //             'insurance_end_date' => 'nullable|date',
+        //             'act_renewal_date' => 'nullable|date',
+        //             'act_end_date' => 'nullable|date',
+        //             'register_renewal_date' => 'nullable|date',
+        //             'register_end_date' => 'nullable|date',
+        //             'insurance_status' => 'nullable|string',
+        //             'insurance_company' => 'nullable|string',
+        //             'policy_number' => 'nullable|string',
+        //             'new_number' => 'nullable|string',
+        //         ]);
+
+        //         if ($validator->fails()) {
+        //             return response()->json([
+        //                 'success' => false,
+        //                 'message' => 'Validation error',
+        //                 'errors' => $validator->errors()
+        //             ], 422);
+        //         }
+
+        //         $asset = AssetManage::findOrFail($request->id);
+
+        //         // Map request data to model fields
+        //         $fieldsToUpdate = [
+        //             'Type_Asset' => 'type',
+        //             'Vehicle_OldLicense_Text' => 'old_license_text',
+        //             'Vehicle_OldLicense_Number' => 'old_license_number',
+        //             'OldProvince' => 'old_province',
+        //             'Vehicle_NewLicense_Text' => 'new_license_text',
+        //             'Vehicle_NewLicense_Number' => 'new_license_number',
+        //             'NewProvince' => 'new_province',
+        //             'Vehicle_Chassis' => 'chassis_number',
+        //             'Vehicle_Engine' => 'engine_number',
+        //             'Vehicle_Color' => 'color',
+        //             'Vehicle_CC' => 'engine_capacity',
+        //             'Vehicle_Type' => 'vehicle_type',
+        //             'Vehicle_Type_PLT' => 'vehicle_type_plt',
+        //             'Vehicle_Brand' => 'brand',
+        //             'Vehicle_Group' => 'group',
+        //             'Vehicle_Years' => 'year',
+        //             'Vehicle_Models' => 'model',
+        //             'Vehicle_Gear' => 'gear_type',
+        //             'Vehicle_InsuranceStatus' => 'insurance_status',
+        //             'Vehicle_Companies' => 'insurance_company',
+        //             'Vehicle_PolicyNumber' => 'policy_number',
+        //             'Vehicle_New_Number' => 'new_number',
+        //             'Insurance_renewal_date' => 'insurance_renewal_date',
+        //             'Insurance_end_date' => 'insurance_end_date',
+        //             'act_renewal_date' => 'act_renewal_date',
+        //             'act_end_date' => 'act_end_date',
+        //             'register_renewal_date' => 'register_renewal_date',
+        //             'register_end_date' => 'register_end_date',
+        //         ];
+
+        //         foreach ($fieldsToUpdate as $modelField => $requestField) {
+        //             if ($request->has($requestField)) {
+        //                 $asset->{$modelField} = $request->input($requestField);
+        //             }
+        //         }
+
+        //         $asset->save();
+
+        //         return response()->json([
+        //             'success' => true,
+        //             'message' => 'Asset updated successfully',
+        //             'data' => $asset
+        //         ]);
+
+        //     } catch (\Exception $e) {
+        //         \Log::error('Asset Update Error: ' . $e->getMessage());
+        //         return response()->json([
+        //             'success' => false,
+        //             'message' => 'Error updating asset: ' . $e->getMessage()
+        //         ], 500);
+        //     }
+        // }
 
 
         //---------------------------------------------Data Assets Destroy---------------------------------------------------------//

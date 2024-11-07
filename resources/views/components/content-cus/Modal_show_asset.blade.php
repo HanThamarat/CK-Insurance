@@ -30,7 +30,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Vehicle Basic Info -->
                     <div class="bg-orange-50 rounded-xl p-6 shadow-sm">
-                        <h4 class="text-lg font-semibold mb-5 text-orange-600">ข้อมูลพื้นฐาน</h4>
+                        <h4 class="text-lg font-semibold mb-5 text-orange-600"><i class="fas fa-info-circle"></i> ข้อมูลพื้นฐาน</h4>
                         <div class="space-y-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทสินทรัพย์ :</strong>
@@ -65,7 +65,7 @@
 
                     <!-- Vehicle Details -->
                     <div class="bg-blue-50 rounded-xl p-6 shadow-sm">
-                        <h4 class="text-lg font-semibold mb-5 text-blue-600">รายละเอียดรถ</h4>
+                        <h4 class="text-lg font-semibold mb-5 text-blue-600"><i class="fas fa-car"></i> รายละเอียดรถ</h4>
                         <div class="space-y-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทรถ 1 :</strong>
@@ -107,7 +107,7 @@
 
                 <!-- Insurance Info -->
                 <div class="bg-green-50 rounded-xl p-6 shadow-sm w-full mt-6">
-                    <h4 class="text-lg font-semibold mb-5 text-green-600">ข้อมูลประกัน</h4>
+                    <h4 class="text-lg font-semibold mb-5 text-green-600"><i class="fas fa-shield-alt"></i> ข้อมูลประกัน</h4>
 
                     <div class="space-y-4">
                         <p class="flex flex-col sm:flex-row sm:justify-between">
@@ -162,7 +162,7 @@
 
 
                 <!-- Timestamps -->
-                <div class="mt-8 text-sm text-gray-500 space-y-2">
+                {{-- <div class="mt-8 text-sm text-gray-500 space-y-2">
                     <p class="flex items-center">
                         <i class="fas fa-clock mr-3"></i>
                         <span>สร้างข้อมูลเมื่อ : <span id="show_created_at" class="ml-2"></span></span>
@@ -170,6 +170,20 @@
                     <p class="flex items-center">
                         <i class="fas fa-clock mr-3"></i>
                         <span>อัปเดตล่าสุดเมื่อ : <span id="show_updated_at" class="ml-2"></span></span>
+                    </p>
+                </div> --}}
+                <div class="bg-gray-50 rounded-xl p-6 mt-8 space-y-3">
+                    <p class="flex items-center text-gray-600">
+                        <i class="fas fa-clock mr-3 text-gray-400"></i>
+                        <span class="text-sm">สร้างข้อมูลเมื่อ :
+                            <span id="show_created_at" class="ml-2 font-medium"></span>
+                        </span>
+                    </p>
+                    <p class="flex items-center text-gray-600">
+                        <i class="fas fa-history mr-3 text-gray-400"></i>
+                        <span class="text-sm">อัปเดตล่าสุดเมื่อ :
+                            <span id="show_updated_at" class="ml-2 font-medium"></span>
+                        </span>
                     </p>
                 </div>
             </div>
