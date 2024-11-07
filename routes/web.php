@@ -163,6 +163,7 @@ Route::post('/delete-asset', [DataAssetController::class, 'deleteAsset']);
 
 
 
+
 // Route สำหรับแสดงฟอร์มแก้ไขสินทรัพย์ (GET)
 // Route::get('/customer/profile/editAssetForm/{id}', [DataAssetController::class, 'edit'])->name('customer.profile.editAssetForm');
 

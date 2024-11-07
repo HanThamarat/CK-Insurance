@@ -223,128 +223,170 @@
                 const assetContainer = $('#asset-container');
                 assetContainer.empty();
 
-                // Check if data is defined and is an array
                 if (data && Array.isArray(data) && data.length > 0) {
-                    const sliderTrack = $(
-                        '<div class="slider-track flex transition-transform duration-300 ease-in-out"></div>'
-                        );
-
-                    // Hide the out of stock message and navigation buttons if data is available
-                    $('.asset-master').hide(); // Hide the message when there are assets
-                    $('#prev_asset, #next_asset').show(); // Show navigation buttons
-
-                    data.forEach(asset => {
-                        const card = `
-                            <div class="flex-shrink-0 w-full max-w-lg mx-4">
-                                <div class="card task-box custom-card border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500">
-                                    <div class="bg-orange-200 bg-opacity-25 rounded-t-lg p-4">
-                                        <div class="flex justify-between items-center">
-                                            <h6 class="text-primary font-semibold">
-                                                <i class="fas fa-tag text-secondary"></i>
-                                                <strong>สินทรัพย์ : </strong> ${asset.Type_Asset}
-                                            </h6>
-
-                                            <label class="popup">
-                                                    <input type="checkbox">
-                                                    <div class="burger" tabindex="0">
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                    </div>
-                                                    <nav class="popup-window">
-                                                        <legend>Actions</legend>
-                                                        <ul>
-                                                            <li>
-                                                                <button data-id="${asset.id}"
-                                                                        data-type-asset="${asset.Type_Asset}"
-                                                                        data-old-license-text="${asset.Vehicle_OldLicense_Text}"
-                                                                        data-old-license-number="${asset.Vehicle_OldLicense_Number}"
-                                                                        data-old-province="${asset.OldProvince}"
-                                                                        data-chassis="${asset.Vehicle_Chassis}"
-                                                                        data-engine="${asset.Vehicle_Engine}"
-                                                                        data-color="${asset.Vehicle_Color}"
-                                                                        onclick="openModal_Show_asset_customer(this)">
-                                                                    <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
-                                                                        <circle cx="12" cy="12" r="3"></circle>
-                                                                    </svg>
-                                                                    <span>แสดง</span>
-                                                                </button>
-                                                            </li>
-
-                                                        <li>
-                                                            <button data-id="${asset.id}"
-                                                                    onclick="openModal_Edit_asset_customer(this)">
-                                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                                </svg>
-                                                                <span>แก้ไข</span>
-                                                            </button>
-                                                        </li>
-                                                        <hr>
-                                                        <li>
-                                                            <button class="delete-btn-asset" data-id="${asset.id}>
-                                                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                                <line y2="18" x2="6" y1="6" x1="18"></line>
-                                                                <line y2="18" x2="18" y1="6" x1="6"></line>
-                                                            </svg>
-                                                            <span>ลบ</span>
-                                                            </button>
-                                                        </li>
-                                                        </ul>
-                                                    </nav>
-                                                </label>
-
-                                            <!--<button
-                                                class="flex items-center bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded transform hover:translate-y-[-2px] hover:shadow-lg transition-all duration-200"
-                                                data-id="${asset.id}"
-                                                onclick="openModal_Edit_asset_customer(this)">
-                                                <i class="fas fa-edit mr-2"></i>
-                                                แก้ไข
-                                            </button>-->
-                                        </div>
-                                    </div>
-                                    <div class="p-4">
-                                        <div class="flex">
-                                            <div class="flex-1">
-                                                <p><strong><i class="fas fa-cube"></i> ประเภทสินทรัพย์ : </strong>${asset.Type_Asset}</p>
-                                                <p><strong><i class="fas fa-car"></i> ทะเบียนรถ : </strong>${asset.Vehicle_OldLicense_Text} ${asset.Vehicle_OldLicense_Number} ${asset.OldProvince} </p>
-                                                <!--<p><strong><i class="fas fa-car"></i> ทะเบียนรถใหม่ : </strong>${asset.Vehicle_NewLicense_Text} ${asset.Vehicle_NewLicense_Number} ${asset.NewProvince} </p>-->
-                                                <p><strong><i class="fas fa-barcode"></i> เลขถัง : </strong>${asset.Vehicle_Chassis}</p>
-                                                <p><strong><i class="fas fa-cogs"></i> เลขเครื่อง : </strong>${asset.Vehicle_Engine}</p>
-                                                <p><strong><i class="fas fa-paint-brush"></i> สีรถ : </strong>${asset.Vehicle_Color}</p>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <img src="{{ asset('img/asset9.jpg') }}" alt="ที่อยู่ปัจจุบัน" class="w-36 h-24">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="p-4 border-t">
-                                        <small class="text-muted">
-                                            <i class="fas fa-calendar-alt"></i> สร้างข้อมูลเมื่อ ${new Date(asset.created_at).toLocaleDateString('th-TH', {
-                                                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
-                                            })} น.
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>`;
-                        sliderTrack.append(card);
-                    });
-
-                    assetContainer.append(sliderTrack);
+                    const assetCards = data.map(asset => createAssetCard(asset));
+                    assetContainer.append(assetCards);
                     initializeSlider();
                 } else {
                     // Show the out of stock message if no data is available
-                    $('.asset-master').show(); // Show the message
-                    $('#prev_asset, #next_asset').hide(); // Hide navigation buttons
+                    $('.asset-master').show();
+                    $('#prev_asset, #next_asset').hide();
                 }
             },
-
             error: function(xhr, status, error) {
                 console.error('Error:', error);
             }
         });
     }
+
+    function createAssetCard(asset) {
+        return `
+            <div class="flex-shrink-0 w-full max-w-lg mx-4">
+                <div class="card task-box custom-card border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500">
+                    <div class="bg-orange-200 bg-opacity-25 rounded-t-lg p-4">
+                        <div class="flex justify-between items-center">
+                            <h6 class="text-primary font-semibold">
+                                <i class="fas fa-tag text-secondary"></i>
+                                <strong>สินทรัพย์ : </strong> ${asset.Type_Asset}
+                            </h6>
+
+                            <label class="popup">
+                                <input type="checkbox">
+                                <div class="burger" tabindex="0">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <nav class="popup-window">
+                                    <legend>Actions</legend>
+                                    <ul>
+                                        <li>
+                                            <button data-id="${asset.id}"
+                                                    data-type-asset="${asset.Type_Asset}"
+                                                    data-old-license-text="${asset.Vehicle_OldLicense_Text}"
+                                                    data-old-license-number="${asset.Vehicle_OldLicense_Number}"
+                                                    data-old-province="${asset.OldProvince}"
+                                                    data-chassis="${asset.Vehicle_Chassis}"
+                                                    data-engine="${asset.Vehicle_Engine}"
+                                                    data-color="${asset.Vehicle_Color}"
+                                                    onclick="openModal_Show_asset_customer(this)">
+                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                                <span>แสดง</span>
+                                            </button>
+                                        </li>
+
+                                        <li>
+                                            <button data-id="${asset.id}"
+                                                    onclick="openModal_Edit_asset_customer(this)">
+                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                                                </svg>
+                                                <span>แก้ไข</span>
+                                            </button>
+                                        </li>
+                                        <hr>
+                                        <li>
+                                            <button class="delete-btn-asset" data-id="${asset.id}">
+                                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                <line y2="18" x2="6" y1="6" x1="18"></line>
+                                                <line y2="18" x2="18" y1="6" x1="6"></line>
+                                            </svg>
+                                            <span>ลบ</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex">
+                            <div class="flex-1">
+                                <p><strong><i class="fas fa-cube"></i> ประเภทสินทรัพย์ : </strong>${asset.Type_Asset}</p>
+                                <p><strong><i class="fas fa-car"></i> ทะเบียนรถ : </strong>${asset.Vehicle_OldLicense_Text} ${asset.Vehicle_OldLicense_Number} ${asset.OldProvince} </p>
+                                <p><strong><i class="fas fa-barcode"></i> เลขถัง : </strong>${asset.Vehicle_Chassis}</p>
+                                <p><strong><i class="fas fa-cogs"></i> เลขเครื่อง : </strong>${asset.Vehicle_Engine}</p>
+                                <p><strong><i class="fas fa-paint-brush"></i> สีรถ : </strong>${asset.Vehicle_Color}</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <img src="{{ asset('img/asset9.jpg') }}" alt="ที่อยู่ปัจจุบัน" class="w-36 h-24">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar-alt"></i> สร้างข้อมูลเมื่อ ${new Date(asset.created_at).toLocaleDateString('th-TH', {
+                                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                            })} น.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+
+    $(document).on('click', '.delete-btn-asset', function() {
+        var assetId = $(this).data('id');
+
+        // Use SweetAlert2 to confirm deletion
+        Swal.fire({
+            title: 'แน่ใจหรือไม่?',
+            text: "ต้องการลบข้อมูลที่อยู่นี้?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยันลบข้อมูล!',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If the user clicks "Yes, delete it!", send the AJAX request
+                $.ajax({
+                    url: '/delete-asset',
+                    type: 'POST',
+                    data: {
+                        id: assetId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'ลบข้อมูลสำเร็จ',
+                                text: response.message
+                            });
+                            // Hide the deleted item
+                            $('button[data-id="' + assetId + '"]').closest('.flex-shrink-0')
+                                .hide();
+                            // Call the loadAssets function to refresh the data
+                            loadAssets(customerId);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'เกิดข้อผิดพลาด',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: 'ไม่สามารถลบข้อมูลได้'
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'การลบข้อมูลถูกยกเลิก',
+                    text: 'คุณไม่ได้ลบข้อมูล'
+                });
+            }
+        });
+    });
 
     function initializeSlider() {
         let currentPosition = 0;
@@ -412,10 +454,27 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- <script>
     $(document).on('click', '.delete-btn-asset', function() {
-        var addressId = $(this).data('id');
+        var assetId = $(this).data('id');
 
         // ใช้ SweetAlert2 เพื่อยืนยันการลบ
         Swal.fire({
@@ -429,10 +488,10 @@
             if (result.isConfirmed) {
                 // ถ้าผู้ใช้คลิก "ใช่, ลบเลย!" ให้ส่ง AJAX Request
                 $.ajax({
-                    url: '/delete-address',
+                    url: '/delete-asset',
                     type: 'POST',
                     data: {
-                        id: addressId,
+                        id: assetId,
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
@@ -443,9 +502,9 @@
                                 text: response.message
                             });
                             // ซ่อนรายการที่ถูกลบ
-                            $('button[data-id="' + addressId + '"]').closest('li').hide();
+                            $('button[data-id="' + assetId + '"]').closest('li').hide();
                             // เรียกฟังก์ชัน fetchAddresses เพื่อรีเฟรชข้อมูล
-                            fetchAddresses();
+                            loadAssets(customerId);
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -473,28 +532,10 @@
     });
 
     // ฟังก์ชันเพื่อดึงข้อมูลหลังจากลบแล้ว (กรุณาเขียนให้เหมาะสมกับโปรเจกต์ของคุณ)
-    function fetchAddresses() {
+    function loadAssets(customerId) {
         // โค้ดสำหรับดึงข้อมูลใหม่
     }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</script> --}}
 
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
