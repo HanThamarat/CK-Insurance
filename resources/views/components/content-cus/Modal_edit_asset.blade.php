@@ -26,7 +26,7 @@
         <!-- Modal Body -->
         <form action="editAssetForm" onsubmit="return false;" class="divide-y">
             @csrf
-            <div class="p-8 space-y-8">
+            <div class="p-8 space-y-1">
                 <input type="hidden" id="assetId" name="id">
 
                 <!-- Main Information Grid -->
@@ -125,6 +125,7 @@
                                 <input type="text" id="edit_Vehicle_Type" name="Vehicle_Type"
                                     class="w-full border-gray-300 rounded-lg px-3 py-2">
                             </div>
+
                             <div class="form-group">
                                 <label class="text-gray-600 block mb-1">ประเภทรถ 2</label>
                                 <input type="text" id="edit_Vehicle_Type_PLT" name="Vehicle_Type_PLT"
@@ -164,8 +165,10 @@
                     </div>
                 </div>
 
+                <br>
+
                 <!-- Insurance Information -->
-                <div class="bg-green-50 rounded-xl p-6 shadow-sm border border-green-100 mt-8">
+                <div class="bg-green-50 rounded-xl p-6 shadow-sm border border-green-100">
                     <h4 class="text-lg font-semibold mb-6 text-green-600 flex items-center gap-2">
                         <i class="fas fa-shield-alt"></i>
                         ข้อมูลประกัน
@@ -233,6 +236,8 @@
                     </div>
                 </div>
 
+                <br>
+
                 <!-- Timestamps -->
                 <div class="bg-gray-50 rounded-xl p-6 mt-8 space-y-3">
                     <p class="flex items-center text-gray-600">
@@ -274,7 +279,6 @@
 
 <script>
     let currentAssetId = null;
-
     function openModal_Edit_asset_customer(button) {
         // ดึงค่า asset ID จาก data-id ที่อยู่ในปุ่ม
         currentAssetId = $(button).data('id');
@@ -412,24 +416,6 @@
             new_number: $('#edit_Vehicle_New_Number').val(),
         };
 
-        // ส่งข้อมูลผ่าน Ajax
-        // $.ajax({
-        //     url: '/api/updateAssetData', // ปรับ URL ให้ถูกต้องตาม API ของคุณ
-        //     method: 'POST',
-        //     data: updatedData,
-        //     success: function(response) {
-        //         if (response.success) {
-        //             alert('Asset updated successfully');
-        //             // closeModal_Edit_asset(); // ปิด Modal หลังจากบันทึกข้อมูลสำเร็จ
-        //         } else {
-        //             alert('Failed to update asset: ' + response.message);
-        //         }
-        //     },
-        //     error: function(xhr, status, error) {
-        //         alert('Error: ' + error);
-        //     }
-        // });
-
         $.ajax({
             url: '/api/updateAssetData', // ปรับ URL ให้ถูกต้องตาม API ของคุณ
             method: 'POST',
@@ -442,10 +428,11 @@
                         title: 'อัปเดทข้อมูลสินทรัพย์สำเร็จ',
                         text: 'ข้อมูลสินทรัพย์ลูกค้าอัปเดทสำเร็จ',
                         confirmButtonText: 'OK',
-                        timer: 1500, // ตั้งเวลาให้ปิดตัวเองหลัง 1500ms
-                        timerProgressBar: true // แสดงแถบความคืบหน้าของตัวจับเวลา
+                        timer: 1500,
+                        timerProgressBar: true
                     }).then(() => {
-                        cancelModal_Edit_asset(); // ปิด Modal หลังจากแสดงข้อความสำเร็จ
+                        loadAssets(customerId);
+                        cancelModal_Edit_asset();
                     });
                 } else {
                     Swal.fire({
@@ -467,3 +454,24 @@
         });
     }
 </script>
+
+
+
+
+{{-- // ส่งข้อมูลผ่าน Ajax
+// $.ajax({
+//     url: '/api/updateAssetData', // ปรับ URL ให้ถูกต้องตาม API ของคุณ
+//     method: 'POST',
+//     data: updatedData,
+//     success: function(response) {
+//         if (response.success) {
+//             alert('Asset updated successfully');
+//             // closeModal_Edit_asset(); // ปิด Modal หลังจากบันทึกข้อมูลสำเร็จ
+//         } else {
+//             alert('Failed to update asset: ' + response.message);
+//         }
+//     },
+//     error: function(xhr, status, error) {
+//         alert('Error: ' + error);
+//     }
+// }); --}}

@@ -34,34 +34,35 @@
                         <div class="space-y-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทสินทรัพย์ :</strong>
-                                <span id="show_Type_Asset" class="sm:ml-2"></span>
+                                <span id="show_Type_Asset" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ทะเบียนเดิม :</strong>
-                                <span id="show_OldLicense" class="sm:ml-2"></span>
+                                <span id="show_OldLicense" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ทะเบียนใหม่ :</strong>
-                                <span id="show_NewLicense" class="sm:ml-2"></span>
+                                <span id="show_NewLicense" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">เลขถัง :</strong>
-                                <span id="show_Vehicle_Chassis" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Chassis" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">เลขเครื่อง :</strong>
-                                <span id="show_Vehicle_Engine" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Engine" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">สีรถ :</strong>
-                                <span id="show_Vehicle_Color" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Color" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">เลขตัวรถใหม่ :</strong>
-                                <span id="show_Vehicle_New_Number" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_New_Number" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                         </div>
                     </div>
+
 
                     <!-- Vehicle Details -->
                     <div class="bg-blue-50 rounded-xl p-6 shadow-sm">
@@ -69,39 +70,39 @@
                         <div class="space-y-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทรถ 1 :</strong>
-                                <span id="show_Vehicle_Type" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Type" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทรถ 2 :</strong>
-                                <span id="show_Vehicle_Type_PLT" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Type_PLT" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ยี่ห้อรถ :</strong>
-                                <span id="show_Vehicle_Brand" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Brand" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">กลุ่มรถ :</strong>
-                                <span id="show_Vehicle_Group" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Group" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">รุ่นรถ :</strong>
-                                <span id="show_Vehicle_Models" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Models" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ปีรถ :</strong>
-                                <span id="show_Vehicle_Years" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Years" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ความจุเครื่องยนต์ :</strong>
-                                <span class="sm:ml-2"><span id="show_Vehicle_CC"></span> CC</span>
+                                <span class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"><span id="show_Vehicle_CC"></span> CC</span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทเกียร์ :</strong>
-                                <span id="show_Vehicle_Gear" class="sm:ml-2"></span>
+                                <span id="show_Vehicle_Gear" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
-
                         </div>
                     </div>
+
                 </div>
 
 
@@ -111,67 +112,60 @@
 
                     <div class="space-y-4">
                         <p class="flex flex-col sm:flex-row sm:justify-between">
-                            <strong class="min-w-[100px] inline-block">ประกัน :</strong>
-                            <span id="show_Choose_Insurance_Cal" class="sm:ml-2"></span>
+                            <strong class="min-w-[100px] inline-block">
+                                <i class="fa-solid fa-calendar-days text-green-300"></i> ประกัน :
+                            </strong>
+                            <span id="show_Choose_Insurance_Cal" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                         </p>
                         <div class="space-y-4 ml-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">วันที่ต่อประกัน :</strong>
-                                <span id="show_Insurance_renewal_date" class="sm:ml-2"></span>
+                                <span id="show_Insurance_renewal_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                <span id="show_Insurance_end_date" class="sm:ml-2"></span>
+                                <span id="show_Insurance_end_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                         </div>
                         <hr>
                         <p class="flex flex-col sm:flex-row sm:justify-between">
-                            <strong class="min-w-[100px] inline-block">พ.ร.บ. :</strong>
-                            <span id="show_Choose_Act_Cal" class="sm:ml-2"></span>
+                            <strong class="min-w-[100px] inline-block"><i class="fa-solid fa-calendar-days text-green-300"></i> พ.ร.บ. :</strong>
+                            <span id="show_Choose_Act_Cal" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                         </p>
                         <div class="space-y-4 ml-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">วันที่ต่อ พ.ร.บ. :</strong>
-                                <span id="show_act_renewal_date" class="sm:ml-2"></span>
+                                <span id="show_act_renewal_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                <span id="show_act_end_date" class="sm:ml-2"></span>
+                                <span id="show_act_end_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                         </div>
                         <hr>
                         <div class="space-y-4 mt-5">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
-                                <strong class="min-w-[100px] inline-block">ทะเบียน :</strong>
-                                <span id="show_Choose_Register_Cal" class="sm:ml-2"></span>
+                                <strong class="min-w-[100px] inline-block"><i class="fa-solid fa-calendar-days text-green-300"></i> ทะเบียน :</strong>
+                                <span id="show_Choose_Register_Cal" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <div class="space-y-4 ml-4">
                                 <p class="flex flex-col sm:flex-row sm:justify-between">
                                     <strong class="min-w-[100px] inline-block">วันที่ต่อทะเบียน :</strong>
-                                    <span id="show_register_renewal_date" class="sm:ml-2"></span>
+                                    <span id="show_register_renewal_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                                 </p>
                                 <p class="flex flex-col sm:flex-row sm:justify-between">
                                     <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                    <span id="show_register_end_date" class="sm:ml-2"></span>
+                                    <span id="show_register_end_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                                 </p>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
 
 
                 <!-- Timestamps -->
-                {{-- <div class="mt-8 text-sm text-gray-500 space-y-2">
-                    <p class="flex items-center">
-                        <i class="fas fa-clock mr-3"></i>
-                        <span>สร้างข้อมูลเมื่อ : <span id="show_created_at" class="ml-2"></span></span>
-                    </p>
-                    <p class="flex items-center">
-                        <i class="fas fa-clock mr-3"></i>
-                        <span>อัปเดตล่าสุดเมื่อ : <span id="show_updated_at" class="ml-2"></span></span>
-                    </p>
-                </div> --}}
                 <div class="bg-gray-50 rounded-xl p-6 mt-8 space-y-3">
                     <p class="flex items-center text-gray-600">
                         <i class="fas fa-clock mr-3 text-gray-400"></i>
@@ -191,8 +185,8 @@
             <!-- Footer -->
             <div class="flex items-center justify-end p-6 border-t">
                 <button onclick="closeModal_Show_asset()"
-                    class="px-6 py-2.5 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
-                    ปิด
+                    class="px-6 py-2.5 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-gray-500/50">
+                    <i class="fa-regular fa-circle-xmark"></i> ปิด
                 </button>
             </div>
         </div>
@@ -237,7 +231,32 @@
                 $('#show_Vehicle_Years').text(asset.Vehicle_Years || '-');
                 $('#show_Vehicle_CC').text(asset.Vehicle_CC || '-');
                 $('#show_Vehicle_Gear').text(asset.Vehicle_Gear || '-');
-                $('#show_Vehicle_Type').text(asset.Vehicle_Type || '-');
+
+
+                if (asset.Vehicle_Type === 'C01') {
+                    $('#show_Vehicle_Type').text('รถเก๋ง');
+                } else if (asset.Vehicle_Type === 'C02') {
+                    $('#show_Vehicle_Type').text('กระบะตอนเดียว');
+                } else if (asset.Vehicle_Type === 'C03') {
+                    $('#show_Vehicle_Type').text('กระบะแค็บ');
+                } else if (asset.Vehicle_Type === 'C04') {
+                    $('#show_Vehicle_Type').text('กระบะ 4 ประตู');
+                } else if (asset.Vehicle_Type === 'C05') {
+                    $('#show_Vehicle_Type').text('รถตู้');
+                } else if (asset.Vehicle_Type === 'C06') {
+                    $('#show_Vehicle_Type').text('รถใหญ่');
+                } else if (asset.Vehicle_Type === 'M01') {
+                    $('#show_Vehicle_Type').text('เกียร์ธรรมดา');
+                } else if (asset.Vehicle_Type === 'M02') {
+                    $('#show_Vehicle_Type').text('เกียร์ออโต้');
+                } else if (asset.Vehicle_Type === 'M03') {
+                    $('#show_Vehicle_Type').text('BigBike');
+                } else {
+                    $('#show_Vehicle_Type').text(asset.Vehicle_Type || '-');
+                }
+
+
+
                 $('#show_Vehicle_Type_PLT').text(asset.Vehicle_Type_PLT || '-');
                 $('#show_Vehicle_InsuranceStatus').text(asset.Vehicle_InsuranceStatus || '-');
                 $('#show_Vehicle_Companies').text(asset.Vehicle_Companies || '-');
@@ -273,7 +292,7 @@
                     });
                 };
 
-                const calculateYearsAndDays = (startDateString, endDateString) => {
+                const calculateYearsAndMonthsAndDays = (startDateString, endDateString) => {
                     if (!startDateString || !endDateString) return '-';
 
                     const [startYear, startMonth, startDay] = startDateString.split('-').map(Number);
@@ -282,46 +301,63 @@
                     const startDate = new Date(startYear - 543, startMonth - 1, startDay);
                     const endDate = new Date(endYear - 543, endMonth - 1, endDay);
 
-                    const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
-                    const daysDifference = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)); // คำนวณระยะห่างเป็นวัน
+                    let yearsDifference = endDate.getFullYear() - startDate.getFullYear();
+                    let monthsDifference = endDate.getMonth() - startDate.getMonth();
+                    let daysDifference = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)); // คำนวณระยะห่างเป็นวัน
 
-                    // ปรับวันเหลือเป็นวันในปีที่เหลือ
-                    const totalDaysInYear = 365; // สมมติปีที่ไม่ใช่ leap year
-                    const remainingDays = daysDifference - (yearsDifference * totalDaysInYear);
+                    // หากเดือนต่างกันน้อยกว่าศูนย์ (หมายถึงปีใหม่) ให้ปรับปีและเดือน
+                    if (monthsDifference < 0) {
+                        yearsDifference -= 1;
+                        monthsDifference += 12;
+                    }
 
-                    return { years: yearsDifference, days: remainingDays };
+                    // ปรับวันเหลือเป็นวันในเดือนที่เหลือ
+                    const startDateAdjusted = new Date(startYear, startMonth - 1, startDay);
+                    const endDateAdjusted = new Date(endYear, endMonth - 1, endDay);
+                    const totalDaysInMonth = new Date(endDateAdjusted.getFullYear(), endDateAdjusted.getMonth(), 0).getDate(); // จำนวนวันในเดือนสุดท้าย
+
+                    const remainingDays = daysDifference - (yearsDifference * 365 + monthsDifference * 30); // คำนวณวันที่เหลือ
+
+                    return { years: yearsDifference, months: monthsDifference, days: remainingDays };
                 };
 
+                // การคำนวณและแสดงผลสำหรับประกันภัย, พ.ร.บ. และทะเบียน
                 $('#show_Insurance_renewal_date').text(formatDate(asset.Insurance_renewal_date));
                 $('#show_Insurance_end_date').text(formatDate(asset.Insurance_end_date));
+
+                const insuranceDifference = calculateYearsAndMonthsAndDays(asset.Insurance_renewal_date, asset.Insurance_end_date);
+                if (insuranceDifference.years >= 1) {
+                    $('#show_Choose_Insurance_Cal').text(`ระยะเวลา ${insuranceDifference.years} ปี ${insuranceDifference.months} เดือน ${insuranceDifference.days} วัน`);
+                } else if (insuranceDifference.months >= 1) {
+                    $('#show_Choose_Insurance_Cal').text(`ระยะเวลา ${insuranceDifference.months} เดือน ${insuranceDifference.days} วัน`);
+                } else {
+                    $('#show_Choose_Insurance_Cal').text(`ระยะเวลา ${insuranceDifference.days} วัน`);
+                }
+
                 $('#show_act_renewal_date').text(formatDate(asset.act_renewal_date));
                 $('#show_act_end_date').text(formatDate(asset.act_end_date));
+
+                const actDifference = calculateYearsAndMonthsAndDays(asset.act_renewal_date, asset.act_end_date);
+                if (actDifference.years >= 1) {
+                    $('#show_Choose_Act_Cal').text(`ระยะเวลา ${actDifference.years} ปี ${actDifference.months} เดือน ${actDifference.days} วัน`);
+                } else if (actDifference.months >= 1) {
+                    $('#show_Choose_Act_Cal').text(`ระยะเวลา ${actDifference.months} เดือน ${actDifference.days} วัน`);
+                } else {
+                    $('#show_Choose_Act_Cal').text(`ระยะเวลา ${actDifference.days} วัน`);
+                }
+
                 $('#show_register_renewal_date').text(formatDate(asset.register_renewal_date));
                 $('#show_register_end_date').text(formatDate(asset.register_end_date));
 
-                // คำนวณปีและวันของประกันภัย
-                const insuranceDifference = calculateYearsAndDays(asset.Insurance_renewal_date, asset.Insurance_end_date);
-                if (insuranceDifference.years >= 1) {
-                    $('#show_Choose_Insurance_Cal').text(`${insuranceDifference.years} ปี ${insuranceDifference.days} วัน`);
-                } else {
-                    $('#show_Choose_Insurance_Cal').text(`${insuranceDifference.days} วัน`);
-                }
-
-                // คำนวณปีและวันของพรบ
-                const actDifference = calculateYearsAndDays(asset.act_renewal_date, asset.act_end_date);
-                if (actDifference.years >= 1) {
-                    $('#show_Choose_Act_Cal').text(`${actDifference.years} ปี ${actDifference.days} วัน`);
-                } else {
-                    $('#show_Choose_Act_Cal').text(`${actDifference.days} วัน`);
-                }
-
-                // คำนวณปีและวันของทะเบียน
-                const registerDifference = calculateYearsAndDays(asset.register_renewal_date, asset.register_end_date);
+                const registerDifference = calculateYearsAndMonthsAndDays(asset.register_renewal_date, asset.register_end_date);
                 if (registerDifference.years >= 1) {
-                    $('#show_Choose_Register_Cal').text(`${registerDifference.years} ปี ${registerDifference.days} วัน`);
+                    $('#show_Choose_Register_Cal').text(`ระยะเวลา ${registerDifference.years} ปี ${registerDifference.months} เดือน ${registerDifference.days} วัน`);
+                } else if (registerDifference.months >= 1) {
+                    $('#show_Choose_Register_Cal').text(`ระยะเวลา ${registerDifference.months} เดือน ${registerDifference.days} วัน`);
                 } else {
-                    $('#show_Choose_Register_Cal').text(`${registerDifference.days} วัน`);
+                    $('#show_Choose_Register_Cal').text(`ระยะเวลา ${registerDifference.days} วัน`);
                 }
+
 
 
 
@@ -344,6 +380,141 @@
         });
     }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- <div class="mt-8 text-sm text-gray-500 space-y-2">
+    <p class="flex items-center">
+        <i class="fas fa-clock mr-3"></i>
+        <span>สร้างข้อมูลเมื่อ : <span id="show_created_at" class="ml-2"></span></span>
+    </p>
+    <p class="flex items-center">
+        <i class="fas fa-clock mr-3"></i>
+        <span>อัปเดตล่าสุดเมื่อ : <span id="show_updated_at" class="ml-2"></span></span>
+    </p>
+</div> --}}
+
+
+{{-- // const formatDate = (dateString) => {
+    //     if (!dateString) return '-';
+
+    //     const [year, month, day] = dateString.split('-');
+    //     const convertedYear = parseInt(year) - 543; // แปลงจาก พ.ศ. เป็น ค.ศ.
+
+    //     return new Date(convertedYear, month - 1, day).toLocaleDateString('th-TH', {
+    //         year: 'numeric',
+    //         month: 'long',
+    //         day: 'numeric'
+    //     });
+    // };
+
+    // const calculateYearsAndDays = (startDateString, endDateString) => {
+    //     if (!startDateString || !endDateString) return '-';
+
+    //     const [startYear, startMonth, startDay] = startDateString.split('-').map(Number);
+    //     const [endYear, endMonth, endDay] = endDateString.split('-').map(Number);
+
+    //     const startDate = new Date(startYear - 543, startMonth - 1, startDay);
+    //     const endDate = new Date(endYear - 543, endMonth - 1, endDay);
+
+    //     const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
+    //     const daysDifference = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)); // คำนวณระยะห่างเป็นวัน
+
+    //     // ปรับวันเหลือเป็นวันในปีที่เหลือ
+    //     const totalDaysInYear = 365; // สมมติปีที่ไม่ใช่ leap year
+    //     const remainingDays = daysDifference - (yearsDifference * totalDaysInYear);
+
+    //     return { years: yearsDifference, days: remainingDays };
+    // };
+
+    // $('#show_Insurance_renewal_date').text(formatDate(asset.Insurance_renewal_date));
+    // $('#show_Insurance_end_date').text(formatDate(asset.Insurance_end_date));
+    // $('#show_act_renewal_date').text(formatDate(asset.act_renewal_date));
+    // $('#show_act_end_date').text(formatDate(asset.act_end_date));
+    // $('#show_register_renewal_date').text(formatDate(asset.register_renewal_date));
+    // $('#show_register_end_date').text(formatDate(asset.register_end_date));
+
+    // // คำนวณปีและวันของประกันภัย
+    // const insuranceDifference = calculateYearsAndDays(asset.Insurance_renewal_date, asset.Insurance_end_date);
+    // if (insuranceDifference.years >= 1) {
+    //     $('#show_Choose_Insurance_Cal').text(`ระยะเวลา ${insuranceDifference.years} ปี ${insuranceDifference.days} วัน`);
+    // } else {
+    //     $('#show_Choose_Insurance_Cal').text(`ระยะเวลา ${insuranceDifference.days} วัน`);
+    // }
+
+    // // คำนวณปีและวันของพรบ
+    // const actDifference = calculateYearsAndDays(asset.act_renewal_date, asset.act_end_date);
+    // if (actDifference.years >= 1) {
+    //     $('#show_Choose_Act_Cal').text(`ระยะเวลา ${actDifference.years} ปี ${actDifference.days} วัน`);
+    // } else {
+    //     $('#show_Choose_Act_Cal').text(`ระยะเวลา ${actDifference.days} วัน`);
+    // }
+
+    // // คำนวณปีและวันของทะเบียน
+    // const registerDifference = calculateYearsAndDays(asset.register_renewal_date, asset.register_end_date);
+    // if (registerDifference.years >= 1) {
+    //     $('#show_Choose_Register_Cal').text(`ระยะเวลา ${registerDifference.years} ปี ${registerDifference.days} วัน`);
+    // } else {
+    //     $('#show_Choose_Register_Cal').text(`ระยะเวลา ${registerDifference.days} วัน`);
+    // } --}}
+
+
+
+
+
+    {{-- <p class="flex flex-col sm:flex-row sm:justify-between">
+    <strong class="min-w-[100px] inline-block">ประเภทสินทรัพย์ :</strong>
+    <span id="show_Type_Asset" class="sm:ml-2"></span>
+</p>
+<p class="flex flex-col sm:flex-row sm:justify-between">
+    <strong class="min-w-[100px] inline-block">ทะเบียนเดิม :</strong>
+    <span id="show_OldLicense" class="sm:ml-2"></span>
+</p>
+<p class="flex flex-col sm:flex-row sm:justify-between">
+    <strong class="min-w-[100px] inline-block">ทะเบียนใหม่ :</strong>
+    <span id="show_NewLicense" class="sm:ml-2"></span>
+</p>
+<p class="flex flex-col sm:flex-row sm:justify-between">
+    <strong class="min-w-[100px] inline-block">เลขถัง :</strong>
+    <span id="show_Vehicle_Chassis" class="sm:ml-2"></span>
+</p>
+<p class="flex flex-col sm:flex-row sm:justify-between">
+    <strong class="min-w-[100px] inline-block">เลขเครื่อง :</strong>
+    <span id="show_Vehicle_Engine" class="sm:ml-2"></span>
+</p>
+<p class="flex flex-col sm:flex-row sm:justify-between">
+    <strong class="min-w-[100px] inline-block">สีรถ :</strong>
+    <span id="show_Vehicle_Color" class="sm:ml-2"></span>
+</p>
+<p class="flex flex-col sm:flex-row sm:justify-between">
+    <strong class="min-w-[100px] inline-block">เลขตัวรถใหม่ :</strong>
+    <span id="show_Vehicle_New_Number" class="sm:ml-2"></span>
+</p> --}}
+
 
 
 

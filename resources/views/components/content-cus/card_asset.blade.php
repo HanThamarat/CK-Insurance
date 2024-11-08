@@ -223,10 +223,18 @@
                 const assetContainer = $('#asset-container');
                 assetContainer.empty();
 
+                // Create the slider track
+                const sliderTrack = $(
+                    '<div class="slider-track flex transition-transform duration-300 ease-in-out"></div>'
+                );
+                assetContainer.append(sliderTrack);
+
                 if (data && Array.isArray(data) && data.length > 0) {
                     const assetCards = data.map(asset => createAssetCard(asset));
-                    assetContainer.append(assetCards);
+                    sliderTrack.append(assetCards); // Append cards to slider track
                     initializeSlider();
+                    $('.asset-master').hide(); // Hide the "no asset" message
+                    $('#prev_asset, #next_asset').show(); // Show navigation buttons
                 } else {
                     // Show the out of stock message if no data is available
                     $('.asset-master').show();
@@ -277,6 +285,16 @@
                                                 <span>แสดง</span>
                                             </button>
                                         </li>
+
+                                        <!--<li>
+                                            <button data-id="${asset.id}"
+                                                    onclick="openModal_Edit_asset_customer(this)">
+                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                                                </svg>
+                                                <span>แก้ไข</span>
+                                            </button>
+                                        </li>-->
 
                                         <li>
                                             <button data-id="${asset.id}"
@@ -392,8 +410,10 @@
         let currentPosition = 0;
         const sliderTrack = $('.slider-track');
         const cards = sliderTrack.children();
-        const cardWidth = cards.first().outerWidth(true);
+        const cardWidth = cards.first().outerWidth(true); // get width of first card including margin
         const totalCards = cards.length;
+        const totalTrackWidth = totalCards * cardWidth; // Calculate total width of slider track
+        const containerWidth = $('.slider-container').width(); // Width of the visible container
 
         // Add necessary styles to container
         $('.slider-container').css({
@@ -403,9 +423,8 @@
 
         // Show/hide navigation buttons based on position
         function updateNavigationButtons() {
-            const maxPosition = -(totalCards - 1) * cardWidth;
             $('#prev_asset').toggle(currentPosition < 0);
-            $('#next_asset').toggle(currentPosition > maxPosition);
+            $('#next_asset').toggle(currentPosition > -(totalTrackWidth - containerWidth));
         }
 
         // Handle navigation button clicks
@@ -418,8 +437,7 @@
         });
 
         $('#next_asset').click(function() {
-            const maxPosition = -(totalCards - 1) * cardWidth;
-            if (currentPosition > maxPosition) {
+            if (currentPosition > -(totalTrackWidth - containerWidth)) {
                 currentPosition -= cardWidth;
                 sliderTrack.css('transform', `translateX(${currentPosition}px)`);
                 updateNavigationButtons();
@@ -427,7 +445,7 @@
         });
 
         // Style navigation buttons
-        $('.prev_asset, .next_asset').css({
+        $('#prev_asset, #next_asset').css({
             'position': 'absolute',
             'top': '50%',
             'transform': 'translateY(-50%)',
@@ -469,6 +487,186 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- // $.ajax({
+    //     url: `/assets/customer`,
+    //     type: 'GET',
+    //     data: {
+    //         customer_id: customerId
+    //     },
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         const assetContainer = $('#asset-container');
+    //         assetContainer.empty();
+
+    //         const sliderTrack = $('<div class="slider-track flex transition-transform duration-300 ease-in-out"></div>');
+
+    //         if (data && Array.isArray(data) && data.length > 0) {
+    //             const assetCards = data.map(asset => createAssetCard(asset));
+    //             assetContainer.append(assetCards);
+    //             initializeSlider();
+    //             $('.asset-master').hide(); // ซ่อน div ที่แสดงข้อความ "ยังไม่มีข้อมูลสินทรัพย์ลูกค้านี้"
+    //             $('#prev_asset, #next_asset').show(); // แสดงปุ่มเลื่อน
+    //         } else {
+    //             // Show the out of stock message if no data is available
+    //             $('.asset-master').show();
+    //             $('#prev_asset, #next_asset').hide();
+    //         }
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error('Error:', error);
+    //     }
+    // }); --}}
+
+{{-- // function initializeSlider() {
+    //     let currentPosition = 0;
+    //     const sliderTrack = $('.slider-track');
+    //     const cards = sliderTrack.children();
+    //     const cardWidth = cards.first().outerWidth(true);
+    //     const totalCards = cards.length;
+
+    //     // Add necessary styles to container
+    //     $('.slider-container').css({
+    //         'position': 'relative',
+    //         'overflow': 'hidden',
+    //     });
+
+    //     // Show/hide navigation buttons based on position
+    //     function updateNavigationButtons() {
+    //         const maxPosition = -(totalCards - 1) * cardWidth;
+    //         $('#prev_asset').toggle(currentPosition < 0);
+    //         $('#next_asset').toggle(currentPosition > maxPosition);
+    //     }
+
+    //     // Handle navigation button clicks
+    //     $('#prev_asset').click(function() {
+    //         if (currentPosition < 0) {
+    //             currentPosition += cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //             updateNavigationButtons();
+    //         }
+    //     });
+
+    //     $('#next_asset').click(function() {
+    //         const maxPosition = -(totalCards - 1) * cardWidth;
+    //         if (currentPosition > maxPosition) {
+    //             currentPosition -= cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //             updateNavigationButtons();
+    //         }
+    //     });
+
+    //     // Style navigation buttons
+    //     $('.prev_asset, .next_asset').css({
+    //         'position': 'absolute',
+    //         'top': '50%',
+    //         'transform': 'translateY(-50%)',
+    //         'background': 'rgba(255, 165, 0, 0.8)',
+    //         'color': 'white',
+    //         'border': 'none',
+    //         'padding': '10px 15px',
+    //         'cursor': 'pointer',
+    //         'border-radius': '5px',
+    //         'z-index': '1'
+    //     });
+
+    //     $('#prev_asset').css('left', '0');
+    //     $('#next_asset').css('right', '0');
+
+    //     // Initialize navigation buttons visibility
+    //     updateNavigationButtons();
+    // } --}}
+
+
+{{-- // function initializeSlider() {
+    //     let currentPosition = 0;
+    //     const sliderTrack = $('.slider-track');
+    //     const cards = sliderTrack.children();
+    //     const cardWidth = cards.first().outerWidth(true);
+    //     const totalCards = cards.length;
+
+    //     // Add necessary styles to container
+    //     $('.slider-container').css({
+    //         'position': 'relative',
+    //         'overflow': 'hidden',
+    //     });
+
+    //     // Show/hide navigation buttons based on position
+    //     function updateNavigationButtons() {
+    //         const maxPosition = -(totalCards - 1) * cardWidth;
+    //         $('#prev_asset').toggle(currentPosition < 0);
+    //         $('#next_asset').toggle(currentPosition > maxPosition);
+    //     }
+
+    //     // Handle navigation button clicks
+    //     $('#prev_asset').click(function() {
+    //         if (currentPosition < 0) {
+    //             currentPosition += cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //             updateNavigationButtons();
+    //         }
+    //     });
+
+    //     $('#next_asset').click(function() {
+    //         const maxPosition = -(totalCards - 1) * cardWidth;
+    //         if (currentPosition > maxPosition) {
+    //             currentPosition -= cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //             updateNavigationButtons();
+    //         }
+    //     });
+
+    //     // Style navigation buttons
+    //     $('.prev_asset, .next_asset').css({
+    //         'position': 'absolute',
+    //         'top': '50%',
+    //         'transform': 'translateY(-50%)',
+    //         'background': 'rgba(255, 165, 0, 0.8)',
+    //         'color': 'white',
+    //         'border': 'none',
+    //         'padding': '10px 15px',
+    //         'cursor': 'pointer',
+    //         'border-radius': '5px',
+    //         'z-index': '1'
+    //     });
+
+    //     $('#prev_asset').css('left', '0');
+    //     $('#next_asset').css('right', '0');
+
+    //     // Initialize navigation buttons visibility
+    //     updateNavigationButtons();
+    // } --}}
 
 
 
