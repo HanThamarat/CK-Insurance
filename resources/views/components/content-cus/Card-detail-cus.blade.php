@@ -250,6 +250,8 @@
             @include('components.content-cus.Modal_show_asset')
             @include('components.content-cus.Modal_edit_asset')
 
+            {{-- @extends('data_assets.modal_car_edit') --}}
+
             <div class="flex flex-col items-center mt-7 asset-master ">
                 <div class="shadow-effect">
                     <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce" alt="Out of Stock">

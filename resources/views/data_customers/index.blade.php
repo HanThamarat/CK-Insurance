@@ -71,16 +71,17 @@
 
                             <div class="flex justify-end items-center flex-grow">
                                 <div class="search-box">
-                                    <div class="position-relative">
+                                    <div class="relative">
                                         <input type="text"
-                                            class="mb-2 border border-orange-300 rounded-md shadow-sm pl-4 p-1 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent w-full"
-                                            placeholder="Search..."> <!-- ฟิลด์ค้นหามีความกว้างเต็ม -->
-                                        <span class="btn_search">
-                                            <i class="bx bx-search-alt search-icon hover-up" style="cursor: pointer"></i>
+                                            class="mb-2 border border-orange-300 rounded-full shadow-lg pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                            placeholder="Search...">
+                                        <span class="btn_search absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                                            <i class="bx bx-search-alt search-icon text-orange-500 hover:text-orange-700 transition-all duration-300 ease-in-out"></i>
                                         </span>
                                     </div>
                                 </div>
                             </div>
+
                         </form>
 
                     </div>
@@ -302,61 +303,129 @@
                 fetchCustomers(currentPage, rowsPerPage);
             });
 
+            // function updatePagination(data) {
+            //     const paginationContainer = $('#pagination');
+            //     paginationContainer.empty();
+
+            //     // กำหนดสีและ style classes
+            //     const baseClasses = 'transition duration-300 ease-in-out border rounded-md px-4 py-2 mx-1 focus:outline-none';
+            //     const normalClasses = 'bg-orange-100 text-orange-700 border-orange-200 hover:bg-orange-500 hover:text-white';
+            //     const activeClasses = 'bg-orange-500 text-white border-orange-500';
+
+            //     // ปุ่ม "Previous"
+            //     if (data.current_page > 1) {
+            //         paginationContainer.append(`
+            //             <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page - 1}">
+            //                 <i class="fas fa-arrow-left"></i>
+            //             </button>
+            //         `);
+            //     }
+
+            //     // สร้างหมายเลขหน้า
+            //     if (data.last_page > 1) {
+            //         // แสดงจำนวนหน้าแบบมี ellipsis
+            //         let startPage = Math.max(1, data.current_page - 2);
+            //         let endPage = Math.min(data.last_page, data.current_page + 2);
+
+            //         // แสดงหน้าแรกเสมอ
+            //         if (startPage > 1) {
+            //             paginationContainer.append(`
+            //                 <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="1">1</button>
+            //             `);
+            //             if (startPage > 2) {
+            //                 paginationContainer.append(`
+            //                     <span class="px-3 py-2 text-gray-500">...</span>
+            //                 `);
+            //             }
+            //         }
+
+            //         // แสดงหน้าปัจจุบันและหน้าใกล้เคียง
+            //         for (let i = startPage; i <= endPage; i++) {
+            //             const buttonClasses = (i === data.current_page) ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${normalClasses}`;
+            //             paginationContainer.append(`
+            //                 <button class="pagination-button ${buttonClasses}" data-page="${i}">
+            //                     ${i}
+            //                 </button>
+            //             `);
+            //         }
+
+            //         // แสดงหน้าสุดท้ายเสมอ
+            //         if (endPage < data.last_page) {
+            //             if (endPage < data.last_page - 1) {
+            //                 paginationContainer.append(`
+            //                     <span class="px-3 py-2 text-gray-500">...</span>
+            //                 `);
+            //             }
+            //             paginationContainer.append(`
+            //                 <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="${data.last_page}">
+            //                     ${data.last_page}
+            //                 </button>
+            //             `);
+            //         }
+            //     }
+
+            //     // ปุ่ม "Next"
+            //     if (data.current_page < data.last_page) {
+            //         paginationContainer.append(`
+            //             <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page + 1}">
+            //                 <i class="fas fa-arrow-right"></i>
+            //             </button>
+            //         `);
+            //     }
+            // }
+
             function updatePagination(data) {
                 const paginationContainer = $('#pagination');
                 paginationContainer.empty();
 
-                // กำหนดสีและ style classes
-                const baseClasses = 'transition duration-300 ease-in-out border rounded-md px-4 py-2 mx-1 focus:outline-none';
-                const normalClasses = 'bg-orange-100 text-orange-700 border-orange-200 hover:bg-orange-500 hover:text-white';
-                const activeClasses = 'bg-orange-500 text-white border-orange-500';
+                // กำหนด Base styles ด้วย Tailwind
+                const baseClasses = 'transition-all duration-300 ease-in-out border rounded-lg px-4 py-2 mx-1 focus:outline-none focus:ring-2 focus:ring-orange-400 shadow-sm hover:shadow-md';
+                const normalClasses = 'bg-white text-orange-600 border-orange-200 hover:bg-orange-500 hover:text-white active:bg-orange-600';
+                const activeClasses = 'bg-orange-500 text-white border-orange-500 hover:bg-orange-600 cursor-default';
+                const disabledClasses = 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed hover:bg-gray-100 hover:text-gray-400';
+
+                // Container styling
+                paginationContainer.addClass('flex items-center justify-center space-x-2 my-4 font-medium text-sm');
 
                 // ปุ่ม "Previous"
-                if (data.current_page > 1) {
-                    paginationContainer.append(`
-                        <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page - 1}">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                    `);
-                }
+                const prevButton = `
+                    <button class="pagination-button ${baseClasses} ${data.current_page > 1 ? normalClasses : disabledClasses} flex items-center space-x-1 h-10"
+                            data-page="${data.current_page - 1}"
+                            ${data.current_page === 1 ? 'disabled' : ''}>
+                        <i class="fas fa-chevron-left text-xs"></i>
+                        <span class="hidden sm:inline">Previous</span>
+                    </button>
+                `;
+                paginationContainer.append(prevButton);
 
                 // สร้างหมายเลขหน้า
                 if (data.last_page > 1) {
-                    // แสดงจำนวนหน้าแบบมี ellipsis
                     let startPage = Math.max(1, data.current_page - 2);
                     let endPage = Math.min(data.last_page, data.current_page + 2);
 
-                    // แสดงหน้าแรกเสมอ
+                    // แสดงหน้าแรก
                     if (startPage > 1) {
                         paginationContainer.append(`
-                            <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="1">1</button>
+                            <button class="pagination-button hidden sm:block ${baseClasses} ${normalClasses}" data-page="1">1</button>
+                            ${startPage > 2 ? `<span class="hidden sm:inline-block px-2 text-gray-500">•••</span>` : ''}
                         `);
-                        if (startPage > 2) {
-                            paginationContainer.append(`
-                                <span class="px-3 py-2 text-gray-500">...</span>
-                            `);
-                        }
                     }
 
                     // แสดงหน้าปัจจุบันและหน้าใกล้เคียง
                     for (let i = startPage; i <= endPage; i++) {
-                        const buttonClasses = (i === data.current_page) ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${normalClasses}`;
+                        const buttonClasses = i === data.current_page ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${normalClasses}`;
                         paginationContainer.append(`
-                            <button class="pagination-button ${buttonClasses}" data-page="${i}">
+                            <button class="pagination-button ${buttonClasses} min-w-[40px] font-semibold" data-page="${i}">
                                 ${i}
                             </button>
                         `);
                     }
 
-                    // แสดงหน้าสุดท้ายเสมอ
+                    // แสดงหน้าสุดท้าย
                     if (endPage < data.last_page) {
-                        if (endPage < data.last_page - 1) {
-                            paginationContainer.append(`
-                                <span class="px-3 py-2 text-gray-500">...</span>
-                            `);
-                        }
                         paginationContainer.append(`
-                            <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="${data.last_page}">
+                            ${endPage < data.last_page - 1 ? `<span class="hidden sm:inline-block px-2 text-gray-500">•••</span>` : ''}
+                            <button class="pagination-button hidden sm:block ${baseClasses} ${normalClasses}" data-page="${data.last_page}">
                                 ${data.last_page}
                             </button>
                         `);
@@ -364,14 +433,31 @@
                 }
 
                 // ปุ่ม "Next"
-                if (data.current_page < data.last_page) {
-                    paginationContainer.append(`
-                        <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page + 1}">
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                    `);
-                }
+                const nextButton = `
+                    <button class="pagination-button ${baseClasses} ${data.current_page < data.last_page ? normalClasses : disabledClasses} flex items-center space-x-1 h-10"
+                            data-page="${data.current_page + 1}"
+                            ${data.current_page === data.last_page ? 'disabled' : ''}>
+                        <span class="hidden sm:inline">Next</span>
+                        <i class="fas fa-chevron-right text-xs"></i>
+                    </button>
+                `;
+                paginationContainer.append(nextButton);
+
+                // เพิ่ม Event Listeners
+                $('.pagination-button').not('[disabled]').hover(
+                    function() { $(this).addClass('transform scale-105'); },
+                    function() { $(this).removeClass('transform scale-105'); }
+                );
+
+                // เพิ่ม Tooltip สำหรับหน้าที่ถูก disable
+                $('[disabled]').attr('title', 'Not available');
             }
+
+            // ตัวอย่างการใช้งาน
+            // updatePagination({
+            //     current_page: 5,
+            //     last_page: 10,
+            // });
 
 
 
@@ -394,9 +480,10 @@
                             <td class="px-4 py-2 text-center">${customer.religion}</td>
                             <td class="px-4 py-2 text-center">
                                 <div class="flex justify-center space-x-2">
-                                    <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-2 text-xs font-medium text-white bg-orange-500 hover:bg-orange-600 rounded transform hover:-translate-y-1 transition-transform duration-200 shadow hover:shadow-lg">
-                                        <i class="fas fa-edit mr-1"></i> Edit
+                                    <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-4 text-xs font-medium text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-700 rounded-xl transform hover:-translate-y-1.5 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-[0_12px_24px_0_rgba(0,0,0,0.25),0_6px_12px_0_rgba(0,0,0,0.1)]">
+                                        <i class="fas fa-edit mr-2"></i> Edit
                                     </a>
+
                                 </div>
                             </td>
                         </tr>

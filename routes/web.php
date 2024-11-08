@@ -115,7 +115,6 @@ Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptio
 // DATA ASSET อัปเดท
 Route::get('/api/getAssetData', [DataAssetController::class, 'getAssetData'])->name('asset.get');
 Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetData'])->name('asset.update');
-// Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetData'])->name('asset.update');
 
 
 // ลบข้อมูลโดยสำรองข้อมูล
@@ -162,7 +161,7 @@ Route::post('/delete-asset', [DataAssetController::class, 'deleteAsset']);
 
 
 
-
+// Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetData'])->name('asset.update');
 
 // Route สำหรับแสดงฟอร์มแก้ไขสินทรัพย์ (GET)
 // Route::get('/customer/profile/editAssetForm/{id}', [DataAssetController::class, 'edit'])->name('customer.profile.editAssetForm');
