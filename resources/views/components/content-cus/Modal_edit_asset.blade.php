@@ -256,16 +256,16 @@
             </div>
 
             <!-- Footer Actions -->
-            <div class="sticky bottom-0 bg-white border-t px-6 py-4 flex items-center justify-end gap-4">
+            <div class="sticky bottom-0 bg-white border-t px-2 py-4 mr-4 flex items-center justify-end gap-2">
 
                 <button type="button" onclick="saveAssetChanges()"
-                    class="px-6 py-2.5 rounded-lg bg-green-500 text-white hover:bg-green-600 focus:ring-2 focus:ring-green-300 transition-all duration-200">
+                    class="px-4 py-1.5 rounded-lg bg-green-500 text-white hover:bg-green-600 focus:ring-2 focus:ring-green-300 transition-all duration-200">
                     <i class="fas fa-save mr-2"></i>
                     บันทึก
                 </button>
 
                 <button type="button" onclick="cancelModal_Edit_asset()"
-                    class="px-6 py-2.5 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-200 transition-all duration-200">
+                    class="px-4 py-1.5 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-200 transition-all duration-200">
                     <i class="fas fa-times mr-2"></i>
                     ยกเลิก
                 </button>
@@ -314,13 +314,46 @@
                 $('#edit_Vehicle_Chassis').val(data.Vehicle_Chassis);
                 $('#edit_Vehicle_Engine').val(data.Vehicle_Engine);
                 $('#edit_Vehicle_Color').val(data.Vehicle_Color);
-                $('#edit_Vehicle_Brand').val(data.Vehicle_Brand);
+                // $('#edit_Vehicle_Brand').val(data.Vehicle_Brand);
+                if (data.Type_Asset === 'รถยนต์') {
+                    $('#edit_Vehicle_Brand').val(data.car_brand ? data.car_brand.Brand_car : '-');
+                } else if (data.Type_Asset === 'มอเตอร์ไซค์') {
+                    $('#edit_Vehicle_Brand').val(data.moto_brand ? data.moto_brand.Brand_moto : '-');
+                } else {
+                    $('#edit_Vehicle_Brand').val('-');
+                }
                 $('#edit_Vehicle_Group').val(data.Vehicle_Group);
                 $('#edit_Vehicle_Models').val(data.Vehicle_Models);
                 $('#edit_Vehicle_Years').val(data.Vehicle_Years);
                 $('#edit_Vehicle_CC').val(data.Vehicle_CC);
                 $('#edit_Vehicle_Gear').val(data.Vehicle_Gear);
-                $('#edit_Vehicle_Type').val(data.Vehicle_Type);
+
+                // $('#edit_Vehicle_Type').val(data.Vehicle_Type);
+
+                if (data.Vehicle_Type === 'C01') {
+                    $('#edit_Vehicle_Type').val('รถเก๋ง');
+                } else if (data.Vehicle_Type === 'C02') {
+                    $('#edit_Vehicle_Type').val('กระบะตอนเดียว');
+                } else if (data.Vehicle_Type === 'C03') {
+                    $('#edit_Vehicle_Type').val('กระบะแค็บ');
+                } else if (data.Vehicle_Type === 'C04') {
+                    $('#edit_Vehicle_Type').val('กระบะ 4 ประตู');
+                } else if (data.Vehicle_Type === 'C05') {
+                    $('#edit_Vehicle_Type').val('รถตู้');
+                } else if (data.Vehicle_Type === 'C06') {
+                    $('#edit_Vehicle_Type').val('รถใหญ่');
+                } else if (data.Vehicle_Type === 'M01') {
+                    $('#edit_Vehicle_Type').val('เกียร์ธรรมดา');
+                } else if (data.Vehicle_Type === 'M02') {
+                    $('#edit_Vehicle_Type').val('เกียร์ออโต้');
+                } else if (data.Vehicle_Type === 'M03') {
+                    $('#edit_Vehicle_Type').val('BigBike');
+                } else {
+                    $('#edit_Vehicle_Type').val(data.Vehicle_Type);
+                }
+
+
+
                 $('#edit_Vehicle_Type_PLT').val(data.Vehicle_Type_PLT);
                 $('#edit_Insurance_renewal_date').val(data.Insurance_renewal_date);
                 $('#edit_Insurance_end_date').val(data.Insurance_end_date);
@@ -454,6 +487,17 @@
         });
     }
 </script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

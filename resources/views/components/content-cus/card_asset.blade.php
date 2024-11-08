@@ -249,7 +249,7 @@
 
     function createAssetCard(asset) {
         return `
-            <div class="flex-shrink-0 w-full max-w-lg mx-4">
+            <div class="flex-shrink-0 max-w-lg mx-4">
                 <div class="card task-box custom-card border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500">
                     <div class="bg-orange-200 bg-opacity-25 rounded-t-lg p-4">
                         <div class="flex justify-between items-center">
@@ -285,16 +285,6 @@
                                                 <span>แสดง</span>
                                             </button>
                                         </li>
-
-                                        <!--<li>
-                                            <button data-id="${asset.id}"
-                                                    onclick="openModal_Edit_asset_customer(this)">
-                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg>
-                                                <span>แก้ไข</span>
-                                            </button>
-                                        </li>-->
 
                                         <li>
                                             <button data-id="${asset.id}"
@@ -406,6 +396,8 @@
         });
     });
 
+
+
     function initializeSlider() {
         let currentPosition = 0;
         const sliderTrack = $('.slider-track');
@@ -423,25 +415,34 @@
 
         // Show/hide navigation buttons based on position
         function updateNavigationButtons() {
-            $('#prev_asset').toggle(currentPosition < 0);
-            $('#next_asset').toggle(currentPosition > -(totalTrackWidth - containerWidth));
+            $('#prev_asset').toggle(currentPosition < 0); // Show prev if not at the start
+            $('#next_asset').toggle(currentPosition > -(totalTrackWidth -
+            containerWidth)); // Show next if not at the end
         }
 
         // Handle navigation button clicks
         $('#prev_asset').click(function() {
-            if (currentPosition < 0) {
+            if (currentPosition + cardWidth <= 0) { // Ensure it doesn't exceed the left bound
                 currentPosition += cardWidth;
                 sliderTrack.css('transform', `translateX(${currentPosition}px)`);
-                updateNavigationButtons();
+            } else {
+                currentPosition = 0; // Snap to the start if trying to go beyond the first card
+                sliderTrack.css('transform', `translateX(${currentPosition}px)`);
             }
+            updateNavigationButtons();
         });
 
         $('#next_asset').click(function() {
-            if (currentPosition > -(totalTrackWidth - containerWidth)) {
+            if (currentPosition - cardWidth >= -(totalTrackWidth -
+                containerWidth)) { // Ensure it doesn't exceed the right bound
                 currentPosition -= cardWidth;
                 sliderTrack.css('transform', `translateX(${currentPosition}px)`);
-                updateNavigationButtons();
+            } else {
+                currentPosition = -(totalTrackWidth -
+                containerWidth); // Snap to the end if trying to go beyond the last card
+                sliderTrack.css('transform', `translateX(${currentPosition}px)`);
             }
+            updateNavigationButtons();
         });
 
         // Style navigation buttons
@@ -449,21 +450,31 @@
             'position': 'absolute',
             'top': '50%',
             'transform': 'translateY(-50%)',
-            'background': 'rgba(255, 165, 0, 0.8)',
+            'background': 'rgba(255, 165, 0, 0.1)',
             'color': 'white',
             'border': 'none',
             'padding': '10px 15px',
             'cursor': 'pointer',
             'border-radius': '5px',
             'z-index': '1'
-        });
+        }).hover(
+            function() {
+                $(this).css('background', 'rgba(255, 140, 0, 0.8)'); // สีส้มเข้มขึ้นเมื่อ hover
+            },
+            function() {
+                $(this).css('background', 'rgba(255, 165, 0, 0.1)'); // สีเดิมเมื่อไม่ได้ hover
+            }
+        );
+
 
         $('#prev_asset').css('left', '0');
         $('#next_asset').css('right', '0');
 
-        // Initialize navigation buttons visibility
+        // Initialize navigation buttons visibility on load
         updateNavigationButtons();
     }
+
+
 
     // Initialize with customer ID
     const customerId = {{ $customer->id ?? 'null' }};
@@ -511,10 +522,142 @@
 
 
 
+{{-- // function initializeSlider() {
+    //     let currentPosition = 0;
+    //     const sliderTrack = $('.slider-track');
+    //     const cards = sliderTrack.children();
+    //     const cardWidth = cards.first().outerWidth(true); // get width of first card including margin
+    //     const totalCards = cards.length;
+    //     const totalTrackWidth = totalCards * cardWidth; // Calculate total width of slider track
+    //     const containerWidth = $('.slider-container').width(); // Width of the visible container
+
+    //     // Add necessary styles to container
+    //     $('.slider-container').css({
+    //         'position': 'relative',
+    //         'overflow': 'hidden',
+    //     });
+
+    //     // Show/hide navigation buttons based on position
+    //     function updateNavigationButtons() {
+    //         $('#prev_asset').toggle(currentPosition < 0);
+    //         $('#next_asset').toggle(currentPosition > -(totalTrackWidth - containerWidth));
+    //     }
+
+    //     // Handle navigation button clicks
+    //     $('#prev_asset').click(function() {
+    //         if (currentPosition < 0) {
+    //             currentPosition += cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //             updateNavigationButtons();
+    //         }
+    //     });
+
+    //     $('#next_asset').click(function() {
+    //         if (currentPosition > -(totalTrackWidth - containerWidth)) {
+    //             currentPosition -= cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //             updateNavigationButtons();
+    //         }
+    //     });
+
+    //     // Style navigation buttons
+    //     $('#prev_asset, #next_asset').css({
+    //         'position': 'absolute',
+    //         'top': '50%',
+    //         'transform': 'translateY(-50%)',
+    //         'background': 'rgba(255, 165, 0, 0.8)',
+    //         'color': 'white',
+    //         'border': 'none',
+    //         'padding': '10px 15px',
+    //         'cursor': 'pointer',
+    //         'border-radius': '5px',
+    //         'z-index': '1'
+    //     });
+
+    //     $('#prev_asset').css('left', '0');
+    //     $('#next_asset').css('right', '0');
+
+    //     // Initialize navigation buttons visibility
+    //     updateNavigationButtons();
+    // }
+
+    // function initializeSlider() {
+    //     let currentPosition = 0;
+    //     const sliderTrack = $('.slider-track');
+    //     const cards = sliderTrack.children();
+    //     const cardWidth = cards.first().outerWidth(true); // get width of first card including margin
+    //     const totalCards = cards.length;
+    //     const totalTrackWidth = totalCards * cardWidth; // Calculate total width of slider track
+    //     const containerWidth = $('.slider-container').width(); // Width of the visible container
+
+    //     // Add necessary styles to container
+    //     $('.slider-container').css({
+    //         'position': 'relative',
+    //         'overflow': 'hidden',
+    //     });
+
+    //     // Show/hide navigation buttons based on position
+    //     function updateNavigationButtons() {
+    //         $('#prev_asset').toggle(currentPosition < 0);
+    //         $('#next_asset').toggle(currentPosition > -(totalTrackWidth - containerWidth));
+    //     }
+
+    //     // Handle navigation button clicks
+    //     $('#prev_asset').click(function() {
+    //         if (currentPosition + cardWidth <= 0) { // Ensure it doesn't exceed the left bound
+    //             currentPosition += cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //         } else {
+    //             currentPosition = 0; // Snap to the start if trying to go beyond the first card
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //         }
+    //         updateNavigationButtons();
+    //     });
+
+    //     $('#next_asset').click(function() {
+    //         if (currentPosition - cardWidth >= -(totalTrackWidth -
+    //             containerWidth)) { // Ensure it doesn't exceed the right bound
+    //             currentPosition -= cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //         } else {
+    //             currentPosition = -(totalTrackWidth -
+    //             containerWidth); // Snap to the end if trying to go beyond the last card
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //         }
+    //         updateNavigationButtons();
+    //     });
+
+    //     // Style navigation buttons
+    //     $('#prev_asset, #next_asset').css({
+    //         'position': 'absolute',
+    //         'top': '50%',
+    //         'transform': 'translateY(-50%)',
+    //         'background': 'rgba(255, 165, 0, 0.8)',
+    //         'color': 'white',
+    //         'border': 'none',
+    //         'padding': '10px 15px',
+    //         'cursor': 'pointer',
+    //         'border-radius': '5px',
+    //         'z-index': '1'
+    //     });
+
+    //     $('#prev_asset').css('left', '0');
+    //     $('#next_asset').css('right', '0');
+
+    //     // Initialize navigation buttons visibility
+    //     updateNavigationButtons();
+    // } --}}
 
 
-
-
+{{-- <li>
+    <button data-id="${asset.id}"
+            onclick="openModal_Edit_asset_customer(this)">
+        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+        </svg>
+        <span>แก้ไข</span>
+    </button>
+</li> --}}
 
 
 
