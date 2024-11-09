@@ -240,10 +240,13 @@
 
                     </div>
 
-                    <!-- ปุ่มเลื่อนไปทางซ้าย -->
+                    {{-- <!-- ปุ่มเลื่อนไปทางซ้าย -->
                     <button class="prev_asset" id="prev_asset">←</button>
                     <!-- ปุ่มเลื่อนไปทางขวา -->
-                    <button class="next_asset" id="next_asset">→</button>
+                    <button class="next_asset" id="next_asset">→</button> --}}
+                    
+                    <button id="prev_asset" class="slider-nav-button">←</button>
+                    <button id="next_asset" class="slider-nav-button">→</button>
                 </div>
             </div>
 

@@ -59,26 +59,49 @@ class UserController extends Controller
     }
 
     // ฟังก์ชันสำหรับอัปเดตข้อมูลผู้ใช้
-    public function update(Request $request, $id)
-    {
-        // ตรวจสอบความถูกต้องของข้อมูล
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . $id,
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'phone' => 'required|string|max:15',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     // ตรวจสอบความถูกต้องของข้อมูล
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|string|max:255',
+    //         'username' => 'required|string|max:255|unique:users,username,' . $id,
+    //         'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+    //         'phone' => 'required|string|max:15',
+    //     ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()]);
-        }
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()]);
+    //     }
 
-        // อัปเดตข้อมูลผู้ใช้
-        $user = User::find($id);
-        $user->update($request->all());
+    //     // อัปเดตข้อมูลผู้ใช้
+    //     $user = User::find($id);
+    //     $user->update($request->all());
 
-        return response()->json(['success' => 'User updated successfully.']);
-    }
+    //     return response()->json(['success' => 'User updated successfully.']);
+    // }
+
+
+    // public function update(Request $request, $id)
+    // {
+    //     // ตรวจสอบความถูกต้องของข้อมูล
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|string|max:255',
+    //         'username' => 'required|string|max:255|unique:users,username,' . $id,
+    //         'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+    //         'phone' => 'required|string|max:15',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()]);
+    //     }
+
+    //     // อัปเดตข้อมูลผู้ใช้
+    //     $user = User::find($id);
+    //     $user->update($request->all());
+
+    //     return response()->json(['success' => 'User updated successfully.']);
+    // }
+
 
     // ฟังก์ชันสำหรับลบผู้ใช้
     public function destroy($id)
@@ -125,7 +148,7 @@ class UserController extends Controller
     // }
 
 
-    
+
     // public function fetchUsers()
     // {
     //     // ดึงข้อมูลผู้ใช้ทั้งหมด

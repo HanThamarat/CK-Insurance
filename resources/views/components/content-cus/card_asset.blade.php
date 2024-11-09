@@ -285,16 +285,6 @@
                                                 <span>แสดง</span>
                                             </button>
                                         </li>
-
-                                        <!--<li>
-                                            <button data-id="${asset.id}"
-                                                    onclick="openModal_Edit_asset_customer(this)">
-                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg>
-                                                <span>แก้ไข</span>
-                                            </button>-->
-
                                             <li>
                                             <button data-id="${asset.id}" onclick="openModal_Edit_asset_customer(this)">
                                                 <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
@@ -302,7 +292,6 @@
                                                 </svg>
                                                 <span>แก้ไข</span>
                                             </button>
-
                                         </li>
                                         </li>
                                         <hr>
@@ -408,55 +397,194 @@
 
 
 
+    // function initializeSlider() {
+    //     let currentPosition = 0;
+    //     const sliderTrack = $('.slider-track');
+    //     const cards = sliderTrack.children();
+    //     const cardWidth = cards.first().outerWidth(true); // get width of first card including margin
+    //     const totalCards = cards.length;
+    //     const totalTrackWidth = totalCards * cardWidth; // Calculate total width of slider track
+    //     const containerWidth = $('.slider-container').width(); // Width of the visible container
+
+    //     // Add necessary styles to container
+    //     $('.slider-container').css({
+    //         'position': 'relative',
+    //         'overflow': 'hidden',
+    //     });
+
+    //     // Show/hide navigation buttons based on position
+    //     function updateNavigationButtons() {
+    //         $('#prev_asset').toggle(currentPosition < 0); // Show prev if not at the start
+    //         $('#next_asset').toggle(currentPosition > -(totalTrackWidth -
+    //         containerWidth)); // Show next if not at the end
+    //     }
+
+    //     // Handle navigation button clicks
+    //     $('#prev_asset').click(function() {
+    //         if (currentPosition + cardWidth <= 0) { // Ensure it doesn't exceed the left bound
+    //             currentPosition += cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //         } else {
+    //             currentPosition = 0; // Snap to the start if trying to go beyond the first card
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //         }
+    //         updateNavigationButtons();
+    //     });
+
+    //     $('#next_asset').click(function() {
+    //         if (currentPosition - cardWidth >= -(totalTrackWidth -
+    //             containerWidth)) { // Ensure it doesn't exceed the right bound
+    //             currentPosition -= cardWidth;
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //         } else {
+    //             currentPosition = -(totalTrackWidth -
+    //             containerWidth); // Snap to the end if trying to go beyond the last card
+    //             sliderTrack.css('transform', `translateX(${currentPosition}px)`);
+    //         }
+    //         updateNavigationButtons();
+    //     });
+
+    //     // Style navigation buttons
+    //     $('#prev_asset, #next_asset').css({
+    //         'position': 'absolute',
+    //         'top': '50%',
+    //         'transform': 'translateY(-50%)',
+    //         'background': 'rgba(255, 165, 0, 0.1)',
+    //         'color': 'white',
+    //         'border': 'none',
+    //         'padding': '10px 15px',
+    //         'cursor': 'pointer',
+    //         'border-radius': '5px',
+    //         'z-index': '1'
+    //     }).hover(
+    //         function() {
+    //             $(this).css('background', 'rgba(255, 140, 0, 0.8)'); // สีส้มเข้มขึ้นเมื่อ hover
+    //         },
+    //         function() {
+    //             $(this).css('background', 'rgba(255, 165, 0, 0.1)'); // สีเดิมเมื่อไม่ได้ hover
+    //         }
+    //     );
+
+
+    //     $('#prev_asset').css('left', '0');
+    //     $('#next_asset').css('right', '0');
+
+    //     // Initialize navigation buttons visibility on load
+    //     updateNavigationButtons();
+    // }
+
     function initializeSlider() {
-        let currentPosition = 0;
         const sliderTrack = $('.slider-track');
-        const cards = sliderTrack.children();
-        const cardWidth = cards.first().outerWidth(true); // get width of first card including margin
-        const totalCards = cards.length;
-        const totalTrackWidth = totalCards * cardWidth; // Calculate total width of slider track
-        const containerWidth = $('.slider-container').width(); // Width of the visible container
+        const container = $('.slider-container');
+        let currentPosition = 0;
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
 
-        // Add necessary styles to container
-        $('.slider-container').css({
+        // Calculate dimensions
+        const updateDimensions = () => {
+            const cards = sliderTrack.children();
+            const cardWidth = cards.first().outerWidth(true);
+            const totalCards = cards.length;
+            const containerWidth = container.width();
+            const totalTrackWidth = totalCards * cardWidth;
+            const maxScroll = -(totalTrackWidth - containerWidth);
+
+            return {
+                cardWidth,
+                totalTrackWidth,
+                containerWidth,
+                maxScroll
+            };
+        };
+
+        // Setup initial styles
+        container.css({
             'position': 'relative',
-            'overflow': 'hidden',
+            'overflow': 'hidden'
         });
 
-        // Show/hide navigation buttons based on position
-        function updateNavigationButtons() {
-            $('#prev_asset').toggle(currentPosition < 0); // Show prev if not at the start
-            $('#next_asset').toggle(currentPosition > -(totalTrackWidth -
-            containerWidth)); // Show next if not at the end
-        }
-
-        // Handle navigation button clicks
-        $('#prev_asset').click(function() {
-            if (currentPosition + cardWidth <= 0) { // Ensure it doesn't exceed the left bound
-                currentPosition += cardWidth;
-                sliderTrack.css('transform', `translateX(${currentPosition}px)`);
-            } else {
-                currentPosition = 0; // Snap to the start if trying to go beyond the first card
-                sliderTrack.css('transform', `translateX(${currentPosition}px)`);
-            }
-            updateNavigationButtons();
+        sliderTrack.css({
+            'transition': 'transform 0.3s ease-out',
+            'will-change': 'transform'
         });
 
-        $('#next_asset').click(function() {
-            if (currentPosition - cardWidth >= -(totalTrackWidth -
-                containerWidth)) { // Ensure it doesn't exceed the right bound
-                currentPosition -= cardWidth;
-                sliderTrack.css('transform', `translateX(${currentPosition}px)`);
-            } else {
-                currentPosition = -(totalTrackWidth -
-                containerWidth); // Snap to the end if trying to go beyond the last card
-                sliderTrack.css('transform', `translateX(${currentPosition}px)`);
-            }
+        // Update navigation visibility
+        const updateNavigationButtons = () => {
+            const {
+                maxScroll
+            } = updateDimensions();
+            $('#prev_asset').toggle(currentPosition < -10); // Small threshold for better UX
+            $('#next_asset').toggle(currentPosition > maxScroll + 10);
+        };
+
+        // Smooth scroll to position
+        const scrollToPosition = (position) => {
+            const {
+                maxScroll
+            } = updateDimensions();
+
+            // Bound the position between max scroll and 0
+            position = Math.min(0, Math.max(position, maxScroll));
+            currentPosition = position;
+
+            sliderTrack.css({
+                'transform': `translateX(${position}px)`
+            });
+
             updateNavigationButtons();
+        };
+
+        // Navigation buttons
+        $('#prev_asset').click(() => {
+            const {
+                cardWidth
+            } = updateDimensions();
+            scrollToPosition(currentPosition + cardWidth);
+        });
+
+        $('#next_asset').click(() => {
+            const {
+                cardWidth
+            } = updateDimensions();
+            scrollToPosition(currentPosition - cardWidth);
+        });
+
+        // Mouse/Touch drag functionality
+        sliderTrack.on('mousedown touchstart', (e) => {
+            isDragging = true;
+            startX = e.type === 'mousedown' ? e.pageX : e.touches[0].pageX;
+            scrollLeft = currentPosition;
+
+            sliderTrack.css('transition', 'none');
+        });
+
+        $(document).on('mousemove touchmove', (e) => {
+            if (!isDragging) return;
+
+            e.preventDefault();
+            const x = e.type === 'mousemove' ? e.pageX : e.touches[0].pageX;
+            const deltaX = x - startX;
+
+            scrollToPosition(scrollLeft + deltaX);
+        });
+
+        $(document).on('mouseup touchend', () => {
+            if (!isDragging) return;
+
+            isDragging = false;
+            sliderTrack.css('transition', 'transform 0.3s ease-out');
+
+            // Snap to nearest card
+            const {
+                cardWidth
+            } = updateDimensions();
+            const nearestCard = Math.round(currentPosition / cardWidth) * cardWidth;
+            scrollToPosition(nearestCard);
         });
 
         // Style navigation buttons
-        $('#prev_asset, #next_asset').css({
+        $('.slider-nav-button').css({
             'position': 'absolute',
             'top': '50%',
             'transform': 'translateY(-50%)',
@@ -466,21 +594,26 @@
             'padding': '10px 15px',
             'cursor': 'pointer',
             'border-radius': '5px',
-            'z-index': '1'
+            'z-index': '1',
+            'transition': 'background-color 0.2s ease'
         }).hover(
             function() {
-                $(this).css('background', 'rgba(255, 140, 0, 0.8)'); // สีส้มเข้มขึ้นเมื่อ hover
+                $(this).css('background', 'rgba(255, 140, 0, 0.8)');
             },
             function() {
-                $(this).css('background', 'rgba(255, 165, 0, 0.1)'); // สีเดิมเมื่อไม่ได้ hover
+                $(this).css('background', 'rgba(255, 165, 0, 0.1)');
             }
         );
 
+        $('#prev_asset').css('left', '10px');
+        $('#next_asset').css('right', '10px');
 
-        $('#prev_asset').css('left', '0');
-        $('#next_asset').css('right', '0');
+        // Handle window resize
+        $(window).on('resize', () => {
+            scrollToPosition(currentPosition);
+        });
 
-        // Initialize navigation buttons visibility on load
+        // Initial setup
         updateNavigationButtons();
     }
 

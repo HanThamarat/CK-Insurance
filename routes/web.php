@@ -24,9 +24,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 
 // Profile ผู้ใช้งานระบบ
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/user/profile', [ProfileController::class, 'show'])->name('profile.show');
+//     Route::post('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
+// });
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::post('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/api/user/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 
@@ -36,6 +41,14 @@ Route::get('/customer/profile/{id}', [CustomerController::class, 'showProfile'])
 Route::get('/customers/profile', [CustomerController::class, 'profile'])->name('customers.profile'); //แสดงข้อมูลลูกค้า
 Route::get('/api/customers/{id}', [CustomerController::class, 'showCustomerData']); //แสดงข้อมูลลูกค้าตาม ID
 Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update'); //อัปเดทข้อมูลลูกตาม ID
+
+// แสดงข้อมูลผู้ใช้งานระบบ
+Route::get('/profile/show', [ProfileController::class, 'show']);
+// In routes/web.php or routes/api.php
+// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
+// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
+
+
 // routes/web.php (ดึงข้อมูลลูกค้า)
 // Route::get('/customer/{id}', [CustomerController::class, 'getCustomerData']);
 
@@ -57,7 +70,6 @@ Route::resource('customers/address', DataCusAddressController::class);
 
 // RESET PASSWORD สำหรับผู้ใช้งานระบบที่ต้องการ รีเซ็ทรหัสผ่าน
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset.password');
-
 
 // ดึงอาณาข้อมูลภูมิประเทศไทย
 Route::get('/zones', [ProvinceController::class, 'getZones']);
@@ -121,6 +133,7 @@ Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetDat
 Route::post('/delete-address', [DataCusAddressController::class, 'deleteAddress']);
 Route::post('/delete-career', [DataCusCareerController::class, 'deleteCareer']);
 Route::post('/delete-asset', [DataAssetController::class, 'deleteAsset']);
+
 
 
 

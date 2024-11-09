@@ -51,7 +51,7 @@
 
 
 
-            <div class="modal-body mt-[-14] p-4">
+            <div class="modal-body mt-[-7] p-4">
                 <div class="row mb-1 search-box-top">
                     <div class="col-12">
 
@@ -166,7 +166,7 @@
                                         {{-- </div> --}}
                                     </div>
                                     <!-- Button to add new customers -->
-                                    <div class="modal-footer">
+                                    <div class="modal-footer sticky bottom-0 bg-white border-t px-1 py-0 flex items-center justify-end gap-2">
                                         <div class="p-2 chat-input-section">
                                             <div class="flex justify-end mb-1 space-x-2">
                                                 <!-- Use flex and space-x-2 for horizontal spacing -->
