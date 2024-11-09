@@ -11,6 +11,58 @@
     <div class="f1-effect-flower"></div>
 </div>
 
+<style>
+    .f1-effect-flower {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #ff6347;
+        position: absolute;
+        animation: flowerAnimation 2s infinite;
+        transition: visibility 1s ease-out, opacity 1s ease-out; /* เพิ่ม transition สำหรับ visibility และ opacity */
+    }
+
+    @keyframes flowerAnimation {
+        0% {
+            transform: scale(0.5);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.5);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+</style>
+
+{{-- <script>
+    let flowersHidden = false; // ตัวแปรในการเช็คสถานะว่า effect ซ่อนอยู่หรือไม่
+
+    // หยุดการทำงานของ effect เมื่อคลิกหน้าจอ และทำให้ fade-out
+    document.addEventListener('click', function(event) {
+        // เช็คว่าไม่ได้คลิกที่ f1-effect หรือ f1-effect-flower
+        if (!event.target.closest('.f1-effect')) {
+            let flowers = document.querySelectorAll('.f1-effect-flower');
+            flowers.forEach(function(flower) {
+                if (!flowersHidden) {
+                    // ทำให้ flower ค่อยๆ หายไป
+                    flower.style.visibility = 'hidden'; // ซ่อน element ช้าๆ
+                    flower.style.opacity = '0'; // ลดความทึบ
+                } else {
+                    // แสดง flower กลับมา
+                    flower.style.visibility = 'visible'; // แสดง element กลับมา
+                    flower.style.opacity = '1'; // คืนค่า opacity กลับมา
+                }
+            });
+
+            flowersHidden = !flowersHidden; // สลับสถานะการซ่อนและแสดง
+        }
+    });
+</script> --}}
+
 
 <style>
 

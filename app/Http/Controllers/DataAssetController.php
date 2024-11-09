@@ -81,15 +81,6 @@ class DataAssetController extends Controller
             ));
         }
 
-        public function getDataAsset()
-        {
-            // ดึงข้อมูลประเภททรัพย์สินที่มี id เป็น 1 และ 2
-            $assets = TBTypeAsset::whereIn('id', [1, 2])->get(['id', 'Name_TypeAsset']);
-
-            return response()->json($assets);
-        }
-
-
         public function getRatetypeOptions()
         {
             // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
@@ -625,6 +616,258 @@ class DataAssetController extends Controller
 
 
 
+
+
+
+
+
+        // Phase 2--------------------------------------------------------------------------------------------------------------------
+        public function getDataAsset()
+        {
+            // ดึงข้อมูลประเภทสินทรัพย์ที่มี id เป็น 1 และ 2 จากตาราง TBTypeAsset
+            $assets = TBTypeAsset::whereIn('id', [1, 2])->get(['id', 'Name_TypeAsset']);
+
+            // ดึงค่าปัจจุบันของ Type_Asset จากตาราง asset_manage (สมมติว่าเก็บในคอลัมน์ Type_Asset)
+            $currentTypeAsset = AssetManage::select('Type_Asset')->first(); // ดึงค่าจากคอลัมน์ Type_Asset ที่แถวแรก
+
+            return response()->json([
+                'assets' => $assets,              // ส่งข้อมูลประเภทสินทรัพย์
+                'currentTypeAsset' => $currentTypeAsset ? $currentTypeAsset->Type_Asset : null // ค่าปัจจุบัน
+            ]);
+        }
+
+
+
+        public function getEditRatetypeOptions()
+        {
+            // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_CarGroup
+            $carTypes = DB::table('Stat_CarGroup')
+                ->select('Ratetype_id')
+                ->distinct()
+                ->get();
+
+            // ดึงข้อมูล Ratetype_id ที่ไม่ซ้ำกันจากตาราง Stat_MotoGroup
+            $motoTypes = DB::table('Stat_MotoGroup')
+                ->select('Ratetype_id')
+                ->distinct()
+                ->get();
+
+            // สร้าง array สำหรับแมพ Ratetype_id กับชื่อประเภท
+            $typeNames = [
+                'C01' => 'รถเก๋ง',
+                'C02' => 'กระบะตอนเดียว',
+                'C03' => 'กระบะแค็บ',
+                'C04' => 'กระบะ 4 ประตู',
+                'C05' => 'รถตู้',
+                'C06' => 'รถใหญ่',
+                'M01' => 'รถเกียร์ธรรมดา',
+                'M02' => 'รถเกียร์ออโต้',
+                'M03' => 'รถ BigBike'
+            ];
+
+            // แมพค่า Ratetype_id กับชื่อประเภทสำหรับ carTypes
+            $carTypesWithNames = $carTypes->map(function ($item) use ($typeNames) {
+                return [
+                    'id' => $item->Ratetype_id,
+                    'name' => $typeNames[$item->Ratetype_id] ?? 'ไม่ระบุ'
+                ];
+            });
+
+            // แมพค่า Ratetype_id กับชื่อประเภทสำหรับ motoTypes
+            $motoTypesWithNames = $motoTypes->map(function ($item) use ($typeNames) {
+                return [
+                    'id' => $item->Ratetype_id,
+                    'name' => $typeNames[$item->Ratetype_id] ?? 'ไม่ระบุ'
+                ];
+            });
+
+            // ส่งค่า response ที่แยกเป็น carTypes และ motoTypes
+            return response()->json([
+                'carTypes' => $carTypesWithNames,
+                'motoTypes' => $motoTypesWithNames
+            ]);
+        }
+
+
+
+        public function getEditVehicleNames(Request $request)
+        {
+            // ตรวจสอบว่ามี Ratetype_id ถูกส่งเข้ามาหรือไม่
+            $ratetypeId = $request->input('ratetype_id');
+
+            // สร้างเงื่อนไขสำหรับการค้นหา Name_Vehicle ตาม Ratetype_id ที่เลือก
+            switch ($ratetypeId) {
+                case 'C01': // รถเก๋ง
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->whereIn('Name_Vehicle', ['รถเก๋งส่วนบุคคล', 'รถเก๋งรับจ้าง'])
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C02': // กระบะตอนเดียว
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->where('Name_Vehicle', 'รถกระบะ')
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C03': // กระบะแค็บ
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->where('Name_Vehicle', 'รถกระบะ')
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C04': // กระบะ 4 ประตู
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->where('Name_Vehicle', 'รถกระบะ')
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C05': // รถตู้
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->where('Name_Vehicle', 'รถอื่น ๆ')
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'C06': // รถใหญ่
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->whereIn('Name_Vehicle', ['รถบรรทุก', 'รถเพื่อการเกษตร', 'รถอื่น ๆ'])
+                        ->distinct()
+                        ->get();
+                    break;
+                case 'M01': // รถจักรยานยนต์ (รวม M01, M02, M03)
+                case 'M02':
+                case 'M03':
+                    $vehicleNames = DB::table('TB_TypeVehicle')
+                        ->whereIn('Name_Vehicle', ['รถจักรยานยนต์', 'รถ BigBike'])
+                        ->distinct()
+                        ->get();
+                    break;
+                default:
+                    // หาก Ratetype_id ไม่ตรงกับเงื่อนไขที่กำหนดให้ส่งค่าผลลัพธ์ว่าง
+                    $vehicleNames = collect();
+                    break;
+            }
+
+            return response()->json($vehicleNames);
+        }
+
+
+
+        public function getEditBrandOptions(Request $request)
+        {
+            // รับ ratetype_id และ Name_Vehicle จาก request
+            $ratetypeId = $request->input('ratetype_id');
+            $nameVehicle = $request->input('name_vehicle'); // เพิ่มเพื่อดึงค่า Name_Vehicle
+
+            $brands = [
+                'carBrands' => collect(),
+                'motoBrands' => collect(),
+            ];
+
+            // กำหนดเงื่อนไขสำหรับกรณีที่ ratetype_id เป็น 'C01'
+            if ($ratetypeId === 'C01') {
+                $vehicleNames = DB::table('TB_TypeVehicle')
+                    ->whereIn('Name_Vehicle', ['รถเก๋งส่วนบุคคล', 'รถเก๋งรับจ้าง'])
+                    ->distinct()
+                    ->exists();
+
+                if ($vehicleNames) {
+                    // ดึงข้อมูล Brand_car สำหรับ C01
+                    $carBrands = DB::table('Stat_CarBrand')
+                        ->select('Brand_car', 'id')
+                        ->whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 20, 22, 23, 26, 27])
+                        ->get();
+
+                    $brands['carBrands'] = $carBrands;
+                }
+            }
+            // เช็คเงื่อนไขสำหรับ C02
+            else if ($ratetypeId === 'C02' && $nameVehicle === 'รถกระบะ') {
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->whereIn('id', [1, 4, 5, 6, 7, 8, 9, 17])
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+            }
+            // เช็คเงื่อนไขสำหรับ C03
+            else if ($ratetypeId === 'C03' && $nameVehicle === 'รถกระบะ') {
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->whereIn('id', [1, 3, 5, 6, 7, 8, 9, 14])
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+            }
+            // เช็คเงื่อนไขสำหรับ C04
+            else if ($ratetypeId === 'C04' && $nameVehicle === 'รถกระบะ') {
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->whereIn('id', [1, 3, 5, 6, 7, 8, 9, 14])
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+            }
+            // เช็คเงื่อนไขสำหรับ C05
+            else if ($ratetypeId === 'C05' && $nameVehicle === 'รถอื่น ๆ') {
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->whereIn('id', [5, 8, 15])
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+            }
+            // เช็คเงื่อนไขสำหรับ C06
+            else if ($ratetypeId === 'C06') {
+                if ($nameVehicle === 'รถบรรทุก' || $nameVehicle === 'รถเพื่อการเกษตร' || $nameVehicle === 'รถอื่น ๆ') {
+                    $carBrands = DB::table('Stat_CarBrand')
+                        ->select('Brand_car', 'id')
+                        ->whereIn('id', [1, 5, 9, 10, 11, 18, 21, 24, 25])
+                        ->get();
+
+                    $brands['carBrands'] = $carBrands;
+                }
+            }
+            // เช็คเงื่อนไขสำหรับ M01, M02, M03
+            else if ($ratetypeId === 'M01' && $nameVehicle === 'รถจักรยานยนต์') {
+                $motoBrands = DB::table('Stat_MotoBrand')
+                    ->select('Brand_moto', 'id')
+                    ->whereIn('id', [1, 2, 3, 4, 5, 9, 11])
+                    ->get();
+
+                $brands['motoBrands'] = $motoBrands;
+            } else if ($ratetypeId === 'M02' && $nameVehicle === 'รถจักรยานยนต์') {
+                $motoBrands = DB::table('Stat_MotoBrand')
+                    ->select('Brand_moto', 'id')
+                    ->whereIn('id', [1, 2, 3, 4, 6, 7, 10])
+                    ->get();
+
+                $brands['motoBrands'] = $motoBrands;
+            } else if ($ratetypeId === 'M03' && $nameVehicle === 'รถจักรยานยนต์') {
+                $motoBrands = DB::table('Stat_MotoBrand')
+                    ->select('Brand_moto', 'id')
+                    ->whereIn('id', [1, 2])
+                    ->get();
+
+                $brands['motoBrands'] = $motoBrands;
+            } else {
+                // กรณี ratetype_id ไม่ใช่ C01, C02, C03, C04, C05 หรือ C06 จะดึงข้อมูลทั้งหมด
+                $carBrands = DB::table('Stat_CarBrand')
+                    ->select('Brand_car', 'id')
+                    ->get();
+
+                $motoBrands = DB::table('Stat_MotoBrand')
+                    ->select('Brand_moto', 'id')
+                    ->get();
+
+                $brands['carBrands'] = $carBrands;
+                $brands['motoBrands'] = $motoBrands;
+            }
+
+            return response()->json($brands);
+        }
+
+
+
         // Function to update asset data
         public function updateAssetData(Request $request)
         {
@@ -777,7 +1020,13 @@ class DataAssetController extends Controller
 
 
 
+        // public function getDataAsset()
+        // {
+        //     // ดึงข้อมูลประเภททรัพย์สินที่มี id เป็น 1 และ 2
+        //     $assets = TBTypeAsset::whereIn('id', [1, 2])->get(['id', 'Name_TypeAsset']);
 
+        //     return response()->json($assets);
+        // }
 
 
 

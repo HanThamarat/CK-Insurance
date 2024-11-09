@@ -115,13 +115,18 @@ Route::post('/update-address', [DataCusAddressController::class, 'updateAddress'
 
 
 // DATA ASSET FETCH (ดึงข้อมูลรถตามลำดับ)
-Route::get('/asset-types', [DataAssetController::class, 'getDataAsset']);
 Route::get('/api/ratetype-options', [DataAssetController::class, 'getRatetypeOptions']);
 Route::get('/api/vehicle-names', [DataAssetController::class, 'getVehicleNames']);
 Route::get('/api/brand-options', [DataAssetController::class, 'getBrandOptions']);
 Route::get('/api/group-car-options', [DataAssetController::class, 'getGroupCarOptions']);
 Route::get('/api/year-options', [DataAssetController::class, 'getYearOptions']);
 Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptions']);
+
+// DATA ASSET FETCH (ดึงข้อมูลรถตามลำดับสำหรับแก้ไขข้อมูล)
+Route::get('/getDataAsset', [DataAssetController::class, 'getDataAsset']);
+Route::get('/get-edit-ratetype-options', [DataAssetController::class, 'getEditRatetypeOptions']);
+Route::get('/get-edit-vehicle-names', [DataAssetController::class, 'getEditVehicleNames']);
+Route::get('/get-edit-brand-options', [DataAssetController::class, 'getEditBrandOptions']);
 
 
 // DATA ASSET อัปเดท
@@ -172,7 +177,7 @@ Route::post('/delete-asset', [DataAssetController::class, 'deleteAsset']);
 
 
 
-
+// Route::get('/asset-types', [DataAssetController::class, 'getDataAsset']);
 
 // Route::post('/api/updateAssetData', [DataAssetController::class, 'updateAssetData'])->name('asset.update');
 
