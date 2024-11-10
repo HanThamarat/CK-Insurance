@@ -123,10 +123,10 @@ Route::get('/api/year-options', [DataAssetController::class, 'getYearOptions']);
 Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptions']);
 
 // DATA ASSET FETCH (ดึงข้อมูลรถตามลำดับสำหรับแก้ไขข้อมูล)
-Route::get('/getDataAsset', [DataAssetController::class, 'getDataAsset']);
-Route::get('/get-edit-ratetype-options', [DataAssetController::class, 'getEditRatetypeOptions']);
-Route::get('/get-edit-vehicle-names', [DataAssetController::class, 'getEditVehicleNames']);
-Route::get('/get-edit-brand-options', [DataAssetController::class, 'getEditBrandOptions']);
+// Route::get('/getDataAsset', [DataAssetController::class, 'getDataAsset']);
+// Route::get('/get-edit-ratetype-options', [DataAssetController::class, 'getEditRatetypeOptions']);
+// Route::get('/get-edit-vehicle-names', [DataAssetController::class, 'getEditVehicleNames']);
+// Route::get('/get-edit-brand-options', [DataAssetController::class, 'getEditBrandOptions']);
 
 
 // DATA ASSET อัปเดท
