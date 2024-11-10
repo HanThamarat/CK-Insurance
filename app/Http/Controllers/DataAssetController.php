@@ -868,6 +868,7 @@ class DataAssetController extends Controller
 
 
 
+
         // Function to update asset data
         public function updateAssetData(Request $request)
         {

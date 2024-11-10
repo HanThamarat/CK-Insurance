@@ -163,19 +163,19 @@
                             </div>
 
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label class="text-gray-600 block mb-1">ยี่ห้อรถ</label>
                                 <input type="text" id="edit_Vehicle_Brand" name="Vehicle_Brand"
                                     class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
+                            </div> --}}
 
-                            {{-- <div class="form-group">
+                            <div class="form-group">
                                 <label class="text-gray-600 block mb-1">ยี่ห้อรถ</label>
                                 <select id="edit_Vehicle_Brand" name="Vehicle_Brand"
                                     class="w-full border-gray-300 rounded-lg px-3 py-2">
                                     <option value="">เลือกยี่ห้อรถ</option>
                                 </select>
-                            </div> --}}
+                            </div>
 
                             <div class="form-group">
                                 <label class="text-gray-600 block mb-1">กลุ่มรถ</label>
@@ -333,6 +333,130 @@
 
         // เช็ค Edit Vehicle Type หรือ ประเภทสินทรัพย์ -----------------------------------------------------------------------------------------------------------
 
+        // $(document).ready(function() {
+        //     // ใช้ Ajax เพื่อดึงข้อมูลประเภทสินทรัพย์
+        //     $.ajax({
+        //         url: '/getDataAsset', // ปรับ URL ให้ตรงกับเส้นทางใน Laravel
+        //         method: 'GET',
+        //         dataType: 'json', // ระบุประเภทข้อมูลที่จะได้รับเป็น json
+        //         success: function(data) {
+        //             // console.log(data); // ตรวจสอบข้อมูลที่ได้รับจาก API
+
+        //             // เคลียร์ตัวเลือกใน select ก่อน
+        //             $('#edit_Type_Asset').empty();
+
+        //             // เพิ่มตัวเลือก "เลือกประเภทสินทรัพย์" ก่อน
+        //             $('#edit_Type_Asset').append('<option value="">เลือกประเภทสินทรัพย์</option>');
+
+        //             // ตรวจสอบว่า data.assets มีข้อมูลหรือไม่
+        //             if (data.assets && data.assets.length > 0) {
+        //                 // เพิ่มข้อมูลประเภทสินทรัพย์ลงใน select
+        //                 $.each(data.assets, function(index, asset) {
+        //                     // ตรวจสอบว่า Type_Asset ที่ดึงมาใน data ตรงกับชื่อประเภทสินทรัพย์หรือไม่
+        //                     var selected = (asset.Name_TypeAsset == data.currentTypeAsset) ?
+        //                         'selected' :
+        //                         ''; // ถ้า Name_TypeAsset ตรงกับ currentTypeAsset ให้เลือก
+        //                     $('#edit_Type_Asset').append(
+        //                         '<option value="' + asset.Name_TypeAsset + '" ' +
+        //                         selected + '>' +
+        //                         asset.Name_TypeAsset + '</option>'
+        //                     );
+        //                 });
+        //             } else {
+        //                 // กรณีที่ไม่มีข้อมูล
+        //                 $('#edit_Type_Asset').append('<option value="">ไม่มีข้อมูล</option>');
+        //             }
+
+        //             // ตั้งค่าปัจจุบันใน select
+        //             if (data.currentTypeAsset) {
+        //                 $('#edit_Type_Asset').val(data.currentTypeAsset); // เลือกค่าใน select
+        //                 // console.log('Current Type Asset is set to: ' + data.currentTypeAsset); // ตรวจสอบใน console
+        //             }
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.log('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+        //             $('#edit_Type_Asset').append('<option value="">ไม่สามารถดึงข้อมูลได้</option>');
+        //         }
+        //     });
+
+        // });
+
+
+        // // เช็ค Edit Vehicle_TYpe และ Vehicle_Type_PLT -----------------------------------------------------------------------------------------------------------
+        // $(document).ready(function() {
+        //     loadVehicleTypeOptions();
+
+        //     $('#edit_Vehicle_Type').on('change', function() {
+        //         const selectedRateType = $(this).val();
+        //         selectedRateType ? fetchVehicleNames(selectedRateType) : resetVehicleNameSelect();
+        //     });
+        // });
+
+        // // Function to load initial vehicle type options
+        // function loadVehicleTypeOptions() {
+        //     $.ajax({
+        //         url: '/get-edit-ratetype-options',
+        //         method: 'GET',
+        //         success: function({
+        //             carTypes,
+        //             motoTypes
+        //         }) {
+        //             const $vehicleTypeSelect = $('#edit_Vehicle_Type').empty().append(new Option(
+        //                 'เลือกประเภทรถ', ''));
+        //             if (carTypes) addOptionsGroup($vehicleTypeSelect, 'รถยนต์', carTypes);
+        //             if (motoTypes) addOptionsGroup($vehicleTypeSelect, 'รถจักรยานยนต์', motoTypes);
+        //             loadAssetData();
+        //         },
+        //         error: handleAjaxError('ไม่สามารถโหลดข้อมูลประเภทรถได้ กรุณาลองใหม่อีกครั้ง')
+        //     });
+        // }
+
+        // // General function to add options to a select within an optgroup
+        // function addOptionsGroup($select, label, items) {
+        //     const $group = $('<optgroup>').attr('label', label);
+        //     items.forEach(({
+        //         name,
+        //         id
+        //     }) => $group.append(new Option(name, id)));
+        //     $select.append($group);
+        // }
+
+        // // Function to fetch vehicle names based on rate type and update select
+        // function fetchVehicleNames(ratetypeId) {
+        //     $.ajax({
+        //         url: '/get-edit-vehicle-names',
+        //         type: 'GET',
+        //         data: {
+        //             ratetype_id: ratetypeId
+        //         },
+        //         success: updateVehicleNameSelect,
+        //         error: handleAjaxError('เกิดข้อผิดพลาดในการโหลดข้อมูล')
+        //     });
+        // }
+
+        // // Update vehicle name select
+        // function updateVehicleNameSelect(vehicles = []) {
+        //     const $select = $('#edit_Vehicle_Type_PLT').empty().append(new Option('เลือกประเภทรถ', ''));
+        //     vehicles.length ? vehicles.forEach(({
+        //         Name_Vehicle
+        //     }) => $select.append(new Option(Name_Vehicle, Name_Vehicle))) : $select.append(new Option('ไม่มีข้อมูล',
+        //         ''));
+        // }
+
+        // // Reset vehicle name select with a default message
+        // function resetVehicleNameSelect(message = 'เลือกประเภทรถ') {
+        //     $('#edit_Vehicle_Type_PLT').empty().append(new Option(message, ''));
+        // }
+
+        // // General error handler for AJAX requests
+        // function handleAjaxError(message) {
+        //     return function(xhr, status, error) {
+        //         console.error('AJAX Error:', error);
+        //         alert(message);
+        //     };
+        // }
+
+
         $(document).ready(function() {
             // ใช้ Ajax เพื่อดึงข้อมูลประเภทสินทรัพย์
             $.ajax({
@@ -340,8 +464,6 @@
                 method: 'GET',
                 dataType: 'json', // ระบุประเภทข้อมูลที่จะได้รับเป็น json
                 success: function(data) {
-                    // console.log(data); // ตรวจสอบข้อมูลที่ได้รับจาก API
-
                     // เคลียร์ตัวเลือกใน select ก่อน
                     $('#edit_Type_Asset').empty();
 
@@ -352,109 +474,53 @@
                     if (data.assets && data.assets.length > 0) {
                         // เพิ่มข้อมูลประเภทสินทรัพย์ลงใน select
                         $.each(data.assets, function(index, asset) {
-                            // ตรวจสอบว่า Type_Asset ที่ดึงมาใน data ตรงกับชื่อประเภทสินทรัพย์หรือไม่
                             var selected = (asset.Name_TypeAsset == data.currentTypeAsset) ?
                                 'selected' :
                                 ''; // ถ้า Name_TypeAsset ตรงกับ currentTypeAsset ให้เลือก
                             $('#edit_Type_Asset').append(
                                 '<option value="' + asset.Name_TypeAsset + '" ' +
-                                selected + '>' +
-                                asset.Name_TypeAsset + '</option>'
+                                selected + '>' + asset.Name_TypeAsset + '</option>'
                             );
                         });
                     } else {
-                        // กรณีที่ไม่มีข้อมูล
                         $('#edit_Type_Asset').append('<option value="">ไม่มีข้อมูล</option>');
                     }
 
                     // ตั้งค่าปัจจุบันใน select
                     if (data.currentTypeAsset) {
                         $('#edit_Type_Asset').val(data.currentTypeAsset); // เลือกค่าใน select
-                        // console.log('Current Type Asset is set to: ' + data.currentTypeAsset); // ตรวจสอบใน console
                     }
+
+                    // โหลดข้อมูล RateType ตามประเภทสินทรัพย์ที่เลือก
+                    loadRateTypeOptions(data.rateTypes);
                 },
                 error: function(xhr, status, error) {
                     console.log('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
                     $('#edit_Type_Asset').append('<option value="">ไม่สามารถดึงข้อมูลได้</option>');
                 }
             });
-
         });
 
+        // ฟังก์ชันสำหรับการโหลดตัวเลือก Ratetype ตามข้อมูลที่ได้รับ
+        function loadRateTypeOptions(rateTypes) {
+            // เคลียร์ตัวเลือกใน select
+            $('#edit_Vehicle_Type').empty();
 
-        // เช็ค Edit Vehicle_TYpe และ Vehicle_Type_PLT -----------------------------------------------------------------------------------------------------------
-        $(document).ready(function() {
-            loadVehicleTypeOptions();
+            // เพิ่มตัวเลือก "เลือกประเภท"
+            $('#edit_Vehicle_Type').append('<option value="">เลือกประเภท</option>');
 
-            $('#edit_Vehicle_Type').on('change', function() {
-                const selectedRateType = $(this).val();
-                selectedRateType ? fetchVehicleNames(selectedRateType) : resetVehicleNameSelect();
-            });
-        });
-
-        // Function to load initial vehicle type options
-        function loadVehicleTypeOptions() {
-            $.ajax({
-                url: '/get-edit-ratetype-options',
-                method: 'GET',
-                success: function({
-                    carTypes,
-                    motoTypes
-                }) {
-                    const $vehicleTypeSelect = $('#edit_Vehicle_Type').empty().append(new Option(
-                        'เลือกประเภทรถ', ''));
-                    if (carTypes) addOptionsGroup($vehicleTypeSelect, 'รถยนต์', carTypes);
-                    if (motoTypes) addOptionsGroup($vehicleTypeSelect, 'รถจักรยานยนต์', motoTypes);
-                    loadAssetData();
-                },
-                error: handleAjaxError('ไม่สามารถโหลดข้อมูลประเภทรถได้ กรุณาลองใหม่อีกครั้ง')
-            });
+            // ตรวจสอบว่า rateTypes มีข้อมูลหรือไม่
+            if (rateTypes && rateTypes.length > 0) {
+                $.each(rateTypes, function(index, rateType) {
+                    $('#edit_Vehicle_Type').append(
+                        '<option value="' + rateType.id + '">' + rateType.name + '</option>'
+                    );
+                });
+            } else {
+                $('#edit_Vehicle_Type').append('<option value="">ไม่มีข้อมูล</option>');
+            }
         }
 
-        // General function to add options to a select within an optgroup
-        function addOptionsGroup($select, label, items) {
-            const $group = $('<optgroup>').attr('label', label);
-            items.forEach(({
-                name,
-                id
-            }) => $group.append(new Option(name, id)));
-            $select.append($group);
-        }
-
-        // Function to fetch vehicle names based on rate type and update select
-        function fetchVehicleNames(ratetypeId) {
-            $.ajax({
-                url: '/get-edit-vehicle-names',
-                type: 'GET',
-                data: {
-                    ratetype_id: ratetypeId
-                },
-                success: updateVehicleNameSelect,
-                error: handleAjaxError('เกิดข้อผิดพลาดในการโหลดข้อมูล')
-            });
-        }
-
-        // Update vehicle name select
-        function updateVehicleNameSelect(vehicles = []) {
-            const $select = $('#edit_Vehicle_Type_PLT').empty().append(new Option('เลือกประเภทรถ', ''));
-            vehicles.length ? vehicles.forEach(({
-                Name_Vehicle
-            }) => $select.append(new Option(Name_Vehicle, Name_Vehicle))) : $select.append(new Option('ไม่มีข้อมูล',
-                ''));
-        }
-
-        // Reset vehicle name select with a default message
-        function resetVehicleNameSelect(message = 'เลือกประเภทรถ') {
-            $('#edit_Vehicle_Type_PLT').empty().append(new Option(message, ''));
-        }
-
-        // General error handler for AJAX requests
-        function handleAjaxError(message) {
-            return function(xhr, status, error) {
-                console.error('AJAX Error:', error);
-                alert(message);
-            };
-        }
 
     }
 
