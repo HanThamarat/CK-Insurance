@@ -1,6 +1,6 @@
 <div id="modalShowCareer" class="fixed inset-0 flex items-center justify-center z-50 hidden">
     <!-- Backdrop with blur effect -->
-    <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+    {{-- <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div> --}}
 
     <div class="flex items-center justify-center w-full h-full p-4">
         <div
@@ -8,27 +8,26 @@
             <!-- Header -->
             <div id="header" class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm mb-6">
                 <button id="closeModal_show_career_x"
-                    class="absolute top-4 right-4 p-2 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
+                    class="absolute top-2 right-2 p-1 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 focus:outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
 
-                <div class="flex items-center space-x-4 p-4">
-                    <div class="p-3 bg-orange-100 rounded-xl">
+                <div class="flex items-center space-x-2 p-3">
+                    <div class="p-2 bg-orange-100 rounded-xl">
                         <img src="{{ asset('img/career.gif') }}" alt="career icon"
-                            class="w-12 h-12 object-cover rounded-lg">
+                            class="w-10 h-10 object-cover rounded-lg">
                     </div>
                     <div class="flex-grow">
-                        <h5
-                            class="text-xl font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                        <h5 class="text-lg font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
                             แสดงข้อมูลอาชีพลูกค้า</h5>
-                        <p class="text-gray-500 text-sm mt-1">(Show Customers Career)</p>
-                        <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
+                        <p class="text-gray-500 text-xs mt-1">(Show Customers Career)</p>
+                        <div class="h-1 w-24 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
                     </div>
                 </div>
             </div>
+
 
             <form id="showCareerForm" class="space-y-6">
                 <!-- Radio Buttons -->
@@ -59,7 +58,7 @@
 
                         <div class="relative">
                             <img src="{{ asset('img/career.jpg') }}" alt="theme images"
-                                class="w-full h-60 object-cover rounded-2xl shadow-md">
+                                class="w-full h-62 object-cover rounded-2xl shadow-md">
                         </div>
                     </div>
 
@@ -133,7 +132,7 @@
 
                         <!-- Notes Textarea -->
                         <div class="relative">
-                            <textarea id="IncomeNote_Cus_show" name="IncomeNote_Cus" rows="5"
+                            <textarea id="IncomeNote_Cus_show" name="IncomeNote_Cus" rows="8"
                                 class="peer w-full px-3 py-2 text-sm rounded-xl border border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-300"
                                 placeholder=" " disabled></textarea>
                             <label
@@ -241,7 +240,7 @@
             $('#modalShowCareer')
                 .removeClass('modal-leave')
                 .addClass('modal-enter')
-                .fadeIn(0, function() {
+                .fadeIn(200, function() {
                     $(this).addClass('modal-enter-active');
                 });
         };

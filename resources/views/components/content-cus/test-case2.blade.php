@@ -1496,3 +1496,254 @@
         //         }
         //     });
         // });
+
+
+
+
+
+        function loadAssetData(currentAssetId) {
+            $.ajax({
+                url: '/api/getAssetData',
+                method: 'GET',
+                data: {
+                    id: currentAssetId
+                },
+                success: function(data) {
+                    console.log('Asset Data:', data);
+
+                    $('#edit_Vehicle_Type_PLT').val(data.Vehicle_Type_PLT);
+                    console.log('Current Vehicle Type:', data.Vehicle_Type_PLT);
+
+                    const ratetypeId = data.Ratetype_id;
+                    if (ratetypeId) {
+                        $('#Ratetype_id').val(ratetypeId);
+                        loadRatetypeOptionsPLT(ratetypeId, data.Vehicle_Type_PLT);
+                    } else {
+                        console.log("Ratetype_id is not set in asset data.");
+                        const selectElement = $('#Name_Vehicle');
+                        selectElement.empty();
+                        selectElement.append('<option value="">เลือกประเภทรถ 2</option>');
+                        selectElement.append(
+                            `<option value="${data.Vehicle_Type_PLT}" selected>${data.Vehicle_Type_PLT}</option>`
+                            );
+                    }
+
+                    // ตั้งค่าฟิลด์ Brand ตามประเภทของยานพาหนะ
+                    if (data.Type_Asset === 'รถยนต์') {
+                        $('#edit_Vehicle_Brand').val(data.car_brand ? data.car_brand.Brand_car : '-');
+                    } else if (data.Type_Asset === 'มอเตอร์ไซค์') {
+                        $('#edit_Vehicle_Brand').val(data.moto_brand ? data.moto_brand.Brand_moto : '-');
+                    } else {
+                        $('#edit_Vehicle_Brand').val('-');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching Asset data:', error);
+                }
+            });
+        }
+
+        // ฟังก์ชันสำหรับโหลด Ratetype Options
+        function loadRatetypeOptionsPLT(ratetypeIdPLT, currentVehicleTypePLT) {
+            console.log('Loading Ratetype Options with Ratetype ID:', ratetypeIdPLT, 'and Current Vehicle Type:',
+                currentVehicleTypePLT);
+            const selectElement = $('#Name_Vehicle');
+            selectElement.empty(); // ล้างตัวเลือกก่อน
+
+            // เพิ่มตัวเลือกเริ่มต้น
+            selectElement.append('<option value="">เลือกประเภทรถ 2</option>');
+
+            $.ajax({
+                url: '/api/vehicle-names', // API ที่ใช้ในการดึงข้อมูลตัวเลือก
+                method: 'GET',
+                data: {
+                    ratetype_id: ratetypeIdPLT
+                }, // ส่ง Ratetype_id เพื่อกรองตัวเลือก
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Vehicle names data:', data); // ตรวจสอบข้อมูลที่ดึงมาจาก API
+
+                    if (data.length === 0 && currentVehicleTypePLT) {
+                        // กรณีที่ไม่มีข้อมูลจาก API ให้เพิ่มตัวเลือก currentVehicleTypePLT โดยตรง
+                        selectElement.append(
+                            `<option value="${currentVehicleTypePLT}" selected>${currentVehicleTypePLT}</option>`
+                            );
+                    } else {
+                        data.forEach(function(option) {
+                            const opt = $('<option></option>')
+                                .val(option.Name_Vehicle)
+                                .text(option.Name_Vehicle);
+
+                            // ตรวจสอบหากตัวเลือกนี้ตรงกับค่าปัจจุบันที่ดึงมา
+                            if (option.Name_Vehicle === currentVehicleTypePLT) {
+                                opt.prop('selected', true); // ตั้งค่าเป็น selected
+                                console.log('Selected option:', option
+                                .Name_Vehicle); // ตรวจสอบตัวเลือกที่ถูกตั้งค่าให้เป็น selected
+                            }
+
+                            selectElement.append(opt); // เพิ่มตัวเลือกใหม่ใน select
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching Vehicle names:', error);
+                }
+            });
+        }
+
+        // โหลดตัวเลือกเมื่อมีการเปลี่ยนค่า Ratetype_id
+        $('#Ratetype_id').change(function() {
+            const selectedType = $(this).val();
+            console.log('Ratetype_id changed:', selectedType); // ตรวจสอบค่าที่เลือกใน Ratetype_id
+
+            // ตรวจสอบว่ามี selectedType หรือไม่ก่อนเรียก loadRatetypeOptionsPLT
+            if (selectedType) {
+                loadRatetypeOptionsPLT(selectedType, $('#edit_Vehicle_Type_PLT').val());
+            }
+        });
+
+        // เรียกใช้งานฟังก์ชันเพื่อโหลดข้อมูล Asset
+        loadAssetData(currentAssetId);
+
+
+
+        // ฟังก์ชันเพื่อโหลดข้อมูล asset และดึง Vehicle_Type_PLT
+        // function loadAssetData(currentAssetId) {
+        //     $.ajax({
+        //         url: '/api/getAssetData',
+        //         method: 'GET',
+        //         data: {
+        //             id: currentAssetId
+        //         },
+        //         success: function(data) {
+        //             // แสดงข้อมูล asset ใน console
+        //             console.log('Asset Data:', data);
+
+        //             // ตั้งค่าในฟิลด์ของ modal ด้วยข้อมูลจาก API
+        //             $('#edit_Vehicle_Type_PLT').val(data.Vehicle_Type_PLT);
+        //             console.log('Current Vehicle Type:', data.Vehicle_Type_PLT); // แสดงข้อมูล Vehicle_Type_PLT
+
+        //             // ตรวจสอบ Ratetype_id หากไม่มีค่า จะดึง Vehicle_Type_PLT โดยตรง
+        //             const ratetypeId = data.Ratetype_id;
+        //             if (ratetypeId) {
+        //                 $('#Ratetype_id').val(ratetypeId);  // ตั้งค่า Ratetype_id ใน select element
+        //                 loadRatetypeOptionsPLT(ratetypeId, data.Vehicle_Type_PLT);  // เรียกโหลดข้อมูล options
+        //             } else {
+        //                 console.log("Ratetype_id is not set in asset data.");
+
+        //                 // เพิ่มตัวเลือก Vehicle_Type_PLT โดยตรงในกรณีที่ Ratetype_id ไม่มีค่า
+        //                 const selectElement = $('#Name_Vehicle');
+        //                 selectElement.empty();
+        //                 selectElement.append('<option value="">เลือกประเภทรถ 2</option>');
+        //                 selectElement.append(`<option value="${data.Vehicle_Type_PLT}" selected>${data.Vehicle_Type_PLT}</option>`);
+        //             }
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error('Error fetching Asset data:', error);
+        //         }
+        //     });
+        // }
+
+        function loadAssetData(currentAssetId) {
+            $.ajax({
+                url: '/api/getAssetData',
+                method: 'GET',
+                data: {
+                    id: currentAssetId
+                },
+                success: function(data) {
+                    console.log('Asset Data:', data);
+
+                    $('#edit_Vehicle_Type_PLT').val(data.Vehicle_Type_PLT);
+                    console.log('Current Vehicle Type:', data.Vehicle_Type_PLT);
+
+                    const ratetypeId = data.Ratetype_id;
+                    if (ratetypeId) {
+                        $('#Ratetype_id').val(ratetypeId);
+                        loadRatetypeOptionsPLT(ratetypeId, data.Vehicle_Type_PLT);
+                    } else {
+                        console.log("Ratetype_id is not set in asset data.");
+                        const selectElement = $('#Name_Vehicle');
+                        selectElement.empty();
+                        selectElement.append('<option value="">เลือกประเภทรถ 2</option>');
+                        selectElement.append(
+                            `<option value="${data.Vehicle_Type_PLT}" selected>${data.Vehicle_Type_PLT}</option>`
+                            );
+                    }
+
+                    // ตั้งค่าฟิลด์ Brand ตามประเภทของยานพาหนะ
+                    if (data.Type_Asset === 'รถยนต์') {
+                        $('#edit_Vehicle_Brand').val(data.car_brand ? data.car_brand.Brand_car : '-');
+                    } else if (data.Type_Asset === 'มอเตอร์ไซค์') {
+                        $('#edit_Vehicle_Brand').val(data.moto_brand ? data.moto_brand.Brand_moto : '-');
+                    } else {
+                        $('#edit_Vehicle_Brand').val('-');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching Asset data:', error);
+                }
+            });
+        }
+
+        // ฟังก์ชันสำหรับโหลด Ratetype Options
+        function loadRatetypeOptionsPLT(ratetypeIdPLT, currentVehicleTypePLT) {
+            console.log('Loading Ratetype Options with Ratetype ID:', ratetypeIdPLT, 'and Current Vehicle Type:',
+                currentVehicleTypePLT);
+            const selectElement = $('#Name_Vehicle');
+            selectElement.empty(); // ล้างตัวเลือกก่อน
+
+            // เพิ่มตัวเลือกเริ่มต้น
+            selectElement.append('<option value="">เลือกประเภทรถ 2</option>');
+
+            $.ajax({
+                url: '/api/vehicle-names', // API ที่ใช้ในการดึงข้อมูลตัวเลือก
+                method: 'GET',
+                data: {
+                    ratetype_id: ratetypeIdPLT
+                }, // ส่ง Ratetype_id เพื่อกรองตัวเลือก
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Vehicle names data:', data); // ตรวจสอบข้อมูลที่ดึงมาจาก API
+
+                    if (data.length === 0 && currentVehicleTypePLT) {
+                        // กรณีที่ไม่มีข้อมูลจาก API ให้เพิ่มตัวเลือก currentVehicleTypePLT โดยตรง
+                        selectElement.append(
+                            `<option value="${currentVehicleTypePLT}" selected>${currentVehicleTypePLT}</option>`
+                            );
+                    } else {
+                        data.forEach(function(option) {
+                            const opt = $('<option></option>')
+                                .val(option.Name_Vehicle)
+                                .text(option.Name_Vehicle);
+
+                            // ตรวจสอบหากตัวเลือกนี้ตรงกับค่าปัจจุบันที่ดึงมา
+                            if (option.Name_Vehicle === currentVehicleTypePLT) {
+                                opt.prop('selected', true); // ตั้งค่าเป็น selected
+                                console.log('Selected option:', option
+                                .Name_Vehicle); // ตรวจสอบตัวเลือกที่ถูกตั้งค่าให้เป็น selected
+                            }
+
+                            selectElement.append(opt); // เพิ่มตัวเลือกใหม่ใน select
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching Vehicle names:', error);
+                }
+            });
+        }
+
+        // โหลดตัวเลือกเมื่อมีการเปลี่ยนค่า Ratetype_id
+        $('#Ratetype_id').change(function() {
+            const selectedType = $(this).val();
+            console.log('Ratetype_id changed:', selectedType); // ตรวจสอบค่าที่เลือกใน Ratetype_id
+
+            // ตรวจสอบว่ามี selectedType หรือไม่ก่อนเรียก loadRatetypeOptionsPLT
+            if (selectedType) {
+                loadRatetypeOptionsPLT(selectedType, $('#edit_Vehicle_Type_PLT').val());
+            }
+        });
+
+        // เรียกใช้งานฟังก์ชันเพื่อโหลดข้อมูล Asset
+        loadAssetData(currentAssetId);

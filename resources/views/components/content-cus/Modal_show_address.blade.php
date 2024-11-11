@@ -5,15 +5,7 @@
     <div class="flex items-center justify-center w-full h-full">
         <div class="relative bg-white rounded-lg w-full max-w-6xl mx-4 p-6 max-h-[90%] flex flex-col overflow-y-auto scrollbar-hidden">
             <!-- Header -->
-            <div class="flex items-center justify-between mb-4 space-x-3">
-                {{-- <img src="{{ asset('img/map.gif') }}" alt="career icon" class="w-12 h-12 rounded-full"> --}}
-
-                {{-- <div class="flex-grow">
-                    <h5 class="text-orange-400 font-semibold text-lg">แสดงข้อมูลที่อยู่ลูกค้า</h5>
-                    <p class="text-gray-600 font-medium text-sm">(Show Customer Address)</p>
-                    <div class="border-b-2 border-orange-400 mt-1 w-full"></div>
-                </div> --}}
-
+            {{-- <div class="flex items-center justify-between mb-4 space-x-3">
                 <div class="flex items-center space-x-4 p-4">
                     <div class="p-3 bg-orange-100 rounded-xl">
                         <img src="{{ asset('img/map.gif') }}" alt="map icon"
@@ -31,9 +23,32 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
+            </div> --}}
+
+            <div class="flex items-center justify-between mb-4 space-x-2">
+                <div class="flex items-center space-x-3 p-3">
+                    <div class="p-2 bg-orange-100 rounded-xl">
+                        <img src="{{ asset('img/map.gif') }}" alt="map icon"
+                            class="w-8 h-8 object-cover rounded-lg">
+                    </div>
+                    <div class="flex-grow">
+                        <h5 class="text-lg font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                            แสดงข้อมูลที่อยู่ลูกค้า</h5>
+                        <p class="text-gray-500 text-xs mt-1">(Show Customer Address)</p>
+                        <div class="h-1 w-24 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
+                    </div>
+                </div>
+                <button onclick="hideModal_show_address()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
             </div>
-            <hr class="mt-[-7]">
+
+            <hr>
+
             <br>
+
             <!-- Address Details Container -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-0">
                 <!-- Left Column - Address Type Selection -->
@@ -74,9 +89,7 @@
                         <input type="hidden" id="addressId" name="id">
                         <input type="hidden" id="dataCusIdField" name="DataCus_id">
 
-
-
-                        <div class="space-y-4 mt-2">
+                        <div class="space-y-4 mt-0">
                             <div class="relative">
                                 <input type="text" id="Registration_number_show" name="Registration_number" disabled
                                     class="p-2 border border-gray-300 rounded-lg text-sm w-full peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
@@ -260,12 +273,20 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex justify-end space-x-3 mt-1">
+            {{-- <div class="flex justify-end space-x-3 mt-1">
                 <button onclick="hideModal_show_address()"
                     class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
                     ปิด
                 </button>
+            </div> --}}
+
+            <div class="flex items-center justify-end mt-4">
+                <button onclick="hideModal_show_address()"
+                    class="px-6 py-2.5 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-gray-500/50">
+                    <i class="fa-regular fa-circle-xmark"></i> ปิด
+                </button>
             </div>
+
         </div>
     </div>
 </div>
@@ -331,9 +352,11 @@
 
     function hideModal_show_address() {
         $('#modal_show_address_customer')
+            .css('transform', 'translateY(0%)')  // ตั้งค่าเริ่มต้น
             .animate({
-                opacity: 0
-            }, 100, function() {
+                opacity: 0,
+                top: '-100%'  // ย้ายขึ้นไป
+            }, 500, 'easeInOutCubic', function() {
                 $(this).addClass('hidden');
             });
     }

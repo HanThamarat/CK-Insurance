@@ -3,7 +3,7 @@
         <!-- Modal content -->
         <div class="relative bg-white rounded-xl shadow-xl w-full max-w-5xl mx-auto my-0">
             <!-- Header -->
-            <div class="flex items-center justify-between p-6 border-b">
+            {{-- <div class="flex items-center justify-between p-6 border-b">
 
                 <div class="flex items-center space-x-4 p-4">
                     <div class="p-3 bg-orange-100 rounded-xl">
@@ -23,7 +23,30 @@
                     <i class="fas fa-times text-xl"></i>
                 </button>
 
+            </div> --}}
+
+
+            <div class="flex items-center justify-between p-4 border-b ml-0 sticky top-0 z-10 shadow-md bg-white"> <!-- เพิ่ม sticky, top-0, z-10 และ shadow-md -->
+
+                <div class="flex items-center space-x-3 p-2">
+                    <div class="p-2 bg-orange-100 rounded-xl">
+                        <img src="{{ asset('img/minicar.gif') }}" alt="minicar icon"
+                            class="w-10 h-10 object-cover rounded-lg">
+                    </div>
+                    <div class="flex-grow">
+                        <h5 class="text-lg font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                            แสดงข้อมูลสินทรัพย์ลูกค้า</h5>
+                        <p class="text-gray-500 text-xs mt-1">(Show Customers Assets)</p>
+                        <div class="h-1 w-24 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
+                    </div>
+                </div>
+
+                <button onclick="closeModal_Show_asset()" class="text-gray-400 hover:text-gray-500 p-1">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
             </div>
+
+
 
             <!-- Body -->
             <div class="p-8">
@@ -264,19 +287,39 @@
                 $('#show_Choose_Act').text(asset.Choose_Act || '-');
                 $('#show_Choose_Register').text(asset.Choose_Register || '-');
 
-                // Format dates
+                // // Format dates
+                // const formatDate_stamp = (dateString_timestamp) => {
+                //     if (!dateString_timestamp) return '-';
+                //     return new Date(dateString_timestamp).toLocaleDateString('th-TH', {
+                //         year: 'numeric',
+                //         month: 'long',
+                //         day: 'numeric'
+                //     });
+                // };
+
+
+                // $('#show_created_at').text(formatDate_stamp(asset.created_at));
+                // $('#show_updated_at').text(formatDate_stamp(asset.updated_at));
+
+
+                // Format date and time
                 const formatDate_stamp = (dateString_timestamp) => {
                     if (!dateString_timestamp) return '-';
-                    return new Date(dateString_timestamp).toLocaleDateString('th-TH', {
+                    const options = {
                         year: 'numeric',
                         month: 'long',
-                        day: 'numeric'
-                    });
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric',
+                        hour12: false, // ใช้เวลาแบบ 24 ชั่วโมง
+                    };
+                    return new Date(dateString_timestamp).toLocaleString('th-TH', options);
                 };
-
 
                 $('#show_created_at').text(formatDate_stamp(asset.created_at));
                 $('#show_updated_at').text(formatDate_stamp(asset.updated_at));
+
 
 
                 const formatDate = (dateString) => {

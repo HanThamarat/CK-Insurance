@@ -244,7 +244,7 @@
                     <button class="prev_asset" id="prev_asset">←</button>
                     <!-- ปุ่มเลื่อนไปทางขวา -->
                     <button class="next_asset" id="next_asset">→</button> --}}
-                    
+
                     <button id="prev_asset" class="slider-nav-button">←</button>
                     <button id="next_asset" class="slider-nav-button">→</button>
                 </div>
@@ -292,49 +292,239 @@
 
     <script src="{{ URL::asset('assets/libs/jquery.js') }}"></script>
     <!-- Script for Tabs -->
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Utility function to handle animations
+            function animateTabTransition(oldTab, newTab, direction) {
+                // Starting positions
+                const startPosition = direction === 'left' ? '100%' : '-100%';
+                const currentPosition = '0%';
+                const endPosition = direction === 'left' ? '-100%' : '100%';
+
+                // Setup new tab initial position and opacity
+                newTab.style.transform = `translateX(${startPosition})`;
+                newTab.style.opacity = '0';  // Start with opacity 0
+                newTab.style.transition = 'none';
+                newTab.classList.remove('hidden');
+
+                // Force reflow
+                newTab.offsetHeight;
+
+                // Setup transitions for both transform and opacity
+                oldTab.style.transition = 'transform 0.4s ease-in-out, opacity 0.4s ease-in-out';
+                newTab.style.transition = 'transform 0.4s ease-in-out, opacity 0.4s ease-in-out';
+
+                // Animate both tabs (position and opacity)
+                oldTab.style.transform = `translateX(${endPosition})`;
+                oldTab.style.opacity = '0';  // Fade out the old tab
+                newTab.style.transform = `translateX(${currentPosition})`;
+                newTab.style.opacity = '1';  // Fade in the new tab
+
+                // Cleanup after animation
+                setTimeout(() => {
+                    oldTab.classList.add('hidden');
+                    oldTab.style.transform = '';
+                    oldTab.style.opacity = '';
+                    newTab.style.transform = '';
+                    newTab.style.opacity = '';
+                    oldTab.style.transition = '';
+                    newTab.style.transition = '';
+                }, 400);
+            }
+
             // Initial setup for active tab from localStorage
             function setInitialActiveTab() {
                 const activeTab = localStorage.getItem('activeTab');
-                const defaultTab = 'address-info'; // Default tab if no value is found
+                const defaultTab = 'address-info';
 
-                // Remove 'active' class from all tab links and hide all tab panes
-                document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('border-b-2',
-                    'border-orange-500', 'text-orange-500'));
-                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+                // Reset all tabs
+                document.querySelectorAll('.tab-link').forEach(link => {
+                    link.classList.remove('border-b-2', 'border-orange-500', 'text-orange-500');
+                    link.classList.add('transition-colors', 'duration-300');
+                });
 
-                // Show the active tab or default tab
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.add('hidden');
+                    pane.style.position = 'relative';
+                });
+
+                // Activate initial tab
                 const activeTabId = activeTab || defaultTab;
-                document.querySelector(`a[data-tab="${activeTabId}"]`).classList.add('border-b-2',
-                    'border-orange-500', 'text-orange-500');
-                document.querySelector(`#${activeTabId}`).classList.remove('hidden');
+                const activeTabLink = document.querySelector(`a[data-tab="${activeTabId}"]`);
+                const activeTabPane = document.querySelector(`#${activeTabId}`);
+
+                activeTabLink.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+                activeTabPane.classList.remove('hidden');
             }
 
             setInitialActiveTab();
 
-            // Tab click event
+            // Track current active tab
+            let currentTab = document.querySelector('.tab-pane:not(.hidden)');
+
+            // Enhanced tab click event
             document.querySelectorAll('.tab-link').forEach(tabLink => {
                 tabLink.addEventListener('click', function(e) {
                     e.preventDefault();
                     const tabId = this.getAttribute('data-tab');
+                    const newTab = document.querySelector(`#${tabId}`);
 
-                    // Hide all tab panes and remove 'active' class from all tab links
-                    document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.add(
-                        'hidden'));
-                    document.querySelectorAll('.tab-link').forEach(link => link.classList.remove(
-                        'border-b-2', 'border-orange-500', 'text-orange-500'));
+                    if (currentTab === newTab) return;
 
-                    // Show the selected tab pane and add 'active' class to the clicked tab link
-                    document.querySelector(`#${tabId}`).classList.remove('hidden');
+                    // Determine animation direction
+                    const currentTabIndex = Array.from(document.querySelectorAll('.tab-pane'))
+                        .indexOf(currentTab);
+                    const newTabIndex = Array.from(document.querySelectorAll('.tab-pane'))
+                        .indexOf(newTab);
+                    const direction = newTabIndex > currentTabIndex ? 'left' : 'right';
+
+                    // Update tab links styling with transition
+                    document.querySelectorAll('.tab-link').forEach(link => {
+                        link.classList.remove('border-b-2', 'border-orange-500', 'text-orange-500');
+                    });
                     this.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+
+                    // Animate tab transition
+                    animateTabTransition(currentTab, newTab, direction);
+                    currentTab = newTab;
 
                     // Save the active tab in localStorage
                     localStorage.setItem('activeTab', tabId);
                 });
             });
+
+            // Add hover effects to tab links
+            document.querySelectorAll('.tab-link').forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('text-orange-500')) {
+                        this.classList.add('text-orange-300');
+                    }
+                });
+
+                link.addEventListener('mouseleave', function() {
+                    this.classList.remove('text-orange-300');
+                });
+            });
+        });
+    </script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Utility function to handle animations
+            function animateTabTransition(oldTab, newTab, direction) {
+                // Starting positions
+                const startPosition = direction === 'left' ? '100%' : '-100%';
+                const currentPosition = '0%';
+                const endPosition = direction === 'left' ? '-100%' : '100%';
+
+                // Setup new tab initial position and opacity
+                newTab.style.transform = `translateX(${startPosition})`;
+                newTab.style.opacity = '0';  // Start with opacity 0
+                newTab.style.transition = 'none';
+                newTab.classList.remove('hidden');
+
+                // Force reflow
+                newTab.offsetHeight;
+
+                // Setup transitions for both transform and opacity
+                oldTab.style.transition = 'transform 0.4s ease-in-out, opacity 0.3s ease-in-out'; // 300ms for opacity
+                newTab.style.transition = 'transform 0.4s ease-in-out, opacity 0.3s ease-in-out'; // 300ms for opacity
+
+                // Animate both tabs (position and opacity)
+                oldTab.style.transform = `translateX(${endPosition})`;
+                oldTab.style.opacity = '0';  // Fade out the old tab
+                newTab.style.transform = `translateX(${currentPosition})`;
+                newTab.style.opacity = '1';  // Fade in the new tab
+
+                // Cleanup after animation
+                setTimeout(() => {
+                    oldTab.classList.add('hidden');
+                    oldTab.style.transform = '';
+                    oldTab.style.opacity = '';
+                    newTab.style.transform = '';
+                    newTab.style.opacity = '';
+                    oldTab.style.transition = '';
+                    newTab.style.transition = '';
+                }, 400); // Wait for the animation to finish
+            }
+
+            // Initial setup for active tab from localStorage
+            function setInitialActiveTab() {
+                const activeTab = localStorage.getItem('activeTab');
+                const defaultTab = 'address-info';
+
+                // Reset all tabs
+                document.querySelectorAll('.tab-link').forEach(link => {
+                    link.classList.remove('border-b-2', 'border-orange-500', 'text-orange-500');
+                    link.classList.add('transition-colors', 'duration-300');
+                });
+
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.add('hidden');
+                    pane.style.position = 'relative';
+                });
+
+                // Activate initial tab
+                const activeTabId = activeTab || defaultTab;
+                const activeTabLink = document.querySelector(`a[data-tab="${activeTabId}"]`);
+                const activeTabPane = document.querySelector(`#${activeTabId}`);
+
+                activeTabLink.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+                activeTabPane.classList.remove('hidden');
+            }
+
+            setInitialActiveTab();
+
+            // Track current active tab
+            let currentTab = document.querySelector('.tab-pane:not(.hidden)');
+
+            // Enhanced tab click event
+            document.querySelectorAll('.tab-link').forEach(tabLink => {
+                tabLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+                    const newTab = document.querySelector(`#${tabId}`);
+
+                    if (currentTab === newTab) return;
+
+                    // Determine animation direction
+                    const currentTabIndex = Array.from(document.querySelectorAll('.tab-pane'))
+                        .indexOf(currentTab);
+                    const newTabIndex = Array.from(document.querySelectorAll('.tab-pane'))
+                        .indexOf(newTab);
+                    const direction = newTabIndex > currentTabIndex ? 'left' : 'right';
+
+                    // Update tab links styling with transition
+                    document.querySelectorAll('.tab-link').forEach(link => {
+                        link.classList.remove('border-b-2', 'border-orange-500', 'text-orange-500');
+                    });
+                    this.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+
+                    // Animate tab transition
+                    animateTabTransition(currentTab, newTab, direction);
+                    currentTab = newTab;
+
+                    // Save the active tab in localStorage
+                    localStorage.setItem('activeTab', tabId);
+                });
+            });
+
+            // Add hover effects to tab links
+            document.querySelectorAll('.tab-link').forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('text-orange-500')) {
+                        this.classList.add('text-orange-300');
+                    }
+                });
+
+                link.addEventListener('mouseleave', function() {
+                    this.classList.remove('text-orange-300');
+                });
+            });
         });
     </script>
+
+
 
 
 
@@ -1316,4 +1506,169 @@
         }
 
         displayCustomerInfo(customerData);
+    </script> --}}
+
+
+
+
+
+
+
+
+
+        {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial setup for active tab from localStorage
+            function setInitialActiveTab() {
+                const activeTab = localStorage.getItem('activeTab');
+                const defaultTab = 'address-info'; // Default tab if no value is found
+
+                // Remove 'active' class from all tab links and hide all tab panes
+                document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('border-b-2',
+                    'border-orange-500', 'text-orange-500'));
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+
+                // Show the active tab or default tab
+                const activeTabId = activeTab || defaultTab;
+                document.querySelector(`a[data-tab="${activeTabId}"]`).classList.add('border-b-2',
+                    'border-orange-500', 'text-orange-500');
+                document.querySelector(`#${activeTabId}`).classList.remove('hidden');
+            }
+
+            setInitialActiveTab();
+
+            // Tab click event
+            document.querySelectorAll('.tab-link').forEach(tabLink => {
+                tabLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+
+                    // Hide all tab panes and remove 'active' class from all tab links
+                    document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.add(
+                        'hidden'));
+                    document.querySelectorAll('.tab-link').forEach(link => link.classList.remove(
+                        'border-b-2', 'border-orange-500', 'text-orange-500'));
+
+                    // Show the selected tab pane and add 'active' class to the clicked tab link
+                    document.querySelector(`#${tabId}`).classList.remove('hidden');
+                    this.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+
+                    // Save the active tab in localStorage
+                    localStorage.setItem('activeTab', tabId);
+                });
+            });
+        });
+    </script> --}}
+
+
+
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Utility function to handle animations
+            function animateTabTransition(oldTab, newTab, direction) {
+                // Starting positions
+                const startPosition = direction === 'left' ? '20%' : '-20%';
+                const currentPosition = '0%';
+                const endPosition = direction === 'left' ? '-20%' : '20%';
+
+                // Setup new tab initial position
+                newTab.style.transform = `translateX(${startPosition})`;
+                newTab.style.transition = 'none';
+                newTab.classList.remove('hidden');
+
+                // Force reflow
+                newTab.offsetHeight;
+
+                // Setup transitions
+                oldTab.style.transition = 'transform 0.4s ease-in-out';
+                newTab.style.transition = 'transform 0.4s ease-in-out';
+
+                // Animate both tabs
+                oldTab.style.transform = `translateX(${endPosition})`;
+                newTab.style.transform = `translateX(${currentPosition})`;
+
+                // Cleanup after animation
+                setTimeout(() => {
+                    oldTab.classList.add('hidden');
+                    oldTab.style.transform = '';
+                    newTab.style.transform = '';
+                    oldTab.style.transition = '';
+                    newTab.style.transition = '';
+                }, 400);
+            }
+
+            // Initial setup for active tab from localStorage
+            function setInitialActiveTab() {
+                const activeTab = localStorage.getItem('activeTab');
+                const defaultTab = 'address-info';
+
+                // Reset all tabs
+                document.querySelectorAll('.tab-link').forEach(link => {
+                    link.classList.remove('border-b-2', 'border-orange-500', 'text-orange-500');
+                    link.classList.add('transition-colors', 'duration-300');
+                });
+
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.add('hidden');
+                    pane.style.position = 'relative';
+                });
+
+                // Activate initial tab
+                const activeTabId = activeTab || defaultTab;
+                const activeTabLink = document.querySelector(`a[data-tab="${activeTabId}"]`);
+                const activeTabPane = document.querySelector(`#${activeTabId}`);
+
+                activeTabLink.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+                activeTabPane.classList.remove('hidden');
+            }
+
+            setInitialActiveTab();
+
+            // Track current active tab
+            let currentTab = document.querySelector('.tab-pane:not(.hidden)');
+
+            // Enhanced tab click event
+            document.querySelectorAll('.tab-link').forEach(tabLink => {
+                tabLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+                    const newTab = document.querySelector(`#${tabId}`);
+
+                    if (currentTab === newTab) return;
+
+                    // Determine animation direction
+                    const currentTabIndex = Array.from(document.querySelectorAll('.tab-pane'))
+                        .indexOf(currentTab);
+                    const newTabIndex = Array.from(document.querySelectorAll('.tab-pane'))
+                        .indexOf(newTab);
+                    const direction = newTabIndex > currentTabIndex ? 'left' : 'right';
+
+                    // Update tab links styling with transition
+                    document.querySelectorAll('.tab-link').forEach(link => {
+                        link.classList.remove('border-b-2', 'border-orange-500', 'text-orange-500');
+                    });
+                    this.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+
+                    // Animate tab transition
+                    animateTabTransition(currentTab, newTab, direction);
+                    currentTab = newTab;
+
+                    // Save the active tab in localStorage
+                    localStorage.setItem('activeTab', tabId);
+                });
+            });
+
+            // Add hover effects to tab links
+            document.querySelectorAll('.tab-link').forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('text-orange-500')) {
+                        this.classList.add('text-orange-300');
+                    }
+                });
+
+                link.addEventListener('mouseleave', function() {
+                    this.classList.remove('text-orange-300');
+                });
+            });
+        });
     </script> --}}

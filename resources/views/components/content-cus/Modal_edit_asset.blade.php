@@ -2,7 +2,7 @@
     <div
         class="relative bg-white rounded-xl w-full max-w-screen-lg max-h-[95vh] overflow-auto scrollbar-hidden my-12 shadow-2xl">
         <!-- Modal Header -->
-        <div class="sticky top-0 bg-white border-b z-10">
+        {{-- <div class="sticky top-0 bg-white border-b z-10">
             <div class="flex items-center justify-between p-6">
                 <div class="flex items-center gap-4">
                     <div class="p-3 bg-orange-100 rounded-xl">
@@ -22,7 +22,30 @@
                     <i class="fas fa-times text-xl text-gray-400 hover:text-gray-600"></i>
                 </button>
             </div>
+        </div> --}}
+
+        <div class="sticky top-0 bg-white border-b z-10 p-2 pl-2 shadow-md">
+            <div class="flex items-center justify-between p-4"> <!-- ลด padding ของ div -->
+                <div class="flex items-center gap-2"> <!-- ลด gap -->
+                    <div class="p-2 bg-orange-100 rounded-xl"> <!-- ลด padding ภายใน -->
+                        <img src="{{ asset('img/minicar.gif') }}" alt="minicar icon"
+                            class="w-10 h-10 object-cover rounded-lg"> <!-- ลดขนาดภาพ -->
+                    </div>
+                    <div>
+                        <h5
+                            class="text-lg font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent"> <!-- ลดขนาดตัวอักษร -->
+                            แก้ไขข้อมูลสินทรัพย์ลูกค้า
+                        </h5>
+                        <p class="text-gray-500 text-xs mt-1">Edit Customers Assets</p> <!-- ลดขนาดตัวอักษร -->
+                        <div class="h-1 w-24 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-0"></div> <!-- ลดความยาวของเส้น -->
+                    </div>
+                </div>
+                <button onclick="closeModal_Edit_asset()" class="p-1 hover:bg-gray-100 rounded-lg transition-colors"> <!-- ลด padding -->
+                    <i class="fas fa-times text-lg text-gray-400 hover:text-gray-600"></i> <!-- ลดขนาดของไอคอน -->
+                </button>
+            </div>
         </div>
+
 
         <!-- Modal Body -->
         <form action="editAssetForm" onsubmit="return false;" class="divide-y">
@@ -434,7 +457,7 @@
 
         // Ajax สำหรับการเช็คค่า Ratetype_id_PLT--------------------------------------------------------------------
 
-        function loadRatetypeOptionsPLT(ratetypeId, currentVehicleType) {
+        function loadRatetypeOptionsPLT(ratetypeIdPLT, currentVehicleTypePLT) {
             const selectElement = $('#Name_Vehicle');
             selectElement.empty(); // ล้างตัวเลือกก่อน
 
@@ -445,7 +468,7 @@
                 url: '/api/vehicle-names', // API ที่ใช้ในการดึงข้อมูลตัวเลือก
                 method: 'GET',
                 data: {
-                    ratetype_id: ratetypeId
+                    ratetype_id: ratetypeIdPLT
                 }, // ส่ง Ratetype_id เพื่อกรองตัวเลือก
                 dataType: 'json',
                 success: function(data) {
@@ -455,7 +478,7 @@
                             .text(option.Name_Vehicle);
 
                         // ตรวจสอบหากตัวเลือกนี้ตรงกับค่าปัจจุบันที่ดึงมา
-                        if (option.Name_Vehicle === currentVehicleType) {
+                        if (option.Name_Vehicle === currentVehicleTypePLT) {
                             opt.prop('selected', true); // ตั้งค่าเป็น selected
                         }
 
@@ -470,8 +493,8 @@
 
         // โหลดตัวเลือกเมื่อมีการเปลี่ยนค่า Ratetype_id
         $('#Ratetype_id').change(function() {
-            const selectedType = $(this).val();
-            loadRatetypeOptionsPLT(selectedType);
+            const selectedTypePLT = $(this).val();
+            loadRatetypeOptionsPLT(selectedTypePLT);
         });
 
 
