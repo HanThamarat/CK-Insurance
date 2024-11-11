@@ -758,7 +758,9 @@
                 $('#edit_Vehicle_Chassis').val(data.Vehicle_Chassis);
                 $('#edit_Vehicle_Engine').val(data.Vehicle_Engine);
                 $('#edit_Vehicle_Color').val(data.Vehicle_Color);
+
                 // $('#edit_Vehicle_Brand').val(data.Vehicle_Brand);
+
                 if (data.Type_Asset === 'รถยนต์') {
                     $('#edit_Vehicle_Brand').val(data.car_brand ? data.car_brand.Brand_car : '-');
                 } else if (data.Type_Asset === 'มอเตอร์ไซค์') {
@@ -766,6 +768,7 @@
                 } else {
                     $('#edit_Vehicle_Brand').val('-');
                 }
+
                 $('#edit_Vehicle_Group').val(data.Vehicle_Group);
                 // $('#edit_Vehicle_Models').val(data.Vehicle_Models);
                 $('#edit_Vehicle_Years').val(data.Vehicle_Years);
@@ -782,7 +785,7 @@
                 }
 
                 loadRatetypeOptions(vehicleType, data.Vehicle_Type);
-                loadRatetypeOptionsPLT(data.Ratetype_id, data.Vehicle_Type_PLT);
+                loadRatetypeOptionsPLT(vehicleType, data.Vehicle_Type_PLT);
 
 
 

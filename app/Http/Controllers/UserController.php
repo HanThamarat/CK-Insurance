@@ -10,7 +10,6 @@ class UserController extends Controller
 {
     // // ฟังก์ชันสำหรับแสดงข้อมูลผู้ใช้
 
-
     public function index(Request $request)
     {
         // รับจำนวน rows per page จาก request หรือใช้ค่าเริ่มต้นเป็น 10
@@ -19,7 +18,28 @@ class UserController extends Controller
         // ดึงข้อมูลผู้ใช้ทั้งหมดพร้อม pagination
         $users = User::paginate($rowsPerPage);
 
+        // ตรวจสอบหาก request ต้องการ JSON
+        if ($request->wantsJson()) {
+            return response()->json($users);
+        }
+
+        // หากไม่ใช่ JSON, ส่งกลับเป็น view
         return view('UserManagement.index', compact('users'));
+    }
+
+
+
+    public function getUsers(Request $request)
+    {
+        $rowsPerPage = $request->input('rowsPerPage', 10);
+        $search = $request->input('search', '');
+
+        $users = User::where('name', 'like', '%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%')
+                    ->orWhere('username', 'like', '%'.$search.'%')
+                    ->paginate($rowsPerPage);
+
+        return response()->json($users);
     }
 
 
@@ -58,50 +78,6 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    // ฟังก์ชันสำหรับอัปเดตข้อมูลผู้ใช้
-    // public function update(Request $request, $id)
-    // {
-    //     // ตรวจสอบความถูกต้องของข้อมูล
-    //     $validator = Validator::make($request->all(), [
-    //         'name' => 'required|string|max:255',
-    //         'username' => 'required|string|max:255|unique:users,username,' . $id,
-    //         'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-    //         'phone' => 'required|string|max:15',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()]);
-    //     }
-
-    //     // อัปเดตข้อมูลผู้ใช้
-    //     $user = User::find($id);
-    //     $user->update($request->all());
-
-    //     return response()->json(['success' => 'User updated successfully.']);
-    // }
-
-
-    // public function update(Request $request, $id)
-    // {
-    //     // ตรวจสอบความถูกต้องของข้อมูล
-    //     $validator = Validator::make($request->all(), [
-    //         'name' => 'required|string|max:255',
-    //         'username' => 'required|string|max:255|unique:users,username,' . $id,
-    //         'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-    //         'phone' => 'required|string|max:15',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()]);
-    //     }
-
-    //     // อัปเดตข้อมูลผู้ใช้
-    //     $user = User::find($id);
-    //     $user->update($request->all());
-
-    //     return response()->json(['success' => 'User updated successfully.']);
-    // }
-
 
     // ฟังก์ชันสำหรับลบผู้ใช้
     public function destroy($id)
@@ -125,6 +101,211 @@ class UserController extends Controller
 
 
 
+
+    // public function getUsers(Request $request)
+    // {
+    //     $rowsPerPage = $request->input('rowsPerPage', 10);
+    //     $users = User::paginate($rowsPerPage);
+
+    //     return response()->json($users);
+    // }
+
+    // Controller method
+
+
+    // public function index(Request $request)
+    // {
+    //     // รับจำนวน rows per page จาก request หรือใช้ค่าเริ่มต้นเป็น 10
+    //     $rowsPerPage = $request->input('rowsPerPage', 10);
+
+    //     // ดึงข้อมูลผู้ใช้ทั้งหมดพร้อม pagination
+    //     $users = User::paginate($rowsPerPage);
+
+    //     // ตรวจสอบหาก request ต้องการ JSON
+    //     if ($request->wantsJson()) {
+    //         return response()->json($users);
+    //     }
+
+    //     // หากไม่ใช่ JSON, ส่งกลับเป็น view
+    //     return view('UserManagement.index', compact('users'));
+    // }
+
+
+
+        // ฟังก์ชันสำหรับอัปเดตข้อมูลผู้ใช้
+    // public function update(Request $request, $id)
+    // {
+    //     // ตรวจสอบความถูกต้องของข้อมูล
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|string|max:255',
+    //         'username' => 'required|string|max:255|unique:users,username,' . $id,
+    //         'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+    //         'phone' => 'required|string|max:15',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()]);
+    //     }
+
+    //     // อัปเดตข้อมูลผู้ใช้
+    //     $user = User::find($id);
+    //     $user->update($request->all());
+
+    //     return response()->json(['success' => 'User updated successfully.']);
+    // }
+
+
+    // public function update(Request $request, $id)
+    // {
+    //     // ตรวจสอบความถูกต้องของข้อมูล
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|string|max:255',
+    //         'username' => 'required|string|max:255|unique:users,username,' . $id,
+    //         'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+    //         'phone' => 'required|string|max:15',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()]);
+    //     }
+
+    //     // อัปเดตข้อมูลผู้ใช้
+    //     $user = User::find($id);
+    //     $user->update($request->all());
+
+    //     return response()->json(['success' => 'User updated successfully.']);
+    // }
+
+    // public function getUsers(Request $request)
+    // {
+    //     $rowsPerPage = $request->input('rowsPerPage', 10);
+    //     $users = User::paginate($rowsPerPage);
+
+    //     return response()->json($users);
+    // }
+
+
+    // public function getUsers(Request $request)
+    // {
+    //     try {
+    //         // ดึงค่าพารามิเตอร์จาก request
+    //         $rowsPerPage = $request->input('rowsPerPage', 10);
+    //         $search = $request->input('search', '');
+    //         $sortBy = $request->input('sortBy', 'id');
+    //         $sortDir = $request->input('sortDir', 'asc');
+
+    //         // สร้าง query
+    //         $query = User::query();
+
+    //         // เพิ่มเงื่อนไขการค้นหา
+    //         if ($search) {
+    //             $query->where(function ($q) use ($search) {
+    //                 $q->where('name', 'LIKE', "%{$search}%")
+    //                     ->orWhere('username', 'LIKE', "%{$search}%")
+    //                     ->orWhere('email', 'LIKE', "%{$search}%")
+    //                     ->orWhere('phone', 'LIKE', "%{$search}%");
+    //             });
+    //         }
+
+    //         // จัดเรียงข้อมูล
+    //         $query->orderBy($sortBy, $sortDir);
+
+    //         // ทำ Pagination
+    //         $users = $query->paginate($rowsPerPage);
+
+    //         // เพิ่มข้อมูลเพิ่มเติมสำหรับ response
+    //         $response = [
+    //             'status' => 'success',
+    //             'data' => $users->items(),
+    //             'pagination' => [
+    //                 'current_page' => $users->currentPage(),
+    //                 'last_page' => $users->lastPage(),
+    //                 'per_page' => $users->perPage(),
+    //                 'total' => $users->total()
+    //             ]
+    //         ];
+
+    //         return response()->json($response);
+
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'เกิดข้อผิดพลาดในการดึงข้อมูล',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
+    // /**
+    //  * Update user status
+    //  *
+    //  * @param Request $request
+    //  * @param int $id
+    //  * @return \Illuminate\Http\JsonResponse
+    //  */
+    // public function updateStatus(Request $request, $id)
+    // {
+    //     try {
+    //         $user = User::findOrFail($id);
+    //         $user->status = $request->input('status');
+    //         $user->save();
+
+    //         return response()->json([
+    //             'status' => 'success',
+    //             'message' => 'อัพเดทสถานะเรียบร้อยแล้ว',
+    //             'data' => $user
+    //         ]);
+
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'เกิดข้อผิดพลาดในการอัพเดทสถานะ',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
+    // /**
+    //  * Delete user
+    //  *
+    //  * @param int $id
+    //  * @return \Illuminate\Http\JsonResponse
+    //  */
+    // public function deleteUser($id)
+    // {
+    //     try {
+    //         $user = User::findOrFail($id);
+    //         $user->delete();
+
+    //         return response()->json([
+    //             'status' => 'success',
+    //             'message' => 'ลบข้อมูลผู้ใช้เรียบร้อยแล้ว'
+    //         ]);
+
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'เกิดข้อผิดพลาดในการลบข้อมูล',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
+
+
+
+
+
+    // public function index(Request $request)
+    // {
+    //     // รับจำนวน rows per page จาก request หรือใช้ค่าเริ่มต้นเป็น 10
+    //     $rowsPerPage = $request->input('rowsPerPage', 10);
+
+    //     // ดึงข้อมูลผู้ใช้ทั้งหมดพร้อม pagination
+    //     $users = User::paginate($rowsPerPage);
+
+    //     return view('UserManagement.index', compact('users'));
+    // }
 
 
 
@@ -169,7 +350,7 @@ class UserController extends Controller
     //     ]);
     // }
 
-        // public function index()
+    // public function index()
     // {
     //     $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมด
     //     return view('UserManagement.index', compact('users')); // ส่งข้อมูลไปยัง view

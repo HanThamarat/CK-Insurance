@@ -1,232 +1,289 @@
 @extends('layouts.app')
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @section('content')
-    <div class="container mx-auto p-4 mt-[-10]">
-        <div class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
-            <div id="modalHeader" class="bg-white sticky top-0 z-10 p-5 w-full transition-shadow duration-300">
-                <h2 class="text-lg font-bold mb-3 flex justify-between items-center">
-                    ข้อมูลผู้ใช้งานระบบ
-                </h2>
-                <div class="flex items-center mb-0">
-                    <div class="flex-shrink-0 mr-4">
-                        <img src="{{ asset('img/icon_cus.gif') }}" alt="report" class="w-12 h-12">
-                    </div>
-                    <div class="flex-grow">
-                        <h5 class="text-primary font-semibold">ข้อมูลผู้ใช้งานระบบ</h5>
-                        <p class="text-gray-500 -mt-1 font-semibold text-xs">( Data Users informations )</p>
-                        <p class="border-b border-primary mt-2"></p>
+    <div class="min-h-screen bg-orange-50 mt-[-12]">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Header Card -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+                <div class="bg-gradient-to-r from-orange-100 to-orange-50 p-6">
+                    <div class="flex items-center justify-between space-x-6">
+                        <div class="flex-shrink-0">
+                            <img src="{{ asset('img/icon_cus.gif') }}" alt="report"
+                                class="w-16 h-16 p-1 bg-white rounded-lg shadow-sm">
+                        </div>
+                        <div class="flex-grow">
+                            <h2 class="text-base font-bold text-orange-800">ข้อมูลผู้ใช้งานระบบ</h2>
+                            <p class="text-orange-600 font-medium">Data Users Information</p>
+                        </div>
+                        <!-- New Button for Adding User -->
+                        <div>
+                            <button
+                                class="px-3 py-1.5 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 transform transition-all duration-200 hover:scale-105 hover:shadow-lg flex items-center space-x-2">
+                                <i class="fas fa-user-plus"></i> <!-- Font Awesome Icon -->
+                                <span>เพิ่มบัญชีผู้ใช้งานระบบ</span>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Dropdown สำหรับเลือกจำนวนข้อมูลต่อหน้า -->
-            <div class="mb-4">
-                <label for="rowsPerPage" class="block mb-2" id="row_per_page">Rows per page:</label>
-                <select id="rowsPerPage"
-                    class="border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 rounded-md shadow-sm"
-                    onchange="fetchUsers()">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
+            <!-- Main Content Card -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <!-- Controls Section -->
+                <div class="p-6 border-b border-orange-100">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <label for="rowsPerPage" class="text-orange-700 font-medium">แสดงผล :</label>
+                            <select id="rowsPerPage"
+                                class="border-orange-200 text-orange-700 rounded-lg focus:ring-orange-400 focus:border-orange-400 transition-colors duration-200"
+                                onchange="fetchUsersDataOnSystem()">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="flex-1 max-w-sm ml-4">
+                            <input type="search" id="searchInput" placeholder="ค้นหาข้อมูลผู้ใช้งานระบบ..."
+                                class="w-full border-orange-200 rounded-lg focus:ring-orange-400 focus:border-orange-400 transition-colors duration-200">
+                        </div>
+                    </div>
+                </div>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 text-sm" id="customersTable">
-                    <thead class="bg-gray-100 sticky top-0 text-center">
-                        <tr>
-                            <th scope="col" class="px-4 py-2 w-1/6">ID</th>
-                            <th scope="col" class="px-4 py-2 w-1/6">ชื่อ - สกุล</th>
-                            <th scope="col" class="px-4 py-2 w-1/6">ชื่อผู้ใช้</th>
-                            <th scope="col" class="px-4 py-2 w-1/6">อีเมล</th>
-                            <th scope="col" class="px-4 py-2 w-1/6">หมายเลขโทรศัพท์</th>
-                            <th scope="col" class="px-4 py-2 w-1/6">สถานะ</th>
-                            <th scope="col" class="px-4 py-2 w-1/6">Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="usersTableBody">
-                        @foreach ($users as $user)
-                            <tr class="text-center">
-                                <td class="px-4 py-2">{{ $user->id }}</td>
-                                <td class="px-4 py-2">{{ $user->name }}</td>
-                                <td class="px-4 py-2">{{ $user->username }}</td>
-                                <td class="px-4 py-2">{{ $user->email }}</td>
-                                <td class="px-4 py-2">{{ $user->phone }}</td>
-                                <td class="px-4 py-2">{{ $user->status ? 'Active' : 'Inactive' }}</td>
-                                <td class="px-4 py-2">
-                                    <div class="button-container">
-                                        <button class="edit-button">
-                                            <svg class="edit-svgIcon" viewBox="0 0 512 512">
-                                                <path
-                                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                        <button class="delete-button">
-                                            <svg class="delete-svgIcon" viewBox="0 0 448 512">
-                                                <path
-                                                    d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                </td>
-
+                <!-- Table Section -->
+                <div class="overflow-x-auto">
+                    <table class="w-full divide-y divide-orange-100">
+                        <thead class="bg-orange-50">
+                            <tr>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">ID</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">ชื่อ - สกุล</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">ชื่อผู้ใช้</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">อีเมล</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">หมายเลขโทรศัพท์</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">สถานะ</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">Action</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="usersTableBody" class="divide-y divide-orange-100">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
 
-                <div id="pagination" class="mt-4">
-                    {{ $users->links() }} <!-- แสดง pagination -->
+                <!-- Pagination Section -->
+                <div id="pagination" class="flex justify-center items-center py-4 space-x-4">
+                    <button id="prevPage"
+                        class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 disabled:opacity-50"
+                        onclick="changePage(-1)" disabled>
+                        < Prev </button>
+                            <span class="text-sm text-orange-700">
+                                หน้า <span id="currentPage">1</span> จาก <span id="totalPages">10</span>
+                            </span>
+                            <button id="nextPage"
+                                class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
+                                onclick="changePage(1)">Next >
+                            </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <br>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUsersDataOnSystem(); // ดึงข้อมูลผู้ใช้เมื่อโหลดหน้าเว็บ
+            // ฟังการเปลี่ยนแปลงในช่องค้นหาผู้ใช้
+            document.getElementById('searchInput').addEventListener('input', searchUsers);
+        });
 
+        async function fetchUsersDataOnSystem(page = 1, query = '') {
+            const rowsPerPage = document.getElementById('rowsPerPage').value;
 
+            // เรียก API เพื่อดึงข้อมูลผู้ใช้โดยมีการส่งคำค้นหาตาม query
+            const response = await fetch(
+                `/api/users?rowsPerPage=${rowsPerPage}&page=${page}&search=${encodeURIComponent(query)}`);
+            const data = await response.json();
 
+            // ปรับปรุงตารางข้อมูลผู้ใช้
+            const tableBody = document.getElementById('usersTableBody');
+            tableBody.innerHTML = ''; // ล้างข้อมูลเก่าออก
+
+            // แสดงข้อมูลในตาราง
+            data.data.forEach(user => {
+                const row = document.createElement('tr');
+                row.classList.add('hover:bg-orange-50', 'transition-colors', 'duration-150');
+                row.innerHTML = `
+            <td class="px-6 py-4 text-sm text-gray-700">${user.id || 'ไม่พบข้อมูล'}</td>
+            <td class="px-6 py-4 text-sm text-gray-700">${user.name || 'ไม่พบข้อมูล'}</td>
+            <td class="px-6 py-4 text-sm text-gray-700">${user.username || 'ไม่พบข้อมูล'}</td>
+            <td class="px-6 py-4 text-sm text-gray-700">${user.email || 'ไม่พบข้อมูล'}</td>
+            <td class="px-6 py-4 text-sm text-gray-700">${user.phone || 'ไม่พบข้อมูล'}</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-3 py-1 rounded-full text-xs font-medium ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                    ${user.status ? 'Active' : 'Inactive'}
+                </span>
+            </td>
+            <td class="px-6 py-4 text-right space-x-2">
+                <!-- ปุ่มแก้ไข -->
+                <button class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 3l4 4-10 10H7v-4L17 3z"></path>
+                    </svg>
+                    แก้ไข
+                </button>
+
+                <!-- ปุ่มลบ -->
+                <button class="inline-flex items-center px-3 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    ลบ
+                </button>
+            </td>
+        `;
+                tableBody.appendChild(row);
+            });
+
+            // ปรับปรุงการแสดงผลของ pagination
+            renderPagination(data);
+        }
+
+        function renderPagination(data) {
+            const currentPage = data.current_page;
+            const totalPages = data.last_page;
+
+            // ปรับปรุงข้อมูลหน้า
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+
+            // เปิด/ปิดปุ่ม Prev/Next
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages;
+        }
+
+        // ฟังก์ชันเปลี่ยนหน้า
+        function changePage(direction) {
+            const currentPage = parseInt(document.getElementById('currentPage').textContent);
+            const newPage = currentPage + direction;
+
+            fetchUsersDataOnSystem(newPage);
+        }
+
+        // ฟังก์ชันค้นหาผู้ใช้
+        function searchUsers() {
+            const query = document.getElementById('searchInput').value;
+            fetchUsersDataOnSystem(1, query); // ค้นหาผู้ใช้โดยเริ่มจากหน้าแรก
+        }
+    </script>
 
 
 
     <style>
-        .button-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .edit-button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgb(20, 20, 20);
-            border: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-            cursor: pointer;
-            transition-duration: 0.3s;
-            overflow: hidden;
-            position: relative;
-            text-decoration: none !important;
-        }
-
-        .edit-svgIcon {
-            width: 17px;
-            transition-duration: 0.3s;
-        }
-
-        .edit-svgIcon path {
-            fill: white;
-        }
-
-        .edit-button:hover {
-            width: 70px;
-            border-radius: 50px;
-            transition-duration: 0.3s;
-            background-color: rgb(255, 69, 69);
-            align-items: center;
-        }
-
-        .edit-button:hover .edit-svgIcon {
-            width: 20px;
-            transition-duration: 0.3s;
-            transform: translateY(60%);
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-
-        .edit-button::before {
-            display: none;
-            content: "Edit";
-            color: white;
-            transition-duration: 0.3s;
-            font-size: 2px;
-        }
-
-        .edit-button:hover::before {
-            display: block;
-            padding-right: 10px;
-            font-size: 13px;
-            opacity: 1;
-            transform: translateY(0px);
-            transition-duration: 0.3s;
-        }
-
-
-        /* From Uiverse.io by aaronross1 */
-        .delete-button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgb(20, 20, 20);
-            border: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-            cursor: pointer;
-            transition-duration: 0.3s;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .delete-svgIcon {
-            width: 15px;
-            transition-duration: 0.3s;
-        }
-
-        .delete-svgIcon path {
-            fill: white;
-        }
-
-        .delete-button:hover {
-            width: 90px;
-            border-radius: 50px;
-            transition-duration: 0.3s;
-            background-color: rgb(255, 69, 69);
-            align-items: center;
-        }
-
-        .delete-button:hover .delete-svgIcon {
-            width: 20px;
-            transition-duration: 0.3s;
-            transform: translateY(60%);
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-
-        .delete-button::before {
-            display: none;
-            content: "Delete";
-            color: white;
-            transition-duration: 0.3s;
-            font-size: 2px;
-        }
-
-        .delete-button:hover::before {
-            display: block;
-            padding-right: 10px;
-            font-size: 13px;
-            opacity: 1;
-            transform: translateY(0px);
-            transition-duration: 0.3s;
+        body {
+            background-image: url('{{ asset('images/home.jpg') }}');
+            background-size: cover;
+            /* ขยายภาพให้ครอบคลุมพื้นที่ */
+            background-position: center;
+            /* จัดตำแหน่งภาพที่ตรงกลาง */
+            background-repeat: no-repeat;
+            /* ไม่ทำซ้ำภาพ */
+            background-blend-mode: overlay;
+            /* ผสมสีพื้นหลังกับภาพพื้นหลัง */
         }
     </style>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+{{-- <script>
+        // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้จาก API
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUsersDataOnSystem();
+        });
+
+
+        async function fetchUsersDataOnSystem(page = 1) {
+            const rowsPerPage = document.getElementById('rowsPerPage').value;
+
+            // เรียก API เพื่อดึงข้อมูลผู้ใช้
+            const response = await fetch(`/api/users?rowsPerPage=${rowsPerPage}&page=${page}`);
+            const data = await response.json();
+
+            // ปรับปรุงตารางข้อมูลผู้ใช้
+            const tableBody = document.getElementById('usersTableBody');
+            tableBody.innerHTML = '';
+
+            // แสดงข้อมูลในตาราง
+            data.data.forEach(user => {
+                const row = document.createElement('tr');
+                row.classList.add('hover:bg-orange-50', 'transition-colors', 'duration-150');
+                row.innerHTML = `
+                <td class="px-6 py-4 text-sm text-gray-700">${user.id || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${user.name || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${user.username || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${user.email || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${user.phone || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
+                <td class="px-6 py-4 text-sm">
+                    <span class="px-3 py-1 rounded-full text-xs font-medium ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                        ${user.status ? 'Active' : 'Inactive'}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-right space-x-2">
+                    <!-- ปุ่มแก้ไข -->
+                    <button class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 3l4 4-10 10H7v-4L17 3z"></path>
+                        </svg>
+                        แก้ไข
+                    </button>
+
+                    <!-- ปุ่มลบ -->
+                    <button class="inline-flex items-center px-3 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        ลบ
+                    </button>
+                </td>
+
+            `;
+                tableBody.appendChild(row);
+            });
+
+            // ปรับปรุงการแสดงผลของ pagination
+            renderPagination(data);
+        }
+
+        function renderPagination(data) {
+            const currentPage = data.current_page;
+            const totalPages = data.last_page;
+
+            // ปรับปรุงข้อมูลหน้า
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+
+            // เปิด/ปิดปุ่ม Prev/Next
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages;
+        }
+
+        // ฟังก์ชันเปลี่ยนหน้า
+        function changePage(direction) {
+            const currentPage = parseInt(document.getElementById('currentPage').textContent);
+            const newPage = currentPage + direction;
+
+            fetchUsersDataOnSystem(newPage);
+        }
+    </script> --}}

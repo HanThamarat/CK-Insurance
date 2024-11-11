@@ -62,21 +62,17 @@
                     <div class="block px-4 py-2 text-xs text-gray-400">
                         {{ __('Manage Account') }}
                     </div>
-
-                    {{-- <x-dropdown-link href="{{ route('profile.show') }}">
-                        {{ __('Profile') }}
-                    </x-dropdown-link> --}}
                     <x-dropdown-link href="{{ route('profile.show') }}">
                         <img src="{{ asset('img/icon_cus.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
-                        {{ __('Profile') }}
+                        {{ __('โปรไฟล์') }}
                     </x-dropdown-link>
 
                     <div class="border-t border-gray-200"></div>
 
-                    {{-- <x-dropdown-link href="{{ route('users.index') }}">
-                        <img src="{{ asset('img/User.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
-                        {{ __('Add User') }}
-                    </x-dropdown-link> --}}
+                    <x-dropdown-link href="{{ route('users.index') }}">
+                        <img src="{{ asset('gif/cus.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
+                        {{ __('จัดการข้อมูลผู้ใช้') }}
+                    </x-dropdown-link>
 
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -93,7 +89,7 @@
 
                         <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
                             <img src="{{ asset('img/logout.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
-                            {{ __('Log Out') }}
+                            {{ __('ออกจากระบบ') }}
                         </x-dropdown-link>
                     </form>
                 </x-slot>
@@ -107,5 +103,17 @@
 {{-- @include('data_customers.customer') --}}
 
 @include('data_customers.index')
+
+
+
+
+{{-- <x-dropdown-link href="{{ route('users.index') }}">
+    <img src="{{ asset('img/User.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
+    {{ __('Add User') }}
+</x-dropdown-link> --}}
+
+                    {{-- <x-dropdown-link href="{{ route('profile.show') }}">
+    {{ __('Profile') }}
+</x-dropdown-link> --}}
 
 

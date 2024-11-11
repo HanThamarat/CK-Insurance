@@ -57,31 +57,31 @@
                         <div class="space-y-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทสินทรัพย์ :</strong>
-                                <span id="show_Type_Asset" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Type_Asset" class="px-4 sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ทะเบียนเดิม :</strong>
-                                <span id="show_OldLicense" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_OldLicense" class="px-4 sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ทะเบียนใหม่ :</strong>
-                                <span id="show_NewLicense" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_NewLicense" class="px-4 sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">เลขถัง :</strong>
-                                <span id="show_Vehicle_Chassis" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Chassis" class="px-4 sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">เลขเครื่อง :</strong>
-                                <span id="show_Vehicle_Engine" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Engine" class="px-4 sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">สีรถ :</strong>
-                                <span id="show_Vehicle_Color" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Color" class="px-4 sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">เลขตัวรถใหม่ :</strong>
-                                <span id="show_Vehicle_New_Number" class="sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_New_Number" class="px-4 sm:ml-2 bg-orange-100 border p-1 rounded-full mt-[-2] hover:bg-orange-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                         </div>
                     </div>
@@ -93,35 +93,35 @@
                         <div class="space-y-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทรถ 1 :</strong>
-                                <span id="show_Vehicle_Type" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Type" class="px-4 sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทรถ 2 :</strong>
-                                <span id="show_Vehicle_Type_PLT" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Type_PLT" class="px-4 sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ยี่ห้อรถ :</strong>
-                                <span id="show_Vehicle_Brand" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Brand" class="px-4 sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">กลุ่มรถ :</strong>
-                                <span id="show_Vehicle_Group" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Group" class="px-4 sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">รุ่นรถ :</strong>
-                                <span id="show_Vehicle_Models" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Models" class="px-4 sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ปีรถ :</strong>
-                                <span id="show_Vehicle_Years" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Years" class="px-4 sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ความจุเครื่องยนต์ :</strong>
-                                <span class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"><span id="show_Vehicle_CC"></span> CC</span>
+                                <span class="px-4 sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"><span id="show_Vehicle_CC"></span> CC</span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">ประเภทเกียร์ :</strong>
-                                <span id="show_Vehicle_Gear" class="sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Vehicle_Gear" class="px-4 sm:ml-2 bg-blue-100 border p-1 rounded-full mt-[-2] hover:bg-blue-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                         </div>
                     </div>
@@ -138,47 +138,47 @@
                             <strong class="min-w-[100px] inline-block">
                                 <i class="fa-solid fa-calendar-days text-green-300"></i> ประกัน :
                             </strong>
-                            <span id="show_Choose_Insurance_Cal" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                            <span id="show_Choose_Insurance_Cal" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                         </p>
                         <div class="space-y-4 ml-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">วันที่ต่อประกัน :</strong>
-                                <span id="show_Insurance_renewal_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Insurance_renewal_date" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                <span id="show_Insurance_end_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Insurance_end_date" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                         </div>
                         <hr>
                         <p class="flex flex-col sm:flex-row sm:justify-between">
                             <strong class="min-w-[100px] inline-block"><i class="fa-solid fa-calendar-days text-green-300"></i> พ.ร.บ. :</strong>
-                            <span id="show_Choose_Act_Cal" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                            <span id="show_Choose_Act_Cal" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                         </p>
                         <div class="space-y-4 ml-4">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">วันที่ต่อ พ.ร.บ. :</strong>
-                                <span id="show_act_renewal_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_act_renewal_date" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                <span id="show_act_end_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_act_end_date" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                         </div>
                         <hr>
                         <div class="space-y-4 mt-5">
                             <p class="flex flex-col sm:flex-row sm:justify-between">
                                 <strong class="min-w-[100px] inline-block"><i class="fa-solid fa-calendar-days text-green-300"></i> ทะเบียน :</strong>
-                                <span id="show_Choose_Register_Cal" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                                <span id="show_Choose_Register_Cal" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                             </p>
                             <div class="space-y-4 ml-4">
                                 <p class="flex flex-col sm:flex-row sm:justify-between">
                                     <strong class="min-w-[100px] inline-block">วันที่ต่อทะเบียน :</strong>
-                                    <span id="show_register_renewal_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                                    <span id="show_register_renewal_date" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                                 </p>
                                 <p class="flex flex-col sm:flex-row sm:justify-between">
                                     <strong class="min-w-[100px] inline-block">วันที่หมดอายุ :</strong>
-                                    <span id="show_register_end_date" class="sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
+                                    <span id="show_register_end_date" class="px-4 sm:ml-2 bg-green-100 border p-1 rounded-full mt-[-2] hover:bg-green-200 hover:scale-105 transform transition-all duration-200"></span>
                                 </p>
                             </div>
                         </div>

@@ -123,64 +123,6 @@
                         </div>
 
                         <h2 class="text-center mt-3 font-semibold dark:text-gray-300">ข้อมูลของผู้ใช้งานระบบ</h2>
-                        {{-- <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                            <div class="w-full mb-4 mt-6">
-                                <label for="name"
-                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชื่อ
-                                    - นามสกุล</label>
-                                <p id="name"
-                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    {{ old('name', $user->name) }}
-                                </p>
-                            </div>
-
-                            <div class="w-full mb-4 mt-6">
-                                <label for="email"
-                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">อีเมล</label>
-                                <p id="email"
-                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    {{ old('email', $user->email) }}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                            <div class="w-full mb-0 mt-0">
-                                <label for="username"
-                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Username</label>
-                                <p id="username"
-                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    {{ old('username', $user->username) }}
-                                </p>
-                            </div>
-                            <div class="w-full mb-0 mt-0">
-                                <label for="password_token"
-                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">รหัสผ่าน</label>
-                                <p id="password_token"
-                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    {{ old('password_token', $user->password_token) }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                            <div class="w-full mb-4 mt-6">
-                                <label for="zone"
-                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">พื้นที่</label>
-                                <p id="zone"
-                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    {{ old('zone', $zone->Zone_Name ?? 'ไม่ระบุ') }}
-                                </p>
-                            </div>
-                            <div class="w-full mb-4 mt-6">
-                                <label for="branch"
-                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">สาขา</label>
-                                <p id="branch"
-                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    {{ old('branch', $branch->Name_Branch ?? 'ไม่ระบุ') }}
-                                </p>
-                            </div>
-                        </div> --}}
-
                         <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                             <div class="w-full mb-4 mt-6">
                                 <label for="name" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชื่อ - นามสกุล</label>
@@ -238,9 +180,6 @@
                                 </p>
                             </div>
                         </div>
-
-
-
 
 
                         <div class="flex justify-end mt-3">

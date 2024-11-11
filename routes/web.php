@@ -125,9 +125,7 @@ Route::get('/api/model-car-options', [DataAssetController::class, 'getModelOptio
 // DATA ASSET FETCH (ดึงข้อมูลรถตามลำดับสำหรับแก้ไขข้อมูล)
 Route::get('/getDataAsset', [DataAssetController::class, 'getDataAsset']);
 Route::get('/vehicle-types', [DataAssetController::class, 'getVehicleTypes']);
-// Route::get('/get-edit-ratetype-options', [DataAssetController::class, 'getEditRatetypeOptions']);
-// Route::get('/get-edit-vehicle-names', [DataAssetController::class, 'getEditVehicleNames']);
-// Route::get('/get-edit-brand-options', [DataAssetController::class, 'getEditBrandOptions']);
+
 
 
 // DATA ASSET อัปเดท
@@ -143,6 +141,9 @@ Route::post('/delete-asset', [DataAssetController::class, 'deleteAsset']);
 
 
 
+
+Route::resource('users', UserController::class);
+Route::get('/api/users', [UserController::class, 'getUsers']);
 
 
 
