@@ -587,32 +587,44 @@ class DataAssetController extends Controller
 
 
 
+
+        public function getVehicleTypes()
+        {
+            // ดึงค่า Vehicle_Type_PLT ที่ไม่ซ้ำกันทั้งหมดจาก AssetManage
+            $vehicleTypes = AssetManage::select('Vehicle_Type_PLT')
+                            ->whereNotNull('Vehicle_Type_PLT')
+                            ->distinct()
+                            ->pluck('Vehicle_Type_PLT')
+                            ->toArray();
+
+            return response()->json($vehicleTypes);
+        }
+
+        // แก้ไข getAssetData เพื่อให้ส่งค่า Vehicle_Type_PLT
         public function getAssetData(Request $request)
         {
             $assetId = $request->input('id');
-            $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($assetId); // ใช้ $assetId แทน $id
+            $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($assetId);
 
-            // ตรวจสอบว่าพบ asset หรือไม่
             if (!$asset) {
                 return response()->json(['message' => 'Asset not found']);
             }
 
-            // สร้าง response ที่มีการปรับแต่งข้อมูล
             $response = $asset->toArray();
 
-            // เช็ค Type_asset และแทนที่ยี่ห้อตามประเภท
             if ($asset->Type_asset === 'vehicle') {
                 if ($asset->Vehicle_Type === 'car' && $asset->carBrand) {
-                    $response['Vehicle_Brand'] = $asset->carBrand->Brand_car; // ยี่ห้อรถยนต์
+                    $response['Vehicle_Brand'] = $asset->carBrand->Brand_car;
                 } elseif ($asset->Vehicle_Type === 'motorcycle' && $asset->motoBrand) {
-                    $response['Vehicle_Brand'] = $asset->motoBrand->Brand_motorcycle; // ยี่ห้อมอเตอร์ไซค์
+                    $response['Vehicle_Brand'] = $asset->motoBrand->Brand_motorcycle;
                 }
             }
 
-            // ส่งข้อมูลกลับในรูปแบบ JSON
+            // เพิ่มค่า Vehicle_Type_PLT ในการตอบกลับ
+            $response['Vehicle_Type_PLT'] = $asset->Vehicle_Type_PLT;
+
             return response()->json($response);
         }
-
 
 
 
@@ -739,6 +751,62 @@ class DataAssetController extends Controller
 
 
 
+
+// public function getAssetData(Request $request)
+        // {
+        //     $assetId = $request->input('id');
+        //     $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($assetId); // ใช้ $assetId แทน $id
+
+        //     // ตรวจสอบว่าพบ asset หรือไม่
+        //     if (!$asset) {
+        //         return response()->json(['message' => 'Asset not found']);
+        //     }
+
+        //     // สร้าง response ที่มีการปรับแต่งข้อมูล
+        //     $response = $asset->toArray();
+
+        //     // เช็ค Type_asset และแทนที่ยี่ห้อตามประเภท
+        //     if ($asset->Type_asset === 'vehicle') {
+        //         if ($asset->Vehicle_Type === 'car' && $asset->carBrand) {
+        //             $response['Vehicle_Brand'] = $asset->carBrand->Brand_car; // ยี่ห้อรถยนต์
+        //         } elseif ($asset->Vehicle_Type === 'motorcycle' && $asset->motoBrand) {
+        //             $response['Vehicle_Brand'] = $asset->motoBrand->Brand_motorcycle; // ยี่ห้อมอเตอร์ไซค์
+        //         }
+        //     }
+
+        //     // ส่งข้อมูลกลับในรูปแบบ JSON
+        //     return response()->json($response);
+        // }
+
+
+
+
+
+
+        // public function getAssetData(Request $request)
+        // {
+        //     $assetId = $request->input('id');
+        //     $asset = AssetManage::with(['carBrand', 'motoBrand'])->find($assetId);
+
+        //     if (!$asset) {
+        //         return response()->json(['message' => 'Asset not found']);
+        //     }
+
+        //     $response = $asset->toArray();
+
+        //     if ($asset->Type_asset === 'vehicle') {
+        //         if ($asset->Vehicle_Type === 'car' && $asset->carBrand) {
+        //             $response['Vehicle_Brand'] = $asset->carBrand->Brand_car;
+        //         } elseif ($asset->Vehicle_Type === 'motorcycle' && $asset->motoBrand) {
+        //             $response['Vehicle_Brand'] = $asset->motoBrand->Brand_motorcycle;
+        //         }
+        //     }
+
+        //     // Add the Vehicle_Type_PLT to the response
+        //     $response['Vehicle_Type_PLT'] = $asset->Vehicle_Type_PLT;
+
+        //     return response()->json($response);
+        // }
 
 
 

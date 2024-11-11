@@ -33,14 +33,17 @@
                     </div>
                     <div>
                         <h5
-                            class="text-lg font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent"> <!-- ลดขนาดตัวอักษร -->
+                            class="text-lg font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                            <!-- ลดขนาดตัวอักษร -->
                             แก้ไขข้อมูลสินทรัพย์ลูกค้า
                         </h5>
                         <p class="text-gray-500 text-xs mt-1">Edit Customers Assets</p> <!-- ลดขนาดตัวอักษร -->
-                        <div class="h-1 w-24 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-0"></div> <!-- ลดความยาวของเส้น -->
+                        <div class="h-1 w-24 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-0"></div>
+                        <!-- ลดความยาวของเส้น -->
                     </div>
                 </div>
-                <button onclick="closeModal_Edit_asset()" class="p-1 hover:bg-gray-100 rounded-lg transition-colors"> <!-- ลด padding -->
+                <button onclick="closeModal_Edit_asset()" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+                    <!-- ลด padding -->
                     <i class="fas fa-times text-lg text-gray-400 hover:text-gray-600"></i> <!-- ลดขนาดของไอคอน -->
                 </button>
             </div>
@@ -174,7 +177,6 @@
                                     <option value="">เลือกประเภทรถ 2</option> <!-- ตัวเลือกเริ่มต้น -->
                                 </select>
                             </div>
-
 
 
                             {{-- <div class="form-group">
