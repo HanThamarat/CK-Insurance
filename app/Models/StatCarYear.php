@@ -13,6 +13,7 @@ class StatCarYear extends Model
     protected $table = 'Stat_CarYear';
 
     protected $fillable = [
+        'id', // เพิ่ม id เพื่อให้ตรงกับฐานข้อมูล
         'Brand_id',
         'Group_id',
         'Model_id',

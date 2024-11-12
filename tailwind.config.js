@@ -44,6 +44,6 @@ export default {
         forms,
         typography,
         require('tailwindcss-animated')
-        
+
     ],
 };

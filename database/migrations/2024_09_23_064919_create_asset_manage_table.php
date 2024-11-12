@@ -10,6 +10,7 @@ class CreateAssetManageTable extends Migration
     {
         Schema::create('asset_manage', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('Customer_id')->nullable(); // เพิ่ม Customer_id
             $table->string('Type_Asset')->nullable();
             $table->string('Vehicle_OldLicense_Text')->nullable();
             $table->string('Vehicle_OldLicense_Number')->nullable();
@@ -36,6 +37,15 @@ class CreateAssetManageTable extends Migration
             $table->string('Choose_Insurance')->nullable();
             $table->string('Choose_Act')->nullable();
             $table->string('Choose_Register')->nullable();
+
+            // เพิ่มวันหมดอายุ
+            $table->date('Insurance_renewal_date')->nullable();
+            $table->date('Insurance_end_date')->nullable();
+            $table->date('act_renewal_date')->nullable();
+            $table->date('act_end_date')->nullable();
+            $table->date('register_renewal_date')->nullable();
+            $table->date('register_end_date')->nullable();
+
             $table->timestamps();
         });
     }
