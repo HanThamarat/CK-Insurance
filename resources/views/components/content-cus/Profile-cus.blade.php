@@ -11,8 +11,15 @@
         <div
             class="flex-none rounded-lg shadow-2xl dark:bg-white dark:border-gray-400 p-6 w-full sm:w-1/3 md:w-1/4 lg:w-2/7 xl:w-2/7 relative">
             <!-- Layer สำหรับพื้นหลังที่มี opacity (สำหรับการ์ดอื่น) -->
+            {{-- <div class="absolute inset-0 bg-cover bg-center rounded-lg" style="background-image: url('{{ asset('img/Insurance_picture5.jpg') }}'); opacity: 0.2; z-index: 0;"></div> --}}
+
             <div class="absolute inset-0 bg-cover bg-center rounded-lg"
-                style="background-image: url('{{ asset('img/Insurance_picture5.jpg') }}'); opacity: 0.5; z-index: 0;"></div>
+                style="background-image: url('{{ asset('img/Insurance_picture5.jpg') }}');
+                        opacity: 0.2;
+                        height: 400px; /* กำหนดความสูงคงที่ */
+                        z-index: 0;">
+            </div>
+
 
             <!-- เนื้อหาของการ์ด -->
             <div class="relative z-10 flex flex-col items-center pb-10">
@@ -21,10 +28,70 @@
                         class="img-thumbnail rounded-full border-2 hover:scale-105 transition-transform duration-300 shadow-xl hover:shadow-2xl"
                         alt="User-Profile-Image">
                 </div>
-                <span
-                    class="mt-2 text-md text-red-500 dark:text-orange-500 bg-white px-10 py-2 rounded-full transition-transform transform hover:scale-105 hover:bg-red-100 hover:text-red-700">
+
+                <div class="group relative flex justify-center items-center text-zinc-600 text-sm font-bold">
+                    <div
+                        class="absolute opacity-0 group-hover:opacity-100 group-hover:-translate-y-[150%] -translate-y-[300%] duration-500 group-hover:delay-500 skew-y-[20deg] group-hover:skew-y-0 shadow-md">
+                        <div class="bg-lime-200 flex items-center gap-1 p-2 rounded-md">
+                            <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px"
+                                xmlns="http://www.w3.org/2000/svg" class="stroke-zinc-600">
+                                <circle stroke-linejoin="round" r="9" cy="12" cx="12"></circle>
+                                <path stroke-linejoin="round" d="M12 3C12 3 8.5 6 8.5 12C8.5 18 12 21 12 21"></path>
+                                <path stroke-linejoin="round" d="M12 3C12 3 15.5 6 15.5 12C15.5 18 12 21 12 21"></path>
+                                <path stroke-linejoin="round" d="M3 12H21"></path>
+                                <path stroke-linejoin="round" d="M19.5 7.5H4.5"></path>
+                                <g filter="url(#filter0_d_15_556)">
+                                    <path stroke-linejoin="round" d="M19.5 16.5H4.5"></path>
+                                </g>
+                                <defs>
+                                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="3"
+                                        width="17" y="16" x="3.5" id="filter0_d_15_556">
+                                        <feFlood result="BackgroundImageFix" flood-opacity="0"></feFlood>
+                                        <feColorMatrix result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                            type="matrix" in="SourceAlpha"></feColorMatrix>
+                                        <feOffset dy="1"></feOffset>
+                                        <feGaussianBlur stdDeviation="0.5"></feGaussianBlur>
+                                        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" type="matrix">
+                                        </feColorMatrix>
+                                        <feBlend result="effect1_dropShadow_15_556" in2="BackgroundImageFix" mode="normal">
+                                        </feBlend>
+                                        <feBlend result="shape" in2="effect1_dropShadow_15_556" in="SourceGraphic"
+                                            mode="normal"></feBlend>
+                                    </filter>
+                                </defs>
+                            </svg>
+                            <span>{{ $customer->status_cus }}</span>
+                        </div>
+                        <div
+                            class="shadow-md bg-lime-200 absolute bottom-0 translate-y-1/2 left-1/2 translate-x-full rotate-45 p-1">
+                        </div>
+                        <div
+                            class="rounded-md bg-white group-hover:opacity-0 group-hover:scale-[115%] group-hover:delay-700 duration-500 w-full h-full absolute top-0 left-0">
+                            <div
+                                class="border-b border-r border-white bg-white absolute bottom-0 translate-y-1/2 left-1/2 translate-x-full rotate-45 p-1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="shadow-md flex items-center group-hover:gap-2 bg-gradient-to-br from-lime-200 to-yellow-200 p-3 rounded-full cursor-pointer duration-300">
+                        <svg fill="none" viewBox="0 0 24 24" height="16px" width="20px"
+                            xmlns="http://www.w3.org/2000/svg" class="fill-zinc-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 12c3.315 0 6-2.685 6-6s-2.685-6-6-6-6 2.685-6 6 2.685 6 6 6zm0 2c-4.418 0-8 3.582-8 8v2h16v-2c0-4.418-3.582-8-8-8z">
+                            </path>
+                        </svg>
+                        <span class="text-[0px] group-hover:text-sm duration-300">สถานะลูกค้า</span>
+                    </div>
+                </div>
+
+
+
+
+                {{-- <span
+                    class="mt-2 text-md text-red-500 dark:text-orange-500 bg-white px-10 py-2 rounded-full transition-transform transform hover:scale-105 hover:bg-green-100 hover:text-red-700">
                     Status
-                </span>
+                </span> --}}
 
 
 
@@ -120,10 +187,10 @@
 
 
 
-                {{-- @include('components.content-cus.profile_customer') --}}
+{{-- @include('components.content-cus.profile_customer') --}}
 
 
-                {{-- <script>
+{{-- <script>
                     $(document).on('click', '.nav-link', function(event) {
                         event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
                         let link = $(this).attr('href'); // ดึง URL จาก href

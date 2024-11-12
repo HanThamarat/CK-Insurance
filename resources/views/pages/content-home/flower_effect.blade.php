@@ -38,7 +38,7 @@
     }
 </style>
 
-{{-- <script>
+<script>
     let flowersHidden = false; // ตัวแปรในการเช็คสถานะว่า effect ซ่อนอยู่หรือไม่
 
     // หยุดการทำงานของ effect เมื่อคลิกหน้าจอ และทำให้ fade-out
@@ -61,7 +61,7 @@
             flowersHidden = !flowersHidden; // สลับสถานะการซ่อนและแสดง
         }
     });
-</script> --}}
+</script>
 
 
 <style>

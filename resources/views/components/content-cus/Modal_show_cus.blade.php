@@ -15,25 +15,36 @@
                     <div class="p-4"> <!-- ลด padding -->
                         <div class="flex items-center space-x-4"> <!-- ลดระยะห่างระหว่างไอเท็ม -->
                             <div class="relative">
-                                <div class="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl blur-lg opacity-20"></div>
-                                <div class="relative p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl shadow-sm"> <!-- ลด padding ภายใน -->
-                                    <img src="{{ asset('img/icon_user.gif') }}" alt="User Icon" class="w-10 h-10 object-cover rounded-lg shadow-inner transform transition-transform hover:scale-105"> <!-- ลดขนาดของไอคอน -->
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl blur-lg opacity-20">
+                                </div>
+                                <div
+                                    class="relative p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl shadow-sm">
+                                    <!-- ลด padding ภายใน -->
+                                    <img src="{{ asset('img/icon_user.gif') }}" alt="User Icon"
+                                        class="w-10 h-10 object-cover rounded-lg shadow-inner transform transition-transform hover:scale-105">
+                                    <!-- ลดขนาดของไอคอน -->
                                 </div>
                             </div>
 
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h5 class="text-xl font-bold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent"> <!-- ลดขนาดตัวอักษร -->
+                                    <h5
+                                        class="text-xl font-bold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                                        <!-- ลดขนาดตัวอักษร -->
                                         แสดงข้อมูลลูกค้า
                                     </h5>
                                     <p class="text-gray-500 text-sm"> <!-- ลดขนาดตัวอักษร -->
                                         Show Customers Detail
                                     </p>
-                                    <div class="h-1 w-36 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"> <!-- ลดความสูงของเส้น -->
+                                    <div
+                                        class="h-1 w-36 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2">
+                                        <!-- ลดความสูงของเส้น -->
                                     </div>
                                 </div>
 
-                                <button onclick="closeModal_Show_customer()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-500 p-2">
+                                <button onclick="closeModal_Show_customer()"
+                                    class="absolute top-5 right-5 text-gray-400 hover:text-gray-500 p-2">
                                     <i class="fas fa-times text-lg"></i> <!-- ลดขนาดของไอคอน -->
                                 </button>
                             </div>
@@ -83,11 +94,15 @@
                             </div>
                         </div> --}}
 
-                        <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 transition-all duration-300 ease-in-out">
+                        <div
+                            class="bg-white rounded-lg shadow-sm p-4 border border-gray-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 transition-all duration-300 ease-in-out">
                             <div class="flex items-center gap-2 mb-3">
                                 <span class="bg-orange-100 p-1.5 rounded-md">
-                                    <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                        </path>
                                     </svg>
                                 </span>
                                 <h2 class="font-semibold text-gray-800">ข้อมูลส่วนตัว</h2>
@@ -124,11 +139,15 @@
 
 
                         <!-- Identity Information -->
-                        <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 transition-all duration-300 ease-in-out">
+                        <div
+                            class="bg-white rounded-lg shadow-sm p-4 border border-gray-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 transition-all duration-300 ease-in-out">
                             <div class="flex items-center gap-2 mb-3">
                                 <span class="bg-orange-100 p-1.5 rounded-md">
-                                    <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                                    <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+                                        </path>
                                     </svg>
                                 </span>
                                 <h2 class="font-semibold text-gray-800">ข้อมูลบัตรประชาชน</h2>
@@ -156,11 +175,14 @@
                         </div>
 
                         <!-- Additional Information -->
-                        <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 transition-all duration-300 ease-in-out">
+                        <div
+                            class="bg-white rounded-lg shadow-sm p-4 border border-gray-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 transition-all duration-300 ease-in-out">
                             <div class="flex items-center gap-2 mb-3">
                                 <span class="bg-orange-100 p-1.5 rounded-md">
-                                    <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                 </span>
                                 <h2 class="font-semibold text-gray-800">ข้อมูลเพิ่มเติม</h2>
@@ -203,11 +225,15 @@
                     </div>
 
                     <!-- Notes Section -->
-                    <div class="bg-orange-50/50 rounded-lg p-4 border border-orange-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 hover:scale-100 transition-all duration-300 ease-in-out">
+                    <div
+                        class="bg-orange-50/50 rounded-lg p-4 border border-orange-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 hover:scale-100 transition-all duration-300 ease-in-out">
                         <div class="flex items-center gap-2 mb-3">
                             <span class="bg-orange-100 p-1.5 rounded-md">
-                                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
                                 </svg>
                             </span>
                             <h2 class="font-semibold text-gray-800">หมายเหตุ</h2>
@@ -218,12 +244,16 @@
                     </div>
 
                     <!-- System Information -->
-                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 hover:scale-100 transition-all duration-300 ease-in-out">
+                    <div
+                        class="bg-gray-50 rounded-lg p-4 border border-gray-100 hover:shadow-[0_4px_6px_rgba(255,165,0,0.5)]  hover:scale-100 hover:scale-100 transition-all duration-300 ease-in-out">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="flex items-center gap-2">
                                 <span class="bg-blue-100 p-1.5 rounded-md">
-                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                        </path>
                                     </svg>
                                 </span>
                                 <div>
@@ -233,8 +263,11 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="bg-green-100 p-1.5 rounded-md">
-                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
                                     </svg>
                                 </span>
                                 <div>
@@ -244,8 +277,10 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="bg-purple-100 p-1.5 rounded-md">
-                                    <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                 </span>
                                 <div>
@@ -258,14 +293,24 @@
 
                     <!-- Footer -->
                     <div class="flex justify-end">
-                        <button type="button"
+                        {{-- <button type="button"
                                 onclick="closeDataCustomerModal()"
                                 class="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-opacity">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
                             ย้อนกลับ
+                        </button> --}}
+
+                        <button type="button" onclick="closeDataCustomerModal()"
+                            class="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-transform transform hover:-translate-y-1 shadow-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            ย้อนกลับ
                         </button>
+
                     </div>
                 </div>
             </div>
@@ -327,36 +372,6 @@
 
 
 <script>
-    // Update display function
-    // function updateCustomerDisplay(data) {
-    //     const displayFields = [
-    //         'id', 'prefix', 'first_name', 'last_name', 'phone', 'phone2',
-    //         'id_card_number', 'birthday', 'expiry_date', 'dob', 'age', 'gender',
-    //         'nationality', 'religion', 'driving_license', 'facebook',
-    //         'line_id', 'marital_status', 'spouse_name', 'spouse_phone',
-    //         'note', 'user_insert', 'created_at', 'updated_at'
-    //     ];
-
-    //     displayFields.forEach(field => {
-    //         const element = document.getElementById(`${field}Div`);
-    //         if (element) {
-    //             // Check if the field is a date to format
-    //             if (['birthday', 'expiry_date', 'dob', 'created_at', 'updated_at'].includes(field) && data[field]) {
-    //                 element.textContent = formatDateThai(data[field]);
-    //             } else {
-    //                 element.textContent = data[field] || 'ไม่มีข้อมูล';
-    //             }
-    //         }
-    //     });
-
-    //     // Show/hide spouse information based on marital status
-    //     const spouseInfo = document.getElementById('spouseInfo');
-    //     if (spouseInfo) {
-    //         spouseInfo.style.display =
-    //             data.marital_status === 'สมรส' ? 'block' : 'none';
-    //     }
-    // }
-
     function updateCustomerDisplay(data) {
         const displayFields = [
             'id', 'prefix', 'first_name', 'last_name', 'phone', 'phone2',
@@ -393,10 +408,11 @@
     function formatDateThai(dateStr) {
         const date = new Date(dateStr);
         const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-                            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+        ];
         const day = date.getDate();
         const month = thaiMonths[date.getMonth()];
-        const year = date.getFullYear() + 543;  // Convert to Buddhist Era
+        const year = date.getFullYear() + 543; // Convert to Buddhist Era
 
         return `${day} ${month} ${year}`;
     }
@@ -404,10 +420,11 @@
     function formatDateThaiTimeStamp(dateStr) {
         const date = new Date(dateStr);
         const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-                            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+        ];
         const day = date.getDate();
         const month = thaiMonths[date.getMonth()];
-        const year = date.getFullYear() + 543;  // Convert to Buddhist Era
+        const year = date.getFullYear() + 543; // Convert to Buddhist Era
 
         // Get time components
         const hours = String(date.getHours()).padStart(2, '0');
@@ -494,7 +511,35 @@
 
 
 
+{{-- // Update display function
+// function updateCustomerDisplay(data) {
+//     const displayFields = [
+//         'id', 'prefix', 'first_name', 'last_name', 'phone', 'phone2',
+//         'id_card_number', 'birthday', 'expiry_date', 'dob', 'age', 'gender',
+//         'nationality', 'religion', 'driving_license', 'facebook',
+//         'line_id', 'marital_status', 'spouse_name', 'spouse_phone',
+//         'note', 'user_insert', 'created_at', 'updated_at'
+//     ];
 
+//     displayFields.forEach(field => {
+//         const element = document.getElementById(`${field}Div`);
+//         if (element) {
+//             // Check if the field is a date to format
+//             if (['birthday', 'expiry_date', 'dob', 'created_at', 'updated_at'].includes(field) && data[field]) {
+//                 element.textContent = formatDateThai(data[field]);
+//             } else {
+//                 element.textContent = data[field] || 'ไม่มีข้อมูล';
+//             }
+//         }
+//     });
+
+//     // Show/hide spouse information based on marital status
+//     const spouseInfo = document.getElementById('spouseInfo');
+//     if (spouseInfo) {
+//         spouseInfo.style.display =
+//             data.marital_status === 'สมรส' ? 'block' : 'none';
+//     }
+// } --}}
 
 
 {{-- <div class="sticky top-0 z-10 bg-white/95 backdrop-blur-sm shadow-sm">
@@ -757,7 +802,3 @@
         </button>
     </div>
 </div> --}}
-
-
-
-

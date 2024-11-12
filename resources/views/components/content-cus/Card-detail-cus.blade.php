@@ -216,11 +216,13 @@
 
 
                 </div>
-                <div class="flex justify-center mt-0">
+                <div class="flex justify-center mt-[-3]">
                     <button id="addCareerButton"
                         class="mt-0 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 px-4 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 448 512">
-                            <path d="M96 128a128 128 0 1 0 256 0A128 128 0 1 0 96 128zm94.5 200.2l18.6 31L175.8 483.1l-36-146.9c-2-8.1-9.8-13.4-17.9-11.3C51.9 342.4 0 405.8 0 481.3c0 17 13.8 30.7 30.7 30.7l131.7 0c0 0 0 0 .1 0l5.5 0 112 0 5.5 0c0 0 0 0 .1 0l131.7 0c17 0 30.7-13.8 30.7-30.7c0-75.5-51.9-138.9-121.9-156.4c-8.1-2-15.9 3.3-17.9 11.3l-36 146.9L238.9 359.2l18.6-31c6.4-10.7-1.3-24.2-13.7-24.2L224 304l-19.7 0c-12.4 0-20.1 13.6-13.7 24.2z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="currentColor"
+                            viewBox="0 0 448 512">
+                            <path
+                                d="M96 128a128 128 0 1 0 256 0A128 128 0 1 0 96 128zm94.5 200.2l18.6 31L175.8 483.1l-36-146.9c-2-8.1-9.8-13.4-17.9-11.3C51.9 342.4 0 405.8 0 481.3c0 17 13.8 30.7 30.7 30.7l131.7 0c0 0 0 0 .1 0l5.5 0 112 0 5.5 0c0 0 0 0 .1 0l131.7 0c17 0 30.7-13.8 30.7-30.7c0-75.5-51.9-138.9-121.9-156.4c-8.1-2-15.9 3.3-17.9 11.3l-36 146.9L238.9 359.2l18.6-31c6.4-10.7-1.3-24.2-13.7-24.2L224 304l-19.7 0c-12.4 0-20.1 13.6-13.7 24.2z" />
                         </svg>
                         เพิ่มอาชีพ
                     </button>
@@ -257,7 +259,8 @@
 
             <div class="flex flex-col items-center mt-7 asset-master ">
                 <div class="shadow-effect">
-                    <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce" alt="Out of Stock">
+                    <img src="https://ckl.co.th/assets/images/out-of-stock.png" class="up-down w-24 slow-bounce"
+                        alt="Out of Stock">
                 </div>
                 <p class="mt-5 text-gray-600 text-center text-sm">ยังไม่มีข้อมูลสินทรัพย์ลูกค้านี้</p>
             </div>
@@ -273,9 +276,12 @@
 
             <div class="flex justify-center mt-2">
                 <a href="{{ url('data_assets?customer_id=' . $customer->id) }}">
-                    <button id="addAssetButton" class="mt-0 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold text-sm py-2 px-3 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-3 mr-1" fill="currentColor" viewBox="0 0 448 512">
-                            <path d="M135.2 117.4L109.1 192l293.8 0-26.1-74.6C372.3 104.6 360.2 96 346.6 96L165.4 96c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32l181.2 0c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2l0 144 0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L96 400l0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L0 256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/>
+                    <button id="addAssetButton"
+                        class="mt-0 flex items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold text-sm py-2 px-3 rounded hover:from-orange-500 hover:to-orange-600 transition duration-200 transform hover:translate-y-[-2px] hover:shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-3 mr-1" fill="currentColor"
+                            viewBox="0 0 448 512">
+                            <path
+                                d="M135.2 117.4L109.1 192l293.8 0-26.1-74.6C372.3 104.6 360.2 96 346.6 96L165.4 96c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32l181.2 0c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2l0 144 0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L96 400l0 48c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-48L0 256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z" />
                         </svg>
                         เพิ่มสินทรัพย์
                     </button>
@@ -292,7 +298,7 @@
 
     <script src="{{ URL::asset('assets/libs/jquery.js') }}"></script>
     <!-- Script for Tabs -->
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initial setup for active tab from localStorage
             function setInitialActiveTab() {
@@ -334,7 +340,104 @@
                 });
             });
         });
+    </script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add CSS for fade transition to head
+            const style = document.createElement('style');
+            style.textContent = `
+        .tab-pane {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .tab-pane.active {
+            opacity: 1;
+        }
+        .tab-pane.hidden {
+            display: none;
+        }
+    `;
+            document.head.appendChild(style);
+
+            // Initial setup for active tab from localStorage
+            function setInitialActiveTab() {
+                const activeTab = localStorage.getItem('activeTab');
+                const defaultTab = 'address-info';
+
+                // Remove active classes from all tab links and hide all tab panes
+                document.querySelectorAll('.tab-link').forEach(link => {
+                    link.classList.remove('border-b-2', 'border-orange-500', 'text-orange-500');
+                });
+
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.add('hidden');
+                    pane.classList.remove('active');
+                });
+
+                // Show the active tab or default tab
+                const activeTabId = activeTab || defaultTab;
+                const activeTabLink = document.querySelector(`a[data-tab="${activeTabId}"]`);
+                const activeTabPane = document.querySelector(`#${activeTabId}`);
+
+                if (activeTabLink && activeTabPane) {
+                    activeTabLink.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+                    activeTabPane.classList.remove('hidden');
+                    // Wait a frame before adding active class for the transition to work
+                    requestAnimationFrame(() => {
+                        activeTabPane.classList.add('active');
+                    });
+                }
+            }
+
+            setInitialActiveTab();
+
+            // Tab click event
+            document.querySelectorAll('.tab-link').forEach(tabLink => {
+                tabLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+
+                    // Remove active classes from all tab links
+                    document.querySelectorAll('.tab-link').forEach(link => {
+                        link.classList.remove('border-b-2', 'border-orange-500',
+                            'text-orange-500');
+                    });
+
+                    // Add active classes to clicked tab link
+                    this.classList.add('border-b-2', 'border-orange-500', 'text-orange-500');
+
+                    // Handle fade out and in
+                    const oldTab = document.querySelector('.tab-pane.active');
+                    const newTab = document.querySelector(`#${tabId}`);
+
+                    if (oldTab) {
+                        oldTab.classList.remove('active');
+                        // Wait for fade out transition to complete
+                        setTimeout(() => {
+                            oldTab.classList.add('hidden');
+                            // Show new tab
+                            newTab.classList.remove('hidden');
+                            // Wait a frame before adding active class for the transition to work
+                            requestAnimationFrame(() => {
+                                newTab.classList.add('active');
+                            });
+                        }, 300); // This should match the transition duration in CSS
+                    } else {
+                        // If no active tab, just show the new one
+                        newTab.classList.remove('hidden');
+                        requestAnimationFrame(() => {
+                            newTab.classList.add('active');
+                        });
+                    }
+
+                    // Save the active tab in localStorage
+                    localStorage.setItem('activeTab', tabId);
+                });
+            });
+        });
     </script>
+
 
 
 
@@ -434,7 +537,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(213, 213, 213, 0.5);
+            background-color: rgba(255, 165, 0, 0.1);
             /* Transparent background */
             color: white;
             border: none;
@@ -472,7 +575,7 @@
 
         .prev:hover,
         .next:hover {
-            background-color: #555;
+            background-color: rgba(255, 140, 0, 0.8);
         }
     </style>
 
@@ -572,7 +675,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(213, 213, 213, 0.5);
+            background-color: rgba(255, 165, 0, 0.1);
             /* Transparent background */
             color: white;
             border: none;
@@ -593,7 +696,7 @@
 
         .prev-2:hover,
         .next-2:hover {
-            background-color: rgba(51, 51, 51, 1);
+            background-color: rgba(255, 140, 0, 0.8);
             /* Solid background on hover */
         }
 
@@ -718,7 +821,7 @@
 
 
 
-{{-- <script>
+    {{-- <script>
         $(document).ready(function() {
             // ฟังก์ชันสำหรับเลื่อนไปทางซ้าย
             $('#prev-master-2').on('click', function() {
@@ -863,7 +966,7 @@
     </script> --}}
 
 
-        {{-- <div id="asset-info" class="tab-pane hidden">
+    {{-- <div id="asset-info" class="tab-pane hidden">
             <div class="grid grid-cols-1 gap-4 text-sm text-gray-600">
             <div class="slider-container">
                 <div class="slider" id="asset-container">
@@ -1036,13 +1139,13 @@
     </div> --}}
 
 
-{{-- <div class="flex justify-between items-center">
+    {{-- <div class="flex justify-between items-center">
     <strong class="text-gray-800"><i class="fas fa-calendar-alt pr-1"></i>วันเดือนปีเกิด :</strong>
     <span class="text-right pl-0">${data.birthday ?? '-'}</span>
 </div> --}}
 
 
-                {{-- <div class="flex flex-col">
+    {{-- <div class="flex flex-col">
                     <strong hidden class="text-gray-800">อาชีพ:</strong>
                     <span hidden>{{ $customer->occupation ?? '-' }}</span>
                 </div>
@@ -1057,7 +1160,7 @@
 
 
 
-                {{-- <div class="grid grid-cols-2 gap-14" id="career-container">
+    {{-- <div class="grid grid-cols-2 gap-14" id="career-container">
                     @include('components.content-cus.card_career')
                     <!-- ข้อมูลที่อยู่จะแสดงในที่นี้ -->
                 </div> --}}
@@ -1274,7 +1377,7 @@
     </div> --}}
 
 
-        {{-- <script>
+    {{-- <script>
         // แปลงข้อมูลลูกค้าเป็น JavaScript
         var customerData = @json($customer);
 

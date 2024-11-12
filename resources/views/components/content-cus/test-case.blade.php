@@ -1,487 +1,262 @@
-<div id="edit_modal_asset" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black/50 modal">
-    <div class="relative bg-white rounded-xl w-full max-w-screen-lg max-h-[95vh] overflow-auto scrollbar-hidden my-12 shadow-2xl">
-        <!-- Modal Header -->
-        <div class="sticky top-0 bg-white border-b z-10">
-            <div class="flex items-center justify-between p-6">
-                <div class="flex items-center gap-4">
-                    <div class="p-3 bg-orange-100 rounded-xl">
-                        <img src="{{ asset('img/minicar.gif') }}" alt="minicar icon"
-                            class="w-12 h-12 object-cover rounded-lg">
-                    </div>
-                    <div>
-                        <h5
-                            class="text-xl font-semibold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
-                            แก้ไขข้อมูลสินทรัพย์ลูกค้า
-                        </h5>
-                        <p class="text-gray-500 text-sm mt-1">Edit Customers Assets</p>
-                        <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full mt-2"></div>
-                    </div>
-                </div>
-                <button onclick="closeModal_Edit_asset()" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                    <i class="fas fa-times text-xl text-gray-400 hover:text-gray-600"></i>
-                </button>
-            </div>
-        </div>
+<script>
+    $(document).ready(function() {
+        $('head').append(`
+             @include('components.content-button.css_button_select')
+        `);
 
-        <!-- Modal Body -->
-        <form action="editAssetForm" onsubmit="return false;" class="divide-y">
-            @csrf
-            <div class="p-8 space-y-1">
-                <input type="hidden" id="assetId" name="id">
+        function fetchCareerData() {
+            const customerId = $('#dataCusIdField').val(); // รับ ID ลูกค้า
 
-                <!-- Main Information Grid -->
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Basic Vehicle Info -->
-                    <div class="bg-orange-50 rounded-xl p-6 shadow-sm border border-orange-100">
-                        <h4 class="text-lg font-semibold mb-6 text-orange-600 flex items-center gap-2">
-                            <i class="fas fa-info-circle"></i>
-                            ข้อมูลพื้นฐาน
-                        </h4>
-                        <div class="space-y-6">
-                            <div class="form-group">
-                                <label class="font-medium text-gray-700 block mb-2">ประเภทสินทรัพย์</label>
-                                <input type="text" id="edit_Type_Asset" name="Type_Asset"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-400 transition-colors">
-                            </div>
+            $.ajax({
+                url: '/get-career-data/' + customerId,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let html = '';
+                    let hasCareerCards = false; // เช็คว่ามีการ์ดหรือไม่
 
-                            <!-- Old License Plate Section -->
-                            <fieldset class="border border-orange-200 rounded-lg p-4">
-                                <legend class="text-sm font-semibold text-orange-600 px-2">ป้ายทะเบียนเก่า</legend>
-                                <div class="space-y-4">
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">อักษรทะเบียนเดิม</label>
-                                        <input type="text" id="edit_OldLicenseText" name="Vehicle_OldLicense_Text"
-                                            class="w-full border-gray-300 rounded-lg px-3 py-2">
+                    if (data.careers && data.careers.length > 0) {
+                        hasCareerCards = true; // พบการ์ดเพิ่มค่าเป็น true
+
+                        $.each(data.careers, function(index, career) {
+                            html += `
+                        <div class="flex space-x-4 p-2">
+                            <div class="w-full mt-0">
+                                <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
+                                    <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex-1">
+                                                <h6 class="text-primary font-semibold">
+                                                    <i class="fas fa-tag"></i> ${career.Career_Cus}
+                                                </h6>
+                                            </div>
+                                            <label class="popup">
+                                                <input type="checkbox">
+                                                <div class="burger" tabindex="0">
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                </div>
+                                                <nav class="popup-window">
+                                                    <legend>Actions</legend>
+                                                    <ul>
+                                                    <li>
+                                                        <button data-id="${career.id}"
+                                                                data-Status_Cus="${career.Status_Cus}"
+                                                                data-DataCus_id="${career.DataCus_id}"
+                                                                data-Career_Cus="${career.Career_Cus}"
+                                                                data-Workplace_Cus="${career.Workplace_Cus}"
+                                                                data-Income_Cus="${career.Income_Cus}"
+                                                                data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+                                                                data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+                                                                data-Coordinates="${career.Coordinates}"
+                                                                data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+                                                                onclick="openModal_Show_career_customer(this)">
+                                                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                                            <circle cx="12" cy="12" r="3"></circle>
+                                                        </svg>
+                                                        <span>แสดง</span>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button data-id="${career.id}"
+                                                                data-Status_Cus="${career.Status_Cus}"
+                                                                data-DataCus_id="${career.DataCus_id}"
+                                                                data-Career_Cus="${career.Career_Cus}"
+                                                                data-Workplace_Cus="${career.Workplace_Cus}"
+                                                                data-Income_Cus="${career.Income_Cus}"
+                                                                data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+                                                                data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+                                                                data-Coordinates="${career.Coordinates}"
+                                                                data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+                                                                onclick="openModal_Edit_career_customer(this)">
+                                                                <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                            <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                                                        </svg>
+                                                        <span>แก้ไข</span>
+                                                        </button>
+                                                    </li>
+                                                    <hr>
+                                                    <li>
+                                                        <button class="delete-btn-career" data-id="${career.id}">
+                                                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                                            <line y2="18" x2="6" y1="6" x1="18"></line>
+                                                            <line y2="18" x2="18" y1="6" x1="6"></line>
+                                                        </svg>
+                                                        <span>ลบ</span>
+                                                        </button>
+                                                    </li>
+                                                    </ul>
+                                                </nav>
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">ตัวเลขทะเบียนเดิม</label>
-                                        <input type="text" id="edit_OldLicenseNumber"
-                                            name="Vehicle_OldLicense_Number" class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">จังหวัดทะเบียนเดิม</label>
-                                        <input type="text" id="edit_OldProvince" name="OldProvince"
-                                            class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                </div>
-                            </fieldset>
+                                    <div class="p-4">
+                                        <div class="flex">
+                                            <div class="flex-1">
+                                                <p class="text-truncate">
+                                                    <input type="hidden" name="DataCus_id" value="${career.DataCus_id}">
+                                                    <i class="fas fa-bookmark text-success mb-1 h-5"></i>
+                                                    <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus.length > 15 ? career.Workplace_Cus.substring(0, 15) + "..." : career.Workplace_Cus}<br>
+                                                    <i class="fas fa-table text-success mb-1 h-5"></i>
+                                                    <strong>รายได้</strong> : ${career.Income_Cus.length > 15 ? career.Income_Cus.substring(0, 15) + "..." : career.Income_Cus}<br>
+                                                    <i class="fas fa-briefcase text-success mb-1 h-5"></i>
+                                                    <strong>อาชีพ</strong> : ${career.Career_Cus.length > 15 ? career.Career_Cus.substring(0, 15) + "..." : career.Career_Cus}<br>
+                                                    <!--<i class="fas fa-building text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>-->
+                                                    <i class="fas fa-money-bill text-success mb-0 h-5"></i>
+                                                    <strong>เงินเดือน</strong> : ${career.Income_Cus.length > 15 ? career.Income_Cus.substring(0, 15) + "..." : career.Income_Cus}
+                                                </p>
 
-                            <!-- New License Plate Section -->
-                            <fieldset class="border border-orange-200 rounded-lg p-4">
-                                <legend class="text-sm font-semibold text-orange-600 px-2">ป้ายทะเบียนใหม่</legend>
-                                <div class="space-y-4">
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">อักษรทะเบียนใหม่</label>
-                                        <input type="text" id="edit_NewLicenseText" name="Vehicle_NewLicense_Text"
-                                            class="w-full border-gray-300 rounded-lg px-3 py-2">
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <img src="{{ asset('img/career.jpg') }}" alt="${career.DetailCareer_Cus}" class="w-36 h-20">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">ตัวเลขทะเบียนใหม่</label>
-                                        <input type="text" id="edit_NewLicenseNumber"
-                                            name="Vehicle_NewLicense_Number" class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">จังหวัดทะเบียนใหม่</label>
-                                        <input type="text" id="edit_NewProvince" name="NewProvince"
-                                            class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                </div>
-                            </fieldset>
-
-                            <div class="space-y-4">
-                                <div class="form-group">
-                                    <label class="text-gray-600 block mb-1">เลขถัง</label>
-                                    <input type="text" id="edit_Vehicle_Chassis" name="Vehicle_Chassis"
-                                        class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                </div>
-                                <div class="form-group">
-                                    <label class="text-gray-600 block mb-1">เลขเครื่อง</label>
-                                    <input type="text" id="edit_Vehicle_Engine" name="Vehicle_Engine"
-                                        class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                </div>
-                                <div class="form-group">
-                                    <label class="text-gray-600 block mb-1">สีรถ</label>
-                                    <input type="text" id="edit_Vehicle_Color" name="Vehicle_Color"
-                                        class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                </div>
-                                <div class="form-group">
-                                    <label class="text-gray-600 block mb-1">เลขตัวรถใหม่</label>
-                                    <input type="text" id="edit_Vehicle_New_Number" name="Vehicle_New_Number"
-                                        class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Vehicle Details -->
-                    <div class="bg-blue-50 rounded-xl p-6 shadow-sm border border-blue-100">
-                        <h4 class="text-lg font-semibold mb-6 text-blue-600 flex items-center gap-2">
-                            <i class="fas fa-car"></i>
-                            รายละเอียดรถ
-                        </h4>
-                        <div class="space-y-4">
-                            <div class="form-group">
-                                <label class="text-gray-600 block mb-1">ประเภทรถ 1</label>
-                                <input type="text" id="edit_Vehicle_Type" name="Vehicle_Type"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="text-gray-600 block mb-1">ประเภทรถ 2</label>
-                                <input type="text" id="edit_Vehicle_Type_PLT" name="Vehicle_Type_PLT"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
-                            <div class="form-group">
-                                <label class="text-gray-600 block mb-1">ยี่ห้อรถ</label>
-                                <input type="text" id="edit_Vehicle_Brand" name="Vehicle_Brand"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
-                            <div class="form-group">
-                                <label class="text-gray-600 block mb-1">กลุ่มรถ</label>
-                                <input type="text" id="edit_Vehicle_Group" name="Vehicle_Group"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
-                            <div class="form-group">
-                                <label class="text-gray-600 block mb-1">รุ่นรถ</label>
-                                <input type="text" id="edit_Vehicle_Models" name="Vehicle_Models"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
-                            <div class="form-group">
-                                <label class="text-gray-600 block mb-1">ปีรถ</label>
-                                <input type="text" id="edit_Vehicle_Years" name="Vehicle_Years"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
-                            <div class="form-group">
-                                <label class="text-gray-600 block mb-1">ความจุเครื่องยนต์</label>
-                                <input type="text" id="edit_Vehicle_CC" name="Vehicle_CC"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
-                            <div class="form-group">
-                                <label class="text-gray-600 block mb-1">ประเภทเกียร์</label>
-                                <input type="text" id="edit_Vehicle_Gear" name="Vehicle_Gear"
-                                    class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-                <!-- Insurance Information -->
-                <div class="bg-green-50 rounded-xl p-6 shadow-sm border border-green-100">
-                    <h4 class="text-lg font-semibold mb-6 text-green-600 flex items-center gap-2">
-                        <i class="fas fa-shield-alt"></i>
-                        ข้อมูลประกัน
-                    </h4>
-                    <div class="space-y-6">
-                        <!-- Insurance Section -->
-                        <div class="bg-white rounded-lg p-4 border border-green-200">
-                            <h5 class="font-medium text-green-700 mb-4">ประกัน</h5>
-                            <div class="ml-4 space-y-4">
-                                <span id="edit_Choose_Insurance_Cal" class="block text-gray-600"></span>
-                                <div class="grid sm:grid-cols-2 gap-4">
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">วันที่ต่อประกัน</label>
-                                        <input type="date" id="edit_Insurance_renewal_date"
-                                            name="Insurance_renewal_date" class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">วันที่หมดอายุ</label>
-                                        <input type="date" id="edit_Insurance_end_date" name="Insurance_end_date"
-                                            class="w-full border-gray-300 rounded-lg px-3 py-2">
+                                    <div class="p-4 border-t">
+                                        <small class="text-muted">
+                                            <div class="flex justify-between items-center">
+                                                <div title="${career.created_at}">
+                                                    <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ
+                                                    ${new Date(career.created_at).toLocaleDateString('th-TH', {
+                                                        day: 'numeric',
+                                                        month: 'long',
+                                                        year: 'numeric'
+                                                    })} เวลา ${new Date(career.created_at).toLocaleTimeString('th-TH', {
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        hour12: false // ใช้ 24 ชั่วโมง
+                                                    })} น.
+                                                </div>
+                                                <div class="text-right">
+                                                    <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p>
+                                                </div>
+                                            </div>
+                                        </small>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>`;
+                        });
+                    } else {
+                        html = `<p hidden class="text-center text-muted">ไม่พบข้อมูลอาชีพ</p>`;
+                    }
 
-                        <!-- Act Section -->
-                        <div class="bg-white rounded-lg p-4 border border-green-200">
-                            <h5 class="font-medium text-green-700 mb-4">พ.ร.บ.</h5>
-                            <div class="ml-4 space-y-4">
-                                <span id="edit_Choose_Act_Cal" class="block text-gray-600"></span>
-                                <div class="grid sm:grid-cols-2 gap-4">
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">วันที่ต่อ พ.ร.บ.</label>
-                                        <input type="date" id="edit_act_renewal_date" name="act_renewal_date"
-                                            class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">วันที่หมดอายุ</label>
-                                        <input type="date" id="edit_act_end_date" name="act_end_date"
-                                            class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    $('#career-container').html(html);
 
-                        <!-- Registration Section -->
-                        <div class="bg-white rounded-lg p-4 border border-green-200">
-                            <h5 class="font-medium text-green-700 mb-4">ทะเบียน</h5>
-                            <div class="ml-4 space-y-4">
-                                <span id="edit_Choose_Register_Cal" class="block text-gray-600"></span>
-                                <div class="grid sm:grid-cols-2 gap-4">
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">วันที่ต่อทะเบียน</label>
-                                        <input type="date" id="edit_register_renewal_date"
-                                            name="register_renewal_date" class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="text-gray-600 block mb-1">วันที่หมดอายุ</label>
-                                        <input type="date" id="edit_register_end_date" name="register_end_date"
-                                            class="w-full border-gray-300 rounded-lg px-3 py-2">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    // ซ่อน career-master ถ้ามีการ์ด
+                    if (hasCareerCards) {
+                        // $('.career-master').hide();
 
-                <br>
+                        $('.career-master').hide();
+                        $('#prev-master-2').show();
+                        $('#next-master-2').show();
 
-                <!-- Timestamps -->
-                <div class="bg-gray-50 rounded-xl p-6 mt-8 space-y-3">
-                    <p class="flex items-center text-gray-600">
-                        <i class="fas fa-clock mr-3 text-gray-400"></i>
-                        <span class="text-sm">สร้างข้อมูลเมื่อ :
-                            <span id="edit_created_at" class="ml-2 font-medium"></span>
-                        </span>
-                    </p>
-                    <p class="flex items-center text-gray-600">
-                        <i class="fas fa-history mr-3 text-gray-400"></i>
-                        <span class="text-sm">อัปเดตล่าสุดเมื่อ :
-                            <span id="edit_updated_at" class="ml-2 font-medium"></span>
-                        </span>
-                    </p>
-                </div>
-            </div>
+                    } else {
+                        // $('.career-master').show();
 
-            <!-- Footer Actions -->
-            <div class="sticky bottom-0 bg-white border-t px-2 py-4 mr-4 flex items-center justify-end gap-2">
+                        $('.career-master').show();
+                        $('#prev-master-2').hide();
+                        $('#next-master-2').hide();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+                    alert('ไม่สามารถดึงข้อมูลได้ โปรดลองอีกครั้ง');
+                }
+            });
+        }
 
-                <button type="button" onclick="saveAssetChanges()"
-                    class="px-4 py-1.5 rounded-lg bg-green-500 text-white hover:bg-green-600 focus:ring-2 focus:ring-green-300 transition-all duration-200">
-                    <i class="fas fa-save mr-2"></i>
-                    บันทึก
-                </button>
-
-                <button type="button" onclick="cancelModal_Edit_asset()"
-                    class="px-4 py-1.5 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-200 transition-all duration-200">
-                    <i class="fas fa-times mr-2"></i>
-                    ยกเลิก
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
+        fetchCareerData();
+    });
+</script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-    let currentAssetId = null;
-    function openModal_Edit_asset_customer(button) {
-        // ดึงค่า asset ID จาก data-id ที่อยู่ในปุ่ม
-        currentAssetId = $(button).data('id');
+    // ใช้ event delegation เพื่อผูก event กับปุ่มลบที่เพิ่มเข้ามาหลังจาก render
+    $(document).on('click', '.delete-btn-career', function() {
+        var careerId = $(this).data('id');
 
-        // กรอกค่า assetId ลงใน input
-        $('#assetId').val(currentAssetId);
-
-        $.ajax({
-            url: '/api/getAssetData',
-            method: 'GET',
-            data: {
-                id: currentAssetId
-            },
-            success: function(data) {
-                // กรอกข้อมูลในฟิลด์ของ modal ด้วยข้อมูลที่ดึงได้จาก API
-
-                function formatDate(date) {
-                    return new Date(date).toLocaleDateString('th-TH', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        weekday: 'long'
-                    });
-                }
-
-                $('#edit_Type_Asset').val(data.Type_Asset);
-                $('#edit_OldLicenseText').val(data.Vehicle_OldLicense_Text);
-                $('#edit_OldLicenseNumber').val(data.Vehicle_OldLicense_Number);
-                $('#edit_OldProvince').val(data.OldProvince);
-                $('#edit_NewLicenseText').val(data.Vehicle_NewLicense_Text);
-                $('#edit_NewLicenseNumber').val(data.Vehicle_NewLicense_Number);
-                $('#edit_NewProvince').val(data.NewProvince);
-                $('#edit_Vehicle_Chassis').val(data.Vehicle_Chassis);
-                $('#edit_Vehicle_Engine').val(data.Vehicle_Engine);
-                $('#edit_Vehicle_Color').val(data.Vehicle_Color);
-                // $('#edit_Vehicle_Brand').val(data.Vehicle_Brand);
-                if (data.Type_Asset === 'รถยนต์') {
-                    $('#edit_Vehicle_Brand').val(data.car_brand ? data.car_brand.Brand_car : '-');
-                } else if (data.Type_Asset === 'มอเตอร์ไซค์') {
-                    $('#edit_Vehicle_Brand').val(data.moto_brand ? data.moto_brand.Brand_moto : '-');
-                } else {
-                    $('#edit_Vehicle_Brand').val('-');
-                }
-                $('#edit_Vehicle_Group').val(data.Vehicle_Group);
-                $('#edit_Vehicle_Models').val(data.Vehicle_Models);
-                $('#edit_Vehicle_Years').val(data.Vehicle_Years);
-                $('#edit_Vehicle_CC').val(data.Vehicle_CC);
-                $('#edit_Vehicle_Gear').val(data.Vehicle_Gear);
-
-                // $('#edit_Vehicle_Type').val(data.Vehicle_Type);
-
-                if (data.Vehicle_Type === 'C01') {
-                    $('#edit_Vehicle_Type').val('รถเก๋ง');
-                } else if (data.Vehicle_Type === 'C02') {
-                    $('#edit_Vehicle_Type').val('กระบะตอนเดียว');
-                } else if (data.Vehicle_Type === 'C03') {
-                    $('#edit_Vehicle_Type').val('กระบะแค็บ');
-                } else if (data.Vehicle_Type === 'C04') {
-                    $('#edit_Vehicle_Type').val('กระบะ 4 ประตู');
-                } else if (data.Vehicle_Type === 'C05') {
-                    $('#edit_Vehicle_Type').val('รถตู้');
-                } else if (data.Vehicle_Type === 'C06') {
-                    $('#edit_Vehicle_Type').val('รถใหญ่');
-                } else if (data.Vehicle_Type === 'M01') {
-                    $('#edit_Vehicle_Type').val('เกียร์ธรรมดา');
-                } else if (data.Vehicle_Type === 'M02') {
-                    $('#edit_Vehicle_Type').val('เกียร์ออโต้');
-                } else if (data.Vehicle_Type === 'M03') {
-                    $('#edit_Vehicle_Type').val('BigBike');
-                } else {
-                    $('#edit_Vehicle_Type').val(data.Vehicle_Type);
-                }
-
-
-
-                $('#edit_Vehicle_Type_PLT').val(data.Vehicle_Type_PLT);
-                $('#edit_Insurance_renewal_date').val(data.Insurance_renewal_date);
-                $('#edit_Insurance_end_date').val(data.Insurance_end_date);
-                $('#edit_act_renewal_date').val(data.act_renewal_date);
-                $('#edit_act_end_date').val(data.act_end_date);
-                $('#edit_register_renewal_date').val(data.register_renewal_date);
-                $('#edit_register_end_date').val(data.register_end_date);
-                $('#edit_Vehicle_InsuranceStatus').val(data.insurance_status);
-                $('#edit_Vehicle_Companies').val(data.insurance_company);
-                $('#edit_Vehicle_PolicyNumber').val(data.policy_number);
-                $('#edit_Vehicle_New_Number').val(data.Vehicle_New_Number);
-                $('#edit_created_at').text(formatDate(data.created_at));
-                $('#edit_updated_at').text(formatDate(data.updated_at));
-                // $('#edit_created_at').text(data.created_at);
-                // $('#edit_updated_at').text(data.updated_at);
-
-                // แสดง modal
-                $('#edit_modal_asset')
-                    .css({
-                        opacity: 0,
-                        top: '60px'
-                    })
-                    .removeClass('hidden')
-                    .animate({
-                        opacity: 1,
-                        top: '0px'
-                    }, 100, 'swing');
-            },
-            error: function() {
-                alert('Error loading asset data.');
+        // ใช้ SweetAlert2 เพื่อยืนยันการลบ
+        Swal.fire({
+            title: 'แน่ใจหรือไม่?',
+            text: "ต้องการลบข้อมูลอาชีพนี้?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยันลบข้อมูล!',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // ถ้าผู้ใช้คลิก "ใช่, ลบเลย!" ให้ส่ง AJAX Request
+                $.ajax({
+                    url: '/delete-career',
+                    type: 'POST',
+                    data: {
+                        id: careerId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'ลบข้อมูลสำเร็จ',
+                                text: response.message
+                            });
+                            // ซ่อนรายการที่ถูกลบ
+                            $('button[data-id="' + careerId + '"]').closest('li').hide();
+                            // เรียกฟังก์ชัน fetchCareerData เพื่อรีเฟรชข้อมูล
+                            fetchCareerData();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'เกิดข้อผิดพลาด',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: 'ไม่สามารถลบข้อมูลได้'
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'การลบข้อมูลถูกยกเลิก',
+                    text: 'คุณไม่ได้ลบข้อมูล'
+                });
             }
         });
-    }
+    });
 
-
-    function closeModal_Edit_asset() {
-        $('#edit_modal_asset').animate({
-            top: '100%', // เลื่อน modal ลงจากตำแหน่งเดิม
-            opacity: 0   // ลดความโปร่งใส
-        }, 300, function() { // ความเร็วของ effect 300ms
-            $(this).addClass('hidden').css({ top: '', opacity: '' }); // ซ่อน modal และรีเซ็ตค่า top และ opacity
-        });
-    }
-
-    function cancelModal_Edit_asset() {
-        $('#edit_modal_asset').animate({
-            top: '100%',
-            opacity: 0
-        }, 300, function() {
-            $(this).addClass('hidden').css({ top: '', opacity: '' });
-        });
-    }
-
-
-    function saveAssetChanges() {
-        // ตรวจสอบว่ามีการส่งข้อมูล assetId ที่เป็นตัวเลข
-        if (isNaN(currentAssetId)) {
-            alert("Invalid Asset ID.");
-            return;
-        }
-
-        // ดึงข้อมูลจากฟอร์ม
-        const updatedData = {
-            id: currentAssetId, // ใช้ currentAssetId ที่ได้จากการเปิด Modal
-            // customer_id: $('#edit_Customer_id').val(),
-            type: $('#edit_Type_Asset').val(),
-            old_license_text: $('#edit_OldLicenseText').val(), // แก้ไขชื่อให้ตรงกับฟอร์ม
-            old_license_number: $('#edit_OldLicenseNumber').val(), // แก้ไขชื่อให้ตรงกับฟอร์ม
-            old_province: $('#edit_OldProvince').val(),
-            new_license_text: $('#edit_NewLicenseText').val(), // แก้ไขชื่อให้ตรงกับฟอร์ม
-            new_license_number: $('#edit_NewLicenseNumber').val(), // แก้ไขชื่อให้ตรงกับฟอร์ม
-            new_province: $('#edit_NewProvince').val(),
-            chassis_number: $('#edit_Vehicle_Chassis').val(),
-            engine_number: $('#edit_Vehicle_Engine').val(),
-            color: $('#edit_Vehicle_Color').val(),
-            brand: $('#edit_Vehicle_Brand').val(),
-            group: $('#edit_Vehicle_Group').val(),
-            model: $('#edit_Vehicle_Models').val(),
-            year: $('#edit_Vehicle_Years').val(),
-            engine_capacity: $('#edit_Vehicle_CC').val(),
-            gear_type: $('#edit_Vehicle_Gear').val(),
-            vehicle_type: $('#edit_Vehicle_Type').val(),
-            vehicle_type_plt: $('#edit_Vehicle_Type_PLT').val(),
-            insurance_renewal_date: $('#edit_Insurance_renewal_date').val(),
-            insurance_end_date: $('#edit_Insurance_end_date').val(),
-            act_renewal_date: $('#edit_act_renewal_date').val(),
-            act_end_date: $('#edit_act_end_date').val(),
-            register_renewal_date: $('#edit_register_renewal_date').val(),
-            register_end_date: $('#edit_register_end_date').val(),
-            insurance_status: $('#edit_Vehicle_InsuranceStatus').val(),
-            insurance_company: $('#edit_Vehicle_Companies').val(),
-            policy_number: $('#edit_Vehicle_PolicyNumber').val(),
-            new_number: $('#edit_Vehicle_New_Number').val(),
-        };
-
+    // ฟังก์ชันเพื่อดึงข้อมูลหลังจากลบแล้ว (กรุณาเขียนให้เหมาะสมกับโปรเจกต์ของคุณ)
+    function fetchCareerData() {
+        // โค้ดสำหรับดึงข้อมูลใหม่
         $.ajax({
-            url: '/api/updateAssetData', // ปรับ URL ให้ถูกต้องตาม API ของคุณ
-            method: 'POST',
-            data: updatedData,
+            url: '/get-career-data', // กำหนด URL สำหรับดึงข้อมูล
+            type: 'GET',
             success: function(response) {
                 if (response.success) {
-                    // แสดงข้อความด้วย SweetAlert
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'อัปเดทข้อมูลสินทรัพย์สำเร็จ',
-                        text: 'ข้อมูลสินทรัพย์ลูกค้าอัปเดทสำเร็จ',
-                        confirmButtonText: 'OK',
-                        timer: 1500,
-                        timerProgressBar: true
-                    }).then(() => {
-                        loadAssets(customerId);
-                        cancelModal_Edit_asset();
-                    });
+                    // รีเฟรชข้อมูลอาชีพ เช่น แสดงข้อมูลใหม่ในหน้า
+                    $('#career-list').html(response.data); // ตัวอย่างการแสดงข้อมูลใน <ul id="career-list">
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'อัปเดตข้อมูลไม่สำเร็จ',
-                        text: response.message,
-                        confirmButtonText: 'ลองอีกครั้ง'
+                        title: 'ไม่สามารถโหลดข้อมูลได้',
+                        text: response.message
                     });
                 }
             },
-            error: function(xhr, status, error) {
+            error: function() {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error',
-                    text: 'An error occurred : ' + error,
-                    confirmButtonText: 'OK'
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'ไม่สามารถดึงข้อมูลได้'
                 });
             }
         });
@@ -499,26 +274,226 @@
 
 
 
+{{-- <script>
+    $(document).on('click', '.delete-btn-career', function() {
+        var careerId = $(this).data('id');
 
+        // ใช้ SweetAlert2 เพื่อยืนยันการลบ
+        Swal.fire({
+            title: 'แน่ใจหรือไม่?',
+            text: "ต้องการลบข้อมูลอาชีพนี้?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยันลบข้อมูล!',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // ถ้าผู้ใช้คลิก "ใช่, ลบเลย!" ให้ส่ง AJAX Request
+                $.ajax({
+                    url: '/delete-career',
+                    type: 'POST',
+                    data: {
+                        id: careerId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'ลบข้อมูลสำเร็จ',
+                                text: response.message
+                            });
+                            // ซ่อนรายการที่ถูกลบ
+                            $('button[data-id="' + careerId + '"]').closest('li').hide();
+                            // เรียกฟังก์ชัน fetchAddresses เพื่อรีเฟรชข้อมูล
+                            fetchCareerData();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'เกิดข้อผิดพลาด',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: 'ไม่สามารถลบข้อมูลได้'
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'การลบข้อมูลถูกยกเลิก',
+                    text: 'คุณไม่ได้ลบข้อมูล'
+                });
+            }
+        });
+    });
 
+    // ฟังก์ชันเพื่อดึงข้อมูลหลังจากลบแล้ว (กรุณาเขียนให้เหมาะสมกับโปรเจกต์ของคุณ)
+    function fetchCareerData() {
+        // โค้ดสำหรับดึงข้อมูลใหม่
+    }
+</script> --}}
 
-{{-- // ส่งข้อมูลผ่าน Ajax
-// $.ajax({
-//     url: '/api/updateAssetData', // ปรับ URL ให้ถูกต้องตาม API ของคุณ
-//     method: 'POST',
-//     data: updatedData,
-//     success: function(response) {
-//         if (response.success) {
-//             alert('Asset updated successfully');
-//             // closeModal_Edit_asset(); // ปิด Modal หลังจากบันทึกข้อมูลสำเร็จ
-//         } else {
-//             alert('Failed to update asset: ' + response.message);
+{{-- // ฟังก์ชันสำหรับดึงข้อมูลอาชีพ
+// function fetchCareerData() {
+//     const customerId = $('#dataCusIdField').val(); // รับ ID ลูกค้า
+//     // const customerId = '{{ $customer->id ?? '-' }}'; // รับค่า customer ID จาก Blade
+//     $.ajax({
+//         url: '/get-career-data/' + customerId,
+//         method: 'GET',
+//         dataType: 'json',
+//         success: function(data) {
+//             let html = '';
+//             let hasCareerCards = false; // ตัวแปรสำหรับเช็คว่ามีการ์ดหรือไม่
+
+//             if (data.careers && data.careers.length > 0) {
+//                 hasCareerCards = true; // พบการ์ดเพิ่มค่าเป็น true
+
+//                 $.each(data.careers, function(index, career) {
+//                     html += `
+//                     <div class="flex space-x-4 p-2">
+//                         <div class="w-full mt-0">
+//                             <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
+//                                 <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">
+//                                     <div class="flex justify-between items-center">
+//                                         <div class="flex-1">
+//                                             <h6 class="text-primary font-semibold">
+//                                                 <i class="fas fa-tag"></i> ${career.Career_Cus}
+//                                             </h6>
+//                                         </div>
+//                                         <label class="popup">
+//                                             <input type="checkbox">
+//                                             <div class="burger" tabindex="0">
+//                                                 <span></span>
+//                                                 <span></span>
+//                                                 <span></span>
+//                                             </div>
+//                                             <nav class="popup-window">
+//                                                 <legend>Actions</legend>
+//                                                 <ul>
+//                                                 <li>
+//                                                     <button data-id="${career.id}"
+//                                                             data-Status_Cus="${career.Status_Cus}"
+//                                                             data-DataCus_id="${career.DataCus_id}"
+//                                                             data-Career_Cus="${career.Career_Cus}"
+//                                                             data-Workplace_Cus="${career.Workplace_Cus}"
+//                                                             data-Income_Cus="${career.Income_Cus}"
+//                                                             data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+//                                                             data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+//                                                             data-Coordinates="${career.Coordinates}"
+//                                                             data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+//                                                             onclick="openModal_Show_career_customer(this)">
+//                                                     <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+//                                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+//                                                         <circle cx="12" cy="12" r="3"></circle>
+//                                                     </svg>
+//                                                     <span>แสดง</span>
+//                                                     </button>
+//                                                 </li>
+//                                                 <li>
+//                                                     <button data-id="${career.id}"
+//                                                             data-Status_Cus="${career.Status_Cus}"
+//                                                             data-DataCus_id="${career.DataCus_id}"
+//                                                             data-Career_Cus="${career.Career_Cus}"
+//                                                             data-Workplace_Cus="${career.Workplace_Cus}"
+//                                                             data-Income_Cus="${career.Income_Cus}"
+//                                                             data-BeforeIncome_Cus="${career.BeforeIncome_Cus}"
+//                                                             data-AfterIncome_Cus="${career.AfterIncome_Cus}"
+//                                                             data-Coordinates="${career.Coordinates}"
+//                                                             data-IncomeNote_Cus="${career.IncomeNote_Cus}"
+//                                                             onclick="openModal_Edit_career_customer(this)">
+//                                                             <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+//                                                         <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+//                                                     </svg>
+//                                                     <span>แก้ไข</span>
+//                                                     </button>
+//                                                 </li>
+//                                                 <hr>
+//                                                 <li>
+//                                                     <button>
+//                                                     <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+//                                                         <line y2="18" x2="6" y1="6" x1="18"></line>
+//                                                         <line y2="18" x2="18" y1="6" x1="6"></line>
+//                                                     </svg>
+//                                                     <span>ลบ</span>
+//                                                     </button>
+//                                                 </li>
+//                                                 </ul>
+//                                             </nav>
+//                                         </label>
+//                                     </div>
+//                                 </div>
+//                                 <div class="p-4">
+//                                     <div class="flex">
+//                                         <div class="flex-1">
+//                                             <p class="text-truncate">
+//                                                 <input type="hidden" name="DataCus_id" value="${career.DataCus_id}">
+//                                                 <i class="fas fa-bookmark text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>
+//                                                 <i class="fas fa-table text-success mb-1 h-5"></i>  <strong>รายได้</strong> : ${career.Income_Cus}<br>
+//                                                 <i class="fas fa-briefcase text-success mb-1 h-5"></i>  <strong>อาชีพ</strong> : ${career.Career_Cus}<br>
+//                                                 <!--<i class="fas fa-building text-success mb-1 h-5"></i>  <strong>สถานที่ทำงาน</strong> : ${career.Workplace_Cus}<br>-->
+//                                                 <i class="fas fa-money-bill text-success mb-0 h-5"></i>  <strong>เงินเดือน</strong> : ${career.Income_Cus}
+//                                             </p>
+
+//                                         </div>
+//                                         <div class="flex-shrink-0">
+//                                             <img src="{{ asset('img/career.jpg') }}" alt="${career.DetailCareer_Cus}" class="w-36 h-20">
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                                 <div class="p-4 border-t">
+//                                     <small class="text-muted">
+//                                         <div class="flex justify-between items-center">
+//                                             <div title="${career.created_at}">
+//                                                 <i class="fas fa-clock"></i> สร้างข้อมูลเมื่อ
+//                                                 ${new Date(career.created_at).toLocaleDateString('th-TH', {
+//                                                     day: 'numeric',
+//                                                     month: 'long',
+//                                                     year: 'numeric'
+//                                                 })} เวลา ${new Date(career.created_at).toLocaleTimeString('th-TH', {
+//                                                     hour: '2-digit',
+//                                                     minute: '2-digit',
+//                                                     hour12: false // ใช้ 24 ชั่วโมง
+//                                                 })} น.
+//                                             </div>
+//                                             <div class="text-right">
+//                                                 <p class="text-muted mb-0 text-truncate"><i class="fas fa-user-circle"></i></p>
+//                                             </div>
+//                                         </div>
+//                                     </small>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>`;
+//                 });
+//             } else {
+//                 html =
+//                     `<p class="text-center text-muted" hidden>ไม่พบข้อมูลอาชีพ</p>`; // ข้อความเมื่อไม่มีข้อมูลอาชีพ
+//             }
+
+//             $('#career-container').html(html);
+
+//             // ซ่อน career-master ถ้ามีการ์ด
+//             if (hasCareerCards) {
+//                 $('.career-master').hide();
+//                 $('#prev-master-2').show();
+//                 $('#next-master-2').show();
+//             } else {
+//                 $('.career-master').show();
+//                 $('#prev-master-2').hide();
+//                 $('#next-master-2').hide();
+//             }
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
 //         }
-//     },
-//     error: function(xhr, status, error) {
-//         alert('Error: ' + error);
-//     }
-// }); --}}
+//     });
+// } --}}
 
 
 
@@ -531,108 +506,268 @@
 
 
 
-
-// $(document).ready(function() {
-    //     // Load initial vehicle type options
-    //     loadVehicleTypeOptions();
-
-    //     // Event handler for rate type change
-    //     $('#edit_Vehicle_Type').on('change', function() {
-    //         const selectedRateType = $(this).val();
-    //         if (selectedRateType) {
-    //             fetchVehicleNames(selectedRateType);
-    //         } else {
-    //             resetVehicleNameSelect();
-    //         }
-    //     });
+{{-- // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
     // });
 
-    // // Function to load initial vehicle type options
-    // function loadVehicleTypeOptions() {
-    //     $.ajax({
-    //         url: '/get-edit-ratetype-options',
-    //         method: 'GET',
-    //         success: function(response) {
-    //             const {
-    //                 carTypes,
-    //                 motoTypes
-    //             } = response;
+    // // ตรวจสอบการคลิกปุ่มบันทึก
+    // $('#submitBtnCareer').on('click', function(event) {
+    //     event.preventDefault(); // ป้องกันการส่งฟอร์มตามปกติ
+    //     validateForm(); // เรียกใช้ฟังก์ชัน validateForm
+    // });
 
-    //             // Clear existing options
-    //             $('#edit_Vehicle_Type').empty();
+    // function validateForm() {
+    //     var isValid = true; // เริ่มต้นสถานะเป็นจริง
+    //     $('.error').remove(); // ลบข้อความแสดงข้อผิดพลาดก่อนหน้า
 
-    //             // Add default option
-    //             $('#edit_Vehicle_Type').append(new Option('เลือกประเภทรถ', ''));
-
-    //             // Add optgroup for cars
-    //             if (carTypes && carTypes.length) {
-    //                 const carGroup = $('<optgroup label="รถยนต์">');
-    //                 carTypes.forEach(type => {
-    //                     carGroup.append(new Option(type.name, type.id));
-    //                 });
-    //                 $('#edit_Vehicle_Type').append(carGroup);
-    //             }
-
-    //             // Add optgroup for motorcycles
-    //             if (motoTypes && motoTypes.length) {
-    //                 const motoGroup = $('<optgroup label="รถจักรยานยนต์">');
-    //                 motoTypes.forEach(type => {
-    //                     motoGroup.append(new Option(type.name, type.id));
-    //                 });
-    //                 $('#edit_Vehicle_Type').append(motoGroup);
-    //             }
-
-    //             // Load asset data after vehicle types are loaded
-    //             loadAssetData();
+    //     // ตรวจสอบฟิลด์ที่จำเป็น
+    //     const fields = [{
+    //             id: '#Career_Cus',
+    //             message: 'กรุณาเลือกอาชีพ'
     //         },
-    //         error: function(xhr, status, error) {
-    //             console.error('Error loading vehicle types:', error);
-    //             alert('ไม่สามารถโหลดข้อมูลประเภทรถได้ กรุณาลองใหม่อีกครั้ง');
+    //         {
+    //             id: '#Income_Cus',
+    //             message: 'กรุณากรอกรายได้'
+    //         },
+    //         {
+    //             id: '#BeforeIncome_Cus',
+    //             message: 'กรุณากรอกหักค่าใช้จ่าย'
+    //         },
+    //         {
+    //             id: '#AfterIncome_Cus',
+    //             message: 'กรุณากรอกคงเหลือ'
+    //         },
+    //         {
+    //             id: '#Workplace_Cus',
+    //             message: 'กรุณากรอกสถานที่ทำงาน'
+    //         },
+    //         {
+    //             id: '#Coordinates',
+    //             message: 'กรุณากรอกพิกัด'
+    //         },
+    //         {
+    //             id: '#IncomeNote_Cus',
+    //             message: 'กรุณากรอกรายละเอียด'
+    //         }
+    //     ];
+
+    //     fields.forEach(function(field) {
+    //         if ($(field.id).val().trim() === '') {
+    //             $(field.id).addClass('border-red-500');
+    //             $(field.id).after(
+    //                 `<span class="error text-red-500 text-xs flex items-center mt-1">
+    //                     <i class="fas fa-exclamation-circle mr-2"></i>${field.message}
+    //                 </span>`
+    //             );
+    //             isValid = false;
+    //         } else {
+    //             $(field.id).removeClass('border-red-500');
     //         }
     //     });
-    // }
 
-
-    // // Function to update vehicle name select
-    // function updateVehicleNameSelect(vehicles) {
-    //     const $select = $('#edit_Vehicle_Type_PLT');
-    //     $select.empty();
-    //     $select.append(new Option('เลือกประเภทรถ', ''));
-
-    //     if (vehicles && vehicles.length > 0) {
-    //         vehicles.forEach(vehicle => {
-    //             $select.append(new Option(vehicle.Name_Vehicle, vehicle.Name_Vehicle));
-    //         });
-    //     } else {
-    //         $select.append(new Option('ไม่มีข้อมูล', ''));
+    //     if (!isValid) {
+    //         setTimeout(function() {
+    //             $('.error').fadeOut(1000, function() {
+    //                 $(this).remove();
+    //             });
+    //         }, 2000);
+    //         return; // หยุดการทำงานถ้าฟอร์มไม่ valid
     //     }
+
+    //     // หากฟอร์ม valid ส่งข้อมูล
+    //     submitForm();
     // }
 
-    // function fetchVehicleNames(ratetypeId) {
+    // function submitForm() {
+    //     var formData = $('#careerForm').serialize(); // แปลงฟอร์มเป็นข้อมูลที่สามารถส่งได้
+
     //     $.ajax({
-    //         url: '/get-edit-vehicle-names',
-    //         type: 'GET',
-    //         data: {
-    //             ratetype_id: ratetypeId
-    //         },
+    //         url: '{{ route('career.store') }}', // URL ที่ถูกต้อง
+    //         method: 'POST',
+    //         data: formData,
     //         success: function(response) {
-    //             updateVehicleNameSelect(response);
+    //             Swal.fire({
+    //                 title: 'สำเร็จ!',
+    //                 text: 'สร้างอาชีพลูกค้าสำเร็จแล้ว!',
+    //                 icon: 'success',
+    //                 confirmButtonText: 'ตกลง'
+    //             }).then(() => {
+    //                 fetchCareerData(); // รีเฟรชข้อมูลหลังจากสำเร็จ
+    //             });
+    //             $('#careerForm')[0].reset(); // รีเซ็ตฟอร์ม
     //         },
-    //         error: function(xhr, status, error) {
-    //             console.error('Error fetching vehicle names:', error);
-    //             resetVehicleNameSelect('เกิดข้อผิดพลาดในการโหลดข้อมูล');
+    //         error: function(xhr) {
+    //             var errors = xhr.responseJSON.errors;
+    //             if (errors) {
+    //                 $.each(errors, function(key, value) {
+    //                     Swal.fire({
+    //                         title: 'ข้อผิดพลาด!',
+    //                         text: value[0],
+    //                         icon: 'error',
+    //                         confirmButtonText: 'ตกลง'
+    //                     });
+    //                 });
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'ข้อผิดพลาด!',
+    //                     text: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง.',
+    //                     icon: 'error',
+    //                     confirmButtonText: 'ตกลง'
+    //                 });
+    //             }
     //         }
     //     });
     // }
 
+    // // หากต้องการจัดการกับปุ่มยกเลิก
+    // $('#closeModal_career_button').on('click', function() {
+    //     // ปิดโมดัลหรือทำการใด ๆ ที่ต้องการ
+    // });
 
-    // // Function to reset vehicle name select
-    // function resetVehicleNameSelect(message = 'เลือกประเภทรถ') {
-    //     const $select = $('#edit_Vehicle_Type_PLT');
-    //     $select.empty();
-    //     $select.append(new Option(message, ''));
-    // }
+    // // เพิ่มเหตุการณ์สำหรับการค้นหา
+    // $('#searchInput').on('keyup', function() {
+    //     let value = $(this).val().toLowerCase();
+    //     $('.career-card').filter(function() {
+    //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    //     });
+    // }); --}}
+
+{{-- <div id="editCareerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editCareerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCareerModalLabel">แก้ไขข้อมูลอาชีพ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editCareerForm">
+                    <input type="hidden" id="modalDataCusId" name="DataCus_id">
+
+                    <div class="form-group">
+                        <label for="modalCareerName">ชื่ออาชีพ</label>
+                        <input type="text" class="form-control" id="modalCareerName" name="Career_Cus" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalWorkplace">สถานที่ทำงาน</label>
+                        <input type="text" class="form-control" id="modalWorkplace" name="Workplace_Cus" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalIncome">รายได้</label>
+                        <input type="text" class="form-control" id="modalIncome" name="Income_Cus" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalDetail">รายละเอียด</label>
+                        <textarea class="form-control" id="modalDetail" name="DetailCareer_Cus" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalCreatedAt">วันที่สร้างข้อมูล</label>
+                        <input type="text" class="form-control" id="modalCreatedAt" name="created_at" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                <button type="button" class="btn btn-primary" id="saveChangesBtn">บันทึกการเปลี่ยนแปลง</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal_Edit_career_customer(button) {
+        const dataCusId = $(button).data('data-cus-id');
+        const careerName = $(button).data('career-name');
+        const workplace = $(button).data('workplace');
+        const income = $(button).data('income');
+        const detail = $(button).data('detail');
+        const createdAt = $(button).data('created-at');
+
+        // ตั้งค่าฟิลด์ใน Modal
+        $('#modalDataCusId').val(dataCusId);
+        $('#modalCareerName').val(careerName);
+        $('#modalWorkplace').val(workplace);
+        $('#modalIncome').val(income);
+        $('#modalDetail').val(detail);
+        $('#modalCreatedAt').val(new Date(createdAt).toLocaleDateString('th-TH', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        }) + ' เวลา ' + new Date(createdAt).toLocaleTimeString('th-TH', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false // ใช้ 24 ชั่วโมง
+        }));
+
+        // เปิด Modal
+        $('#editCareerModal').modal('show');
+    }
+
+    // ส่วนสำหรับบันทึกการเปลี่ยนแปลง
+    $('#saveChangesBtn').on('click', function() {
+        const formData = $('#editCareerForm').serialize(); // ดึงข้อมูลจากฟอร์ม
+
+        $.ajax({
+            url: '/update-career-data', // URL สำหรับการอัพเดตข้อมูล
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                // ปิด Modal และรีเฟรชข้อมูลที่แสดง
+                $('#editCareerModal').modal('hide');
+                fetchCareerData(); // เรียกฟังก์ชันเพื่อรีเฟรชข้อมูล
+                alert('บันทึกข้อมูลเรียบร้อยแล้ว!'); // แจ้งผู้ใช้
+            },
+            error: function(xhr) {
+                alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล!'); // แจ้งข้อผิดพลาด
+            }
+        });
+    });
 
 
 
-ต้นฉบับ
+      <!--<button class="edit-career-btn bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded transition-transform transform hover:scale-105 hover:shadow-lg flex items-center"
+            data-id="${career.id}"
+            data-career-name="${career.Career_Cus}"
+            data-data-cus-id="${career.DataCus_id}"
+            data-workplace="${career.Workplace_Cus}"
+            data-income="${career.Income_Cus}"
+            data-before-income="${career.BeforeIncome_Cus}"
+            data-after-income="${career.AfterIncome_Cus}"
+            data-coordinates="${career.Coordinates}"
+            data-note="${career.IncomeNote_Cus}"
+            onclick="openModal_Edit_career_customer(this)">
+            <i class="fas fa-edit mr-2"></i> แก้ไข
+        </button>-->
+
+        <!--<div class="group grid grid-cols-3 gap-0 hover:gap-2 duration-500 relative shadow-sm">
+            <h1 class="absolute z-10 group-hover:hidden duration-200 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                <svg viewBox="0 0 24 24" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-7 h-7 text-gray-800">
+                    <path d="M5 7h14M5 12h14M5 17h14" stroke-width="2" stroke-linecap="round" stroke="currentColor"></path>
+                </svg>
+            </h1>
+
+            <a href="#">
+                <svg viewBox="0 0 24 24" fill="currentColor" height="24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="group-hover:rounded-lg group-hover:opacity-1 p-3 bg-white/50 hover:bg-black backdrop-blur-md group-hover:shadow-xl rounded-bl-lg flex justify-center items-center w-full h-full text-black hover:text-white duration-200">
+                    <path clip-rule="evenodd" d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z" fill-rule="evenodd" class="opacity-0 group-hover:opacity-100 duration-200"></path>
+                </svg>
+            </a>
+            <a href="#">
+                <svg viewBox="0 0 24 24" fill="currentColor" height="24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="group-hover:rounded-lg group-hover:opacity-1 p-3 bg-white/50 hover:bg-blue-600 backdrop-blur-md group-hover:shadow-xl flex justify-center items-center w-full h-full text-blue-600 hover:text-white duration-200">
+                    <path clip-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" fill-rule="evenodd" class="opacity-0 group-hover:opacity-100 duration-200"></path>
+                </svg>
+            </a>
+            <a href="#">
+                <svg viewBox="0 0 24 24" fill="currentColor" height="24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="group-hover:rounded-lg group-hover:opacity-1 p-3 bg-white/50 hover:bg-red-500 backdrop-blur-md group-hover:shadow-xl rounded-br-lg flex justify-center items-center w-full h-full text-red-500 hover:text-white duration-200">
+                    <path clip-rule="evenodd" d="M21.7 8.037a4.26 4.26 0 0 0-.789-1.964 2.84 2.84 0 0 0-1.984-.839c-2.767-.2-6.926-.2-6.926-.2s-4.157 0-6.928.2a2.836 2.836 0 0 0-1.983.839 4.225 4.225 0 0 0-.79 1.965 30.146 30.146 0 0 0-.2 3.206v1.5a30.12 30.12 0 0 0 .2 3.206c.094.712.364 1.39.784 1.972.604.536 1.38.837 2.187.848 1.583.151 6.731.2 6.731.2s4.161 0 6.928-.2a2.844 2.844 0 0 0 1.985-.84 4.27 4.27 0 0 0 .787-1.965 30.12 30.12 0 0 0 .2-3.206v-1.516a30.672 30.672 0 0 0-.202-3.206Zm-11.692 6.554v-5.62l5.4 2.819-5.4 2.801Z" fill-rule="evenodd" class="opacity-0 group-hover:opacity-100 duration-200"></path>
+                </svg>
+            </a>
+        </div>-->
+</script> --}}

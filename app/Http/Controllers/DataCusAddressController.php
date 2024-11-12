@@ -96,10 +96,14 @@ class DataCusAddressController extends Controller
         $customer = Customer::with('addresses')->where('id', $id)->first();
 
         if ($customer && $customer->addresses) {
+            // ส่งข้อมูล customer และ addresses ไปยัง view
+            $view = view('components.content-cus.card_address', ['customer' => $customer, 'addresses' => $customer->addresses])->render();
+
             // ถ้ามีข้อมูลลูกค้าและข้อมูลที่อยู่ตรงกัน
             return response()->json([
                 'customer' => $customer,
-                'addresses' => $customer->addresses // เปลี่ยนเป็น addresses เพราะอาจมีหลายที่อยู่
+                'addresses' => $customer->addresses,
+                'view' => $view // ส่งค่า view กลับไปใน response
             ]);
         } else {
             return response()->json(['message' => 'No matching address found'], 404);
@@ -249,12 +253,48 @@ class DataCusAddressController extends Controller
 
 
 
+    // public function getAddressData($id)
+    // {
+    //     // ดึงข้อมูลที่อยู่ที่ DataCus_id ตรงกับ id ของ Customer
+    //     $customer = Customer::with('addresses')->where('id', $id)->first();
+
+    //     if ($customer && $customer->addresses) {
+    //         // $view = view('api.api-token-manager', compact())->render();
+
+    //          $view = view('components.content-cus.card_address', compact())->render();
+    //         // ถ้ามีข้อมูลลูกค้าและข้อมูลที่อยู่ตรงกัน
+    //         return response()->json([
+    //             'customer' => $customer,
+    //             'addresses' => $customer->addresses // เปลี่ยนเป็น addresses เพราะอาจมีหลายที่อยู่
+    //         ]);
+    //     } else {
+    //         return response()->json(['message' => 'No matching address found'], 404);
+    //     }
+    // }
 
 
 
+    // public function getAddressData($id)
+    // {
+    //     // ดึงข้อมูลที่อยู่ที่ DataCus_id ตรงกับ id ของ Customer
+    //     $customer = Customer::with('addresses')->where('id', $id)->first();
 
+    //     if ($customer && $customer->addresses) {
+    //         // เตรียมค่า view และตัดข้อความในที่อยู่ให้ยาวไม่เกิน 15 ตัวอักษร
+    //         $addressString = substr($customer->addresses->first()->address, 0, 15); // สมมุติว่า field 'address' ของ addresses
+    //         $view = view('components.content-cus.card_address', ['customer' => $customer, 'addresses' => $customer->addresses])->render();
 
-
+    //         // ถ้ามีข้อมูลลูกค้าและข้อมูลที่อยู่ตรงกัน
+    //         return response()->json([
+    //             'customer' => $customer,
+    //             'addresses' => $customer->addresses,
+    //             'view' => $view,
+    //             'address_str' => $addressString // ส่งค่า address_string กลับไปใน response
+    //         ]);
+    //     } else {
+    //         return response()->json(['message' => 'No matching address found'], 404);
+    //     }
+    // }
 
 
 

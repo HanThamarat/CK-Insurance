@@ -413,20 +413,52 @@ class DataAssetController extends Controller
 
 
 
+        // Code Type หลัก
+
+
+        // public function getModelOptions(Request $request)
+        // {
+        //     $groupId = $request->input('group_id'); // ดึง Group_id จากคำขอ
+
+        //     // ดึงข้อมูล Model_car ที่ไม่ซ้ำกันจากตาราง Stat_CarModel
+        //     $carModels = DB::table('Stat_CarModel')
+        //         ->select('Model_car', 'Group_id')
+        //         ->where('Group_id', $groupId) // กรองตาม Group_id
+        //         ->distinct()
+        //         ->get();
+
+        //     // ดึงข้อมูล Model_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoModel
+        //     $motoModels = DB::table('Stat_MotoModel')
+        //         ->select('Model_moto', 'Group_id')
+        //         ->where('Group_id', $groupId) // กรองตาม Group_id
+        //         ->distinct()
+        //         ->get();
+
+        //     // รวมข้อมูลโมเดลของรถยนต์และมอเตอร์ไซค์
+        //     $models = [
+        //         'carModels' => $carModels,
+        //         'motoModels' => $motoModels,
+        //     ];
+
+        //     return response()->json($models);
+        // }
+
+
+
         public function getModelOptions(Request $request)
         {
             $groupId = $request->input('group_id'); // ดึง Group_id จากคำขอ
 
             // ดึงข้อมูล Model_car ที่ไม่ซ้ำกันจากตาราง Stat_CarModel
             $carModels = DB::table('Stat_CarModel')
-                ->select('Model_car', 'Group_id')
+                ->select('Model_car', 'Group_id', 'Brand_id', 'Ratetype_id')
                 ->where('Group_id', $groupId) // กรองตาม Group_id
                 ->distinct()
                 ->get();
 
             // ดึงข้อมูล Model_moto ที่ไม่ซ้ำกันจากตาราง Stat_MotoModel
             $motoModels = DB::table('Stat_MotoModel')
-                ->select('Model_moto', 'Group_id')
+                ->select('Model_moto', 'Group_id', 'Brand_id', 'Ratetype_id')
                 ->where('Group_id', $groupId) // กรองตาม Group_id
                 ->distinct()
                 ->get();
