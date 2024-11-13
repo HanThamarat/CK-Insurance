@@ -2,7 +2,7 @@
 <div class="bg-white md:flex gap-6 py-2 border-b-2 border-orange-500 border-dashed">
     <div class="container mx-auto px-4 flex justify-between items-center">
         <div class="font-primaryBold text-[20px] flex items-center">
-            <span class="text-red-500 mr-7">CK <span class="text-orange-500">Insurance</span></span>
+            <span class="text-red-500 mr-7">Chookiat <span class="text-orange-500">Care</span></span>
             {{-- <div class="group relative flex justify-center items-center text-zinc-600 text-sm font-bold">
                 <div class="shadow-md flex items-center group-hover:gap-2 bg-gradient-to-br from-orange-200 to-orange-300 p-3 rounded-full cursor-pointer duration-300" onclick="openModal()">
                     <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" class="fill-zinc-600">

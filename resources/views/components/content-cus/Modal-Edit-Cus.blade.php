@@ -482,8 +482,12 @@
                         <i class="fa-solid fa-calendar-day mr-4 text-orange-700"></i>
                         <div class="text-gray-500 font-semibold text-sm">วันที่เข้าระบบ</div>
                     </div>
-                    <div class="ml-8 text-gray-400 text-sm">
+                    <!--<div class="ml-8 text-gray-400 text-sm">
                         ${new Date(data.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })} เวลา ${new Date(data.created_at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.
+                    </div>-->
+
+                    <div class="ml-8 text-gray-400 text-sm">
+                        ${new Date(data.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </div>
                 </div>
 

@@ -17,7 +17,7 @@
     }
 </style>
 
-@extends('pages.content-home.flower_effect')
+{{-- @extends('pages.content-home.flower_effect') --}}
 
 
 @section('content')

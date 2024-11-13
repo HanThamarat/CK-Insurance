@@ -50,7 +50,7 @@
                             const tambon = address.houseTambon_Adds || 'ไม่ระบุ';
 
                             $('#address-list').append(`
-                                <div class="flex flex-col w-full p-2 mt-0">
+                                <div class="flex flex-col w-full p-0 mt-0">
                                     <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500">
                                         <div class="bg-orange-200 bg-opacity-25 rounded-t-lg p-4">
                                             <div class="flex justify-between items-center">

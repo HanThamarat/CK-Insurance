@@ -20,7 +20,7 @@
 
                         $.each(data.careers, function(index, career) {
                             html += `
-                        <div class="flex space-x-4 p-2">
+                        <div class="flex space-x-4 p-0">
                             <div class="w-full mt-0">
                                 <div class="card task-box border-2 border-orange-500 border-opacity-50 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-500" id="cmptask-${career.id}">
                                     <div class="bg-info bg-opacity-25 rounded-t-lg p-4 bg-orange-200">

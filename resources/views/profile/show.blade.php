@@ -123,7 +123,18 @@
                         </div>
 
                         <h2 class="text-center mt-3 font-semibold dark:text-gray-300">ข้อมูลของผู้ใช้งานระบบ</h2>
+
+
                         <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+                            {{-- <div class="w-full mb-4 mt-6">
+                                <label for="status_user" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">สถานะผู้ใช้</label>
+                                <p id="status_user" class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <!-- จะถูกอัพเดตผ่าน JavaScript -->
+                                </p>
+                            </div> --}}
+
+
+
                             <div class="w-full mb-4 mt-6">
                                 <label for="name" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชื่อ - นามสกุล</label>
                                 <p id="name" class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -210,6 +221,32 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    // แสดงข้อมูลในส่วนต่างๆ ของ HTML
+                    document.getElementById("name").innerText = data.user.name;
+                    document.getElementById("email").innerText = data.user.email;
+                    document.getElementById("username").innerText = data.user.username;
+                    document.getElementById("phone").innerText = data.user.phone;
+                    document.getElementById("zone").innerText = data.Zone_Name || 'ไม่ระบุ';
+                    document.getElementById("branch").innerText = data.Name_Branch || 'ไม่ระบุ';
+
+                    // แสดง status_user ในหน้าเว็บ
+                    document.getElementById("status_user").innerText = data.user.status_user || 'ไม่ระบุ';
+                })
+                .catch(error => console.error('Error fetching data:', error));
+            });
+        </script>
+
+        {{-- <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                fetch('/profile/show', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
                     // แสดงข้อมูลใน console (หรือจะแสดงในหน้าเว็บได้เลย)
                     // console.log(data);
 
@@ -226,7 +263,7 @@
                 })
                 .catch(error => console.error('Error fetching data:', error));
             });
-        </script>
+        </script> --}}
 
 
 

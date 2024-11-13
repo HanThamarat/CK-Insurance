@@ -74,7 +74,7 @@
                 </div>
 
                 <!-- Pagination Section -->
-                <div id="pagination" class="flex justify-center items-center py-4 space-x-4">
+                {{-- <div id="pagination" class="flex justify-center items-center py-4 space-x-4">
                     <button id="prevPage"
                         class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 disabled:opacity-50"
                         onclick="changePage(-1)" disabled>
@@ -86,6 +86,38 @@
                                 class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
                                 onclick="changePage(1)">Next >
                             </button>
+                </div> --}}
+
+                <!-- Pagination Section -->
+                <div id="pagination" class="flex justify-center items-center py-4 space-x-2">
+                    <!-- Previous Button -->
+                    <button id="prevPage"
+                        class="px-3 py-2.5 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 disabled:opacity-50 hover:bg-orange-600 transition-colors"
+                        onclick="changePage('prev')" disabled>
+                        <span class="sr-only">Previous</span>
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Page Numbers Container -->
+                    <div id="pageNumbers" class="flex space-x-2">
+                        <!-- Page numbers will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Next Button -->
+                    <button id="nextPage"
+                        class="px-3 py-2.5 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 disabled:opacity-50 hover:bg-orange-600 transition-colors"
+                        onclick="changePage('next')">
+                        <span class="sr-only">Next</span>
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -152,23 +184,106 @@
             renderPagination(data);
         }
 
+        // function renderPagination(data) {
+        //     const currentPage = data.current_page;
+        //     const totalPages = data.last_page;
+
+        //     // ปรับปรุงข้อมูลหน้า
+        //     document.getElementById('currentPage').textContent = currentPage;
+        //     document.getElementById('totalPages').textContent = totalPages;
+
+        //     // เปิด/ปิดปุ่ม Prev/Next
+        //     document.getElementById('prevPage').disabled = currentPage === 1;
+        //     document.getElementById('nextPage').disabled = currentPage === totalPages;
+        // }
+
+        // // ฟังก์ชันเปลี่ยนหน้า
+        // function changePage(direction) {
+        //     const currentPage = parseInt(document.getElementById('currentPage').textContent);
+        //     const newPage = currentPage + direction;
+
+        //     fetchUsersDataOnSystem(newPage);
+        // }
+
         function renderPagination(data) {
             const currentPage = data.current_page;
             const totalPages = data.last_page;
+            const pageNumbersContainer = document.getElementById('pageNumbers');
 
-            // ปรับปรุงข้อมูลหน้า
-            document.getElementById('currentPage').textContent = currentPage;
-            document.getElementById('totalPages').textContent = totalPages;
+            // Clear existing page numbers
+            pageNumbersContainer.innerHTML = '';
 
-            // เปิด/ปิดปุ่ม Prev/Next
+            // Calculate range of pages to show
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+
+            // Adjust start page if we're near the end
+            if (endPage - startPage < 4) {
+                startPage = Math.max(1, endPage - 4);
+            }
+
+            // Add first page if not in range
+            if (startPage > 1) {
+                addPageButton(1, currentPage, pageNumbersContainer);
+                if (startPage > 2) {
+                    addEllipsis(pageNumbersContainer);
+                }
+            }
+
+            // Add page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                addPageButton(i, currentPage, pageNumbersContainer);
+            }
+
+            // Add last page if not in range
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    addEllipsis(pageNumbersContainer);
+                }
+                addPageButton(totalPages, currentPage, pageNumbersContainer);
+            }
+
+            // Enable/disable prev/next buttons
             document.getElementById('prevPage').disabled = currentPage === 1;
             document.getElementById('nextPage').disabled = currentPage === totalPages;
         }
 
-        // ฟังก์ชันเปลี่ยนหน้า
+        function addPageButton(pageNum, currentPage, container) {
+            const button = document.createElement('button');
+            button.textContent = pageNum;
+            button.onclick = () => fetchUsersDataOnSystem(pageNum);
+
+            // Apply different styles for current page
+            if (pageNum === currentPage) {
+                button.className =
+                    'px-3 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 font-medium';
+            } else {
+                button.className =
+                    'px-3 py-2 bg-white text-orange-500 border border-orange-300 rounded-md hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-orange-400 font-medium transition-colors';
+            }
+
+            container.appendChild(button);
+        }
+
+        function addEllipsis(container) {
+            const span = document.createElement('span');
+            span.textContent = '...';
+            span.className = 'px-2 py-0 text-orange-500';
+            container.appendChild(span);
+        }
+
         function changePage(direction) {
-            const currentPage = parseInt(document.getElementById('currentPage').textContent);
-            const newPage = currentPage + direction;
+            const currentPage = parseInt(document.getElementById('pageNumbers').querySelector('.bg-orange-500')
+            .textContent);
+            let newPage;
+
+            if (direction === 'prev') {
+                newPage = currentPage - 1;
+            } else if (direction === 'next') {
+                newPage = currentPage + 1;
+            } else {
+                newPage = direction;
+            }
 
             fetchUsersDataOnSystem(newPage);
         }

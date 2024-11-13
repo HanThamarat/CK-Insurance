@@ -75,8 +75,10 @@
                                         <input type="text"
                                             class="mb-2 border border-orange-300 rounded-full shadow-lg pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                                             placeholder="Search...">
-                                        <span class="btn_search absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer">
-                                            <i class="bx bx-search-alt search-icon text-orange-500 hover:text-orange-700 transition-all duration-300 ease-in-out"></i>
+                                        <span
+                                            class="btn_search absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                                            <i
+                                                class="bx bx-search-alt search-icon text-orange-500 hover:text-orange-700 transition-all duration-300 ease-in-out"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -117,7 +119,7 @@
                                                         <th scope="col" class="px-4 py-2 w-1/6">บัตรประชาชน</th>
                                                         <th scope="col" class="px-4 py-2 w-1/6">หมายเลขโทรศัพท์</th>
                                                         <th scope="col" class="px-4 py-2 w-1/6">สัญชาติ</th>
-                                                        <th scope="col" class="px-4 py-2 w-1/6">ศาสนา</th>
+                                                        <th scope="col" class="px-4 py-2 w-1/6">สถานะ</th>
                                                         <th scope="col" class="px-4 py-2 w-1/6">Action</th>
                                                     </tr>
                                                 </thead>
@@ -166,7 +168,8 @@
                                         {{-- </div> --}}
                                     </div>
                                     <!-- Button to add new customers -->
-                                    <div class="modal-footer sticky bottom-0 bg-white border-t px-1 py-0 flex items-center justify-end gap-2">
+                                    <div
+                                        class="modal-footer sticky bottom-0 bg-white border-t px-1 py-0 flex items-center justify-end gap-2">
                                         <div class="p-2 chat-input-section">
                                             <div class="flex justify-end mb-1 space-x-2">
                                                 <!-- Use flex and space-x-2 for horizontal spacing -->
@@ -315,10 +318,10 @@
             //     // ปุ่ม "Previous"
             //     if (data.current_page > 1) {
             //         paginationContainer.append(`
-            //             <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page - 1}">
-            //                 <i class="fas fa-arrow-left"></i>
-            //             </button>
-            //         `);
+        //             <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page - 1}">
+        //                 <i class="fas fa-arrow-left"></i>
+        //             </button>
+        //         `);
             //     }
 
             //     // สร้างหมายเลขหน้า
@@ -330,12 +333,12 @@
             //         // แสดงหน้าแรกเสมอ
             //         if (startPage > 1) {
             //             paginationContainer.append(`
-            //                 <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="1">1</button>
-            //             `);
+        //                 <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="1">1</button>
+        //             `);
             //             if (startPage > 2) {
             //                 paginationContainer.append(`
-            //                     <span class="px-3 py-2 text-gray-500">...</span>
-            //                 `);
+        //                     <span class="px-3 py-2 text-gray-500">...</span>
+        //                 `);
             //             }
             //         }
 
@@ -343,34 +346,34 @@
             //         for (let i = startPage; i <= endPage; i++) {
             //             const buttonClasses = (i === data.current_page) ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${normalClasses}`;
             //             paginationContainer.append(`
-            //                 <button class="pagination-button ${buttonClasses}" data-page="${i}">
-            //                     ${i}
-            //                 </button>
-            //             `);
+        //                 <button class="pagination-button ${buttonClasses}" data-page="${i}">
+        //                     ${i}
+        //                 </button>
+        //             `);
             //         }
 
             //         // แสดงหน้าสุดท้ายเสมอ
             //         if (endPage < data.last_page) {
             //             if (endPage < data.last_page - 1) {
             //                 paginationContainer.append(`
-            //                     <span class="px-3 py-2 text-gray-500">...</span>
-            //                 `);
+        //                     <span class="px-3 py-2 text-gray-500">...</span>
+        //                 `);
             //             }
             //             paginationContainer.append(`
-            //                 <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="${data.last_page}">
-            //                     ${data.last_page}
-            //                 </button>
-            //             `);
+        //                 <button class="pagination-button ${baseClasses} ${normalClasses}" data-page="${data.last_page}">
+        //                     ${data.last_page}
+        //                 </button>
+        //             `);
             //         }
             //     }
 
             //     // ปุ่ม "Next"
             //     if (data.current_page < data.last_page) {
             //         paginationContainer.append(`
-            //             <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page + 1}">
-            //                 <i class="fas fa-arrow-right"></i>
-            //             </button>
-            //         `);
+        //             <button class="pagination-button ${baseClasses} ${normalClasses} px-3 h-10" data-page="${data.current_page + 1}">
+        //                 <i class="fas fa-arrow-right"></i>
+        //             </button>
+        //         `);
             //     }
             // }
 
@@ -379,10 +382,14 @@
                 paginationContainer.empty();
 
                 // กำหนด Base styles ด้วย Tailwind
-                const baseClasses = 'transition-all duration-300 ease-in-out border rounded-lg px-4 py-2 mx-1 focus:outline-none focus:ring-2 focus:ring-orange-400 shadow-sm hover:shadow-md';
-                const normalClasses = 'bg-white text-orange-600 border-orange-200 hover:bg-orange-500 hover:text-white active:bg-orange-600';
-                const activeClasses = 'bg-orange-500 text-white border-orange-500 hover:bg-orange-600 cursor-default';
-                const disabledClasses = 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed hover:bg-gray-100 hover:text-gray-400';
+                const baseClasses =
+                    'transition-all duration-300 ease-in-out border rounded-lg px-4 py-2 mx-1 focus:outline-none focus:ring-2 focus:ring-orange-400 shadow-sm hover:shadow-md';
+                const normalClasses =
+                    'bg-white text-orange-600 border-orange-200 hover:bg-orange-500 hover:text-white active:bg-orange-600';
+                const activeClasses =
+                    'bg-orange-500 text-white border-orange-500 hover:bg-orange-600 cursor-default';
+                const disabledClasses =
+                    'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed hover:bg-gray-100 hover:text-gray-400';
 
                 // Container styling
                 paginationContainer.addClass('flex items-center justify-center space-x-2 my-4 font-medium text-sm');
@@ -413,7 +420,8 @@
 
                     // แสดงหน้าปัจจุบันและหน้าใกล้เคียง
                     for (let i = startPage; i <= endPage; i++) {
-                        const buttonClasses = i === data.current_page ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${normalClasses}`;
+                        const buttonClasses = i === data.current_page ? `${baseClasses} ${activeClasses}` :
+                            `${baseClasses} ${normalClasses}`;
                         paginationContainer.append(`
                             <button class="pagination-button ${buttonClasses} min-w-[40px] font-semibold" data-page="${i}">
                                 ${i}
@@ -445,8 +453,12 @@
 
                 // เพิ่ม Event Listeners
                 $('.pagination-button').not('[disabled]').hover(
-                    function() { $(this).addClass('transform scale-105'); },
-                    function() { $(this).removeClass('transform scale-105'); }
+                    function() {
+                        $(this).addClass('transform scale-105');
+                    },
+                    function() {
+                        $(this).removeClass('transform scale-105');
+                    }
                 );
 
                 // เพิ่ม Tooltip สำหรับหน้าที่ถูก disable
@@ -477,10 +489,16 @@
                             <td class="px-4 py-2 text-center">${customer.id_card_number}</td>
                             <td class="px-4 py-2 text-center">${customer.phone}</td>
                             <td class="px-4 py-2 text-center">${customer.nationality}</td>
-                            <td class="px-4 py-2 text-center">${customer.religion}</td>
+                            <td class="px-4 py-2 text-center">
+                                <span class="inline-block px-4 py-1 bg-orange-100 text-orange-700 border border-orange-300 rounded-full text-sm hover:bg-green-100 hover:text-green-700 transition-all duration-300">
+                                    ${customer.status_cus}
+                                </span>
+                            </td>
+
+
                             <td class="px-4 py-2 text-center">
                                 <div class="flex justify-center space-x-2">
-                                    <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-10 px-4 text-xs font-medium text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-700 rounded-xl transform hover:-translate-y-1.5 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-[0_12px_24px_0_rgba(0,0,0,0.25),0_6px_12px_0_rgba(0,0,0,0.1)]">
+                                    <a href="#" data-id="${customer.id}" class="edit-button flex items-center justify-center h-9 px-3 text-xs font-medium text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-700 rounded-xl transform hover:-translate-y-1.5 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-[0_12px_24px_0_rgba(0,0,0,0.25),0_6px_12px_0_rgba(0,0,0,0.1)]">
                                         <i class="fas fa-edit mr-2"></i> Edit
                                     </a>
 
@@ -571,7 +589,7 @@
 
 
 
-{{-- // ฟังก์ชันสำหรับอัปเดตตาราง
+    {{-- // ฟังก์ชันสำหรับอัปเดตตาราง
 // function updateTable(data) {
 //     const tbody = $('#customersTable tbody');
 //     tbody.empty();
@@ -610,7 +628,7 @@
 
 
 
-{{-- // อัปเดต Pagination
+    {{-- // อัปเดต Pagination
 //     function updatePagination(data) {
 //         const paginationContainer = $('#pagination');
 //         paginationContainer.empty();
