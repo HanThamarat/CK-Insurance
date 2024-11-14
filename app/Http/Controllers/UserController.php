@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,6 +13,15 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        // เช็คว่า user login แล้วหรือไม่
+        $user = Auth::user();
+
+        // ตรวจสอบค่า status_user ของผู้ใช้
+        if (!in_array($user->status_user, ['SAD', 'AD'])) {
+            // ถ้าไม่ใช่ SAD หรือ AD ส่งกลับไปยังหน้าหลักพร้อมข้อความ
+            return redirect('/home')->with('error', 'คุณไม่มีสิทธิ์เข้าสู่หน้านี้!');
+        }
+
         // รับจำนวน rows per page จาก request หรือใช้ค่าเริ่มต้นเป็น 10
         $rowsPerPage = $request->input('rowsPerPage', 10);
 
@@ -28,7 +38,6 @@ class UserController extends Controller
     }
 
 
-
     public function getUsers(Request $request)
     {
         $rowsPerPage = $request->input('rowsPerPage', 10);
@@ -41,6 +50,45 @@ class UserController extends Controller
 
         return response()->json($users);
     }
+
+    public function create(Request $request)
+    {
+        // ตรวจสอบว่า request ต้องการ JSON หรือไม่
+        if ($request->wantsJson()) {
+            // ตรวจสอบข้อมูลจาก request
+            $validatedData = $request->validate([
+                'status' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
+                'username' => 'required|string|max:255|unique:users',
+                'password' => 'required|string|min:8',
+                'email' => 'required|email|max:255|unique:users',
+                'phone' => 'nullable|string|max:20',
+                'zone' => 'nullable|string|max:255',
+                'branch' => 'nullable|string|max:255',
+                'status_user' => 'required|string|max:255',
+            ]);
+
+            // สร้างผู้ใช้ใหม่
+            $user = User::create([
+                'status' => $validatedData['status'],
+                'name' => $validatedData['name'],
+                'username' => $validatedData['username'],
+                'password' => bcrypt($validatedData['password']),
+                'email' => $validatedData['email'],
+                'phone' => $validatedData['phone'],
+                'zone' => $validatedData['zone'],
+                'branch' => $validatedData['branch'],
+                'status_user' => $validatedData['status_user'],
+            ]);
+
+            return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
+        }
+
+        // ถ้าไม่ใช่ JSON ส่งกลับ view สำหรับฟอร์มสร้างผู้ใช้ใหม่
+        return view('users.create');
+    }
+
+
 
 
     // ฟังก์ชันสำหรับสร้างผู้ใช้ใหม่
@@ -99,7 +147,22 @@ class UserController extends Controller
 
 
 
+    // public function index(Request $request)
+    // {
+    //     // รับจำนวน rows per page จาก request หรือใช้ค่าเริ่มต้นเป็น 10
+    //     $rowsPerPage = $request->input('rowsPerPage', 10);
 
+    //     // ดึงข้อมูลผู้ใช้ทั้งหมดพร้อม pagination
+    //     $users = User::paginate($rowsPerPage);
+
+    //     // ตรวจสอบหาก request ต้องการ JSON
+    //     if ($request->wantsJson()) {
+    //         return response()->json($users);
+    //     }
+
+    //     // หากไม่ใช่ JSON, ส่งกลับเป็น view
+    //     return view('UserManagement.index', compact('users'));
+    // }
 
 
     // public function getUsers(Request $request)

@@ -2,6 +2,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @section('content')
+
     <div class="min-h-screen bg-orange-50 mt-[-12]">
         <div class="container mx-auto px-4 py-8">
             <!-- Header Card -->
@@ -72,21 +73,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Pagination Section -->
-                {{-- <div id="pagination" class="flex justify-center items-center py-4 space-x-4">
-                    <button id="prevPage"
-                        class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 disabled:opacity-50"
-                        onclick="changePage(-1)" disabled>
-                        < Prev </button>
-                            <span class="text-sm text-orange-700">
-                                หน้า <span id="currentPage">1</span> จาก <span id="totalPages">10</span>
-                            </span>
-                            <button id="nextPage"
-                                class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-                                onclick="changePage(1)">Next >
-                            </button>
-                </div> --}}
 
                 <!-- Pagination Section -->
                 <div id="pagination" class="flex justify-center items-center py-4 space-x-2">
@@ -184,26 +170,7 @@
             renderPagination(data);
         }
 
-        // function renderPagination(data) {
-        //     const currentPage = data.current_page;
-        //     const totalPages = data.last_page;
 
-        //     // ปรับปรุงข้อมูลหน้า
-        //     document.getElementById('currentPage').textContent = currentPage;
-        //     document.getElementById('totalPages').textContent = totalPages;
-
-        //     // เปิด/ปิดปุ่ม Prev/Next
-        //     document.getElementById('prevPage').disabled = currentPage === 1;
-        //     document.getElementById('nextPage').disabled = currentPage === totalPages;
-        // }
-
-        // // ฟังก์ชันเปลี่ยนหน้า
-        // function changePage(direction) {
-        //     const currentPage = parseInt(document.getElementById('currentPage').textContent);
-        //     const newPage = currentPage + direction;
-
-        //     fetchUsersDataOnSystem(newPage);
-        // }
 
         function renderPagination(data) {
             const currentPage = data.current_page;
@@ -318,8 +285,43 @@
 
 
 
+{{-- // function renderPagination(data) {
+    //     const currentPage = data.current_page;
+    //     const totalPages = data.last_page;
+
+    //     // ปรับปรุงข้อมูลหน้า
+    //     document.getElementById('currentPage').textContent = currentPage;
+    //     document.getElementById('totalPages').textContent = totalPages;
+
+    //     // เปิด/ปิดปุ่ม Prev/Next
+    //     document.getElementById('prevPage').disabled = currentPage === 1;
+    //     document.getElementById('nextPage').disabled = currentPage === totalPages;
+    // }
+
+    // // ฟังก์ชันเปลี่ยนหน้า
+    // function changePage(direction) {
+    //     const currentPage = parseInt(document.getElementById('currentPage').textContent);
+    //     const newPage = currentPage + direction;
+
+    //     fetchUsersDataOnSystem(newPage);
+    // } --}}
 
 
+    
+<!-- Pagination Section -->
+{{-- <div id="pagination" class="flex justify-center items-center py-4 space-x-4">
+    <button id="prevPage"
+        class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 disabled:opacity-50"
+        onclick="changePage(-1)" disabled>
+        < Prev </button>
+            <span class="text-sm text-orange-700">
+                หน้า <span id="currentPage">1</span> จาก <span id="totalPages">10</span>
+            </span>
+            <button id="nextPage"
+                class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
+                onclick="changePage(1)">Next >
+            </button>
+</div> --}}
 
 
 {{-- <script>
