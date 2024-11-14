@@ -1,6 +1,8 @@
 @extends('layouts.app')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+@include('UserManagement.create')
+
 @section('content')
 
     <div class="min-h-screen bg-orange-50 mt-[-12]">
@@ -19,12 +21,19 @@
                         </div>
                         <!-- New Button for Adding User -->
                         <div>
-                            <button
+                            <button onclick="openModalCreateUser()"
                                 class="px-3 py-1.5 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 transform transition-all duration-200 hover:scale-105 hover:shadow-lg flex items-center space-x-2">
                                 <i class="fas fa-user-plus"></i> <!-- Font Awesome Icon -->
                                 <span>เพิ่มบัญชีผู้ใช้งานระบบ</span>
                             </button>
                         </div>
+
+                        {{-- <button onclick="openModalCreateUser()" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg flex items-center space-x-2 transition duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                            <span>เพิ่มผู้ใช้ใหม่</span>
+                        </button> --}}
 
                     </div>
                 </div>
@@ -307,7 +316,7 @@
     // } --}}
 
 
-    
+
 <!-- Pagination Section -->
 {{-- <div id="pagination" class="flex justify-center items-center py-4 space-x-4">
     <button id="prevPage"

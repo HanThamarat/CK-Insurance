@@ -53,6 +53,7 @@ Route::get('/profile/show', [ProfileController::class, 'show']);
 // Route::get('/customer/{id}', [CustomerController::class, 'getCustomerData']);
 
 Route::resource('customers', CustomerController::class); //Function ทั่วไปมาใช้ ของลูกค้า
+Route::get('/get-zones-branches', [UserController::class, 'getZonesAndBranches']);
 
 
 // ASSET ROUTE (ข้อมูลสินทรัพย์)

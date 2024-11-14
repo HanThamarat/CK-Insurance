@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\TBZone;
+use App\Models\Branch;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,30 +13,21 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     // // ฟังก์ชันสำหรับแสดงข้อมูลผู้ใช้
-
     public function index(Request $request)
     {
-        // เช็คว่า user login แล้วหรือไม่
         $user = Auth::user();
 
-        // ตรวจสอบค่า status_user ของผู้ใช้
         if (!in_array($user->status_user, ['SAD', 'AD'])) {
-            // ถ้าไม่ใช่ SAD หรือ AD ส่งกลับไปยังหน้าหลักพร้อมข้อความ
-            return redirect('/home')->with('error', 'คุณไม่มีสิทธิ์เข้าสู่หน้านี้!');
+            return response()->json(['error' => 'คุณไม่มีสิทธิ์เข้าสู่หน้านี้!'], 403);
         }
 
-        // รับจำนวน rows per page จาก request หรือใช้ค่าเริ่มต้นเป็น 10
         $rowsPerPage = $request->input('rowsPerPage', 10);
-
-        // ดึงข้อมูลผู้ใช้ทั้งหมดพร้อม pagination
         $users = User::paginate($rowsPerPage);
 
-        // ตรวจสอบหาก request ต้องการ JSON
         if ($request->wantsJson()) {
             return response()->json($users);
         }
 
-        // หากไม่ใช่ JSON, ส่งกลับเป็น view
         return view('UserManagement.index', compact('users'));
     }
 
@@ -46,10 +40,50 @@ class UserController extends Controller
         $users = User::where('name', 'like', '%'.$search.'%')
                     ->orWhere('email', 'like', '%'.$search.'%')
                     ->orWhere('username', 'like', '%'.$search.'%')
+                    ->orderBy('created_at', 'desc') // เพิ่มการเรียงลำดับจากใหม่ไปเก่า
                     ->paginate($rowsPerPage);
 
         return response()->json($users);
     }
+
+
+    // public function getZonesAndBranches()
+    // {
+    //     // ดึงข้อมูลโซน (Zone_Branch) และสาขา (Branch_Active)
+    //     $zones = Branch::select('Zone_Branch')->distinct()->get();
+    //     $branches = Branch::select('id', 'Name_Branch', 'Zone_Branch')->get();
+
+    //     return response()->json([
+    //         'zones' => $zones,
+    //         'branches' => $branches
+    //     ]);
+    // }
+
+    public function getZonesAndBranches(Request $request)
+    {
+        // ดึงข้อมูลโซน
+        $zones = Branch::select('Zone_Branch')->distinct()->get();
+
+        // รับค่า zone ที่ถูกเลือกจาก request
+        $zone = $request->input('zone', null);
+
+        // กรองข้อมูลตามค่า Zone_Branch ที่เลือก
+        $allowedZones = ['10', '20', '30', '40', '50'];  // โซนที่อนุญาต
+        if (in_array($zone, $allowedZones)) {
+            $branches = Branch::where('Zone_Branch', $zone)
+                ->select('id', 'Name_Branch')
+                ->get();
+        } else {
+            // ถ้าไม่เลือก zone หรือไม่ตรงกับที่กำหนด จะดึงข้อมูลสาขาทั้งหมด
+            $branches = Branch::select('id', 'Name_Branch', 'Zone_Branch')->get();
+        }
+
+        return response()->json([
+            'zones' => $zones,
+            'branches' => $branches
+        ]);
+    }
+
 
     public function create(Request $request)
     {
@@ -146,6 +180,48 @@ class UserController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function index(Request $request)
+    // {
+    //     // เช็คว่า user login แล้วหรือไม่
+    //     $user = Auth::user();
+
+    //     // ตรวจสอบค่า status_user ของผู้ใช้
+    //     if (!in_array($user->status_user, ['SAD', 'AD'])) {
+    //         // ถ้าไม่ใช่ SAD หรือ AD ส่งกลับไปยังหน้าหลักพร้อมข้อความ
+    //         return redirect('/home')->with('error', 'คุณไม่มีสิทธิ์เข้าสู่หน้านี้!');
+    //     }
+
+    //     // รับจำนวน rows per page จาก request หรือใช้ค่าเริ่มต้นเป็น 10
+    //     $rowsPerPage = $request->input('rowsPerPage', 10);
+
+    //     // ดึงข้อมูลผู้ใช้ทั้งหมดพร้อม pagination
+    //     $users = User::paginate($rowsPerPage);
+
+    //     // ตรวจสอบหาก request ต้องการ JSON
+    //     if ($request->wantsJson()) {
+    //         return response()->json($users);
+    //     }
+
+    //     // หากไม่ใช่ JSON, ส่งกลับเป็น view
+    //     return view('UserManagement.index', compact('users'));
+    // }
 
     // public function index(Request $request)
     // {
