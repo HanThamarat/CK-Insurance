@@ -1,4 +1,3 @@
-
 <div id="createUserModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 ">
 
     <div class="flex items-center justify-center w-full h-full">
@@ -76,12 +75,26 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้ผู้ใช้งานระบบ</label>
                         <select name="status_user"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                            <option value="SAD">Super Admin</option>
-                            <option value="AD">Admin</option>
-                            <option value="US">User</option>
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
+                            id="status_user">
+                            <option value="" disabled selected>กรุณาเลือกสถานะผู้ใช้งานระบบ</option>
+                            <option value="AD">ผู้ดูแลระบบ</option>
+                            <option value="SAD">ซุปเปอร์แอดมิน</option>
+                            <option value="FN">เจ้าหน้าที่ไฟแนนซ์</option>
+                            <option value="SUP">หัวหน้าไฟแนนซ์</option>
+                            <option value="MG">ผู้จัดการไฟแนนซ์</option>
+                            <option value="AUD">เจ้าหน้าที่ตรวจสอบ</option>
+                            <option value="ACT">เจ้าหน้าที่บัญชี</option>
+                            <option value="ST">เจ้าหน้าที่แอดมิน</option>
+                            <option value="FNC">เจ้าหน้าที่การเงินใน</option>
+                            <option value="FNC">เจ้าหน้าที่การเงิน</option>
+                            <option value="MKT">เจ้าหน้าที่การตลาด</option>
+                            <option value="ASM">ผู้ช่วยผู้จัดการ</option>
                         </select>
                     </div>
+
+
+
                     <div>
                         <label class="block text-sm font-medium text-gray-700">สถานะ</label>
                         <select name="status"
@@ -92,25 +105,11 @@
                     </div>
                 </div>
 
-                <!-- Location Information -->
-                {{-- <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">โซน</label>
-                        <input type="text" name="zone"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">สาขา</label>
-                        <input type="text" name="branch"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                    </div>
-                </div> --}}
-
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">โซน</label>
                         <select id="zone" name="zone"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                             <option value="">เลือกโซน</option>
                             <!-- ข้อมูลโซนจะถูกใส่ที่นี่ -->
                         </select>
@@ -118,7 +117,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">สาขา</label>
                         <select id="branch" name="branch"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                             <option value="">เลือกรายการสาขา</option>
                             <!-- ข้อมูลสาขาจะถูกใส่ที่นี่ -->
                         </select>
@@ -153,12 +152,21 @@
         scrollbar-width: none;
         /* Firefox */
     }
-
 </style>
+
 
 
 {{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // สร้างออบเจ็กต์เพื่อเก็บข้อมูลที่จับคู่กับ Zone_Branch
+        const zoneMapping = {
+            10: "ปัตตานี",
+            20: "หาดใหญ่",
+            30: "นครศรีธรรมราช",
+            40: "กระบี่",
+            50: "สุราษฏร์ธานี"
+        };
+
         // ดึงข้อมูลโซนและสาขา
         fetch('/get-zones-branches')
             .then(response => response.json())
@@ -167,71 +175,138 @@
                 const zoneSelect = document.getElementById('zone');
                 data.zones.forEach(zone => {
                     const option = document.createElement('option');
+                    // ตรวจสอบค่า Zone_Branch และแสดงชื่อที่กำหนด
+                    const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
                     option.value = zone.Zone_Branch;
-                    option.textContent = zone.Zone_Branch;
+                    option.textContent = zoneName;
                     zoneSelect.appendChild(option);
                 });
 
-                // ใส่ข้อมูลสาขาลงใน select #branch
+                // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
                 const branchSelect = document.getElementById('branch');
-                data.branches.forEach(branch => {
-                    const option = document.createElement('option');
-                    option.value = branch.id;
-                    option.textContent = `${branch.Name_Branch}`;
-                    branchSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    });
-</script> --}}
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // ดึงข้อมูลโซนและสาขา
-        fetch('/get-zones-branches')
-            .then(response => response.json())
-            .then(data => {
-                // ใส่ข้อมูลโซนลงใน select #zone
-                const zoneSelect = document.getElementById('zone');
-                data.zones.forEach(zone => {
-                    const option = document.createElement('option');
-                    option.value = zone.Zone_Branch;
-                    option.textContent = zone.Zone_Branch;
-                    zoneSelect.appendChild(option);
-                });
-
-                // ใส่ข้อมูลสาขาลงใน select #branch
-                const branchSelect = document.getElementById('branch');
-                data.branches.forEach(branch => {
-                    const option = document.createElement('option');
-                    option.value = branch.id;
-                    option.textContent = branch.Name_Branch;
-                    branchSelect.appendChild(option);
-                });
+                branchSelect.disabled = true; // disable initially
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "กรุณาเลือกโซน";
+                branchSelect.appendChild(defaultOption);
             })
             .catch(error => console.error('Error fetching data:', error));
 
         // เมื่อเปลี่ยนค่าใน select #zone
         document.getElementById('zone').addEventListener('change', function() {
             const selectedZone = this.value;
-            // เรียก fetch ใหม่ตามค่า zone ที่เลือก
-            fetch(`/get-zones-branches?zone=${selectedZone}`)
-                .then(response => response.json())
-                .then(data => {
-                    // รีเซ็ตรูปแบบข้อมูลใน select #branch
-                    const branchSelect = document.getElementById('branch');
-                    branchSelect.innerHTML = '<option value="">เลือกรายการสาขา</option>';
+            const branchSelect = document.getElementById('branch');
 
-                    // ใส่ข้อมูลสาขาใหม่ตาม zone ที่เลือก
-                    data.branches.forEach(branch => {
-                        const option = document.createElement('option');
-                        option.value = branch.id;
-                        option.textContent = branch.Name_Branch;
-                        branchSelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error fetching data:', error));
+            if (selectedZone) {
+                // เรียก fetch ใหม่ตามค่า zone ที่เลือก
+                fetch(`/get-zones-branches?zone=${selectedZone}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // รีเซ็ตรูปแบบข้อมูลใน select #branch
+                        branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
+                        branchSelect.disabled = false; // เปิดใช้งาน select #branch
+
+                        // ใส่ข้อมูลสาขาใหม่ตาม zone ที่เลือก
+                        data.branches.forEach(branch => {
+                            const option = document.createElement('option');
+                            option.value = branch.id;
+                            option.textContent = branch.Name_Branch;
+                            branchSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            } else {
+                // ถ้าไม่เลือก zone ให้ปิดการใช้งาน select #branch และรีเซ็ตข้อมูล
+                branchSelect.disabled = true;
+                branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
+            }
+        });
+    });
+</script> --}}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // สร้างออบเจ็กต์เพื่อเก็บข้อมูลที่จับคู่กับ Zone_Branch
+        const zoneMapping = {
+            10: "ปัตตานี",
+            20: "หาดใหญ่",
+            30: "นครศรีธรรมราช",
+            40: "กระบี่",
+            50: "สุราษฏร์ธานี"
+        };
+
+        // ดึงข้อมูลโซนและสาขา
+        fetch('/get-zones-branches')
+            .then(response => response.json())
+            .then(data => {
+                // ใส่ข้อมูลโซนลงใน select #zone
+                const zoneSelect = document.getElementById('zone');
+                data.zones.forEach(zone => {
+                    const option = document.createElement('option');
+                    // ตรวจสอบค่า Zone_Branch และแสดงชื่อที่กำหนด
+                    const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
+                    option.value = zone.Zone_Branch;
+                    option.textContent = zoneName;
+                    zoneSelect.appendChild(option);
+                });
+
+                // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
+                const branchSelect = document.getElementById('branch');
+                branchSelect.disabled = true; // disable initially
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "กรุณาเลือกโซน";
+                branchSelect.appendChild(defaultOption);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        // เมื่อเปลี่ยนค่าใน select #zone
+        document.getElementById('zone').addEventListener('change', function() {
+            const selectedZone = this.value;
+            const branchSelect = document.getElementById('branch');
+
+            if (selectedZone) {
+                // เรียก fetch ใหม่ตามค่า zone ที่เลือก
+                fetch(`/get-zones-branches?zone=${selectedZone}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // รีเซ็ตรูปแบบข้อมูลใน select #branch
+                        branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
+                        branchSelect.disabled = false; // เปิดใช้งาน select #branch
+
+                        // ใส่ข้อมูลสาขาใหม่ตาม zone ที่เลือก
+                        data.branches.forEach(branch => {
+                            const option = document.createElement('option');
+                            option.value = branch.id;
+                            option.textContent = branch.Name_Branch;
+                            branchSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            } else {
+                // ถ้าไม่เลือก zone ให้ปิดการใช้งาน select #branch และรีเซ็ตข้อมูล
+                branchSelect.disabled = true;
+                branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
+            }
+        });
+
+        // ตรวจสอบสถานะเริ่มต้นและให้ทำงานเมื่อเลือก "Active"
+        const statusSelect = document.querySelector('select[name="status"]');
+        if (statusSelect && statusSelect.value === 'active') {
+            // ให้ทำงานกับ Zone เมื่อสถานะเป็น Active
+            document.getElementById('zone').disabled = false; // เปิดใช้งาน Zone
+        }
+
+        // เมื่อเปลี่ยนค่าใน select status
+        statusSelect.addEventListener('change', function() {
+            const zoneSelect = document.getElementById('zone');
+            if (this.value === 'active') {
+                zoneSelect.disabled = false; // เปิดใช้งาน Zone
+            } else {
+                zoneSelect.disabled = true; // ปิดการใช้งาน Zone
+                document.getElementById('branch').disabled = true; // ปิดการใช้งาน branch
+            }
         });
     });
 </script>
@@ -282,6 +357,69 @@
 </script>
 
 
+
+
+
+
+
+
+
+
+
+
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ดึงข้อมูลโซนและสาขา
+        fetch('/get-zones-branches')
+            .then(response => response.json())
+            .then(data => {
+                // ใส่ข้อมูลโซนลงใน select #zone
+                const zoneSelect = document.getElementById('zone');
+                data.zones.forEach(zone => {
+                    const option = document.createElement('option');
+                    option.value = zone.Zone_Branch;
+                    option.textContent = zone.Zone_Branch;
+                    zoneSelect.appendChild(option);
+                });
+
+                // ใส่ข้อมูลสาขาลงใน select #branch
+                const branchSelect = document.getElementById('branch');
+                data.branches.forEach(branch => {
+                    const option = document.createElement('option');
+                    option.value = branch.id;
+                    option.textContent = `${branch.Name_Branch}`;
+                    branchSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+</script> --}}
+
+
+<!-- Location Information -->
+{{-- <div class="grid grid-cols-2 gap-4">
+    <div>
+        <label class="block text-sm font-medium text-gray-700">โซน</label>
+        <input type="text" name="zone"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+    </div>
+    <div>
+        <label class="block text-sm font-medium text-gray-700">สาขา</label>
+        <input type="text" name="branch"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+    </div>
+</div> --}}
+
+
+{{-- <div>
+    <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้ผู้ใช้งานระบบ</label>
+    <select name="status_user"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+        <option value="SAD">Super Admin</option>
+        <option value="AD">Admin</option>
+        <option value="US">User</option>
+    </select>
+</div> --}}
 
 
 <!-- Modal Content -->

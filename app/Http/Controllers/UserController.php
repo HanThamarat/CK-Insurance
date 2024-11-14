@@ -9,6 +9,7 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class UserController extends Controller
 {
@@ -82,6 +83,16 @@ class UserController extends Controller
             'zones' => $zones,
             'branches' => $branches
         ]);
+    }
+
+
+    public function getRoles()
+    {
+        // ดึงข้อมูลเฉพาะ id, code, name_th จากฐานข้อมูล
+        $roles = Role::select('id', 'code', 'name_th')->get();
+
+        // ส่งค่าผ่าน JSON
+        return response()->json($roles);
     }
 
 

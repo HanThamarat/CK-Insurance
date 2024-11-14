@@ -72,7 +72,7 @@
                                 <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">ชื่อ - สกุล</th>
                                 <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">ชื่อผู้ใช้</th>
                                 <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">อีเมล</th>
-                                <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">หมายเลขโทรศัพท์</th>
+                                {{-- <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">หมายเลขโทรศัพท์</th> --}}
                                 <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">สถานะ</th>
                                 <th class="px-6 py-4 text-center text-sm font-semibold text-orange-700">Action</th>
                             </tr>
@@ -148,7 +148,7 @@
             <td class="px-6 py-4 text-sm text-gray-700">${user.name || 'ไม่พบข้อมูล'}</td>
             <td class="px-6 py-4 text-sm text-gray-700">${user.username || 'ไม่พบข้อมูล'}</td>
             <td class="px-6 py-4 text-sm text-gray-700">${user.email || 'ไม่พบข้อมูล'}</td>
-            <td class="px-6 py-4 text-sm text-gray-700">${user.phone || 'ไม่พบข้อมูล'}</td>
+            <!--<td class="px-6 py-4 text-sm text-gray-700">${user.phone || 'ไม่พบข้อมูล'}</td>-->
             <td class="px-6 py-4 text-sm">
                 <span class="px-3 py-1 rounded-full text-xs font-medium ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
                     ${user.status ? 'Active' : 'Inactive'}
