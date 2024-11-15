@@ -7,7 +7,7 @@
             <div id="header" class=" top-0 z-10 transition-bg duration-300 bg-white p-2"
                 style="background-color: white;">
                 <button class="absolute top-7 right-6 p-1 text-gray-400 hover:text-gray-600 focus:outline-none"
-                    onclick="closeModalUpdateUser()">
+                    onclick="closeUpdateUserModal()">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -19,114 +19,122 @@
                     <img src="{{ asset('img/user.gif') }}" alt="create icon" class="avatar-sm"
                         style="width:50px;height:50px">
                     <div class="flex-grow">
-                        <h5 class="text-orange-400 font-semibold">เพิ่มข้อมูลผู้ใช้งานระบบ</h5>
-                        <p class="text-muted font-semibold text-sm mt-1">Add Data users</p>
+                        <h5 class="text-orange-400 font-semibold">แก้ไขข้อมูลผู้ใช้งานระบบ</h5>
+                        <p class="text-muted font-semibold text-sm mt-1">Edit Data users</p>
                         <div class="border-b-2 border-primary mt-2 w-full"></div>
                     </div>
                 </div>
             </div>
 
+            <!-- Form -->
+            <form id="updateUserForm" class="mt-[-12] space-y-6">
+                <input type="hidden" id="updateUserId">
 
-            <form id="updateUserForm" class="space-y-4 mt-2">
-                <!-- Personal Information -->
-                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลส่วนตัว</h3>
-                    <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-6">
+                        <!-- Name -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล</label>
-                            <input type="text" name="name"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                            <label for="updateName" class="block text-sm font-medium text-gray-700 mb-1">
+                                ชื่อ - นามสกุล <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="updateName" name="name"
+                                class="w-full px-4 py-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-colors">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้</label>
-                            <input type="text" name="username"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Contact Information -->
-                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลการติดต่อ</h3>
-                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Username -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">อีเมล</label>
-                            <input type="email" name="email"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                            <label for="updateUsername" class="block text-sm font-medium text-gray-700 mb-1">
+                                ชื่อผู้ใช้ <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="updateUsername" name="username"
+                                class="w-full px-4 py-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
-                            <input type="number" name="phone"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Account Information -->
-                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลยืนยันบัญชี</h3>
-                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Email -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
-                            <input type="password" name="password"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                            <label for="updateEmail" class="block text-sm font-medium text-gray-700 mb-1">
+                                อีเมล <span class="text-red-500">*</span>
+                            </label>
+                            <input type="email" id="updateEmail" name="email"
+                                class="w-full px-4 py-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">ยืนยันรหัสผ่าน</label>
-                            <input type="password" name="password_confirmation"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                        </div>
-                    </div>
-                </div>
 
-
-                <!-- Status & Zone Information -->
-                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">สถานะและข้อมูลเพิ่มเติม</h3>
-                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Password -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">สถานะ</label>
-                            <input type="text" name="status" id="status" value="active" readonly
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 text-gray-700 focus:ring-blue-200 focus:border-blue-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้งานระบบ</label>
-                            <select name="status_user" id="status_user"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                                <option value="" selected>กรุณาเลือกสถานะผู้ใช้งานระบบ</option>
-                                <!-- Add options here -->
-                            </select>
+                            <label for="updatePassword" class="block text-sm font-medium text-gray-700 mb-1">
+                                รหัสผ่าน <span class="text-gray-500 text-xs">(เว้นว่างถ้าไม่ต้องการเปลี่ยน)</span>
+                            </label>
+                            <input type="password" id="updatePassword" name="password"
+                                class="w-full px-4 py-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 mt-4">
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <!-- Zone -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">โซน</label>
-                            <select id="zone" name="zone"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                            <label for="updateZone" class="block text-sm font-medium text-gray-700 mb-1">
+                                โซน <span class="text-red-500">*</span>
+                            </label>
+                            <select id="updateZone" name="zone"
+                                class="w-full px-4 py-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
                                 <option value="">เลือกโซน</option>
-                                <!-- Add options here -->
                             </select>
                         </div>
+
+                        <!-- Branch -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">สาขา</label>
-                            <select id="branch" name="branch"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                                <option value="">เลือกรายการสาขา</option>
-                                <!-- Add options here -->
+                            <label for="updateBranch" class="block text-sm font-medium text-gray-700 mb-1">
+                                สาขา <span class="text-red-500">*</span>
+                            </label>
+                            <select id="updateBranch" name="branch"
+                                class="w-full px-4 py-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                                <option value="">เลือกสาขา</option>
+                            </select>
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-5">สถานะการใช้งาน</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="status" value="active"
+                                        class="w-4 h-4 text-orange-500 focus:ring-orange-400">
+                                    <span class="ml-2 text-sm text-gray-700">เปิดใช้งาน</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="status" value="inactive"
+                                        class="w-4 h-4 text-orange-500 focus:ring-orange-400">
+                                    <span class="ml-2 text-sm text-gray-700">ปิดใช้งาน</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- User Status -->
+                        <div>
+                            <label for="updateStatusUser" class="block text-sm font-medium text-gray-700 mb-1">
+                                ประเภทผู้ใช้งาน <span class="text-red-500">*</span>
+                            </label>
+                            <select id="updateStatusUser" name="status_user"
+                                class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                                <option value="">เลือกประเภทผู้ใช้งาน</option>
                             </select>
                         </div>
                     </div>
+
+
                 </div>
 
-                <!-- Form Actions -->
-                <div class="flex justify-end space-x-3 pt-4 border-t">
+                <!-- Buttons -->
+                <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
                     <button type="submit"
-                        class="px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition duration-200">
-                        บันทึก
+                        class="px-6 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-colors">
+                        บันทึกการเปลี่ยนแปลง
                     </button>
-                    <button type="button" onclick="closeModalUpdateUser()"
-                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition duration-200">
+
+                    <button type="button" onclick="closeUpdateUserModal()"
+                        class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors">
                         ยกเลิก
                     </button>
                 </div>
@@ -136,127 +144,89 @@
     </div>
 </div>
 
-<style>
-    /* Custom hidden scrollbar */
-    .scrollbar-hidden::-webkit-scrollbar {
-        display: none;
-    }
-
-    .scrollbar-hidden {
-        -ms-overflow-style: none;
-        /* IE and Edge */
-        scrollbar-width: none;
-        /* Firefox */
-    }
-</style>
-
-
-
-
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // ฟังก์ชันในการเปิด modal
-        function openModalCreateUser() {
+    document.addEventListener('DOMContentLoaded', () => {
+        // เปิด modal
+        const openModalCreateUser = () => {
             document.getElementById('updateUserModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-        }
+        };
 
-        // ฟังก์ชันในการปิด modal
-        function closeModalUpdateUser() {
+        // ปิด modal
+        const closeModalCreateUser = () => {
             document.getElementById('updateUserModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
-        }
+        };
 
-        // ดึงข้อมูล roles โดยใช้ Ajax
-        function fetchRoles() {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', '/roles', true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const data = JSON.parse(xhr.responseText);
-                    const selectElement = document.getElementById('status_user');
+        // ดึงข้อมูล roles ด้วย Fetch API
+        const fetchRoles = async () => {
+            try {
+                const response = await fetch('/roles');
+                if (response.ok) {
+                    const data = await response.json();
+                    const selectElement = document.getElementById('updateStatusUser');
+                    selectElement.innerHTML = '<option value="">เลือกประเภทผู้ใช้งาน</option>';
 
-                    // Clear existing options except for the first one
-                    while (selectElement.options.length > 1) {
-                        selectElement.remove(1);
-                    }
-
-                    // Populate with new options from the API response
                     data.forEach(role => {
                         const option = document.createElement('option');
-                        option.value = role.code; // Use role code as value
-                        option.textContent = role.name_th; // Display role name_th
+                        option.value = role.code;
+                        option.textContent = role.name_th;
                         selectElement.appendChild(option);
                     });
                 }
-            };
-            xhr.send();
-        }
-
-        // เรียกใช้ฟังก์ชั่น fetchRoles เมื่อเริ่มต้น
-        fetchRoles();
-
-        // สร้างออบเจ็กต์เพื่อเก็บข้อมูลที่จับคู่กับ Zone_Branch
-        const zoneMapping = {
-            10: "ปัตตานี",
-            20: "หาดใหญ่",
-            30: "นครศรีธรรมราช",
-            40: "กระบี่",
-            50: "สุราษฏร์ธานี"
+            } catch (error) {
+                console.error('Error fetching roles:', error);
+            }
         };
 
         // ดึงข้อมูลโซนและสาขา
-        function fetchZonesBranches() {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', '/get-zones-branches', true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const data = JSON.parse(xhr.responseText);
-                    const zoneSelect = document.getElementById('zone');
+        const fetchZonesBranches = async () => {
+            try {
+                const response = await fetch('/get-zones-branches');
+                if (response.ok) {
+                    const data = await response.json();
+                    const zoneSelect = document.getElementById('updateZone');
+                    const zoneMapping = {
+                        10: "ปัตตานี",
+                        20: "หาดใหญ่",
+                        30: "นครศรีธรรมราช",
+                        40: "กระบี่",
+                        50: "สุราษฏร์ธานี"
+                    };
 
-                    // ใส่ข้อมูลโซนลงใน select #zone
+                    zoneSelect.innerHTML = '<option value="">เลือกโซน</option>';
                     data.zones.forEach(zone => {
                         const option = document.createElement('option');
-                        const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
                         option.value = zone.Zone_Branch;
-                        option.textContent = zoneName;
+                        option.textContent = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
                         zoneSelect.appendChild(option);
                     });
 
-                    // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
-                    const branchSelect = document.getElementById('branch');
-                    branchSelect.disabled = true; // disable initially
-                    const defaultOption = document.createElement('option');
-                    defaultOption.value = "";
-                    defaultOption.textContent = "กรุณาเลือกโซน";
-                    branchSelect.appendChild(defaultOption);
+                    // ปิดการใช้งาน select #updateBranch และตั้งค่าเริ่มต้น
+                    const branchSelect = document.getElementById('updateBranch');
+                    branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
+                    branchSelect.disabled = true;
                 }
-            };
-            xhr.send();
-        }
+            } catch (error) {
+                console.error('Error fetching zones and branches:', error);
+            }
+        };
 
-        // เรียกใช้ฟังก์ชั่น fetchZonesBranches เมื่อเริ่มต้น
-        fetchZonesBranches();
-
-        // เมื่อเปลี่ยนค่าใน select #zone
-        document.getElementById('zone').addEventListener('change', function() {
+        // ดึงข้อมูลสาขาตามโซนที่เลือก
+        document.getElementById('updateZone').addEventListener('change', async function() {
             const selectedZone = this.value;
-            const branchSelect = document.getElementById('branch');
+            const branchSelect = document.getElementById('updateBranch');
 
             if (selectedZone) {
-                // เรียก fetch ใหม่ตามค่า zone ที่เลือก
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', `/get-zones-branches?zone=${selectedZone}`, true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        const data = JSON.parse(xhr.responseText);
-                        // รีเซ็ตรูปแบบข้อมูลใน select #branch
+                try {
+                    const response = await fetch(`/get-zones-branches?zone=${selectedZone}`);
+                    if (response.ok) {
+                        const data = await response.json();
                         branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
-                        branchSelect.disabled = false; // เปิดใช้งาน select #branch
+                        branchSelect.disabled = false;
 
-                        // ใส่ข้อมูลสาขาใหม่ตาม zone ที่เลือก
                         data.branches.forEach(branch => {
                             const option = document.createElement('option');
                             option.value = branch.id;
@@ -264,187 +234,365 @@
                             branchSelect.appendChild(option);
                         });
                     }
-                };
-                xhr.send();
+                } catch (error) {
+                    console.error('Error fetching branches:', error);
+                }
             } else {
-                // ถ้าไม่เลือก zone ให้ปิดการใช้งาน select #branch และรีเซ็ตข้อมูล
                 branchSelect.disabled = true;
                 branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
             }
         });
+
+        // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
+        fetchRoles();
+        fetchZonesBranches();
     });
-
-
-    function validatePassword() {
-        var password = document.querySelector('input[name="password"]').value;
-        var confirmPassword = document.querySelector('input[name="password_confirmation"]').value;
-
-        // ถ้ารหัสผ่านไม่ตรงกัน จะแสดงข้อความเตือนด้วย SweetAlert
-        if (password !== confirmPassword) {
-            Swal.fire({
-                icon: 'error',
-                title: 'รหัสผ่านไม่ตรงกัน',
-                text: 'กรุณาตรวจสอบรหัสผ่านและยืนยันรหัสผ่านให้ตรงกัน',
-                confirmButtonText: 'ตกลง'
-            });
-            return false; // ป้องกันการส่งฟอร์ม
-        }
-
-        return true; // ถ้าตรงกันให้ส่งฟอร์ม
-    }
-
-    // การเชื่อมโยงฟังก์ชันกับการส่งฟอร์ม
-    document.getElementById('updateUserForm').onsubmit = function(event) {
-        if (!validatePassword()) {
-            event.preventDefault(); // ยับยั้งการส่งฟอร์มหากรหัสผ่านไม่ตรงกัน
-        }
-    };
 </script>
 
 
 
 <script>
-    // Helper function to show error messages
-    function showError(field, message) {
-        const input = $(`[name="${field}"], select[name="${field}"]`); // Handle both input and select
-        const errorIcon = '<span class="error-icon text-red-500 mr-2">&#9888;</span>'; // Error icon (⚠️)
+    // user-update.js
 
-        // Add error class to input or select
-        input.addClass('is-invalid').css('border-color', 'red');
+    function openUpdateUserModal(userId) {
+        try {
+            document.getElementById('updateUserModal').classList.remove('hidden');
+            document.getElementById('updateUserForm').reset();
 
-        // Add error icon and message
-        const errorMessageDiv = `
-        <div class="error-message text-red-500 text-sm mt-1">
-            ${errorIcon}${message}
-        </div>
-    `;
-
-        input.after(errorMessageDiv);
-
-        // Animate the error icon slightly
-        $('.error-icon').animate({
-            marginLeft: '10px'
-        }, 100).animate({
-            marginLeft: '0'
-        }, 100);
-
-        // Fade out the error message after 2 seconds
-        setTimeout(function() {
-            $('.error-message').fadeOut(500, function() {
-                $(this).remove(); // Remove the error message after fading out
-            });
-        }, 2000);
-    }
-
-
-    // ฟังก์ชันในการเปิด modal
-    function openModalCreateUser() {
-        document.getElementById('updateUserModal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-
-    // ฟังก์ชันในการปิด modal
-    function closeModalUpdateUser() {
-        document.getElementById('updateUserModal').classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-
-    $(document).ready(function() {
-        $('#updateUserForm').on('submit', function(e) {
-            e.preventDefault();
-
-            // Clear previous error messages and reset border color
-            $('.error-message').remove();
-            $('.is-invalid').removeClass('is-invalid').css('border-color', '');
-
-            // Get form data
-            const formData = {
-                status: $('input[name="status"]').val(),
-                name: $('input[name="name"]').val(),
-                username: $('input[name="username"]').val(),
-                password: $('input[name="password"]').val(),
-                email: $('input[name="email"]').val(),
-                phone: $('input[name="phone"]').val(),
-                zone: $('select[name="zone"]').val(),
-                branch: $('select[name="branch"]').val(),
-                status_user: $('select[name="status_user"]').val()
-            };
-
-            // Debug: Log form data
-            console.log('Form Data:', formData);
-
-            // Validate required fields
-            const requiredFields = ['name', 'username', 'password', 'password_confirmation', 'email',
-                'status', 'zone', 'branch',
-                'phone', 'status_user'
-            ];
-            let hasError = false;
-
-            requiredFields.forEach(field => {
-                if (!formData[field]) {
-                    showError(field, 'กรุณากรอกข้อมูล');
-                    hasError = true;
+            // Show loading state
+            Swal.fire({
+                title: 'กำลังโหลดข้อมูล',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
                 }
             });
 
-            if (hasError) {
-                console.log('Validation failed');
-                return;
+            // Fetch user data
+            fetch(`/api/users/${userId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('ไม่สามารถดึงข้อมูลผู้ใช้ได้');
+                    }
+                    return response.json();
+                })
+                .then(user => {
+                    // Populate form fields
+                    document.getElementById('updateUserId').value = user.id;
+                    document.getElementById('updateName').value = user.name;
+                    document.getElementById('updateUsername').value = user.username;
+                    document.getElementById('updateEmail').value = user.email;
+                    document.getElementById('updateZone').value = user.zone;
+                    document.getElementById('updateBranch').value = user.branch;
+                    document.getElementById('updateStatusUser').value = user.status_user;
+
+                    // Set status radio buttons
+                    const statusRadios = document.getElementsByName('status');
+                    statusRadios.forEach(radio => {
+                        radio.checked = radio.value === user.status;
+                    });
+
+                    Swal.close();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ข้อผิดพลาด',
+                        text: error.message,
+                        confirmButtonColor: '#EF4444'
+                    });
+                });
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'ข้อผิดพลาด',
+                text: 'เกิดข้อผิดพลาดที่ไม่คาดคิด',
+                confirmButtonColor: '#EF4444'
+            });
+        }
+    }
+
+    function closeUpdateUserModal() {
+        document.getElementById('updateUserModal').classList.add('hidden');
+        document.getElementById('updateUserForm').reset();
+    }
+
+    // Form submission handler
+    document.getElementById('updateUserForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        try {
+            const userId = document.getElementById('updateUserId').value;
+            const formData = {
+                name: document.getElementById('updateName').value.trim(),
+                username: document.getElementById('updateUsername').value.trim(),
+                email: document.getElementById('updateEmail').value.trim(),
+                zone: document.getElementById('updateZone').value,
+                branch: document.getElementById('updateBranch').value,
+                status_user: document.getElementById('updateStatusUser').value,
+                status: document.querySelector('input[name="status"]:checked')?.value
+            };
+
+            // Add password only if it's provided
+            const password = document.getElementById('updatePassword').value.trim();
+            if (password) {
+                formData.password = password;
+            }
+
+            // Validate required fields
+            const requiredFields = ['name', 'username', 'email', 'zone', 'branch', 'status_user', 'status'];
+            const missingFields = requiredFields.filter(field => !formData[field]);
+
+            if (missingFields.length > 0) {
+                throw new Error('กรุณากรอกข้อมูลให้ครบทุกช่อง');
             }
 
             // Show loading state
-            const submitBtn = $(this).find('button[type="submit"]');
-            const originalBtnText = submitBtn.text();
-            submitBtn.prop('disabled', true).text('กำลังบันทึก...');
-
-            // Send AJAX request
-            $.ajax({
-                url: '/users', // URL ที่จะส่งคำขอไป
-                method: 'POST',
-                data: formData,
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                        'content') // CSRF token สำหรับการป้องกันการโจมตี
-                },
-                success: function(response) {
-                    console.log('Success Response:', response);
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'สำเร็จ!',
-                        text: 'สร้างผู้ใช้งานเรียบร้อยแล้ว',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-
-                    // ปิด modal
-                    closeModalUpdateUser();
-                    $('#updateUserForm')[0].reset();
-
-                    if (typeof refreshUserList === 'function') {
-                        refreshUserList();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error Status:', status);
-                    console.error('Error:', error);
-                    console.error('Status Code:', xhr.status);
-                    console.error('Response Text:', xhr.responseText);
-
-                    try {
-                        const response = JSON.parse(xhr.responseText);
-                        console.log('Parsed Error Response:', response);
-                    } catch (e) {
-                        console.error('Error parsing JSON response:', e);
-                    }
-                },
-                complete: function() {
-                    submitBtn.prop('disabled', false).text(originalBtnText);
+            Swal.fire({
+                title: 'กำลังบันทึกข้อมูล',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
                 }
             });
-        });
+
+            // Send update request
+            const response = await fetch(`/api/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล');
+            }
+
+            // Close modal and refresh data
+            closeUpdateUserModal();
+            await fetchUsersDataOnSystem();
+
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'สำเร็จ',
+                text: data.message || 'อัปเดตข้อมูลผู้ใช้เรียบร้อยแล้ว',
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'ข้อผิดพลาด',
+                text: error.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล',
+                confirmButtonColor: '#EF4444'
+            });
+        }
     });
 </script>
 
 
+
+
+{{-- <script>
+    function openUpdateUserModal(userId) {
+        // Show modal
+        document.getElementById('updateUserModal').classList.remove('hidden');
+
+        // Fetch user data
+        fetch(`/api/users/${userId}`)
+            .then(response => response.json())
+            .then(user => {
+                // Populate form fields
+                document.getElementById('updateUserId').value = user.id;
+                document.getElementById('updateName').value = user.name;
+                document.getElementById('updateUsername').value = user.username;
+                document.getElementById('updateEmail').value = user.email;
+
+                // Set radio button for status
+                const statusRadios = document.getElementsByName('status');
+                statusRadios.forEach(radio => {
+                    if (radio.value == user.status) {
+                        radio.checked = true;
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้');
+            });
+    }
+
+    function closeUpdateUserModal() {
+        document.getElementById('updateUserModal').classList.add('hidden');
+        document.getElementById('updateUserForm').reset();
+    }
+
+    // Handle form submission
+    document.getElementById('updateUserForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const userId = document.getElementById('updateUserId').value;
+        const formData = {
+            name: document.getElementById('updateName').value,
+            username: document.getElementById('updateUsername').value,
+            email: document.getElementById('updateEmail').value,
+            password: document.getElementById('updatePassword').value,
+            status: document.querySelector('input[name="status"]:checked').value
+        };
+
+        // If password is empty, remove it from formData
+        if (!formData.password) {
+            delete formData.password;
+        }
+
+        // Send update request
+        fetch(`/api/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Close modal and refresh table
+                    closeUpdateUserModal();
+                    fetchUsersDataOnSystem();
+
+                    // Show success message
+                    alert('อัปเดตข้อมูลผู้ใช้เรียบร้อยแล้ว');
+                } else {
+                    throw new Error(data.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล');
+            });
+    });
+</script> --}}
+
+
+{{-- <script>
+    function openUpdateUserModal(userId) {
+        // แสดงโมดอล
+        document.getElementById('updateUserModal').classList.remove('hidden');
+
+        // ดึงข้อมูลผู้ใช้
+        fetch(`/api/users/${userId}`)
+            .then(response => response.json())
+            .then(user => {
+                // กรอกข้อมูลในฟอร์ม
+                document.getElementById('updateUserId').value = user.id;
+                document.getElementById('updateName').value = user.name;
+                document.getElementById('updateUsername').value = user.username;
+                document.getElementById('updateEmail').value = user.email;
+                document.getElementById('updateZone').value = user.zone;
+                document.getElementById('updateBranch').value = user.branch;
+                document.getElementById('updateStatusUser').value = user.status_user;
+
+                // ตั้งค่ารายการฟิลด์การสถานะ
+                const statusRadios = document.getElementsByName('status');
+                statusRadios.forEach(radio => {
+                    if (radio.value == user.status) {
+                        radio.checked = true;
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้',
+                    showConfirmButton: true
+                });
+            });
+    }
+
+    function closeUpdateUserModal() {
+        document.getElementById('updateUserModal').classList.add('hidden');
+        document.getElementById('updateUserForm').reset();
+    }
+
+    // Handle form submission
+    document.getElementById('updateUserForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const userId = document.getElementById('updateUserId').value;
+        const formData = {
+            name: document.getElementById('updateName').value,
+            username: document.getElementById('updateUsername').value,
+            email: document.getElementById('updateEmail').value,
+            password: document.getElementById('updatePassword').value,
+            status: document.querySelector('input[name="status"]:checked').value,
+            zone: document.getElementById('updateZone').value,
+            branch: document.getElementById('updateBranch').value,
+            status_user: document.querySelector('input[name="status_user"]:checked').value
+        };
+
+        // ถ้ารหัสผ่านไม่ถูกกรอก, ให้ลบออกจาก formData
+        if (!formData.password) {
+            delete formData.password;
+        }
+
+        // ตรวจสอบข้อมูลให้ครบก่อนส่ง
+        if (!formData.name || !formData.username || !formData.email || !formData.zone || !formData.branch || !formData.status_user) {
+            Swal.fire({
+                icon: 'error',
+                title: 'ข้อผิดพลาด',
+                text: 'ข้อมูลบางอย่างขาดหายไป กรุณาตรวจสอบและกรอกข้อมูลให้ครบถ้วน',
+                showConfirmButton: true
+            });
+            return;
+        }
+
+        // ส่งคำขออัปเดต
+        fetch(`/api/users/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // ปิดโมดอลและรีเฟรชตารางข้อมูล
+                closeUpdateUserModal();
+                fetchUsersDataOnSystem();
+
+                // แสดงข้อความสำเร็จ
+                Swal.fire({
+                    icon: 'success',
+                    title: 'อัปเดตข้อมูลผู้ใช้เรียบร้อยแล้ว',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                throw new Error(data.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // แสดงข้อความข้อผิดพลาด
+            Swal.fire({
+                icon: 'error',
+                title: 'ข้อผิดพลาด',
+                text: error.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล',
+                showConfirmButton: true
+            });
+        });
+    });
+</script> --}}

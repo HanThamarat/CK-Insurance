@@ -2,9 +2,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @include('UserManagement.create')
+@include('UserManagement.update')
+@include('UserManagement.show')
 
 @section('content')
-
     <div class="min-h-screen bg-orange-50 mt-[-12]">
         <div class="container mx-auto px-4 py-8">
             <!-- Header Card -->
@@ -128,57 +129,213 @@
         });
 
         async function fetchUsersDataOnSystem(page = 1, query = '') {
-            const rowsPerPage = document.getElementById('rowsPerPage').value;
+            try {
+                const rowsPerPage = document.getElementById('rowsPerPage').value;
 
-            // เรียก API เพื่อดึงข้อมูลผู้ใช้โดยมีการส่งคำค้นหาตาม query
-            const response = await fetch(
-                `/api/users?rowsPerPage=${rowsPerPage}&page=${page}&search=${encodeURIComponent(query)}`);
-            const data = await response.json();
+                // เพิ่ม headers และ credentials สำหรับ CSRF protection
+                const response = await fetch(
+                    `/api/users?rowsPerPage=${rowsPerPage}&page=${page}&search=${encodeURIComponent(query)}`, {
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        },
+                        credentials: 'same-origin'
+                    });
 
-            // ปรับปรุงตารางข้อมูลผู้ใช้
-            const tableBody = document.getElementById('usersTableBody');
-            tableBody.innerHTML = ''; // ล้างข้อมูลเก่าออก
+                const data = await response.json();
 
-            // แสดงข้อมูลในตาราง
-            data.data.forEach(user => {
-                const row = document.createElement('tr');
-                row.classList.add('hover:bg-orange-50', 'transition-colors', 'duration-150');
-                row.innerHTML = `
-            <td class="px-6 py-4 text-sm text-gray-700">${user.id || 'ไม่พบข้อมูล'}</td>
-            <td class="px-6 py-4 text-sm text-gray-700">${user.name || 'ไม่พบข้อมูล'}</td>
-            <td class="px-6 py-4 text-sm text-gray-700">${user.username || 'ไม่พบข้อมูล'}</td>
-            <td class="px-6 py-4 text-sm text-gray-700">${user.email || 'ไม่พบข้อมูล'}</td>
-            <!--<td class="px-6 py-4 text-sm text-gray-700">${user.phone || 'ไม่พบข้อมูล'}</td>-->
-            <td class="px-6 py-4 text-sm">
-                <span class="px-3 py-1 rounded-full text-xs font-medium ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-                    ${user.status ? 'Active' : 'Inactive'}
-                </span>
-            </td>
-            <td class="px-6 py-4 text-right space-x-2">
-                <!-- ปุ่มแก้ไข -->
-                <button class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 3l4 4-10 10H7v-4L17 3z"></path>
-                    </svg>
-                    แก้ไข
-                </button>
+                const tableBody = document.getElementById('usersTableBody');
+                tableBody.innerHTML = '';
 
-                <!-- ปุ่มลบ -->
-                <button class="inline-flex items-center px-3 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                    ลบ
-                </button>
-            </td>
-        `;
-                tableBody.appendChild(row);
-            });
+                data.data.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.classList.add('hover:bg-orange-50', 'transition-colors', 'duration-150');
+                    row.innerHTML = `
+                <td class="px-6 py-4 text-sm text-gray-700">${user.id || 'ไม่พบข้อมูล'}</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${user.name || 'ไม่พบข้อมูล'}</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${user.username || 'ไม่พบข้อมูล'}</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${user.email || 'ไม่พบข้อมูล'}</td>
+                <td class="px-6 py-4 text-sm">
+                    <span class="px-3 py-1 rounded-full text-xs font-medium ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                        ${user.status ? 'Active' : 'Inactive'}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-right space-x-2">
+                    <!-- ปุ่มแสดง -->
+                    <button
+                        data-user-id="${user.id}"
+                        data-user-name="${user.name}"
+                        data-user-username="${user.username}"
+                        data-user-email="${user.email}"
+                        data-user-status="${user.status}"
+                        data-user-status-user="${user.status_user}"
+                        data-user-zone="${user.zone}"
+                        data-user-branch="${user.branch}"
+                        onclick="openShowUserModal(this)"
+                        class="inline-flex items-center px-1 py-1 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="#1E90FF" stroke="none" viewBox="0 0 576 512" stroke-width="2">
+                            <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
+                        </svg>
+                        แสดง
+                    </button>
 
-            // ปรับปรุงการแสดงผลของ pagination
-            renderPagination(data);
+
+                    <!-- ปุ่มแก้ไข -->
+                    <button
+                        data-user-id="${user.id}"
+                        data-user-name="${user.name}"
+                        data-user-username="${user.username}"
+                        data-user-email="${user.email}"
+                        data-user-status="${user.status}"
+                        onclick="openUpdateUserModal(this)"
+                        class="inline-flex items-center px-1 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 3l4 4-10 10H7v-4L17 3z"></path>
+                        </svg>
+                        แก้ไข
+                    </button>
+
+                    <!-- ปุ่มลบ -->
+                    <button
+                        onclick="deleteUser(${user.id})"
+                        class="inline-flex items-center px-1 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        ลบ
+                    </button>
+                </td>
+            `;
+                    tableBody.appendChild(row);
+                });
+
+                renderPagination(data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                alert('เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้');
+            }
         }
 
+        // ฟังก์ชันเปิด Modal แก้ไขผู้ใช้
+        function openUpdateUserModal(button) {
+            const modal = document.getElementById('updateUserModal');
+            if (!modal) return;
+
+            // ดึงข้อมูลจาก data attributes
+            const userId = button.getAttribute('data-user-id');
+            const name = button.getAttribute('data-user-name');
+            const username = button.getAttribute('data-user-username');
+            const email = button.getAttribute('data-user-email');
+            const status = button.getAttribute('data-user-status');
+
+            // กำหนดค่าให้กับฟอร์ม
+            document.getElementById('updateUserId').value = userId;
+            document.getElementById('updateName').value = name;
+            document.getElementById('updateUsername').value = username;
+            document.getElementById('updateEmail').value = email;
+
+            // กำหนดค่า status radio button
+            const statusRadios = document.getElementsByName('status');
+            statusRadios.forEach(radio => {
+                radio.checked = radio.value === status;
+            });
+
+            // แสดง modal
+            modal.classList.remove('hidden');
+        }
+
+        // ฟังก์ชันอัปเดตข้อมูลผู้ใช้
+        async function updateUser(event) {
+            event.preventDefault();
+
+            const userId = document.getElementById('updateUserId').value;
+            const formData = new FormData(document.getElementById('updateUserForm'));
+
+            try {
+                const response = await fetch(`/api/users/${userId}`, {
+                    method: 'POST', // เปลี่ยนเป็น POST แทน PUT
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                        'X-HTTP-Method-Override': 'PUT' // เพิ่ม header นี้เพื่อบอก Laravel ว่าต้องการใช้ PUT method
+                    },
+                    credentials: 'same-origin',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    closeUpdateUserModal();
+                    fetchUsersDataOnSystem();
+                    alert('อัปเดตข้อมูลผู้ใช้เรียบร้อยแล้ว');
+                } else {
+                    throw new Error(data.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล');
+                }
+            } catch (error) {
+                console.error('Error updating user:', error);
+                alert(error.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล');
+            }
+        }
+
+        // ฟังก์ชันลบผู้ใช้
+        async function deleteUser(userId) {
+            // Show SweetAlert for confirmation
+            const {
+                isConfirmed
+            } = await Swal.fire({
+                title: 'คุณต้องการลบผู้ใช้นี้ใช่หรือไม่?',
+                text: "การลบจะไม่สามารถกู้คืนได้",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'ยืนยัน!',
+                cancelButtonText: 'ยกเลิก',
+            });
+
+            if (!isConfirmed) return; // If user cancels, stop execution
+
+            try {
+                const response = await fetch(`/users/${userId}`, {
+                    method: 'DELETE', // Make sure DELETE method is used
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    fetchUsersDataOnSystem(); // Reload users data
+                    // Show success SweetAlert
+                    Swal.fire({
+                        title: 'ลบผู้ใช้เรียบร้อยแล้ว!',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                } else {
+                    throw new Error(data.message || 'เกิดข้อผิดพลาดในการลบผู้ใช้');
+                }
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                // Show error SweetAlert
+                Swal.fire({
+                    title: 'เกิดข้อผิดพลาด!',
+                    text: error.message || 'เกิดข้อผิดพลาดในการลบผู้ใช้',
+                    icon: 'error',
+                    confirmButtonText: 'ตกลง'
+                });
+            }
+        }
+
+
+
+
+
+        // เพิ่ม Event Listener สำหรับฟอร์มอัปเดต
+        document.getElementById('updateUserForm').addEventListener('submit', updateUser);
 
 
         function renderPagination(data) {
@@ -250,7 +407,7 @@
 
         function changePage(direction) {
             const currentPage = parseInt(document.getElementById('pageNumbers').querySelector('.bg-orange-500')
-            .textContent);
+                .textContent);
             let newPage;
 
             if (direction === 'prev') {
@@ -288,128 +445,3 @@
     </style>
 @endsection
 
-
-
-
-
-
-
-{{-- // function renderPagination(data) {
-    //     const currentPage = data.current_page;
-    //     const totalPages = data.last_page;
-
-    //     // ปรับปรุงข้อมูลหน้า
-    //     document.getElementById('currentPage').textContent = currentPage;
-    //     document.getElementById('totalPages').textContent = totalPages;
-
-    //     // เปิด/ปิดปุ่ม Prev/Next
-    //     document.getElementById('prevPage').disabled = currentPage === 1;
-    //     document.getElementById('nextPage').disabled = currentPage === totalPages;
-    // }
-
-    // // ฟังก์ชันเปลี่ยนหน้า
-    // function changePage(direction) {
-    //     const currentPage = parseInt(document.getElementById('currentPage').textContent);
-    //     const newPage = currentPage + direction;
-
-    //     fetchUsersDataOnSystem(newPage);
-    // } --}}
-
-
-
-<!-- Pagination Section -->
-{{-- <div id="pagination" class="flex justify-center items-center py-4 space-x-4">
-    <button id="prevPage"
-        class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 disabled:opacity-50"
-        onclick="changePage(-1)" disabled>
-        < Prev </button>
-            <span class="text-sm text-orange-700">
-                หน้า <span id="currentPage">1</span> จาก <span id="totalPages">10</span>
-            </span>
-            <button id="nextPage"
-                class="px-4 py-2 bg-orange-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-                onclick="changePage(1)">Next >
-            </button>
-</div> --}}
-
-
-{{-- <script>
-        // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้จาก API
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchUsersDataOnSystem();
-        });
-
-
-        async function fetchUsersDataOnSystem(page = 1) {
-            const rowsPerPage = document.getElementById('rowsPerPage').value;
-
-            // เรียก API เพื่อดึงข้อมูลผู้ใช้
-            const response = await fetch(`/api/users?rowsPerPage=${rowsPerPage}&page=${page}`);
-            const data = await response.json();
-
-            // ปรับปรุงตารางข้อมูลผู้ใช้
-            const tableBody = document.getElementById('usersTableBody');
-            tableBody.innerHTML = '';
-
-            // แสดงข้อมูลในตาราง
-            data.data.forEach(user => {
-                const row = document.createElement('tr');
-                row.classList.add('hover:bg-orange-50', 'transition-colors', 'duration-150');
-                row.innerHTML = `
-                <td class="px-6 py-4 text-sm text-gray-700">${user.id || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
-                <td class="px-6 py-4 text-sm text-gray-700">${user.name || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
-                <td class="px-6 py-4 text-sm text-gray-700">${user.username || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
-                <td class="px-6 py-4 text-sm text-gray-700">${user.email || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
-                <td class="px-6 py-4 text-sm text-gray-700">${user.phone || 'ไม่มีข้อมูลระบุภายในระบบ'}</td>
-                <td class="px-6 py-4 text-sm">
-                    <span class="px-3 py-1 rounded-full text-xs font-medium ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-                        ${user.status ? 'Active' : 'Inactive'}
-                    </span>
-                </td>
-                <td class="px-6 py-4 text-right space-x-2">
-                    <!-- ปุ่มแก้ไข -->
-                    <button class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 3l4 4-10 10H7v-4L17 3z"></path>
-                        </svg>
-                        แก้ไข
-                    </button>
-
-                    <!-- ปุ่มลบ -->
-                    <button class="inline-flex items-center px-3 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                        ลบ
-                    </button>
-                </td>
-
-            `;
-                tableBody.appendChild(row);
-            });
-
-            // ปรับปรุงการแสดงผลของ pagination
-            renderPagination(data);
-        }
-
-        function renderPagination(data) {
-            const currentPage = data.current_page;
-            const totalPages = data.last_page;
-
-            // ปรับปรุงข้อมูลหน้า
-            document.getElementById('currentPage').textContent = currentPage;
-            document.getElementById('totalPages').textContent = totalPages;
-
-            // เปิด/ปิดปุ่ม Prev/Next
-            document.getElementById('prevPage').disabled = currentPage === 1;
-            document.getElementById('nextPage').disabled = currentPage === totalPages;
-        }
-
-        // ฟังก์ชันเปลี่ยนหน้า
-        function changePage(direction) {
-            const currentPage = parseInt(document.getElementById('currentPage').textContent);
-            const newPage = currentPage + direction;
-
-            fetchUsersDataOnSystem(newPage);
-        }
-    </script> --}}

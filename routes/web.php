@@ -44,13 +44,7 @@ Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('cust
 
 // แสดงข้อมูลผู้ใช้งานระบบ
 Route::get('/profile/show', [ProfileController::class, 'show']);
-// In routes/web.php or routes/api.php
-// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
-// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
 
-
-// routes/web.php (ดึงข้อมูลลูกค้า)
-// Route::get('/customer/{id}', [CustomerController::class, 'getCustomerData']);
 
 Route::resource('customers', CustomerController::class); //Function ทั่วไปมาใช้ ของลูกค้า
 
@@ -144,6 +138,11 @@ Route::resource('users', UserController::class);
 Route::get('/api/users', [UserController::class, 'getUsers']);
 Route::get('/roles', [UserController::class, 'getRoles']);
 Route::get('/get-zones-branches', [UserController::class, 'getZonesAndBranches']);
+Route::put('/api/users/{id}', [UserController::class, 'update']);
+Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+
+
 
 
 // Route::post('/users', [UserController::class, 'create']);
@@ -178,7 +177,13 @@ Route::get('/get-zones-branches', [UserController::class, 'getZonesAndBranches']
 
 
 
+// In routes/web.php or routes/api.php
+// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
+// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
 
+
+// routes/web.php (ดึงข้อมูลลูกค้า)
+// Route::get('/customer/{id}', [CustomerController::class, 'getCustomerData']);
 
 
 

@@ -34,12 +34,12 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล</label>
-                            <input type="text" name="name"
+                            <input type="text" name="name" id="name"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้</label>
-                            <input type="text" name="username"
+                            <input type="text" name="username" id="username"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                     </div>
@@ -51,12 +51,12 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">อีเมล</label>
-                            <input type="email" name="email"
+                            <input type="email" name="email" id="email"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
-                            <input type="number" name="phone"
+                            <input type="number" name="phone" id="phone"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                     </div>
@@ -68,12 +68,12 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
-                            <input type="password" name="password"
+                            <input type="password" name="password" id="password"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">ยืนยันรหัสผ่าน</label>
-                            <input type="password" name="password_confirmation"
+                            <input type="password" name="password_confirmation" id="password_confirmation"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                     </div>
@@ -363,6 +363,7 @@
                 name: $('input[name="name"]').val(),
                 username: $('input[name="username"]').val(),
                 password: $('input[name="password"]').val(),
+                password_confirmation: $('input[name="password_confirmation"]').val(),
                 email: $('input[name="email"]').val(),
                 phone: $('input[name="phone"]').val(),
                 zone: $('select[name="zone"]').val(),
@@ -445,6 +446,7 @@
             });
         });
     });
+
 </script>
 
 

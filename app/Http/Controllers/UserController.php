@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -129,12 +131,91 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    public function update(Request $request, $id)
+    {
+        try {
+            // Validation rules
+            $rules = [
+                'name' => ['required', 'string', 'max:255'],
+                'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($id)],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+                'zone' => ['required', 'string', 'max:15'],
+                'branch' => ['required', 'string', 'max:15'],
+                'status_user' => ['required', 'string', 'max:15'],
+                'status' => ['required', 'string', 'in:active,inactive'],
+            ];
+
+            // Add password validation only if it's provided
+            if ($request->filled('password')) {
+                $rules['password'] = ['string', 'min:6'];
+            }
+
+            // Validate request
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'การตรวจสอบข้อมูลล้มเหลว',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Find user
+            $user = User::findOrFail($id);
+
+            // Prepare data for update
+            $updateData = $request->only([
+                'name',
+                'username',
+                'email',
+                'zone',
+                'branch',
+                'status_user',
+                'status'
+            ]);
+
+            // Handle password update
+            if ($request->filled('password')) {
+                $updateData['password'] = Hash::make($request->password);
+            }
+
+            // Update user
+            $user->update($updateData);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'อัปเดตข้อมูลผู้ใช้เรียบร้อยแล้ว',
+                'data' => $user
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 
     // ฟังก์ชันสำหรับลบผู้ใช้
+    // public function destroy($id)
+    // {
+    //     User::destroy($id);
+    //     return response()->json(['success' => 'User deleted successfully.']);
+    // }
+
     public function destroy($id)
     {
-        User::destroy($id);
-        return response()->json(['success' => 'User deleted successfully.']);
+        $user = User::find($id);
+
+        if ($user) {
+            $user->delete();  // Soft delete the user
+            return response()->json(['success' => 'User deleted successfully.']);
+        }
+
+        return response()->json(['error' => 'User not found.'], 404);
     }
 
 
@@ -157,6 +238,76 @@ class UserController extends Controller
 
 
 
+
+
+    // public function update(Request $request, $id)
+    // {
+    //     // ตรวจสอบความถูกต้องของข้อมูล
+    //     $validator = Validator::make($request->all(), [
+    //         'status' => 'required|string|max:255',
+    //         'name' => 'required|string|max:255',
+    //         'username' => 'required|string|max:255|unique:users,username,' . $id, // ตรวจสอบ unique โดยไม่ตรวจสอบตัวเอง
+    //         'password' => 'nullable|string|min:6', // password ไม่จำเป็นต้องกรอกถ้าไม่ต้องการเปลี่ยน
+    //         'email' => 'required|string|email|max:255|unique:users,email,' . $id, // ตรวจสอบ unique โดยไม่ตรวจสอบตัวเอง
+    //         'phone' => 'required|string|max:15',
+    //         'zone' => 'required|string|max:15',
+    //         'branch' => 'required|string|max:15',
+    //         'status_user' => 'required|string|max:15',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()], 400);
+    //     }
+
+    //     // ค้นหาผู้ใช้ที่ต้องการอัปเดต
+    //     $user = User::find($id);
+    //     if (!$user) {
+    //         return response()->json(['error' => 'User not found.'], 404);
+    //     }
+
+    //     // อัปเดตข้อมูลผู้ใช้
+    //     $data = $request->all();
+
+    //     // ถ้ามีการเปลี่ยนรหัสผ่าน ให้ทำการแฮชรหัสผ่าน
+    //     if ($request->has('password') && $request->password) {
+    //         $data['password'] = bcrypt($request->password);
+    //     }
+
+    //     // อัปเดตข้อมูลในฐานข้อมูล
+    //     $user->update($data);
+
+    //     // ส่งผลลัพธ์กลับ
+    //     return response()->json(['success' => 'User updated successfully.']);
+    // }
+
+
+
+    // // ฟังก์ชันสำหรับอัปเดตข้อมูลผู้ใช้
+    // public function update(Request $request, $id)
+    // {
+    //     // ตรวจสอบความถูกต้องของข้อมูล
+    //     $validator = Validator::make($request->all(), [
+    //         'status' => 'required|string|max:255',
+    //         'name' => 'required|string|max:255',
+    //         'username' => 'required|string|max:255|unique:users',
+    //         'password' => 'required|string|min:6',
+    //         'email' => 'required|string|email|max:255|unique:users',
+    //         'phone' => 'required|string|max:15',
+    //         'zone' => 'required|string|max:15',
+    //         'branch' => 'required|string|max:15',
+    //         'status_user' => 'required|string|max:15',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()]);
+    //     }
+
+    //     // อัปเดตข้อมูลผู้ใช้
+    //     $user = User::find($id);
+    //     $user->update($request->all());
+
+    //     return response()->json(['success' => 'User updated successfully.']);
+    // }
 
 
 
