@@ -26,101 +26,96 @@
                 </div>
             </div>
 
-            <!-- Form Content -->
+
             <form id="createUserForm" class="space-y-4 mt-2">
-                <!-- Basic Information -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล</label>
-                        <input type="text" name="name"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้</label>
-                        <input type="text" name="username"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                <!-- Personal Information -->
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลส่วนตัว</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล</label>
+                            <input type="text" name="name"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้</label>
+                            <input type="text" name="username"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                        </div>
                     </div>
                 </div>
 
                 <!-- Contact Information -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">อีเมล</label>
-                        <input type="email" name="email"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
-                        <input type="number" name="phone"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                    </div>
-                </div>
-
-                <!-- Additional Information -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
-                        <input type="password" name="password"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">ยืนยันรหัสผ่าน</label>
-                        <input type="password" name="password_confirmation"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลการติดต่อ</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">อีเมล</label>
+                            <input type="email" name="email"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
+                            <input type="number" name="phone"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                        </div>
                     </div>
                 </div>
 
-                <!-- Role and Status -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้ผู้ใช้งานระบบ</label>
-                        <select name="status_user"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                            id="status_user">
-                            <option value="" disabled selected>กรุณาเลือกสถานะผู้ใช้งานระบบ</option>
-                            <option value="AD">ผู้ดูแลระบบ</option>
-                            <option value="SAD">ซุปเปอร์แอดมิน</option>
-                            <option value="FN">เจ้าหน้าที่ไฟแนนซ์</option>
-                            <option value="SUP">หัวหน้าไฟแนนซ์</option>
-                            <option value="MG">ผู้จัดการไฟแนนซ์</option>
-                            <option value="AUD">เจ้าหน้าที่ตรวจสอบ</option>
-                            <option value="ACT">เจ้าหน้าที่บัญชี</option>
-                            <option value="ST">เจ้าหน้าที่แอดมิน</option>
-                            <option value="FNC">เจ้าหน้าที่การเงินใน</option>
-                            <option value="FNC">เจ้าหน้าที่การเงิน</option>
-                            <option value="MKT">เจ้าหน้าที่การตลาด</option>
-                            <option value="ASM">ผู้ช่วยผู้จัดการ</option>
-                        </select>
-                    </div>
-
-
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">สถานะ</label>
-                        <select name="status"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
+                <!-- Account Information -->
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลยืนยันบัญชี</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
+                            <input type="password" name="password"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">ยืนยันรหัสผ่าน</label>
+                            <input type="password" name="password_confirmation"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                        </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">โซน</label>
-                        <select id="zone" name="zone"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                            <option value="">เลือกโซน</option>
-                            <!-- ข้อมูลโซนจะถูกใส่ที่นี่ -->
-                        </select>
+
+                <!-- Status & Zone Information -->
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">สถานะและข้อมูลเพิ่มเติม</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">สถานะ</label>
+                            <input type="text" name="status" id="status" value="active" readonly
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 text-gray-700 focus:ring-blue-200 focus:border-blue-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้งานระบบ</label>
+                            <select name="status_user" id="status_user"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                                <option value="" selected>กรุณาเลือกสถานะผู้ใช้งานระบบ</option>
+                                <!-- Add options here -->
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">สาขา</label>
-                        <select id="branch" name="branch"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-                            <option value="">เลือกรายการสาขา</option>
-                            <!-- ข้อมูลสาขาจะถูกใส่ที่นี่ -->
-                        </select>
+
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">โซน</label>
+                            <select id="zone" name="zone"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                                <option value="">เลือกโซน</option>
+                                <!-- Add options here -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">สาขา</label>
+                            <select id="branch" name="branch"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                                <option value="">เลือกรายการสาขา</option>
+                                <!-- Add options here -->
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -136,6 +131,7 @@
                     </button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
@@ -156,77 +152,52 @@
 
 
 
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // สร้างออบเจ็กต์เพื่อเก็บข้อมูลที่จับคู่กับ Zone_Branch
-        const zoneMapping = {
-            10: "ปัตตานี",
-            20: "หาดใหญ่",
-            30: "นครศรีธรรมราช",
-            40: "กระบี่",
-            50: "สุราษฏร์ธานี"
-        };
 
-        // ดึงข้อมูลโซนและสาขา
-        fetch('/get-zones-branches')
-            .then(response => response.json())
-            .then(data => {
-                // ใส่ข้อมูลโซนลงใน select #zone
-                const zoneSelect = document.getElementById('zone');
-                data.zones.forEach(zone => {
-                    const option = document.createElement('option');
-                    // ตรวจสอบค่า Zone_Branch และแสดงชื่อที่กำหนด
-                    const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
-                    option.value = zone.Zone_Branch;
-                    option.textContent = zoneName;
-                    zoneSelect.appendChild(option);
-                });
-
-                // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
-                const branchSelect = document.getElementById('branch');
-                branchSelect.disabled = true; // disable initially
-                const defaultOption = document.createElement('option');
-                defaultOption.value = "";
-                defaultOption.textContent = "กรุณาเลือกโซน";
-                branchSelect.appendChild(defaultOption);
-            })
-            .catch(error => console.error('Error fetching data:', error));
-
-        // เมื่อเปลี่ยนค่าใน select #zone
-        document.getElementById('zone').addEventListener('change', function() {
-            const selectedZone = this.value;
-            const branchSelect = document.getElementById('branch');
-
-            if (selectedZone) {
-                // เรียก fetch ใหม่ตามค่า zone ที่เลือก
-                fetch(`/get-zones-branches?zone=${selectedZone}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // รีเซ็ตรูปแบบข้อมูลใน select #branch
-                        branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
-                        branchSelect.disabled = false; // เปิดใช้งาน select #branch
-
-                        // ใส่ข้อมูลสาขาใหม่ตาม zone ที่เลือก
-                        data.branches.forEach(branch => {
-                            const option = document.createElement('option');
-                            option.value = branch.id;
-                            option.textContent = branch.Name_Branch;
-                            branchSelect.appendChild(option);
-                        });
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            } else {
-                // ถ้าไม่เลือก zone ให้ปิดการใช้งาน select #branch และรีเซ็ตข้อมูล
-                branchSelect.disabled = true;
-                branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
-            }
-        });
-    });
-</script> --}}
 
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // ฟังก์ชันในการเปิด modal
+        function openModalCreateUser() {
+            document.getElementById('createUserModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ฟังก์ชันในการปิด modal
+        function closeModalCreateUser() {
+            document.getElementById('createUserModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ดึงข้อมูล roles โดยใช้ Ajax
+        function fetchRoles() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/roles', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    const selectElement = document.getElementById('status_user');
+
+                    // Clear existing options except for the first one
+                    while (selectElement.options.length > 1) {
+                        selectElement.remove(1);
+                    }
+
+                    // Populate with new options from the API response
+                    data.forEach(role => {
+                        const option = document.createElement('option');
+                        option.value = role.code; // Use role code as value
+                        option.textContent = role.name_th; // Display role name_th
+                        selectElement.appendChild(option);
+                    });
+                }
+            };
+            xhr.send();
+        }
+
+        // เรียกใช้ฟังก์ชั่น fetchRoles เมื่อเริ่มต้น
+        fetchRoles();
+
         // สร้างออบเจ็กต์เพื่อเก็บข้อมูลที่จับคู่กับ Zone_Branch
         const zoneMapping = {
             10: "ปัตตานี",
@@ -237,29 +208,37 @@
         };
 
         // ดึงข้อมูลโซนและสาขา
-        fetch('/get-zones-branches')
-            .then(response => response.json())
-            .then(data => {
-                // ใส่ข้อมูลโซนลงใน select #zone
-                const zoneSelect = document.getElementById('zone');
-                data.zones.forEach(zone => {
-                    const option = document.createElement('option');
-                    // ตรวจสอบค่า Zone_Branch และแสดงชื่อที่กำหนด
-                    const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
-                    option.value = zone.Zone_Branch;
-                    option.textContent = zoneName;
-                    zoneSelect.appendChild(option);
-                });
+        function fetchZonesBranches() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/get-zones-branches', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    const zoneSelect = document.getElementById('zone');
 
-                // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
-                const branchSelect = document.getElementById('branch');
-                branchSelect.disabled = true; // disable initially
-                const defaultOption = document.createElement('option');
-                defaultOption.value = "";
-                defaultOption.textContent = "กรุณาเลือกโซน";
-                branchSelect.appendChild(defaultOption);
-            })
-            .catch(error => console.error('Error fetching data:', error));
+                    // ใส่ข้อมูลโซนลงใน select #zone
+                    data.zones.forEach(zone => {
+                        const option = document.createElement('option');
+                        const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
+                        option.value = zone.Zone_Branch;
+                        option.textContent = zoneName;
+                        zoneSelect.appendChild(option);
+                    });
+
+                    // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
+                    const branchSelect = document.getElementById('branch');
+                    branchSelect.disabled = true; // disable initially
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = "";
+                    defaultOption.textContent = "กรุณาเลือกโซน";
+                    branchSelect.appendChild(defaultOption);
+                }
+            };
+            xhr.send();
+        }
+
+        // เรียกใช้ฟังก์ชั่น fetchZonesBranches เมื่อเริ่มต้น
+        fetchZonesBranches();
 
         // เมื่อเปลี่ยนค่าใน select #zone
         document.getElementById('zone').addEventListener('change', function() {
@@ -268,9 +247,11 @@
 
             if (selectedZone) {
                 // เรียก fetch ใหม่ตามค่า zone ที่เลือก
-                fetch(`/get-zones-branches?zone=${selectedZone}`)
-                    .then(response => response.json())
-                    .then(data => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `/get-zones-branches?zone=${selectedZone}`, true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
                         // รีเซ็ตรูปแบบข้อมูลใน select #branch
                         branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
                         branchSelect.disabled = false; // เปิดใช้งาน select #branch
@@ -282,77 +263,187 @@
                             option.textContent = branch.Name_Branch;
                             branchSelect.appendChild(option);
                         });
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
+                    }
+                };
+                xhr.send();
             } else {
                 // ถ้าไม่เลือก zone ให้ปิดการใช้งาน select #branch และรีเซ็ตข้อมูล
                 branchSelect.disabled = true;
                 branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
             }
         });
+    });
 
-        // ตรวจสอบสถานะเริ่มต้นและให้ทำงานเมื่อเลือก "Active"
-        const statusSelect = document.querySelector('select[name="status"]');
-        if (statusSelect && statusSelect.value === 'active') {
-            // ให้ทำงานกับ Zone เมื่อสถานะเป็น Active
-            document.getElementById('zone').disabled = false; // เปิดใช้งาน Zone
+
+    function validatePassword() {
+        var password = document.querySelector('input[name="password"]').value;
+        var confirmPassword = document.querySelector('input[name="password_confirmation"]').value;
+
+        // ถ้ารหัสผ่านไม่ตรงกัน จะแสดงข้อความเตือนด้วย SweetAlert
+        if (password !== confirmPassword) {
+            Swal.fire({
+                icon: 'error',
+                title: 'รหัสผ่านไม่ตรงกัน',
+                text: 'กรุณาตรวจสอบรหัสผ่านและยืนยันรหัสผ่านให้ตรงกัน',
+                confirmButtonText: 'ตกลง'
+            });
+            return false; // ป้องกันการส่งฟอร์ม
         }
 
-        // เมื่อเปลี่ยนค่าใน select status
-        statusSelect.addEventListener('change', function() {
-            const zoneSelect = document.getElementById('zone');
-            if (this.value === 'active') {
-                zoneSelect.disabled = false; // เปิดใช้งาน Zone
-            } else {
-                zoneSelect.disabled = true; // ปิดการใช้งาน Zone
-                document.getElementById('branch').disabled = true; // ปิดการใช้งาน branch
-            }
-        });
-    });
+        return true; // ถ้าตรงกันให้ส่งฟอร์ม
+    }
+
+    // การเชื่อมโยงฟังก์ชันกับการส่งฟอร์ม
+    document.getElementById('createUserForm').onsubmit = function(event) {
+        if (!validatePassword()) {
+            event.preventDefault(); // ยับยั้งการส่งฟอร์มหากรหัสผ่านไม่ตรงกัน
+        }
+    };
 </script>
 
 
 
 <script>
+    // Helper function to show error messages
+    function showError(field, message) {
+        const input = $(`[name="${field}"], select[name="${field}"]`); // Handle both input and select
+        const errorIcon = '<span class="error-icon text-red-500 mr-2">&#9888;</span>'; // Error icon (⚠️)
+
+        // Add error class to input or select
+        input.addClass('is-invalid').css('border-color', 'red');
+
+        // Add error icon and message
+        const errorMessageDiv = `
+        <div class="error-message text-red-500 text-sm mt-1">
+            ${errorIcon}${message}
+        </div>
+    `;
+
+        input.after(errorMessageDiv);
+
+        // Animate the error icon slightly
+        $('.error-icon').animate({
+            marginLeft: '10px'
+        }, 100).animate({
+            marginLeft: '0'
+        }, 100);
+
+        // Fade out the error message after 2 seconds
+        setTimeout(function() {
+            $('.error-message').fadeOut(500, function() {
+                $(this).remove(); // Remove the error message after fading out
+            });
+        }, 2000);
+    }
+
+
+    // ฟังก์ชันในการเปิด modal
     function openModalCreateUser() {
         document.getElementById('createUserModal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
     }
 
+    // ฟังก์ชันในการปิด modal
     function closeModalCreateUser() {
         document.getElementById('createUserModal').classList.add('hidden');
         document.body.style.overflow = 'auto';
     }
 
-    document.getElementById('createUserForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
+    $(document).ready(function() {
+        $('#createUserForm').on('submit', function(e) {
+            e.preventDefault();
 
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
+            // Clear previous error messages and reset border color
+            $('.error-message').remove();
+            $('.is-invalid').removeClass('is-invalid').css('border-color', '');
 
-        try {
-            const response = await fetch('/api/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-                body: JSON.stringify(data)
+            // Get form data
+            const formData = {
+                status: $('input[name="status"]').val(),
+                name: $('input[name="name"]').val(),
+                username: $('input[name="username"]').val(),
+                password: $('input[name="password"]').val(),
+                email: $('input[name="email"]').val(),
+                phone: $('input[name="phone"]').val(),
+                zone: $('select[name="zone"]').val(),
+                branch: $('select[name="branch"]').val(),
+                status_user: $('select[name="status_user"]').val()
+            };
+
+            // Debug: Log form data
+            console.log('Form Data:', formData);
+
+            // Validate required fields
+            const requiredFields = ['name', 'username', 'password', 'password_confirmation', 'email',
+                'status', 'zone', 'branch',
+                'phone', 'status_user'
+            ];
+            let hasError = false;
+
+            requiredFields.forEach(field => {
+                if (!formData[field]) {
+                    showError(field, 'กรุณากรอกข้อมูล');
+                    hasError = true;
+                }
             });
 
-            if (response.ok) {
-                closeModalCreateUser();
-                // Refresh user table or show success message
-                alert('บันทึกข้อมูลสำเร็จ');
-                fetchUsersDataOnSystem(); // Refresh table
-            } else {
-                const errorData = await response.json();
-                alert(errorData.message || 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+            if (hasError) {
+                console.log('Validation failed');
+                return;
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
-        }
+
+            // Show loading state
+            const submitBtn = $(this).find('button[type="submit"]');
+            const originalBtnText = submitBtn.text();
+            submitBtn.prop('disabled', true).text('กำลังบันทึก...');
+
+            // Send AJAX request
+            $.ajax({
+                url: '/users', // URL ที่จะส่งคำขอไป
+                method: 'POST',
+                data: formData,
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                        'content') // CSRF token สำหรับการป้องกันการโจมตี
+                },
+                success: function(response) {
+                    console.log('Success Response:', response);
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'สำเร็จ!',
+                        text: 'สร้างผู้ใช้งานเรียบร้อยแล้ว',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    // ปิด modal
+                    closeModalCreateUser();
+                    $('#createUserForm')[0].reset();
+
+                    if (typeof refreshUserList === 'function') {
+                        refreshUserList();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error Status:', status);
+                    console.error('Error:', error);
+                    console.error('Status Code:', xhr.status);
+                    console.error('Response Text:', xhr.responseText);
+
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        console.log('Parsed Error Response:', response);
+                    } catch (e) {
+                        console.error('Error parsing JSON response:', e);
+                    }
+                },
+                complete: function() {
+                    submitBtn.prop('disabled', false).text(originalBtnText);
+                }
+            });
+        });
     });
 </script>
 
@@ -365,114 +456,95 @@
 
 
 
-
-
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // ดึงข้อมูลโซนและสาขา
-        fetch('/get-zones-branches')
-            .then(response => response.json())
-            .then(data => {
-                // ใส่ข้อมูลโซนลงใน select #zone
-                const zoneSelect = document.getElementById('zone');
-                data.zones.forEach(zone => {
-                    const option = document.createElement('option');
-                    option.value = zone.Zone_Branch;
-                    option.textContent = zone.Zone_Branch;
-                    zoneSelect.appendChild(option);
-                });
-
-                // ใส่ข้อมูลสาขาลงใน select #branch
-                const branchSelect = document.getElementById('branch');
-                data.branches.forEach(branch => {
-                    const option = document.createElement('option');
-                    option.value = branch.id;
-                    option.textContent = `${branch.Name_Branch}`;
-                    branchSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    });
-</script> --}}
-
-
-<!-- Location Information -->
-{{-- <div class="grid grid-cols-2 gap-4">
-    <div>
-        <label class="block text-sm font-medium text-gray-700">โซน</label>
-        <input type="text" name="zone"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+<!-- Form Content -->
+{{-- <form id="createUserForm" class="space-y-4 mt-2">
+    <!-- Basic Information -->
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล</label>
+            <input type="text" name="name"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้</label>
+            <input type="text" name="username"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+        </div>
     </div>
-    <div>
-        <label class="block text-sm font-medium text-gray-700">สาขา</label>
-        <input type="text" name="branch"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+
+    <!-- Contact Information -->
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">อีเมล</label>
+            <input type="email" name="email"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
+            <input type="number" name="phone"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+        </div>
     </div>
-</div> --}}
 
-
-{{-- <div>
-    <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้ผู้ใช้งานระบบ</label>
-    <select name="status_user"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-        <option value="SAD">Super Admin</option>
-        <option value="AD">Admin</option>
-        <option value="US">User</option>
-    </select>
-</div> --}}
-
-
-<!-- Modal Content -->
-{{-- <div class="relative top-20 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-lg bg-white">
-<div class="flex flex-col space-y-4">
-<!-- Modal Header -->
-<div class="flex justify-between items-center border-b pb-4">
-    <h2 class="text-xl font-semibold text-gray-800">เพิ่มบัญชีผู้ใช้งานระบบ</h2>
-    <button onclick="closeModalCreateUser()" class="text-gray-400 hover:text-gray-500">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M6 18L18 6M6 6l12 12" />
-        </svg>
-    </button>
-</div> --}}
-
-
-{{-- <form class="p-4 md:p-5">
-    <div class="grid gap-4 mb-4 grid-cols-2">
-        <div class="col-span-2 sm:col-span-1">
-            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อ - นามสุกล</label>
-            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+    <!-- Additional Information -->
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
+            <input type="password" name="password"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
         </div>
-        <div class="col-span-2 sm:col-span-1">
-            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">ยืนยันรหัสผ่าน</label>
+            <input type="password" name="password_confirmation"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
         </div>
-        <div class="col-span-2 sm:col-span-1">
-            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-            <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
+    </div>
+
+
+
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">สถานะ</label>
+            <input type="text" name="status" id="status" value="active" readonly
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 text-gray-700 focus:ring-blue-200 focus:border-blue-500 transition">
         </div>
-        <div class="col-span-2 sm:col-span-1">
-            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รหัสผ่าน</label>
-            <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
-        </div>
-        <div class="col-span-2 sm:col-span-1">
-            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-            <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                <option selected="">Select category</option>
-                <option value="TV">TV/Monitors</option>
-                <option value="PC">PC</option>
-                <option value="GA">Gaming/Console</option>
-                <option value="PH">Phones</option>
+
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้งานระบบ</label>
+            <select name="status_user" id="status_user"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                <option value="" selected>กรุณาเลือกสถานะผู้ใช้งานระบบ</option>
             </select>
         </div>
-        <div class="col-span-2">
-            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-            <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here"></textarea>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">โซน</label>
+            <select id="zone" name="zone"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                <option value="">เลือกโซน</option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">สาขา</label>
+            <select id="branch" name="branch"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+                <option value="">เลือกรายการสาขา</option>
+            </select>
         </div>
     </div>
 
-    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-        Add new product
-    </button>
+    <!-- Form Actions -->
+    <div class="flex justify-end space-x-3 pt-4 border-t">
+        <button type="submit"
+            class="px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition duration-200">
+            บันทึก
+        </button>
+        <button type="button" onclick="closeModalCreateUser()"
+            class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition duration-200">
+            ยกเลิก
+        </button>
+    </div>
 </form> --}}

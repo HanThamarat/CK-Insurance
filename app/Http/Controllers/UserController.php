@@ -38,27 +38,16 @@ class UserController extends Controller
         $rowsPerPage = $request->input('rowsPerPage', 10);
         $search = $request->input('search', '');
 
-        $users = User::where('name', 'like', '%'.$search.'%')
-                    ->orWhere('email', 'like', '%'.$search.'%')
-                    ->orWhere('username', 'like', '%'.$search.'%')
-                    ->orderBy('created_at', 'desc') // เพิ่มการเรียงลำดับจากใหม่ไปเก่า
-                    ->paginate($rowsPerPage);
+        $users = User::where('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search . '%')
+            ->orWhere('username', 'like', '%' . $search . '%')
+            ->orderBy('created_at', 'desc') // เพิ่มการเรียงลำดับจากใหม่ไปเก่า
+            ->paginate($rowsPerPage);
 
         return response()->json($users);
     }
 
 
-    // public function getZonesAndBranches()
-    // {
-    //     // ดึงข้อมูลโซน (Zone_Branch) และสาขา (Branch_Active)
-    //     $zones = Branch::select('Zone_Branch')->distinct()->get();
-    //     $branches = Branch::select('id', 'Name_Branch', 'Zone_Branch')->get();
-
-    //     return response()->json([
-    //         'zones' => $zones,
-    //         'branches' => $branches
-    //     ]);
-    // }
 
     public function getZonesAndBranches(Request $request)
     {
@@ -96,56 +85,21 @@ class UserController extends Controller
     }
 
 
-    public function create(Request $request)
-    {
-        // ตรวจสอบว่า request ต้องการ JSON หรือไม่
-        if ($request->wantsJson()) {
-            // ตรวจสอบข้อมูลจาก request
-            $validatedData = $request->validate([
-                'status' => 'required|string|max:255',
-                'name' => 'required|string|max:255',
-                'username' => 'required|string|max:255|unique:users',
-                'password' => 'required|string|min:8',
-                'email' => 'required|email|max:255|unique:users',
-                'phone' => 'nullable|string|max:20',
-                'zone' => 'nullable|string|max:255',
-                'branch' => 'nullable|string|max:255',
-                'status_user' => 'required|string|max:255',
-            ]);
-
-            // สร้างผู้ใช้ใหม่
-            $user = User::create([
-                'status' => $validatedData['status'],
-                'name' => $validatedData['name'],
-                'username' => $validatedData['username'],
-                'password' => bcrypt($validatedData['password']),
-                'email' => $validatedData['email'],
-                'phone' => $validatedData['phone'],
-                'zone' => $validatedData['zone'],
-                'branch' => $validatedData['branch'],
-                'status_user' => $validatedData['status_user'],
-            ]);
-
-            return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
-        }
-
-        // ถ้าไม่ใช่ JSON ส่งกลับ view สำหรับฟอร์มสร้างผู้ใช้ใหม่
-        return view('users.create');
-    }
-
-
-
 
     // ฟังก์ชันสำหรับสร้างผู้ใช้ใหม่
     public function store(Request $request)
     {
         // ตรวจสอบความถูกต้องของข้อมูล
         $validator = Validator::make($request->all(), [
+            'status' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:15',
+            'zone' => 'required|string|max:15',
+            'branch' => 'required|string|max:15',
+            'status_user' => 'required|string|max:15',
         ]);
 
         if ($validator->fails()) {
@@ -154,11 +108,15 @@ class UserController extends Controller
 
         // สร้างผู้ใช้ใหม่
         User::create([
+            'status' => $request->status,
             'name' => $request->name,
             'username' => $request->username,
             'password' => bcrypt($request->password),
             'email' => $request->email,
             'phone' => $request->phone,
+            'zone' => $request->zone,
+            'branch' => $request->branch,
+            'status_user' => $request->status_user,
         ]);
 
         return response()->json(['success' => 'User created successfully.']);
@@ -203,6 +161,115 @@ class UserController extends Controller
 
 
 
+    // public function create(Request $request)
+    // {
+    //     if ($request->isMethod('post') && $request->wantsJson()) {
+    //         // Validation
+    //         $validatedData = $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'username' => 'required|string|max:255|unique:users',
+    //             'password' => 'required|string|min:8',
+    //             'email' => 'required|email|max:255|unique:users',
+    //             'phone' => 'required|string|max:20',
+    //             'status' => 'required|in:active,inactive',
+    //             'zone' => 'required|exists:zones,Zone_Branch',
+    //             'branch' => 'required|exists:branches,id',
+    //             'status_user' => 'required|exists:roles,code',
+    //         ]);
+
+    //         // Create User
+    //         $user = User::create([
+    //             'status' => $validatedData['status'],
+    //             'name' => $validatedData['name'],
+    //             'username' => $validatedData['username'],
+    //             'password' => bcrypt($validatedData['password']),
+    //             'email' => $validatedData['email'],
+    //             'phone' => $validatedData['phone'],
+    //             'zone' => $validatedData['zone'],
+    //             'branch' => $validatedData['branch'],
+    //             'status_user' => $validatedData['status_user'],
+    //         ]);
+
+    //         return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
+    //     }
+
+    //     return response()->json(['message' => 'Method Not Allowed'], 405);
+    // }
+
+
+
+
+    // public function create(Request $request)
+    // {
+    //     if ($request->isMethod('post') && $request->wantsJson()) {
+    //         $validatedData = $request->validate([
+    //             'status' => 'nullable|string|max:255',
+    //             'name' => 'required|string|max:255',
+    //             'username' => 'required|string|max:255|unique:users',
+    //             'password' => 'required|string|min:8',
+    //             'email' => 'required|email|max:255|unique:users',
+    //             'phone' => 'nullable|string|max:20',
+    //             'zone' => 'nullable|string|max:255',
+    //             'branch' => 'nullable|string|max:255',
+    //             'status_user' => 'nullable|string|max:255',
+    //         ]);
+
+    //         $user = User::create([
+    //             'status' => $validatedData['status'],
+    //             'name' => $validatedData['name'],
+    //             'username' => $validatedData['username'],
+    //             'password' => bcrypt($validatedData['password']),
+    //             'email' => $validatedData['email'],
+    //             'phone' => $validatedData['phone'],
+    //             'zone' => $validatedData['zone'],
+    //             'branch' => $validatedData['branch'],
+    //             'status_user' => $validatedData['status_user'],
+    //         ]);
+
+    //         return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
+    //     }
+
+    //     return response()->json(['message' => 'Method Not Allowed'], 405);
+    // }
+
+
+
+    // public function create(Request $request)
+    // {
+    //     // ตรวจสอบว่า request ต้องการ JSON หรือไม่
+    //     if ($request->wantsJson()) {
+    //         // ตรวจสอบข้อมูลจาก request
+    //         $validatedData = $request->validate([
+    //             'status' => 'required|string|max:255',
+    //             'name' => 'required|string|max:255',
+    //             'username' => 'required|string|max:255|unique:users',
+    //             'password' => 'required|string|min:8',
+    //             'email' => 'required|email|max:255|unique:users',
+    //             'phone' => 'nullable|string|max:20',
+    //             'zone' => 'nullable|string|max:255',
+    //             'branch' => 'nullable|string|max:255',
+    //             'status_user' => 'required|string|max:255',
+    //         ]);
+
+    //         // สร้างผู้ใช้ใหม่
+    //         $user = User::create([
+    //             'status' => $validatedData['status'],
+    //             'name' => $validatedData['name'],
+    //             'username' => $validatedData['username'],
+    //             'password' => bcrypt($validatedData['password']),
+    //             'email' => $validatedData['email'],
+    //             'phone' => $validatedData['phone'],
+    //             'zone' => $validatedData['zone'],
+    //             'branch' => $validatedData['branch'],
+    //             'status_user' => $validatedData['status_user'],
+    //         ]);
+
+    //         return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
+    //     }
+
+    //     // ถ้าไม่ใช่ JSON ส่งกลับ view สำหรับฟอร์มสร้างผู้ใช้ใหม่
+    //     return view('users.create');
+    // }
 
 
 
@@ -282,7 +349,7 @@ class UserController extends Controller
 
 
 
-        // ฟังก์ชันสำหรับอัปเดตข้อมูลผู้ใช้
+    // ฟังก์ชันสำหรับอัปเดตข้อมูลผู้ใช้
     // public function update(Request $request, $id)
     // {
     //     // ตรวจสอบความถูกต้องของข้อมูล

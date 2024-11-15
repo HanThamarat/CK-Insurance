@@ -53,8 +53,6 @@ Route::get('/profile/show', [ProfileController::class, 'show']);
 // Route::get('/customer/{id}', [CustomerController::class, 'getCustomerData']);
 
 Route::resource('customers', CustomerController::class); //Function ทั่วไปมาใช้ ของลูกค้า
-Route::get('/roles', [UserController::class, 'getRoles']);
-Route::get('/get-zones-branches', [UserController::class, 'getZonesAndBranches']);
 
 
 // ASSET ROUTE (ข้อมูลสินทรัพย์)
@@ -141,11 +139,14 @@ Route::post('/delete-career', [DataCusCareerController::class, 'deleteCareer']);
 Route::post('/delete-asset', [DataAssetController::class, 'deleteAsset']);
 
 
-
-
-
+// จัดการข้อมูลผู้ใช้งานระบบ
 Route::resource('users', UserController::class);
 Route::get('/api/users', [UserController::class, 'getUsers']);
+Route::get('/roles', [UserController::class, 'getRoles']);
+Route::get('/get-zones-branches', [UserController::class, 'getZonesAndBranches']);
+
+
+// Route::post('/users', [UserController::class, 'create']);
 
 
 
