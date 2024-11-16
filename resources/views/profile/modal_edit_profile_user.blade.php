@@ -134,6 +134,13 @@
                         id="phone" value="{{ old('phone', $user->phone) }}" required>
                     <div class="text-red-500 text-sm mt-1 error-message" id="phone-error"></div>
                 </div>
+
+                <script>
+                    $(document).ready(function(){
+                       $('#phone').mask('0000000000');
+                    });
+                 </script>
+
             </div>
 
             <div class="flex justify-end mt-3">

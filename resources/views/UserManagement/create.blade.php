@@ -59,6 +59,13 @@
                             <input type="number" name="phone" id="phone"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
+
+                        <script>
+                            $(document).ready(function(){
+                                // ใช้ mask เพื่อกรอกเบอร์โทรศัพท์ 10 หลัก
+                                $('#phone').mask('0000000000');
+                            });
+                        </script>
                     </div>
                 </div>
 
