@@ -18,12 +18,22 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
-                    <div class="animate-fade-left animate-once animate-duration-1000 animate-ease-in-out">
+                    {{-- <div class="animate-fade-left animate-once animate-duration-1000 animate-ease-in-out">
                         <x-label for="email" value="{{ __('Username') }}" />
                         <x-input id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" autocomplete="username" />
                     </div>
 
                     <div class="mt-4 animate-fade-left animate-once animate-duration-1000 animate-ease-in-out">
+                        <x-label for="password" value="{{ __('Password') }}" />
+                        <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                    </div> --}}
+
+                    <div>
+                        <x-label for="email" value="{{ __('Username or Email') }}" />
+                        <x-input id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" autocomplete="username" />
+                    </div>
+
+                    <div class="mt-4">
                         <x-label for="password" value="{{ __('Password') }}" />
                         <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
                     </div>
@@ -56,7 +66,7 @@
     <!-- Setup and start animation! -->
     <script>
         var typed = new Typed('#element', {
-        strings: ['Wellcome to', 'ChookiatGroup', 'Wellcome to', 'Insurance Management System'],
+        strings: ['Wellcome to', 'Chookiat Care', 'Wellcome to', 'Insurance Management System'],
         typeSpeed: 100,
         loop: true,
         cursorChar: '|',
