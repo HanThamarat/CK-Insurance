@@ -142,8 +142,9 @@ Route::put('/api/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 
-
-
+Route::get('/api/get-zones', [UserController::class, 'getZonesAndBranches']);
+Route::get('/api/get-branches', [UserController::class, 'getBranchesByZone']);
+Route::get('/api/get-roles', [UserController::class, 'getRoles']);
 
 // Route::post('/users', [UserController::class, 'create']);
 

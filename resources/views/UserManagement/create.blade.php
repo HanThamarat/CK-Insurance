@@ -33,12 +33,12 @@
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลส่วนตัว</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล</label>
+                            <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล :</label>
                             <input type="text" name="name" id="name"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้</label>
+                            <label class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้ :</label>
                             <input type="text" name="username" id="username"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
@@ -50,12 +50,12 @@
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลการติดต่อ</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">อีเมล</label>
+                            <label class="block text-sm font-medium text-gray-700">อีเมล :</label>
                             <input type="email" name="email" id="email"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
+                            <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์ :</label>
                             <input type="number" name="phone" id="phone"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
@@ -67,12 +67,12 @@
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">ข้อมูลยืนยันบัญชี</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
+                            <label class="block text-sm font-medium text-gray-700">รหัสผ่าน :</label>
                             <input type="password" name="password" id="password"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">ยืนยันรหัสผ่าน</label>
+                            <label class="block text-sm font-medium text-gray-700">ยืนยันรหัสผ่าน :</label>
                             <input type="password" name="password_confirmation" id="password_confirmation"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                         </div>
@@ -85,12 +85,12 @@
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">สถานะและข้อมูลเพิ่มเติม</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">สถานะ</label>
+                            <label class="block text-sm font-medium text-gray-700">สถานะ :</label>
                             <input type="text" name="status" id="status" value="active" readonly
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 text-gray-700 focus:ring-blue-200 focus:border-blue-500 transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้งานระบบ</label>
+                            <label class="block text-sm font-medium text-gray-700">สถานะผู้ใช้งานระบบ :</label>
                             <select name="status_user" id="status_user"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                                 <option value="" selected>กรุณาเลือกสถานะผู้ใช้งานระบบ</option>
@@ -101,7 +101,7 @@
 
                     <div class="grid grid-cols-2 gap-4 mt-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">โซน</label>
+                            <label class="block text-sm font-medium text-gray-700">โซน :</label>
                             <select id="zone" name="zone"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                                 <option value="">เลือกโซน</option>
@@ -109,7 +109,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">สาขา</label>
+                            <label class="block text-sm font-medium text-gray-700">สาขา :</label>
                             <select id="branch" name="branch"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
                                 <option value="">เลือกรายการสาขา</option>
@@ -122,14 +122,15 @@
                 <!-- Form Actions -->
                 <div class="flex justify-end space-x-3 pt-4 border-t">
                     <button type="submit"
-                        class="px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition duration-200">
+                        class="px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition duration-200 transform hover:translate-y-[-4px] hover:shadow-lg">
                         บันทึก
                     </button>
                     <button type="button" onclick="closeModalCreateUser()"
-                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition duration-200">
+                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition duration-200 transform hover:translate-y-[-4px] hover:shadow-lg">
                         ยกเลิก
                     </button>
                 </div>
+
             </form>
 
         </div>
@@ -302,8 +303,184 @@
 </script>
 
 
-
 <script>
+    // Helper function to show error messages
+    function showError(field, message) {
+        const input = $(`[name="${field}"], select[name="${field}"]`); // Handle both input and select
+        const errorIcon = '<span class="error-icon text-red-500 mr-2">&#9888;</span>'; // Error icon (⚠️)
+
+        // Add error class to input or select
+        input.addClass('is-invalid').css('border-color', 'red');
+
+        // Add error icon and message
+        const errorMessageDiv = `
+        <div class="error-message text-red-500 text-sm mt-1">
+            ${errorIcon}${message}
+        </div>
+    `;
+
+        input.after(errorMessageDiv);
+
+        // Animate the error icon slightly
+        $('.error-icon').animate({
+            marginLeft: '10px'
+        }, 100).animate({
+            marginLeft: '0'
+        }, 100);
+
+        // Fade out the error message after 2 seconds
+        setTimeout(function() {
+            $('.error-message').fadeOut(500, function() {
+                $(this).remove(); // Remove the error message after fading out
+            });
+        }, 2000);
+    }
+
+    // ฟังก์ชันในการเปิด modal
+    function openModalCreateUser() {
+        document.getElementById('createUserModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // ฟังก์ชันในการปิด modal
+    function closeModalCreateUser() {
+        document.getElementById('createUserModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    $(document).ready(function() {
+        $('#createUserForm').on('submit', function(e) {
+            e.preventDefault();
+
+            // Clear previous error messages and reset border color
+            $('.error-message').remove();
+            $('.is-invalid').removeClass('is-invalid').css('border-color', '');
+
+            // Get form data
+            const formData = {
+                status: $('input[name="status"]').val(),
+                name: $('input[name="name"]').val(),
+                username: $('input[name="username"]').val(),
+                password: $('input[name="password"]').val(),
+                password_confirmation: $('input[name="password_confirmation"]').val(),
+                email: $('input[name="email"]').val(),
+                phone: $('input[name="phone"]').val(),
+                zone: $('select[name="zone"]').val(),
+                branch: $('select[name="branch"]').val(),
+                status_user: $('select[name="status_user"]').val()
+            };
+
+            // Debug: Log form data
+            console.log('Form Data:', formData);
+
+            // Validate required fields
+            const requiredFields = ['name', 'username', 'password', 'password_confirmation', 'email',
+                'status', 'zone', 'branch', 'phone', 'status_user'
+            ];
+            let hasError = false;
+
+            requiredFields.forEach(field => {
+                if (!formData[field]) {
+                    showError(field, 'กรุณากรอกข้อมูล');
+                    hasError = true;
+                }
+            });
+
+            if (hasError) {
+                console.log('Validation failed');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = $(this).find('button[type="submit"]');
+            const originalBtnText = submitBtn.text();
+            submitBtn.prop('disabled', true).text('กำลังบันทึก...');
+
+            // Send AJAX request
+            $.ajax({
+                url: '/users', // URL ที่จะส่งคำขอไป
+                method: 'POST',
+                data: formData,
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token สำหรับการป้องกันการโจมตี
+                },
+                success: function(response) {
+                    console.log('Success Response:', response);
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'สำเร็จ!',
+                        text: 'สร้างผู้ใช้งานเรียบร้อยแล้ว',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    // ปิด modal
+                    closeModalCreateUser();
+                    fetchUsersDataOnSystem();
+                    $('#createUserForm')[0].reset();
+
+                    // เรียกฟังก์ชันเพื่อดึงข้อมูลใหม่มาแสดง
+                    refreshUserList();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error Status:', status);
+                    console.error('Error:', error);
+                    console.error('Status Code:', xhr.status);
+                    console.error('Response Text:', xhr.responseText);
+
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        console.log('Parsed Error Response:', response);
+                    } catch (e) {
+                        console.error('Error parsing JSON response:', e);
+                    }
+                },
+                complete: function() {
+                    submitBtn.prop('disabled', false).text(originalBtnText);
+                }
+            });
+        });
+    });
+
+    // ฟังก์ชันที่ดึงข้อมูลผู้ใช้ทั้งหมดและแสดงในตาราง
+    function refreshUserList() {
+        $.ajax({
+            url: '/users', // URL สำหรับดึงข้อมูลผู้ใช้
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                const userList = $('#userList'); // ID ของตารางผู้ใช้
+                userList.empty(); // ลบข้อมูลเก่าออก
+
+                response.data.forEach(user => {
+                    const userRow = `
+                    <tr>
+                        <td>${user.name}</td>
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phone}</td>
+                        <td>${user.status_user}</td>
+                        <td>
+                            <button class="btn btn-primary">แก้ไข</button>
+                            <button class="btn btn-danger">ลบ</button>
+                        </td>
+                    </tr>
+                    `;
+                    userList.append(userRow);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching user list:', error);
+            }
+        });
+    }
+</script>
+
+
+
+{{-- <script>
     // Helper function to show error messages
     function showError(field, message) {
         const input = $(`[name="${field}"], select[name="${field}"]`); // Handle both input and select
@@ -447,7 +624,7 @@
         });
     });
 
-</script>
+</script> --}}
 
 
 

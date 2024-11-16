@@ -63,7 +63,7 @@
                         <!-- Password -->
                         <div>
                             <label for="updatePassword" class="block text-sm font-medium text-gray-700 mb-1">
-                                รหัสผ่าน <span class="text-gray-500 text-xs">(เว้นว่างถ้าไม่ต้องการเปลี่ยน)</span>
+                                รหัสผ่าน <span class="text-gray-500 text-xs">(<span class="text-red-500">*</span>กรุณาเว้นว่างหากไม่ต้องการเปลี่ยนแปลง<span class="text-red-500">*</span>)</span>
                             </label>
                             <input type="password" id="updatePassword" name="password"
                                 class="w-full px-4 py-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
@@ -129,12 +129,12 @@
                 <!-- Buttons -->
                 <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
                     <button type="submit"
-                        class="px-6 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-colors">
+                        class="px-6 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 hover:bg-orange-600 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-orange-400">
                         บันทึกการเปลี่ยนแปลง
                     </button>
 
                     <button type="button" onclick="closeUpdateUserModal()"
-                        class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors">
+                        class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg shadow-md transform transition-transform duration-200 hover:scale-105 hover:bg-gray-200 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300">
                         ยกเลิก
                     </button>
                 </div>
@@ -146,113 +146,248 @@
 
 
 
+
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // เปิด modal
-        const openModalCreateUser = () => {
-            document.getElementById('updateUserModal').classList.remove('hidden');
+    // Constants for API endpoints
+    const API_ENDPOINTS = {
+        ROLES: '/roles',
+        ZONES_BRANCHES: '/get-zones-branches',
+        UPDATE_USER: '/api/users/{id}' // Add your update endpoint
+    };
+
+    // Zone mapping configuration
+    const ZONE_MAPPING = {
+        10: "ปัตตานี",
+        20: "หาดใหญ่",
+        30: "นครศรีธรรมราช",
+        40: "กระบี่",
+        50: "สุราษฏร์ธานี"
+    };
+
+    class UserUpdateModal {
+        constructor() {
+            this.modal = document.getElementById('updateUserModal');
+            this.form = document.getElementById('updateUserForm');
+            this.initializeEventListeners();
+        }
+
+        initializeEventListeners() {
+            // Zone change handler
+            document.getElementById('updateZone').addEventListener('change', (e) => {
+                this.handleZoneChange(e.target.value);
+            });
+
+            // Form submission handler
+            this.form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleFormSubmit();
+            });
+
+            // Initialize data on DOM load
+            this.fetchRoles();
+            this.fetchZonesBranches();
+        }
+
+        // Modal Control Methods
+        open(userData) {
+            this.modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-        };
+            this.populateForm(userData);
+        }
 
-        // ปิด modal
-        const closeModalCreateUser = () => {
-            document.getElementById('updateUserModal').classList.add('hidden');
+        close() {
+            this.modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
-        };
+            this.form.reset();
+        }
 
-        // ดึงข้อมูล roles ด้วย Fetch API
-        const fetchRoles = async () => {
+        // Form Population
+        populateForm(userData) {
+            // Populate hidden ID
+            document.getElementById('updateUserId').value = userData.id;
+
+            // Populate basic fields
+            ['name', 'username', 'email'].forEach(field => {
+                document.getElementById(`update${field.charAt(0).toUpperCase() + field.slice(1)}`).value =
+                    userData[field];
+            });
+
+            // Handle radio buttons for status
+            const statusRadios = this.form.querySelectorAll('input[name="status"]');
+            statusRadios.forEach(radio => {
+                radio.checked = radio.value === userData.status;
+            });
+
+            // Set zone and trigger branch population
+            const zoneSelect = document.getElementById('updateZone');
+            zoneSelect.value = userData.zone;
+            this.handleZoneChange(userData.zone, userData.branch);
+
+            // Set user status/role
+            document.getElementById('updateStatusUser').value = userData.status_user;
+        }
+
+        // API Calls
+        async fetchRoles() {
             try {
-                const response = await fetch('/roles');
-                if (response.ok) {
-                    const data = await response.json();
-                    const selectElement = document.getElementById('updateStatusUser');
-                    selectElement.innerHTML = '<option value="">เลือกประเภทผู้ใช้งาน</option>';
+                const response = await fetch(API_ENDPOINTS.ROLES);
+                if (!response.ok) throw new Error('Failed to fetch roles');
 
-                    data.forEach(role => {
-                        const option = document.createElement('option');
-                        option.value = role.code;
-                        option.textContent = role.name_th;
-                        selectElement.appendChild(option);
-                    });
-                }
+                const roles = await response.json();
+                this.populateRolesSelect(roles);
             } catch (error) {
                 console.error('Error fetching roles:', error);
+                this.showError('Failed to load user roles');
             }
-        };
+        }
 
-        // ดึงข้อมูลโซนและสาขา
-        const fetchZonesBranches = async () => {
+        async fetchZonesBranches() {
             try {
-                const response = await fetch('/get-zones-branches');
-                if (response.ok) {
-                    const data = await response.json();
-                    const zoneSelect = document.getElementById('updateZone');
-                    const zoneMapping = {
-                        10: "ปัตตานี",
-                        20: "หาดใหญ่",
-                        30: "นครศรีธรรมราช",
-                        40: "กระบี่",
-                        50: "สุราษฏร์ธานี"
-                    };
+                const response = await fetch(API_ENDPOINTS.ZONES_BRANCHES);
+                if (!response.ok) throw new Error('Failed to fetch zones');
 
-                    zoneSelect.innerHTML = '<option value="">เลือกโซน</option>';
-                    data.zones.forEach(zone => {
-                        const option = document.createElement('option');
-                        option.value = zone.Zone_Branch;
-                        option.textContent = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
-                        zoneSelect.appendChild(option);
-                    });
+                const data = await response.json();
+                this.populateZonesSelect(data.zones);
+            } catch (error) {
+                console.error('Error fetching zones:', error);
+                this.showError('Failed to load zones');
+            }
+        }
 
-                    // ปิดการใช้งาน select #updateBranch และตั้งค่าเริ่มต้น
-                    const branchSelect = document.getElementById('updateBranch');
-                    branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
-                    branchSelect.disabled = true;
+        async fetchBranches(zone) {
+            try {
+                const response = await fetch(`${API_ENDPOINTS.ZONES_BRANCHES}?zone=${zone}`);
+                if (!response.ok) throw new Error('Failed to fetch branches');
+
+                const data = await response.json();
+                return data.branches;
+            } catch (error) {
+                console.error('Error fetching branches:', error);
+                this.showError('Failed to load branches');
+                return [];
+            }
+        }
+
+        async handleFormSubmit() {
+            try {
+                const formData = new FormData(this.form);
+                const formDataObj = Object.fromEntries(formData);
+
+                const response = await fetch(API_ENDPOINTS.UPDATE_USER, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify(formDataObj) // ส่งข้อมูลที่แปลงเป็น JSON
+                });
+
+                if (!response.ok) throw new Error('Failed to update user');
+
+                const result = await response.json();
+                if (result.success) {
+                    this.showSuccess('User updated successfully');
+                    this.close();
+                    if (typeof window.refreshUserList === 'function') {
+                        window.refreshUserList();
+                    }
+                } else {
+                    throw new Error(result.message || 'Unknown error');
                 }
             } catch (error) {
-                console.error('Error fetching zones and branches:', error);
+                console.error('Error updating user:', error);
+                this.showError('Failed to update user');
             }
+        }
+
+
+        // Select Population Methods
+        populateRolesSelect(roles) {
+            const select = document.getElementById('updateStatusUser');
+            select.innerHTML = '<option value="">เลือกประเภทผู้ใช้งาน</option>';
+
+            roles.forEach(role => {
+                const option = document.createElement('option');
+                option.value = role.code;
+                option.textContent = role.name_th;
+                select.appendChild(option);
+            });
+        }
+
+        populateZonesSelect(zones) {
+            const select = document.getElementById('updateZone');
+            select.innerHTML = '<option value="">เลือกโซน</option>';
+
+            zones.forEach(zone => {
+                const option = document.createElement('option');
+                option.value = zone.Zone_Branch;
+                option.textContent = ZONE_MAPPING[zone.Zone_Branch] || zone.Zone_Branch;
+                select.appendChild(option);
+            });
+        }
+
+        async handleZoneChange(zoneValue, preSelectedBranch = null) {
+            const branchSelect = document.getElementById('updateBranch');
+            branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
+            branchSelect.disabled = !zoneValue;
+
+            if (zoneValue) {
+                const branches = await this.fetchBranches(zoneValue);
+                branches.forEach(branch => {
+                    const option = document.createElement('option');
+                    option.value = branch.id;
+                    option.textContent = branch.Name_Branch;
+                    branchSelect.appendChild(option);
+                });
+
+                if (preSelectedBranch) {
+                    branchSelect.value = preSelectedBranch;
+                }
+            }
+        }
+
+        // Utility Methods
+        showError(message) {
+            // Implement your error notification system
+            alert(message); // Replace with your preferred notification system
+        }
+
+        showSuccess(message) {
+            // Implement your success notification system
+            alert(message); // Replace with your preferred notification system
+        }
+    }
+
+    // Initialize the modal handler
+    document.addEventListener('DOMContentLoaded', () => {
+        const userModal = new UserUpdateModal();
+
+        // Make the modal instance available globally
+        window.userUpdateModal = userModal;
+
+        // Expose necessary methods
+        window.openUpdateUserModal = (button) => {
+            const userData = {
+                id: button.getAttribute('data-user-id'),
+                name: button.getAttribute('data-user-name'),
+                username: button.getAttribute('data-user-username'),
+                email: button.getAttribute('data-user-email'),
+                status: button.getAttribute('data-user-status'),
+                status_user: button.getAttribute('data-user-status-user'),
+                zone: button.getAttribute('data-user-zone'),
+                branch: button.getAttribute('data-user-branch')
+            };
+            userModal.open(userData);
         };
 
-        // ดึงข้อมูลสาขาตามโซนที่เลือก
-        document.getElementById('updateZone').addEventListener('change', async function() {
-            const selectedZone = this.value;
-            const branchSelect = document.getElementById('updateBranch');
-
-            if (selectedZone) {
-                try {
-                    const response = await fetch(`/get-zones-branches?zone=${selectedZone}`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
-                        branchSelect.disabled = false;
-
-                        data.branches.forEach(branch => {
-                            const option = document.createElement('option');
-                            option.value = branch.id;
-                            option.textContent = branch.Name_Branch;
-                            branchSelect.appendChild(option);
-                        });
-                    }
-                } catch (error) {
-                    console.error('Error fetching branches:', error);
-                }
-            } else {
-                branchSelect.disabled = true;
-                branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
-            }
-        });
-
-        // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
-        fetchRoles();
-        fetchZonesBranches();
+        window.closeUpdateUserModal = () => {
+            userModal.close();
+        };
     });
 </script>
 
 
-
 <script>
-    // user-update.js
 
     function openUpdateUserModal(userId) {
         try {
@@ -313,6 +448,7 @@
             });
         }
     }
+
 
     function closeUpdateUserModal() {
         document.getElementById('updateUserModal').classList.add('hidden');
@@ -398,6 +534,23 @@
         }
     });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
