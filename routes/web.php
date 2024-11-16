@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CustomerController;
@@ -13,6 +15,9 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () { return view('auth.login'); });
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
@@ -44,13 +49,7 @@ Route::PUT('/customers/{id}', [CustomerController::class, 'update'])->name('cust
 
 // แสดงข้อมูลผู้ใช้งานระบบ
 Route::get('/profile/show', [ProfileController::class, 'show']);
-// In routes/web.php or routes/api.php
-// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
-// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
 
-
-// routes/web.php (ดึงข้อมูลลูกค้า)
-// Route::get('/customer/{id}', [CustomerController::class, 'getCustomerData']);
 
 Route::resource('customers', CustomerController::class); //Function ทั่วไปมาใช้ ของลูกค้า
 
@@ -139,11 +138,20 @@ Route::post('/delete-career', [DataCusCareerController::class, 'deleteCareer']);
 Route::post('/delete-asset', [DataAssetController::class, 'deleteAsset']);
 
 
-
-
-
+// จัดการข้อมูลผู้ใช้งานระบบ
 Route::resource('users', UserController::class);
 Route::get('/api/users', [UserController::class, 'getUsers']);
+Route::get('/roles', [UserController::class, 'getRoles']);
+Route::get('/get-zones-branches', [UserController::class, 'getZonesAndBranches']);
+Route::put('/api/users/{id}', [UserController::class, 'update']);
+Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+
+Route::get('/api/get-zones', [UserController::class, 'getZonesAndBranches']);
+Route::get('/api/get-branches', [UserController::class, 'getBranchesByZone']);
+Route::get('/api/get-roles', [UserController::class, 'getRoles']);
+
+// Route::post('/users', [UserController::class, 'create']);
 
 
 
@@ -175,7 +183,13 @@ Route::get('/api/users', [UserController::class, 'getUsers']);
 
 
 
+// In routes/web.php or routes/api.php
+// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
+// Route::put('/user/{id}', [ProfileController::class, 'update'])->name('user.update');
 
+
+// routes/web.php (ดึงข้อมูลลูกค้า)
+// Route::get('/customer/{id}', [CustomerController::class, 'getCustomerData']);
 
 
 

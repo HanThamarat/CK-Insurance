@@ -2,7 +2,7 @@
 <div class="bg-white md:flex gap-6 py-2 border-b-2 border-orange-500 border-dashed">
     <div class="container mx-auto px-4 flex justify-between items-center">
         <div class="font-primaryBold text-[20px] flex items-center">
-            <span class="text-red-500 mr-7">CK <span class="text-orange-500">Insurance</span></span>
+            <span class="text-red-500 mr-7">Chookiat <span class="text-orange-500">Care</span></span>
             {{-- <div class="group relative flex justify-center items-center text-zinc-600 text-sm font-bold">
                 <div class="shadow-md flex items-center group-hover:gap-2 bg-gradient-to-br from-orange-200 to-orange-300 p-3 rounded-full cursor-pointer duration-300" onclick="openModal()">
                     <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" class="fill-zinc-600">
@@ -69,10 +69,45 @@
 
                     <div class="border-t border-gray-200"></div>
 
-                    <x-dropdown-link href="{{ route('users.index') }}">
+                    {{-- <x-dropdown-link href="{{ route('users.index') }}">
+                        <img src="{{ asset('gif/cus.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
+                        {{ __('จัดการข้อมูลผู้ใช้') }}
+                    </x-dropdown-link> --}}
+
+                    <x-dropdown-link href="{{ route('users.index') }}" id="user-management-link">
                         <img src="{{ asset('gif/cus.gif') }}" alt="Profile Icon" class="inline-block w-8 h-8 mr-2">
                         {{ __('จัดการข้อมูลผู้ใช้') }}
                     </x-dropdown-link>
+
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script>
+                        document.getElementById('user-management-link').addEventListener('click', function(event) {
+                            event.preventDefault(); // ป้องกันการเปิดลิงก์ทันที
+
+                            fetch("{{ route('users.index') }}", {
+                                method: "GET",
+                                headers: {
+                                    "Accept": "application/json",
+                                    "X-Requested-With": "XMLHttpRequest" // ส่งเป็น Ajax request
+                                },
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('คุณไม่มีสิทธิ์เข้าสู่หน้านี้!');
+                                }
+                                window.location.href = "{{ route('users.index') }}";
+                            })
+                            .catch(error => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'ข้อผิดพลาด',
+                                    text: error.message,
+                                    confirmButtonText: 'ตกลง'
+                                });
+                            });
+                        });
+                    </script>
+
 
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

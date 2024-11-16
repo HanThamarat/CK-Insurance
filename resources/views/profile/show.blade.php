@@ -84,8 +84,6 @@
                                 <div class="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
 
                                     {{-- <input type="file" name="profile" id="upload_profile" hidden required> --}}
-
-
                                     <label for="upload_profile">
                                         <svg data-slot="icon" class="w-6 h-5 text-blue-700" fill="none"
                                             stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
@@ -122,18 +120,60 @@
                             </div>
                         </div>
 
-                        <h2 class="text-center mt-3 font-semibold dark:text-gray-300">ข้อมูลของผู้ใช้งานระบบ</h2>
+                        <!-- User Profile Button with Hover Effect -->
+                        <div class="group relative flex justify-center items-center text-black text-sm font-bold">
+                            <!-- Tooltip -->
+                            <div
+                                class="absolute mt-7 opacity-0 group-hover:opacity-100 group-hover:translate-y-[-150%] translate-y-[-300%] duration-300 group-hover:delay-300 shadow-md z-10">
+                                <div class="bg-orange-200 flex items-center gap-1 p-2 rounded-md">
+                                    <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px"
+                                        xmlns="http://www.w3.org/2000/svg" class="stroke-black">
+                                        <circle stroke-linejoin="round" r="9" cy="12" cx="12"></circle>
+                                        <path stroke-linejoin="round" d="M12 3C12 3 8.5 6 8.5 12C8.5 18 12 21 12 21"></path>
+                                        <path stroke-linejoin="round" d="M12 3C12 3 15.5 6 15.5 12C15.5 18 12 21 12 21">
+                                        </path>
+                                        <path stroke-linejoin="round" d="M3 12H21"></path>
+                                        <path stroke-linejoin="round" d="M19.5 7.5H4.5"></path>
+                                        <path stroke-linejoin="round" d="M19.5 16.5H4.5"></path>
+                                    </svg>
+                                    <span>สถานะผู้ใช้งาน : <span
+                                            id="status_user">{{ $status_user ?? 'กำลังโหลด...' }}</span></span>
+                                </div>
+                                <!-- Tooltip Arrow -->
+                                <div
+                                    class="shadow-md bg-orange-200 absolute bottom-0 translate-y-1/2 left-1/2 translate-x-full rotate-45 p-1">
+                                </div>
+                            </div>
+
+                            <!-- Main Button -->
+                            <button onclick="openUserModal()"
+                                class="shadow-md mt-5 flex items-center gap-2 bg-gradient-to-br from-orange-200 to-orange-400 p-3 rounded-full cursor-pointer duration-300 hover:translate-y-[-4px] hover:shadow-lg active:transform active:translate-y-0">
+                                <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px"
+                                    xmlns="http://www.w3.org/2000/svg" class="fill-black">
+                                    <path stroke-linejoin="round" stroke-linecap="round"
+                                        d="M15.4306 7.70172C7.55045 7.99826 3.43929 15.232 2.17021 19.3956C2.07701 19.7014 2.31139 20 2.63107 20C2.82491 20 3.0008 19.8828 3.08334 19.7074C6.04179 13.4211 12.7066 12.3152 15.514 12.5639C15.7583 12.5856 15.9333 12.7956 15.9333 13.0409V15.1247C15.9333 15.5667 16.4648 15.7913 16.7818 15.4833L20.6976 11.6784C20.8723 11.5087 20.8993 11.2378 20.7615 11.037L16.8456 5.32965C16.5677 4.92457 15.9333 5.12126 15.9333 5.61253V7.19231C15.9333 7.46845 15.7065 7.69133 15.4306 7.70172Z">
+                                    </path>
+                                </svg>
+                                <span class="text-sm">ข้อมูลผู้ใช้งานระบบ</span>
+                            </button>
+                        </div>
+
                         <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                             <div class="w-full mb-4 mt-6">
-                                <label for="name" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชื่อ - นามสกุล</label>
-                                <p id="name" class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <label for="name"
+                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชื่อ
+                                    - นามสกุล</label>
+                                <p id="name"
+                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <!-- จะถูกอัพเดตผ่าน JavaScript -->
                                 </p>
                             </div>
 
                             <div class="w-full mb-4 mt-6">
-                                <label for="email" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">อีเมล</label>
-                                <p id="email" class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <label for="email"
+                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">อีเมล</label>
+                                <p id="email"
+                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <!-- จะถูกอัพเดตผ่าน JavaScript -->
                                 </p>
                             </div>
@@ -141,29 +181,26 @@
 
                         <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                             <div class="w-full mb-0 mt-0">
-                                <label for="username" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Username</label>
-                                <p id="username" class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <label for="username"
+                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Username</label>
+                                <p id="username"
+                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <!-- จะถูกอัพเดตผ่าน JavaScript -->
                                 </p>
                             </div>
 
                             <div class="w-full mb-0 mt-0">
-                                <label for="phone" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">หมายเลขโทรศัพท์</label>
-                                <p id="phone" class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <label for="phone"
+                                    class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">หมายเลขโทรศัพท์</label>
+                                <p id="phone"
+                                    class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <!-- จะถูกอัพเดตผ่าน JavaScript -->
                                 </p>
                             </div>
-
-                            {{-- <div class="w-full mb-0 mt-0">
-                                <label for="password_token" class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">รหัสผ่าน</label>
-                                <p id="password_token" class="block w-full p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    <!-- จะถูกอัพเดตผ่าน JavaScript -->
-                                </p>
-                            </div> --}}
                         </div>
 
                         <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                            <div class="w-full mb-4 mt-6">
+                            <div class="w-full mb-4 mt-4">
                                 <label for="zone"
                                     class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">พื้นที่</label>
                                 <p id="zone"
@@ -171,7 +208,7 @@
 
                                 </p>
                             </div>
-                            <div class="w-full mb-4 mt-6">
+                            <div class="w-full mb-4 mt-4">
                                 <label for="branch"
                                     class="form-label block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">สาขา</label>
                                 <p id="branch"
@@ -181,12 +218,11 @@
                             </div>
                         </div>
 
-
                         <div class="flex justify-end mt-3">
                             <button type="submit" onclick="openModalEditUser()"
-                                    class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
-                                    <i class="fas fa-user-plus"></i> แก้ไขข้อมูล
-                                </button>
+                                class="p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
+                                <i class="fas fa-user-plus"></i> แก้ไขข้อมูล
+                            </button>
 
                             <button type="submit" onclick="openModal_password()"
                                 class="ml-2 p-2 bg-gradient-to-l from-red-500 to-yellow-500 rounded-lg text-white text-sm hover:translate-y-[-4px] hover:shadow-lg transition-transform duration-300">
@@ -199,39 +235,67 @@
             </div>
         </section>
 
+        @include('profile.modal_show_user')
+
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 fetch('/profile/show', {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // แสดงข้อมูลใน console (หรือจะแสดงในหน้าเว็บได้เลย)
-                    // console.log(data);
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // แสดงข้อมูลในส่วนต่างๆ ของ HTML
+                        document.getElementById("name").innerText = data.user.name || 'ไม่ระบุ';
+                        document.getElementById("email").innerText = data.user.email || 'ไม่ระบุ';
+                        document.getElementById("username").innerText = data.user.username || 'ไม่ระบุ';
+                        document.getElementById("phone").innerText = data.user.phone || 'ไม่ระบุ';
+                        document.getElementById("zone").innerText = data.Zone_Name || 'ไม่ระบุ';
+                        document.getElementById("branch").innerText = data.Name_Branch || 'ไม่ระบุ';
 
-                    // แสดงข้อมูลในส่วนต่างๆ ของ HTML
-                    document.getElementById("name").innerText = data.user.name;
-                    document.getElementById("email").innerText = data.user.email;
-                    document.getElementById("username").innerText = data.user.username;
-                    document.getElementById("phone").innerText = data.user.phone;
-                    // document.getElementById("password_token").innerText = data.user.password_token;
-
-                    // แสดง Zone_Name และ Name_Branch ที่ได้จาก response
-                    document.getElementById("zone").innerText = data.Zone_Name || 'ไม่ระบุ';
-                    document.getElementById("branch").innerText = data.Name_Branch || 'ไม่ระบุ';
-                })
-                .catch(error => console.error('Error fetching data:', error));
+                        // แสดง status_user ในหน้าเว็บ
+                        // document.getElementById("status_user").innerText = data.user.status_user || 'ไม่ระบุ';
+                        document.getElementById("status_user").innerText = data.status_user || 'ไม่พบข้อมูลสถานะ';
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
             });
-        </script>
 
+            function openUserModal() {
+                // ดึงข้อมูลผู้ใช้จาก API
+                fetch('/profile/show', {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // ส่งข้อมูลไปยังฟังก์ชัน showModalUser ที่เราสร้างไว้ใน modal_show_user.blade.php
+                        showModalUser({
+                            name: data.user.name,
+                            email: data.user.email,
+                            phone: data.user.phone,
+                            username: data.user.username,
+                            status_user: data.status_user,
+                            Zone_Name: data.Zone_Name,
+                            Name_Branch: data.Name_Branch
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user data:', error);
+                        alert('ไม่สามารถโหลดข้อมูลผู้ใช้งานได้');
+                    });
+            }
+        </script>
 
 
         @include('profile.modal_edit_profile_user')
         @include('profile.edit_password')
+        @include('components.content-button.css_flex_effect')
 
         <script>
             document.querySelector('.img-effect').addEventListener('mouseover', function() {
@@ -282,3 +346,96 @@
         </style>
     @endsection
 </x-app-layout>
+
+
+
+
+
+
+{{--
+<div class="group relative flex justify-center items-center text-black text-sm font-bold">
+    <div
+        class="absolute mt-7 opacity-0 group-hover:opacity-100 group-hover:translate-y-[-150%] translate-y-[-300%] duration-300 group-hover:delay-300 shadow-md">
+        <div class="bg-orange-200 flex items-center gap-1 p-2 rounded-md">
+            <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px"
+                xmlns="http://www.w3.org/2000/svg" class="stroke-black">
+                <circle stroke-linejoin="round" r="9" cy="12" cx="12"></circle>
+                <path stroke-linejoin="round" d="M12 3C12 3 8.5 6 8.5 12C8.5 18 12 21 12 21"></path>
+                <path stroke-linejoin="round" d="M12 3C12 3 15.5 6 15.5 12C15.5 18 12 21 12 21">
+                </path>
+                <path stroke-linejoin="round" d="M3 12H21"></path>
+                <path stroke-linejoin="round" d="M19.5 7.5H4.5"></path>
+                <g filter="url(#filter0_d_15_556)">
+                    <path stroke-linejoin="round" d="M19.5 16.5H4.5"></path>
+                </g>
+                <defs>
+                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"
+                        height="3" width="17" y="16" x="3.5" id="filter0_d_15_556">
+                        <feFlood result="BackgroundImageFix" flood-opacity="0"></feFlood>
+                        <feColorMatrix result="hardAlpha"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" type="matrix"
+                            in="SourceAlpha"></feColorMatrix>
+                        <feOffset dy="1"></feOffset>
+                        <feGaussianBlur stdDeviation="0.5"></feGaussianBlur>
+                        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                            type="matrix"></feColorMatrix>
+                        <feBlend result="effect1_dropShadow_15_556" in2="BackgroundImageFix"
+                            mode="normal"></feBlend>
+                        <feBlend result="shape" in2="effect1_dropShadow_15_556" in="SourceGraphic"
+                            mode="normal"></feBlend>
+                    </filter>
+                </defs>
+            </svg>
+            <span>สถานะผู้ใช้งาน : <span id="status_user">{{ $status_user ?? 'กำลังโหลด...' }}</span></span>
+
+
+        </div>
+        <div
+            class="shadow-md bg-orange-200 absolute bottom-0 translate-y-1/2 left-1/2 translate-x-full rotate-45 p-1">
+        </div>
+        <div
+            class="rounded-md bg-white opacity-0 group-hover:opacity-0 w-full h-full absolute top-0 left-0">
+        </div>
+    </div>
+
+    <div
+        class="shadow-md mt-5 flex items-center gap-2 bg-gradient-to-br from-orange-200 to-orange-400 p-3 rounded-full cursor-pointer duration-300">
+        <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px"
+            xmlns="http://www.w3.org/2000/svg" class="fill-black">
+            <path stroke-linejoin="round" stroke-linecap="round"
+                d="M15.4306 7.70172C7.55045 7.99826 3.43929 15.232 2.17021 19.3956C2.07701 19.7014 2.31139 20 2.63107 20C2.82491 20 3.0008 19.8828 3.08334 19.7074C6.04179 13.4211 12.7066 12.3152 15.514 12.5639C15.7583 12.5856 15.9333 12.7956 15.9333 13.0409V15.1247C15.9333 15.5667 16.4648 15.7913 16.7818 15.4833L20.6976 11.6784C20.8723 11.5087 20.8993 11.2378 20.7615 11.037L16.8456 5.32965C16.5677 4.92457 15.9333 5.12126 15.9333 5.61253V7.19231C15.9333 7.46845 15.7065 7.69133 15.4306 7.70172Z">
+            </path>
+        </svg><span class="text-sm">ข้อมูลผู้ใช้งานระบบ</span>
+    </div>
+</div> --}}
+
+
+
+{{-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/profile/show', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // แสดงข้อมูลใน console (หรือจะแสดงในหน้าเว็บได้เลย)
+            // console.log(data);
+
+            // แสดงข้อมูลในส่วนต่างๆ ของ HTML
+            document.getElementById("name").innerText = data.user.name;
+            document.getElementById("email").innerText = data.user.email;
+            document.getElementById("username").innerText = data.user.username;
+            document.getElementById("phone").innerText = data.user.phone;
+            // document.getElementById("password_token").innerText = data.user.password_token;
+
+            // แสดง Zone_Name และ Name_Branch ที่ได้จาก response
+            document.getElementById("zone").innerText = data.Zone_Name || 'ไม่ระบุ';
+            document.getElementById("branch").innerText = data.Name_Branch || 'ไม่ระบุ';
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+</script> --}}
