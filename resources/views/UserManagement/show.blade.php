@@ -158,12 +158,90 @@
     </div>
 </div>
 
-
-
-
-
-
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // เปิด modal และเติมข้อมูล
+        window.openShowUserModal = (button) => {
+            const userId = button.getAttribute('data-user-id');
+            const userName = button.getAttribute('data-user-name');
+            const userUsername = button.getAttribute('data-user-username');
+            const userEmail = button.getAttribute('data-user-email');
+            const userStatusUser = button.getAttribute('data-user-status-user'); // code ของ role
+            const userZone = button.getAttribute('data-user-zone');
+            const userBranch = button.getAttribute('data-user-branch');
+            const userStatus = button.getAttribute('data-user-status'); // ค่าสถานะที่ส่งมาจากปุ่ม
+
+            // Mapping สำหรับโซน
+            const zoneNames = {
+                '10': 'ปัตตานี',
+                '20': 'หาดใหญ่',
+                '30': 'นครศรีธรรมราช',
+                '40': 'กระบี่',
+                '50': 'สุราษฎร์ธานี'
+            };
+
+            // เรียก API เพื่อดึงข้อมูลโซน, สาขา, และ role
+            Promise.all([
+                fetch('/api/get-zones?zone=' + userZone).then(response => response.json()),
+                fetch('/api/get-roles').then(response => response.json())
+            ])
+            .then(([zoneData, roles]) => {
+                const zones = zoneData.zones || [];
+                const branches = zoneData.branches || [];
+
+                // ตั้งค่าข้อมูลใน modal
+                document.getElementById('showUserId').value = userId;
+                document.getElementById('showName').value = userName;
+                document.getElementById('showUsername').value = userUsername;
+                document.getElementById('showEmail').value = userEmail;
+
+                // หาชื่อ zone จาก mapping (ใช้ zoneNames)
+                const zoneName = zoneNames[userZone] || 'Not Found';
+
+                // หาข้อมูลสาขาจาก id_Contract
+                const branch = branches.find(b => b.id_Contract == userBranch);
+
+                // ตั้งชื่อ zone และ branch ใน modal (มี fallback หากไม่พบ)
+                document.getElementById('showZone').value = zoneName;
+                document.getElementById('showBranch').value = branch ? branch.name_branch : 'Not Found';
+
+                // ค้นหา role จาก code ที่ส่งมา
+                const userRole = roles.find(role => role.code === userStatusUser);
+                if (userRole) {
+                    document.getElementById('showStatusUser').value = userRole.name_th;
+                } else {
+                    // ถ้าไม่พบ role, แสดง Not Found
+                    document.getElementById('showStatusUser').value = 'Not Found';
+                }
+
+                // ตั้งค่า status โดยใช้ค่าที่ส่งมาจากปุ่ม (ไม่ต้องใช้เงื่อนไขตรวจสอบ)
+                document.getElementById('showStatus').value = userStatus;
+
+                // แสดง modal
+                document.getElementById('showUserModal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Disable scrolling
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                // เพิ่มการจัดการข้อผิดพลาดกรณี API ล้มเหลว
+                document.getElementById('showStatusUser').value = 'Not Found';
+                document.getElementById('showStatus').value = 'Not Found';
+            });
+        };
+
+        // ปิด modal
+        window.closeShowUserModal = () => {
+            document.getElementById('showUserModal').classList.add('hidden');
+            document.body.style.overflow = ''; // Enable scrolling again
+        };
+    });
+</script>
+
+
+
+
+
+{{-- <script>
     document.addEventListener('DOMContentLoaded', () => {
         // เปิด modal และเติมข้อมูล
         window.openShowUserModal = (button) => {
@@ -240,7 +318,7 @@
             document.body.style.overflow = ''; // Enable scrolling again
         };
     });
-</script>
+</script> --}}
 
 
 

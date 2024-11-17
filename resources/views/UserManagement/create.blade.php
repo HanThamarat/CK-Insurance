@@ -164,123 +164,242 @@
 
 
 <script>
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     // ฟังก์ชันในการเปิด modal
+    //     function openModalCreateUser() {
+    //         document.getElementById('createUserModal').classList.remove('hidden');
+    //         document.body.style.overflow = 'hidden';
+    //     }
+
+    //     // ฟังก์ชันในการปิด modal
+    //     function closeModalCreateUser() {
+    //         document.getElementById('createUserModal').classList.add('hidden');
+    //         document.body.style.overflow = 'auto';
+    //     }
+
+    //     // ดึงข้อมูล roles โดยใช้ Ajax
+    //     function fetchRoles() {
+    //         const xhr = new XMLHttpRequest();
+    //         xhr.open('GET', '/roles', true);
+    //         xhr.onreadystatechange = function() {
+    //             if (xhr.readyState === 4 && xhr.status === 200) {
+    //                 const data = JSON.parse(xhr.responseText);
+    //                 const selectElement = document.getElementById('status_user');
+
+    //                 // Clear existing options except for the first one
+    //                 while (selectElement.options.length > 1) {
+    //                     selectElement.remove(1);
+    //                 }
+
+    //                 // Populate with new options from the API response
+    //                 data.forEach(role => {
+    //                     const option = document.createElement('option');
+    //                     option.value = role.code; // Use role code as value
+    //                     option.textContent = role.name_th; // Display role name_th
+    //                     selectElement.appendChild(option);
+    //                 });
+    //             }
+    //         };
+    //         xhr.send();
+    //     }
+
+    //     // เรียกใช้ฟังก์ชั่น fetchRoles เมื่อเริ่มต้น
+    //     fetchRoles();
+
+    //     // สร้างออบเจ็กต์เพื่อเก็บข้อมูลที่จับคู่กับ Zone_Branch
+    //     const zoneMapping = {
+    //         10: "ปัตตานี",
+    //         20: "หาดใหญ่",
+    //         30: "นครศรีธรรมราช",
+    //         40: "กระบี่",
+    //         50: "สุราษฏร์ธานี"
+    //     };
+
+    //     // ดึงข้อมูลโซนและสาขา
+    //     function fetchZonesBranches() {
+    //         const xhr = new XMLHttpRequest();
+    //         xhr.open('GET', '/get-zones-branches', true);
+    //         xhr.onreadystatechange = function() {
+    //             if (xhr.readyState === 4 && xhr.status === 200) {
+    //                 const data = JSON.parse(xhr.responseText);
+    //                 const zoneSelect = document.getElementById('zone');
+
+    //                 // ใส่ข้อมูลโซนลงใน select #zone
+    //                 data.zones.forEach(zone => {
+    //                     const option = document.createElement('option');
+    //                     const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
+    //                     option.value = zone.Zone_Branch;
+    //                     option.textContent = zoneName;
+    //                     zoneSelect.appendChild(option);
+    //                 });
+
+    //                 // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
+    //                 const branchSelect = document.getElementById('branch');
+    //                 branchSelect.disabled = true; // disable initially
+    //                 const defaultOption = document.createElement('option');
+    //                 defaultOption.value = "";
+    //                 defaultOption.textContent = "กรุณาเลือกโซน";
+    //                 branchSelect.appendChild(defaultOption);
+    //             }
+    //         };
+    //         xhr.send();
+    //     }
+
+    //     // เรียกใช้ฟังก์ชั่น fetchZonesBranches เมื่อเริ่มต้น
+    //     fetchZonesBranches();
+
+    //     // เมื่อเปลี่ยนค่าใน select #zone
+    //     document.getElementById('zone').addEventListener('change', function() {
+    //         const selectedZone = this.value;
+    //         const branchSelect = document.getElementById('branch');
+
+    //         if (selectedZone) {
+    //             // เรียก fetch ใหม่ตามค่า zone ที่เลือก
+    //             const xhr = new XMLHttpRequest();
+    //             xhr.open('GET', `/get-zones-branches?zone=${selectedZone}`, true);
+    //             xhr.onreadystatechange = function() {
+    //                 if (xhr.readyState === 4 && xhr.status === 200) {
+    //                     const data = JSON.parse(xhr.responseText);
+    //                     // รีเซ็ตรูปแบบข้อมูลใน select #branch
+    //                     branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
+    //                     branchSelect.disabled = false; // เปิดใช้งาน select #branch
+
+    //                     // ใส่ข้อมูลสาขาใหม่ตาม zone ที่เลือก
+    //                     data.branches.forEach(branch => {
+    //                         const option = document.createElement('option');
+    //                         option.value = branch.id;
+    //                         option.textContent = branch.Name_Branch;
+    //                         branchSelect.appendChild(option);
+    //                     });
+    //                 }
+    //             };
+    //             xhr.send();
+    //         } else {
+    //             // ถ้าไม่เลือก zone ให้ปิดการใช้งาน select #branch และรีเซ็ตข้อมูล
+    //             branchSelect.disabled = true;
+    //             branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
+    //         }
+    //     });
+    // });
+
     document.addEventListener('DOMContentLoaded', function() {
-        // ฟังก์ชันในการเปิด modal
-        function openModalCreateUser() {
-            document.getElementById('createUserModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
+    // ฟังก์ชันในการเปิด modal
+    function openModalCreateUser() {
+        document.getElementById('createUserModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
 
-        // ฟังก์ชันในการปิด modal
-        function closeModalCreateUser() {
-            document.getElementById('createUserModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
+    // ฟังก์ชันในการปิด modal
+    function closeModalCreateUser() {
+        document.getElementById('createUserModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
 
-        // ดึงข้อมูล roles โดยใช้ Ajax
-        function fetchRoles() {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', '/roles', true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const data = JSON.parse(xhr.responseText);
-                    const selectElement = document.getElementById('status_user');
+    // ดึงข้อมูล roles โดยใช้ Ajax
+    function fetchRoles() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/roles', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const data = JSON.parse(xhr.responseText);
+                const selectElement = document.getElementById('status_user');
 
-                    // Clear existing options except for the first one
-                    while (selectElement.options.length > 1) {
-                        selectElement.remove(1);
-                    }
-
-                    // Populate with new options from the API response
-                    data.forEach(role => {
-                        const option = document.createElement('option');
-                        option.value = role.code; // Use role code as value
-                        option.textContent = role.name_th; // Display role name_th
-                        selectElement.appendChild(option);
-                    });
+                // Clear existing options except for the first one
+                while (selectElement.options.length > 1) {
+                    selectElement.remove(1);
                 }
-            };
-            xhr.send();
-        }
 
-        // เรียกใช้ฟังก์ชั่น fetchRoles เมื่อเริ่มต้น
-        fetchRoles();
-
-        // สร้างออบเจ็กต์เพื่อเก็บข้อมูลที่จับคู่กับ Zone_Branch
-        const zoneMapping = {
-            10: "ปัตตานี",
-            20: "หาดใหญ่",
-            30: "นครศรีธรรมราช",
-            40: "กระบี่",
-            50: "สุราษฏร์ธานี"
-        };
-
-        // ดึงข้อมูลโซนและสาขา
-        function fetchZonesBranches() {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', '/get-zones-branches', true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const data = JSON.parse(xhr.responseText);
-                    const zoneSelect = document.getElementById('zone');
-
-                    // ใส่ข้อมูลโซนลงใน select #zone
-                    data.zones.forEach(zone => {
-                        const option = document.createElement('option');
-                        const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
-                        option.value = zone.Zone_Branch;
-                        option.textContent = zoneName;
-                        zoneSelect.appendChild(option);
-                    });
-
-                    // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
-                    const branchSelect = document.getElementById('branch');
-                    branchSelect.disabled = true; // disable initially
-                    const defaultOption = document.createElement('option');
-                    defaultOption.value = "";
-                    defaultOption.textContent = "กรุณาเลือกโซน";
-                    branchSelect.appendChild(defaultOption);
-                }
-            };
-            xhr.send();
-        }
-
-        // เรียกใช้ฟังก์ชั่น fetchZonesBranches เมื่อเริ่มต้น
-        fetchZonesBranches();
-
-        // เมื่อเปลี่ยนค่าใน select #zone
-        document.getElementById('zone').addEventListener('change', function() {
-            const selectedZone = this.value;
-            const branchSelect = document.getElementById('branch');
-
-            if (selectedZone) {
-                // เรียก fetch ใหม่ตามค่า zone ที่เลือก
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', `/get-zones-branches?zone=${selectedZone}`, true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        const data = JSON.parse(xhr.responseText);
-                        // รีเซ็ตรูปแบบข้อมูลใน select #branch
-                        branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
-                        branchSelect.disabled = false; // เปิดใช้งาน select #branch
-
-                        // ใส่ข้อมูลสาขาใหม่ตาม zone ที่เลือก
-                        data.branches.forEach(branch => {
-                            const option = document.createElement('option');
-                            option.value = branch.id;
-                            option.textContent = branch.Name_Branch;
-                            branchSelect.appendChild(option);
-                        });
-                    }
-                };
-                xhr.send();
-            } else {
-                // ถ้าไม่เลือก zone ให้ปิดการใช้งาน select #branch และรีเซ็ตข้อมูล
-                branchSelect.disabled = true;
-                branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
+                // Populate with new options from the API response
+                data.forEach(role => {
+                    const option = document.createElement('option');
+                    option.value = role.code; // Use role code as value
+                    option.textContent = role.name_th; // Display role name_th
+                    selectElement.appendChild(option);
+                });
             }
-        });
+        };
+        xhr.send();
+    }
+
+    // เรียกใช้ฟังก์ชัน fetchRoles เมื่อเริ่มต้น
+    fetchRoles();
+
+    // สร้างออบเจ็กต์เพื่อเก็บข้อมูลที่จับคู่กับ Zone_Branch
+    const zoneMapping = {
+        10: "ปัตตานี",
+        20: "หาดใหญ่",
+        30: "นครศรีธรรมราช",
+        40: "กระบี่",
+        50: "สุราษฏร์ธานี"
+    };
+
+    // ดึงข้อมูลโซนและสาขา
+    function fetchZonesBranches() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/get-zones-branches', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const data = JSON.parse(xhr.responseText);
+                const zoneSelect = document.getElementById('zone');
+
+                // ใส่ข้อมูลโซนลงใน select #zone
+                data.zones.forEach(zone => {
+                    const option = document.createElement('option');
+                    const zoneName = zoneMapping[zone.Zone_Branch] || zone.Zone_Branch;
+                    option.value = zone.Zone_Branch;
+                    option.textContent = zoneName;
+                    zoneSelect.appendChild(option);
+                });
+
+                // ใส่ข้อมูลสาขาลงใน select #branch และปิดใช้งาน (disabled)
+                const branchSelect = document.getElementById('branch');
+                branchSelect.disabled = true; // disable initially
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "กรุณาเลือกโซน";
+                branchSelect.appendChild(defaultOption);
+            }
+        };
+        xhr.send();
+    }
+
+    // เรียกใช้ฟังก์ชัน fetchZonesBranches เมื่อเริ่มต้น
+    fetchZonesBranches();
+
+    // เมื่อเปลี่ยนค่าใน select #zone
+    document.getElementById('zone').addEventListener('change', function() {
+        const selectedZone = this.value;
+        const branchSelect = document.getElementById('branch');
+
+        if (selectedZone) {
+            // เรียก fetch ใหม่ตามค่า zone ที่เลือก
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/get-zones-branches?zone=${selectedZone}`, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    // รีเซ็ตรูปแบบข้อมูลใน select #branch
+                    branchSelect.innerHTML = '<option value="">เลือกสาขา</option>';
+                    branchSelect.disabled = false; // เปิดใช้งาน select #branch
+
+                    // ใส่ข้อมูลสาขาใหม่ตาม zone ที่เลือก
+                    data.branches.forEach(branch => {
+                        const option = document.createElement('option');
+                        option.value = branch.id_Contract; // แก้ไขให้ใช้ id_Contract
+                        option.textContent = branch.name_branch; // แก้ไขให้ใช้ name_branch
+                        branchSelect.appendChild(option);
+                    });
+                }
+            };
+            xhr.send();
+        } else {
+            // ถ้าไม่เลือก zone ให้ปิดการใช้งาน select #branch และรีเซ็ตข้อมูล
+            branchSelect.disabled = true;
+            branchSelect.innerHTML = '<option value="">กรุณาเลือกโซน</option>';
+        }
     });
+});
+
 
 
     function validatePassword() {

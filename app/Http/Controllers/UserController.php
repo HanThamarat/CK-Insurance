@@ -63,11 +63,11 @@ class UserController extends Controller
         $allowedZones = ['10', '20', '30', '40', '50'];  // โซนที่อนุญาต
         if (in_array($zone, $allowedZones)) {
             $branches = Branch::where('Zone_Branch', $zone)
-                ->select('id', 'Name_Branch')
+                ->select('id_Contract', 'name_branch')
                 ->get();
         } else {
             // ถ้าไม่เลือก zone หรือไม่ตรงกับที่กำหนด จะดึงข้อมูลสาขาทั้งหมด
-            $branches = Branch::select('id', 'Name_Branch', 'Zone_Branch')->get();
+            $branches = Branch::select('id_Contract', 'name_branch', 'Zone_Branch')->get();
         }
 
         return response()->json([
@@ -75,6 +75,7 @@ class UserController extends Controller
             'branches' => $branches
         ]);
     }
+
 
 
     public function getRoles()
@@ -212,3 +213,32 @@ class UserController extends Controller
         return response()->json(['error' => 'User not found.'], 404);
     }
 }
+
+
+
+
+
+    // public function getZonesAndBranches(Request $request)
+    // {
+    //     // ดึงข้อมูลโซน
+    //     $zones = Branch::select('Zone_Branch')->distinct()->get();
+
+    //     // รับค่า zone ที่ถูกเลือกจาก request
+    //     $zone = $request->input('zone', null);
+
+    //     // กรองข้อมูลตามค่า Zone_Branch ที่เลือก
+    //     $allowedZones = ['10', '20', '30', '40', '50'];  // โซนที่อนุญาต
+    //     if (in_array($zone, $allowedZones)) {
+    //         $branches = Branch::where('Zone_Branch', $zone)
+    //             ->select('id', 'Name_Branch')
+    //             ->get();
+    //     } else {
+    //         // ถ้าไม่เลือก zone หรือไม่ตรงกับที่กำหนด จะดึงข้อมูลสาขาทั้งหมด
+    //         $branches = Branch::select('id', 'Name_Branch', 'Zone_Branch')->get();
+    //     }
+
+    //     return response()->json([
+    //         'zones' => $zones,
+    //         'branches' => $branches
+    //     ]);
+    // }

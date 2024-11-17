@@ -146,8 +146,350 @@
     </div>
 </div>
 
-
 <script>
+    const ZONE_MAPPING = {
+        10: "ปัตตานี",
+        20: "หาดใหญ่",
+        30: "นครศรีธรรมราช",
+        40: "กระบี่",
+        50: "สุราษฏร์ธานี"
+    };
+
+    class UserUpdateModal {
+        constructor() {
+            this.modal = $('#updateUserModal');
+            this.form = $('#updateUserForm');
+            this.initializeEventListeners();
+        }
+
+        initializeEventListeners() {
+            // Zone change handler
+            $('#updateZone').on('change', (e) => {
+                this.handleZoneChange($(e.target).val());
+            });
+
+            // Initialize data on DOM load
+            this.fetchRoles();
+            this.fetchZonesBranches();
+        }
+
+        // Modal Control Methods
+        open(userData) {
+            this.modal.removeClass('hidden');
+            $('body').css('overflow', 'hidden');
+            this.populateForm(userData);
+        }
+
+        close() {
+            this.modal.addClass('hidden');
+            $('body').css('overflow', 'auto');
+            this.form[0].reset();
+        }
+
+        // Form Population
+        populateForm(userData) {
+            $('#updateUserId').val(userData.id);
+
+            ['name', 'username', 'email'].forEach(field => {
+                $(`#update${field.charAt(0).toUpperCase() + field.slice(1)}`).val(userData[field]);
+            });
+
+            $('input[name="status"]').each(function() {
+                $(this).prop('checked', $(this).val() === userData.status);
+            });
+
+            $('#updateZone').val(userData.zone);
+            this.handleZoneChange(userData.zone, userData.branch);
+
+            $('#updateStatusUser').val(userData.status_user);
+        }
+
+        // API Calls
+        fetchRoles() {
+            $.ajax({
+                url: '/roles', // Replace with your endpoint
+                method: 'GET',
+                success: (roles) => {
+                    this.populateRolesSelect(roles);
+                },
+                error: () => {
+                    this.showError('Failed to load user roles');
+                }
+            });
+        }
+
+        fetchZonesBranches() {
+            $.ajax({
+                url: '/get-zones-branches', // Replace with your endpoint
+                method: 'GET',
+                success: (data) => {
+                    this.populateZonesSelect(data.zones);
+                },
+                error: () => {
+                    this.showError('Failed to load zones');
+                }
+            });
+        }
+
+        fetchBranches(zone, callback) {
+            $.ajax({
+                url: `/get-zones-branches?zone=${zone}`,
+                method: 'GET',
+                success: (data) => {
+                    callback(data.branches || []);
+                },
+                error: () => {
+                    this.showError('Failed to load branches');
+                    callback([]);
+                }
+            });
+        }
+
+        // Select Population Methods
+        populateRolesSelect(roles) {
+            const select = $('#updateStatusUser');
+            select.empty().append('<option value="">เลือกประเภทผู้ใช้งาน</option>');
+
+            roles.forEach(role => {
+                select.append(`<option value="${role.code}">${role.name_th}</option>`);
+            });
+        }
+
+        populateZonesSelect(zones) {
+            const select = $('#updateZone');
+            select.empty().append('<option value="">เลือกโซน</option>');
+
+            zones.forEach(zone => {
+                select.append(
+                    `<option value="${zone.Zone_Branch}">${ZONE_MAPPING[zone.Zone_Branch] || zone.Zone_Branch}</option>`
+                );
+            });
+        }
+
+        handleZoneChange(zoneValue, preSelectedBranch = null) {
+            const branchSelect = $('#updateBranch');
+            branchSelect.empty().append('<option value="">เลือกสาขา</option>').prop('disabled', !zoneValue);
+
+            if (zoneValue) {
+                this.fetchBranches(zoneValue, (branches) => {
+                    branches.forEach(branch => {
+                        branchSelect.append(
+                            `<option value="${branch.id_Contract}">${branch.name_branch}</option>`
+                        );
+                    });
+
+                    if (preSelectedBranch) {
+                        branchSelect.val(preSelectedBranch);
+                    }
+                });
+            }
+        }
+
+        // Utility Methods
+        showError(message) {
+            alert(message); // Replace with your custom error handling
+        }
+    }
+
+
+    $(document).ready(() => {
+        const userModal = new UserUpdateModal();
+
+        // Make the modal instance available globally
+        window.userUpdateModal = userModal;
+
+        // Expose necessary methods
+        window.openUpdateUserModal = (button) => {
+            const userData = {
+                id: $(button).data('user-id'),
+                name: $(button).data('user-name'),
+                username: $(button).data('user-username'),
+                email: $(button).data('user-email'),
+                status: $(button).data('user-status'),
+                status_user: $(button).data('user-status-user'),
+                zone: $(button).data('user-zone'),
+                branch: $(button).data('user-branch')
+            };
+            userModal.open(userData);
+        };
+
+        window.closeUpdateUserModal = () => {
+            userModal.close();
+        };
+    });
+
+    function openUpdateUserModal(userId) {
+        try {
+            document.getElementById('updateUserModal').classList.remove('hidden');
+            document.getElementById('updateUserForm').reset();
+
+            // Show loading state
+            Swal.fire({
+                title: 'กำลังโหลดข้อมูล',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Fetch user data
+            $.ajax({
+                url: `/api/users/${userId}`,
+                method: 'GET',
+                success: function(user) {
+                    // Populate form fields
+                    document.getElementById('updateUserId').value = user.id;
+                    document.getElementById('updateName').value = user.name;
+                    document.getElementById('updateUsername').value = user.username;
+                    document.getElementById('updateEmail').value = user.email;
+                    document.getElementById('updateZone').value = user.zone;
+                    document.getElementById('updateBranch').value = user.branch;
+                    document.getElementById('updateStatusUser').value = user.status_user;
+
+                    // Set status radio buttons
+                    const statusRadios = document.getElementsByName('status');
+                    statusRadios.forEach(radio => {
+                        radio.checked = radio.value === user.status;
+                    });
+
+                    Swal.close();
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ข้อผิดพลาด',
+                        text: xhr.responseJSON?.message || 'ไม่สามารถดึงข้อมูลผู้ใช้ได้',
+                        confirmButtonColor: '#EF4444'
+                    });
+                }
+            });
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'ข้อผิดพลาด',
+                text: 'เกิดข้อผิดพลาดที่ไม่คาดคิด',
+                confirmButtonColor: '#EF4444'
+            });
+        }
+    }
+
+    function closeUpdateUserModal() {
+        document.getElementById('updateUserModal').classList.add('hidden');
+        document.getElementById('updateUserForm').reset();
+    }
+
+    // Form submission handler
+    $('#updateUserForm').submit(function(e) {
+        e.preventDefault();
+
+        try {
+            const userId = $('#updateUserId').val();
+            const formData = {
+                name: $('#updateName').val().trim(),
+                username: $('#updateUsername').val().trim(),
+                email: $('#updateEmail').val().trim(),
+                zone: $('#updateZone').val(),
+                branch: $('#updateBranch').val(),
+                status_user: $('#updateStatusUser').val(),
+                status: $('input[name="status"]:checked').val()
+            };
+
+            // Add password only if it's provided
+            const password = $('#updatePassword').val().trim();
+            if (password) {
+                formData.password = password;
+            }
+
+            // Validate required fields
+            const requiredFields = ['name', 'username', 'email', 'zone', 'branch', 'status_user', 'status'];
+            const missingFields = requiredFields.filter(field => !formData[field]);
+
+            if (missingFields.length > 0) {
+                throw new Error('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+            }
+
+            // Show loading state
+            Swal.fire({
+                title: 'กำลังบันทึกข้อมูล',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Send update request
+            $.ajax({
+                url: `/api/users/${userId}`,
+                method: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(data) {
+                    closeUpdateUserModal();
+                    fetchUsersDataOnSystem();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'สำเร็จ',
+                        text: data.message || 'อัปเดตข้อมูลผู้ใช้เรียบร้อยแล้ว',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ข้อผิดพลาด',
+                        text: xhr.responseJSON?.message ||
+                            'เกิดข้อผิดพลาดในการอัปเดตข้อมูล',
+                        confirmButtonColor: '#EF4444'
+                    });
+                }
+            });
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'ข้อผิดพลาด',
+                text: error.message || 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล',
+                confirmButtonColor: '#EF4444'
+            });
+        }
+    });
+</script>
+
+
+
+{{-- // $(document).ready(() => {
+    //     const userModal = new UserUpdateModal();
+
+    //     // Make the modal instance available globally
+    //     window.userUpdateModal = userModal;
+
+    //     // Expose necessary methods
+    //     window.openUpdateUserModal = (button) => {
+    //         const userData = {
+    //             id: $(button).data('user-id'),
+    //             name: $(button).data('user-name'),
+    //             username: $(button).data('user-username'),
+    //             email: $(button).data('user-email'),
+    //             status: $(button).data('user-status'),
+    //             status_user: $(button).data('user-status-user'),
+    //             zone: $(button).data('user-zone'),
+    //             branch: $(button).data('user-branch')
+    //         };
+    //         userModal.open(userData);
+    //     };
+
+    //     window.closeUpdateUserModal = () => {
+    //         userModal.close();
+    //     };
+    // }); --}}
+
+{{-- <script>
     const ZONE_MAPPING = {
         10: "ปัตตานี",
         20: "หาดใหญ่",
@@ -462,4 +804,4 @@
             });
         }
     });
-</script>
+</script> --}}
