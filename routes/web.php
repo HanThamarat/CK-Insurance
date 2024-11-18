@@ -151,6 +151,10 @@ Route::get('/api/get-zones', [UserController::class, 'getZonesAndBranches']);
 Route::get('/api/get-branches', [UserController::class, 'getBranchesByZone']);
 Route::get('/api/get-roles', [UserController::class, 'getRoles']);
 
+
+// Route::get('/api/users/{id}/edit', [UserController::class, 'edit']);
+// Route::match(['put', 'post'], '/api/users/{id}', [UserController::class, 'update']);
+
 // Route::post('/users', [UserController::class, 'create']);
 
 
