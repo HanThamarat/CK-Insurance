@@ -7,10 +7,10 @@
 @section('content')
     @include('components.content-cus.component_js')
     @include('components.content-cus.component_css')
-    <div class="max-w-7xl mx-auto p-5 bg-white rounded-lg shadow-md flex justify-center items-center mb-[100px]">
+    <div class="max-w-7xl mx-auto p-5 mt-[-25] bg-white rounded-lg shadow-md flex justify-center items-center mb-[70px]">
         <div class="flex flex-col xl:flex-row gap-8 p-2">
             <!-- Left Section: Card -->
-            <div class="xl:w-2/12 lg:w-3/12 md:w-3/12 w-full">
+            {{-- <div class="xl:w-2/12 lg:w-3/12 md:w-3/12 w-full">
                 <div class="card rounded-lg text-center h-full"
                     style="background-image: url('{{ asset('img/theme3.jpg') }}'); background-size: cover;
                 background-position: center;">
@@ -31,12 +31,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 
             <!-- Right Section: Form -->
-            <div class="xl:w-10/12 lg:w-9/12 md:w-9/12 w-full">
+            {{-- <div class="xl:w-10/12 lg:w-9/12 md:w-9/12 w-full">
                 <div class="flex items-center space-x-3">
                     <img src="{{ asset('img/user.gif') }}" alt="career icon" class="avatar-sm"
                         style="width:50px;height:50px">
@@ -45,9 +45,9 @@
                         <p class="text-muted font-semibold text-sm mt-1">Add Data Customers</p>
                         <div class="border-b-2 border-primary mt-2 w-full"></div>
                     </div>
-                </div>
+                </div> --}}
 
-            {{-- <div class="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 p-4">
+            <div class="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 p-4">
                 <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
                     <div class="p-8">
                         <div class="flex items-center space-x-4 mb-8">
@@ -57,13 +57,14 @@
                             </div>
                             <div class="flex-grow">
                                 <h5
-                                    class="text-base font-bold bg-gradient-to-r from-orange-400 to-yellow-500 bg-clip-text text-transparent">
+                                    class="text font-bold bg-gradient-to-r from-orange-400 to-yellow-500 bg-clip-text text-transparent">
                                     เพิ่มข้อมูลลูกค้า</h5>
                                 <p class="text-gray-500 text-sm mt-1">Add Data Customers</p>
                                 <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-full mt-2">
                                 </div>
+                                <div class="border-b-2 border-primary mt-2 w-full"></div>
                             </div>
-                        </div> --}}
+                        </div>
                         <form id="formCustomer" class="space-y-6">
 
                             @csrf <!-- เพิ่มบรรทัดนี้ -->
@@ -93,7 +94,7 @@
                                                 </select>
 
                                                 <label for="prefix"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     คำนำหน้า
                                                 </label>
 
@@ -107,7 +108,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="first_name"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     ชื่อจริง
                                                 </label>
 
@@ -125,7 +126,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="last_name"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all input-label">
                                                     นามสกุล
                                                 </label>
 
@@ -146,7 +147,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรศัพท์')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="phone"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     เบอร์โทรติดต่อ 1
                                                 </label>
                                                 <i
@@ -163,7 +164,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรติดต่อ 2')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="phone2"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     เบอร์โทรติดต่อ 2
                                                 </label>
                                                 <i
@@ -181,7 +182,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอกหมายเลขบัตรประชาชน')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="id_card_number"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     หมายเลขบัตรประชาชน
                                                 </label>
 
@@ -199,7 +200,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอกบัตรหมดอายุ')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="expiry_date"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     บัตรหมดอายุ
                                                 </label>
 
@@ -217,7 +218,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="dob"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     วันออกบัตร
                                                 </label>
 
@@ -232,7 +233,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอกวันออกบัตร')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="birthday"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     วันเกิด
                                                 </label>
 
@@ -245,7 +246,7 @@
                                                     class="p-2 border border-gray-300 rounded-lg w-full pr-12 text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                                     placeholder=" " required>
                                                 <label for="age"
-                                                    class="absolute text-sm text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-0 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-1/2 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-orange-600 peer-focus:bg-white px-2 rounded-full shadow-md">
+                                                    class="absolute text-sm text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-0  origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-1/2 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-orange-600 peer-focus:bg-white px-2 rounded-full shadow-md">
                                                     อายุ
                                                 </label>
                                                 <span
@@ -266,7 +267,7 @@
                                                 </select>
 
                                                 <label for="gender"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     เพศ
                                                 </label>
                                             </div>
@@ -280,7 +281,7 @@
                                                 </select>
 
                                                 <label for="nationality"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     สัญชาติ
                                                 </label>
                                             </div>
@@ -297,7 +298,7 @@
                                                 </select>
 
                                                 <label for="religion"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     ศาสนา
                                                 </label>
                                             </div>
@@ -317,7 +318,7 @@
                                                 </select>
 
                                                 <label for="driving_license"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     ใบขับขี่
                                                 </label>
                                             </div>
@@ -330,7 +331,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอก Facebook')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="facebook"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class=" absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     Facebook
                                                 </label>
                                                 <i
@@ -345,7 +346,7 @@
                                                     oninvalid="this.setCustomValidity('กรุณากรอก Line ID')"
                                                     oninput="this.setCustomValidity('')">
                                                 <label for="line_id"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     Line ID
                                                 </label>
                                                 <i
@@ -374,7 +375,7 @@
                                             </select>
 
                                             <label for="marital_status"
-                                                class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                 สถานะสมรส
                                             </label>
                                         </div>
@@ -388,7 +389,7 @@
                                                     placeholder=" " onfocus="moveLabel('spouse_name')"
                                                     onblur="checkInput('spouse_name')">
                                                 <label for="spouse_name"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     ชื่อนามสกุลคู่สมรส
                                                 </label>
                                             </div>
@@ -399,7 +400,7 @@
                                                     placeholder=" " onfocus="moveLabel('spouse_phone')"
                                                     onblur="checkInput('spouse_phone')">
                                                 <label for="spouse_phone"
-                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                    class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                     เบอร์โทรคู่สมรส
                                                 </label>
                                                 <i
@@ -413,7 +414,7 @@
                                                 class="p-2 border border-gray-300 rounded-lg w-full text-sm peer placeholder-transparent focus:outline-none focus:border-orange-600 focus:ring-0 transition-all duration-300"
                                                 placeholder=" " onfocus="moveLabel('note')" onblur="checkInput('note')"></textarea>
                                             <label for="note"
-                                                class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8] z-10 origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
+                                                class="absolute text-lg text-gray-500 duration-300 transform translate-y-1/2 scale-75 left-2 top-[-8]  origin-[0] px-2 rounded-full shadow-md bg-white transition-all">
                                                 หมายเหตุ
                                             </label>
                                         </div>

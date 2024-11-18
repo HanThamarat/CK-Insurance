@@ -7,7 +7,7 @@
 
             <!-- Header ที่ sticky -->
             <div id="modalHeader" class="bg-white sticky top-0 z-10 p-5 w-full transition-shadow duration-300">
-                <h2 class="text-lg font-bold mb-3 flex justify-between items-center">
+                {{-- <h2 class="text-lg font-bold mb-3 flex justify-between items-center">
                     ข้อมูลลูกค้า
                     <!-- ปุ่มกากบาท (X) สำหรับปิด -->
                     <button type="button" id="closeModal_x" class="text-gray-500 hover:text-gray-700" aria-label="Close">
@@ -17,7 +17,7 @@
                                 d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                </h2>
+                </h2> --}}
 
                 <div class="flex items-center mb-0">
                     <div class="flex-shrink-0 mr-4">
@@ -28,6 +28,13 @@
                         <p class="text-gray-500 -mt-1 font-semibold text-xs">( Search Data informations )</p>
                         <p class="border-b border-primary mt-2"></p>
                     </div>
+                    <button type="button" id="closeModal_x" class="text-gray-500 hover:text-gray-700" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -51,7 +58,7 @@
 
 
 
-            <div class="modal-body mt-[-7] p-4">
+            <div class="modal-body mt-[-17] p-4">
                 <div class="row mb-1 search-box-top">
                     <div class="col-12">
 
